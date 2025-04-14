@@ -1,4 +1,5 @@
-import { useRef, useEffect } from "react";
+
+import { useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FeatureCard from "@/components/FeatureCard";
@@ -11,31 +12,6 @@ const Index = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
   const testimonialRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
-
-  // Fade-in animation on scroll
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.1
-    };
-
-    const handleIntersect = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-fade-in-up");
-          observer.unobserve(entry.target);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(handleIntersect, observerOptions);
-    
-    const animateElements = document.querySelectorAll(".scroll-animate");
-    animateElements.forEach(el => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -80,7 +56,7 @@ const Index = () => {
       {/* Features Section */}
       <section ref={featuresRef} className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 scroll-animate opacity-0">
+          <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif mb-4">Unvergessliche Momente für die Ewigkeit</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Unsere Glasplatte mit QR-Code vereint moderne Technologie mit würdevoller Erinnerung. Sie ermöglicht es, 
@@ -89,7 +65,7 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="scroll-animate opacity-0" style={{ animationDelay: "0.1s" }}>
+            <div>
               <FeatureCard 
                 icon={Sparkles}
                 title="Einzigartiges Gedenken"
@@ -98,7 +74,7 @@ const Index = () => {
               />
             </div>
             
-            <div className="scroll-animate opacity-0" style={{ animationDelay: "0.2s" }}>
+            <div>
               <FeatureCard 
                 icon={Camera}
                 title="Multimedia Erinnerungen"
@@ -107,7 +83,7 @@ const Index = () => {
               />
             </div>
             
-            <div className="scroll-animate opacity-0" style={{ animationDelay: "0.3s" }}>
+            <div>
               <FeatureCard 
                 icon={Music}
                 title="Lieblingslied einbinden"
@@ -116,7 +92,7 @@ const Index = () => {
               />
             </div>
             
-            <div className="scroll-animate opacity-0" style={{ animationDelay: "0.4s" }}>
+            <div>
               <FeatureCard 
                 icon={Heart}
                 title="Würdevoll gestaltet"
@@ -131,7 +107,7 @@ const Index = () => {
       {/* How it Works */}
       <section className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 scroll-animate opacity-0">
+          <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif mb-4">So einfach funktioniert es</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               In wenigen Schritten zur persönlichen Gedenkplatte: Laden Sie Fotos oder Videos hoch, 
@@ -141,7 +117,7 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-card rounded-lg p-8 border border-border scroll-animate opacity-0" style={{ animationDelay: "0.1s" }}>
+            <div className="bg-card rounded-lg p-8 border border-border">
               <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <span className="text-2xl font-bold text-primary">1</span>
               </div>
@@ -152,7 +128,7 @@ const Index = () => {
               </p>
             </div>
             
-            <div className="bg-card rounded-lg p-8 border border-border scroll-animate opacity-0" style={{ animationDelay: "0.2s" }}>
+            <div className="bg-card rounded-lg p-8 border border-border">
               <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <span className="text-2xl font-bold text-primary">2</span>
               </div>
@@ -162,7 +138,7 @@ const Index = () => {
               </p>
             </div>
             
-            <div className="bg-card rounded-lg p-8 border border-border scroll-animate opacity-0" style={{ animationDelay: "0.3s" }}>
+            <div className="bg-card rounded-lg p-8 border border-border">
               <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <span className="text-2xl font-bold text-primary">3</span>
               </div>
@@ -174,7 +150,7 @@ const Index = () => {
           </div>
           
           <div className="text-center mt-12">
-            <Button asChild size="lg" className="scroll-animate opacity-0" style={{ animationDelay: "0.4s" }}>
+            <Button asChild size="lg">
               <Link to="/gedenken">Gedenken erstellen</Link>
             </Button>
           </div>
@@ -184,7 +160,7 @@ const Index = () => {
       {/* Testimonial/Quote Section */}
       <section ref={testimonialRef} className="py-24 bg-primary text-primary-foreground dark-section">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center scroll-animate opacity-0">
+          <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-serif mb-8">
               "Honoring lives, one memory at a time"
             </h2>
@@ -212,7 +188,7 @@ const Index = () => {
       {/* Pricing Section */}
       <section ref={pricingRef} className="py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 scroll-animate opacity-0">
+          <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif mb-4">Ein wertvolles Andenken für 60 CHF</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Für nur 60 CHF bekommen Sie eine hochwertige, personalisierte Glasplatte mit Ihrem QR-Code – 
@@ -220,7 +196,7 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="max-w-md mx-auto bg-card rounded-xl shadow-md overflow-hidden scroll-animate opacity-0">
+          <div className="max-w-md mx-auto bg-card rounded-xl shadow-md overflow-hidden">
             <div className="p-8">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-2xl font-serif">QR-Code Glasplatte</h3>
@@ -278,7 +254,7 @@ const Index = () => {
         />
         
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center scroll-animate opacity-0">
+          <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-serif mb-6">
               Beginnen Sie Ihre Erinnerungsreise
             </h2>
