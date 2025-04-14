@@ -1,4 +1,3 @@
-
 import { useRef, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -13,17 +12,15 @@ const Index = () => {
   const testimonialRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
 
-  // Parallax scroll effect
+  // Parallax scroll effect - korrigiert um zu verhindern, dass Text verschwindet
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const heroImage = document.querySelector(".hero-image") as HTMLElement;
-      const heroContent = document.querySelector(".hero-content") as HTMLElement;
       
-      if (heroImage && heroContent) {
-        // Move at different speeds for parallax effect
+      if (heroImage) {
+        // Nur das Hintergrundbild bewegen, nicht den Inhalt
         heroImage.style.transform = `translateY(${scrollY * 0.4}px)`;
-        heroContent.style.transform = `translateY(${scrollY * 0.2}px)`;
       }
     };
 
@@ -74,7 +71,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-background/90 -z-10" />
         
         <div className="container mx-auto px-4 h-full flex items-center">
-          <div className="hero-content max-w-3xl">
+          <div className="hero-content relative max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 text-shadow">
               Erinnerungen, die weiterleben – mit Herz und Klang.
             </h1>
