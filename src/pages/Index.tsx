@@ -12,22 +12,6 @@ const Index = () => {
   const testimonialRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
 
-  // Parallax scroll effect - korrigiert um zu verhindern, dass Text verschwindet
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const heroImage = document.querySelector(".hero-image") as HTMLElement;
-      
-      if (heroImage) {
-        // Nur das Hintergrundbild bewegen, nicht den Inhalt
-        heroImage.style.transform = `translateY(${scrollY * 0.4}px)`;
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   // Fade-in animation on scroll
   useEffect(() => {
     const observerOptions = {
@@ -59,9 +43,9 @@ const Index = () => {
       
       {/* Hero Section */}
       <section className="relative h-screen overflow-hidden">
-        {/* Background image with parallax effect */}
+        {/* Background image without parallax */}
         <div 
-          className="hero-image absolute inset-0 bg-center bg-no-repeat bg-cover -z-10"
+          className="absolute inset-0 bg-center bg-no-repeat bg-cover -z-10"
           style={{ 
             backgroundImage: "url('https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
             filter: "brightness(0.7)"
