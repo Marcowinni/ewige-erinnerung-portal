@@ -35,7 +35,7 @@ const Navbar = () => {
           className="flex items-center space-x-2 text-primary hover:opacity-90 transition-opacity"
         >
           <Star className="w-6 h-6" />
-          <span className="font-serif text-xl font-medium">Ewige Erinnerung</span>
+          <span className="font-serif text-xl font-medium">QRinnerung</span>
         </Link>
 
         {/* Desktop Navigation */}
