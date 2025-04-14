@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -106,8 +107,11 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
+  /* Fix for circular dependency - using direct CSS properties instead of @apply */
   .transition-all {
-    @apply transition-all duration-300 ease-in-out;
+    transition-property: all;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .hover-scale {
