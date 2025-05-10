@@ -61,7 +61,7 @@ const Navbar = () => {
             {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
           <Button asChild className="bg-primary text-primary-foreground">
-            <Link to="/gedenken">Jetzt starten</Link>
+            <Link to="/gedenken?product=premium">Jetzt starten</Link>
           </Button>
         </div>
 
@@ -122,7 +122,7 @@ const Navbar = () => {
             className="bg-primary text-primary-foreground w-full"
             onClick={() => setIsMenuOpen(false)}
           >
-            <Link to="/gedenken">Jetzt starten</Link>
+            <Link to="/gedenken?product=premium">Jetzt starten</Link>
           </Button>
         </div>
       )}
