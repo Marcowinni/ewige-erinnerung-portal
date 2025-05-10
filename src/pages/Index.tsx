@@ -6,7 +6,8 @@ import FeatureCard from "@/components/FeatureCard";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Heart, Camera, Music, Sparkles } from "lucide-react";
+import { Heart, Camera, Music, Sparkles, Diamond, Package, Cube } from "lucide-react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Index = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
@@ -49,8 +50,6 @@ const Index = () => {
             </div>
           </div>
         </div>
-        
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-indicator" />
       </section>
       
       {/* Features Section */}
@@ -189,57 +188,163 @@ const Index = () => {
       <section ref={pricingRef} className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif mb-4">Ein wertvolles Andenken für 60 CHF</h2>
+            <h2 className="text-3xl md:text-4xl font-serif mb-4">Wählen Sie Ihre Gedenktafel</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Für nur 60 CHF bekommen Sie eine hochwertige, personalisierte Glasplatte mit Ihrem QR-Code – 
-              bequem nach Hause geliefert. Eine moderne Form des Erinnerns, die verbindet, berührt und bleibt.
+              Wir bieten hochwertige Glasplatten mit QR-Code in verschiedenen Materialien an. 
+              Jede Platte ist ein würdiges Andenken, das die Erinnerung an einen geliebten Menschen bewahrt.
             </p>
           </div>
           
-          <div className="max-w-md mx-auto bg-card rounded-xl shadow-md overflow-hidden">
-            <div className="p-8">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-2xl font-serif">QR-Code Glasplatte</h3>
-                <div className="text.xl font-bold">60 CHF</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {/* Standard Option */}
+            <Card className="border border-border">
+              <CardHeader>
+                <div className="flex items-center justify-center mb-4">
+                  <Package className="w-10 h-10 text-primary" />
+                </div>
+                <CardTitle className="text-2xl font-serif text-center">Standard</CardTitle>
+                <CardDescription className="text-center text-muted-foreground">Gehärtetes Glas</CardDescription>
+                <div className="text-3xl font-bold text-center mt-4">99 CHF</div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Hochwertiges gehärtetes Glas
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Persönlicher Erinnerungsfilm
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Integration von Fotos und Musik
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    5 Jahre Hosting-Service
+                  </li>
+                </ul>
+              </CardContent>
+              <CardFooter>
+                <Button asChild className="w-full">
+                  <Link to="/gedenken?product=standard">Jetzt bestellen</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+            
+            {/* Premium Option */}
+            <Card className="border-2 border-primary relative">
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground px-4 py-1 text-sm rounded-full">
+                Empfohlen
               </div>
-              
-              <ul className="space-y-3 mb-6">
-                <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  Hochwertiges, witterungsbeständiges Glas
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  Persönlich gestalteter Erinnerungsfilm
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  Integration von Fotos, Videos und Musik
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  Lebenslanger Hosting-Service
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  Kostenlose Lieferung innerhalb der Schweiz
-                </li>
-              </ul>
-              
-              <Button asChild className="w-full">
-                <Link to="/gedenken">Jetzt bestellen</Link>
-              </Button>
-            </div>
+              <CardHeader>
+                <div className="flex items-center justify-center mb-4">
+                  <Cube className="w-10 h-10 text-primary" />
+                </div>
+                <CardTitle className="text-2xl font-serif text-center">Premium</CardTitle>
+                <CardDescription className="text-center text-muted-foreground">Kristallglas</CardDescription>
+                <div className="text-3xl font-bold text-center mt-4">149 CHF</div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Hochwertiges Kristallglas
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Erweiterter Erinnerungsfilm (bis zu 5 Min.)
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Integration von Fotos, Videos und Musik
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    10 Jahre Hosting-Service
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Kostenlose Lieferung innerhalb der Schweiz
+                  </li>
+                </ul>
+              </CardContent>
+              <CardFooter>
+                <Button asChild className="w-full bg-primary">
+                  <Link to="/gedenken?product=premium">Jetzt bestellen</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+            
+            {/* Luxury Option */}
+            <Card className="border border-border">
+              <CardHeader>
+                <div className="flex items-center justify-center mb-4">
+                  <Diamond className="w-10 h-10 text-primary" />
+                </div>
+                <CardTitle className="text-2xl font-serif text-center">Luxury</CardTitle>
+                <CardDescription className="text-center text-muted-foreground">Optisches Kristallglas</CardDescription>
+                <div className="text-3xl font-bold text-center mt-4">199 CHF</div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Premium optisches Kristallglas
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Unbegrenzter Erinnerungsfilm
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Vollständige Multimedia-Integration
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Lebenslanger Hosting-Service
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Kostenlose Express-Lieferung
+                  </li>
+                </ul>
+              </CardContent>
+              <CardFooter>
+                <Button asChild className="w-full">
+                  <Link to="/gedenken?product=luxury">Jetzt bestellen</Link>
+                </Button>
+              </CardFooter>
+            </Card>
           </div>
         </div>
       </section>
