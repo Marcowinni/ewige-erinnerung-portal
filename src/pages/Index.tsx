@@ -6,7 +6,7 @@ import FeatureCard from "@/components/FeatureCard";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Heart, Camera, Music, Sparkles, Diamond, Package, Cube } from "lucide-react";
+import { Heart, Camera, Music, Sparkles, Diamond, Package, Star } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Index = () => {
@@ -248,7 +248,7 @@ const Index = () => {
               </div>
               <CardHeader>
                 <div className="flex items-center justify-center mb-4">
-                  <Cube className="w-10 h-10 text-primary" />
+                  <Star className="w-10 h-10 text-primary" />
                 </div>
                 <CardTitle className="text-2xl font-serif text-center">Premium</CardTitle>
                 <CardDescription className="text-center text-muted-foreground">Kristallglas</CardDescription>
