@@ -184,7 +184,7 @@ const Index = () => {
           
           {/* Product Images Carousel */}
           <div className="max-w-5xl mx-auto">
-            <Carousel className="w-full">
+            <Carousel className="w-full" showControls={false}>
               <CarouselContent>
                 {/* Standard Product */}
                 <CarouselItem className="md:basis-1/2 lg:basis-1/3">
@@ -261,8 +261,6 @@ const Index = () => {
                   </div>
                 </CarouselItem>
               </CarouselContent>
-              <CarouselPrevious className="lg:-left-12 md:left-2 left-1" />
-              <CarouselNext className="lg:-right-12 md:right-2 right-1" />
             </Carousel>
           </div>
         </div>
