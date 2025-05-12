@@ -58,7 +58,7 @@ const Index = () => {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif mb-4">Unvergessliche Momente für die Ewigkeit</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Unsere Glasplatte mit QR-Code vereint moderne Technologie mit würdevoller Erinnerung. Sie ermöglicht es, 
+              Unsere Memoro Moments Platten mit QR-Code vereint moderne Technologie mit würdevoller Erinnerung. Sie ermöglichen, 
               das Leben eines geliebten Menschen durch Bilder, Videos und Musik lebendig zu halten – direkt am Grab.
             </p>
           </div>
@@ -111,7 +111,7 @@ const Index = () => {
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               In wenigen Schritten zur persönlichen Gedenkplatte: Laden Sie Fotos oder Videos hoch, 
               wählen Sie ein Lied, wir erstellen daraus ein liebevoll gestaltetes Video. Sie erhalten 
-              eine Glasplatte mit QR-Code, der direkt zu Ihrer Erinnerung führt.
+              eine Platte mit QR-Code, der direkt zu Ihrer Erinnerung führt.
             </p>
           </div>
           
@@ -177,7 +177,7 @@ const Index = () => {
               </div>
               <div className="text-left">
                 <p className="font-medium">Anna Müller</p>
-                <p className="text-sm text-primary-foreground/70">Erinnerungs-Kuratorin</p>
+                <p className="text-sm text-primary-foreground/70">Kundin</p>
               </div>
             </div>
           </div>
@@ -190,7 +190,7 @@ const Index = () => {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif mb-4">Wählen Sie Ihre Gedenktafel</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Wir bieten hochwertige Glasplatten mit QR-Code in verschiedenen Materialien an. 
+              Wir bieten hochwertige Platten mit QR-Code in verschiedenen Materialien an. 
               Jede Platte ist ein würdiges Andenken, das die Erinnerung an einen geliebten Menschen bewahrt.
             </p>
           </div>
@@ -202,8 +202,8 @@ const Index = () => {
                 <div className="flex items-center justify-center mb-4">
                   <Package className="w-10 h-10 text-primary" />
                 </div>
-                <CardTitle className="text-2xl font-serif text-center">Standard</CardTitle>
-                <CardDescription className="text-center text-muted-foreground">Gehärtetes Glas</CardDescription>
+                <CardTitle className="text-2xl font-serif text-center">Memoro Moments Standard</CardTitle>
+                <CardDescription className="text-center text-muted-foreground">Aluminium</CardDescription>
                 <div className="text-3xl font-bold text-center mt-4">99 CHF</div>
               </CardHeader>
               <CardContent>
@@ -250,7 +250,7 @@ const Index = () => {
                 <div className="flex items-center justify-center mb-4">
                   <Star className="w-10 h-10 text-primary" />
                 </div>
-                <CardTitle className="text-2xl font-serif text-center">Premium</CardTitle>
+                <CardTitle className="text-2xl font-serif text-center">Memoro Moments Premium</CardTitle>
                 <CardDescription className="text-center text-muted-foreground">Kristallglas</CardDescription>
                 <div className="text-3xl font-bold text-center mt-4">149 CHF</div>
               </CardHeader>
@@ -301,8 +301,8 @@ const Index = () => {
                 <div className="flex items-center justify-center mb-4">
                   <Diamond className="w-10 h-10 text-primary" />
                 </div>
-                <CardTitle className="text-2xl font-serif text-center">Luxury</CardTitle>
-                <CardDescription className="text-center text-muted-foreground">Optisches Kristallglas</CardDescription>
+                <CardTitle className="text-2xl font-serif text-center">Memoro Moments Luxury</CardTitle>
+                <CardDescription className="text-center text-muted-foreground">Marmor-Steinplatte</CardDescription>
                 <div className="text-3xl font-bold text-center mt-4">199 CHF</div>
               </CardHeader>
               <CardContent>
