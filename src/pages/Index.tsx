@@ -1,4 +1,3 @@
-
 import { useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -6,12 +5,13 @@ import FeatureCard from "@/components/FeatureCard";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Heart, Camera, Music, Sparkles, Diamond, Package, Star } from "lucide-react";
+import { Heart, Camera, Music, Sparkles, Diamond, Package, Star, Images } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const Index = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
-  const testimonialRef = useRef<HTMLDivElement>(null);
+  const productsRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -156,30 +156,114 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Testimonial/Quote Section */}
-      <section ref={testimonialRef} className="py-24 bg-primary text-primary-foreground dark-section">
+      {/* Demo Video and Products Showcase - Replaced Testimonial */}
+      <section ref={productsRef} className="py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-serif mb-8">
-              "Honoring lives, one memory at a time"
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-serif mb-4">
+              Unsere Produkte und wie sie funktionieren
             </h2>
-            <p className="text-xl mb-8">
-              Erschaffen Sie eine herzliche Hommage mit unserem personalisierten Video-Service. 
-              Teilen Sie kostbare Momente und Lieblingsmelodien, alles zugänglich über einen einzigartigen QR-Code.
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Erleben Sie den Memoro Moments in Aktion und sehen Sie unsere Gedenkplatten aus verschiedenen Materialien.
             </p>
-            <div className="flex items-center justify-center">
-              <div className="w-16 h-16 rounded-full overflow-hidden mr-4">
-                <img 
-                  src="https://randomuser.me/api/portraits/women/44.jpg" 
-                  alt="Erinnerungs-Kuratorin" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="text-left">
-                <p className="font-medium">Anna Müller</p>
-                <p className="text-sm text-primary-foreground/70">Kundin</p>
-              </div>
+          </div>
+          
+          {/* Demo Video */}
+          <div className="max-w-4xl mx-auto mb-16 rounded-lg overflow-hidden shadow-xl">
+            <div className="aspect-w-16 aspect-h-9 relative">
+              <video 
+                className="w-full rounded-lg" 
+                controls 
+                poster="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+              >
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+                Ihr Browser unterstützt keine Videos.
+              </video>
             </div>
+          </div>
+          
+          {/* Product Images Carousel */}
+          <div className="max-w-5xl mx-auto">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {/* Standard Product */}
+                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card className="h-full">
+                      <CardHeader className="p-0 overflow-hidden rounded-t-lg">
+                        <img 
+                          src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                          alt="Standard Gedenkplatte" 
+                          className="w-full h-48 object-cover"
+                        />
+                      </CardHeader>
+                      <CardContent className="pt-4">
+                        <h3 className="text-xl font-bold text-center">Standard Aluminium</h3>
+                        <p className="text-center text-muted-foreground mt-2">
+                          Hochwertige Glasplatte mit QR-Code für Ihre digitalen Erinnerungen.
+                        </p>
+                      </CardContent>
+                      <CardFooter className="flex justify-center">
+                        <p className="font-bold">99 CHF</p>
+                      </CardFooter>
+                    </Card>
+                  </div>
+                </CarouselItem>
+                
+                {/* Premium Product */}
+                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card className="h-full border-2 border-primary">
+                      <CardHeader className="p-0 overflow-hidden rounded-t-lg">
+                        <div className="bg-primary text-primary-foreground text-center py-1">
+                          Empfohlen
+                        </div>
+                        <img 
+                          src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                          alt="Premium Gedenkplatte" 
+                          className="w-full h-48 object-cover"
+                        />
+                      </CardHeader>
+                      <CardContent className="pt-4">
+                        <h3 className="text-xl font-bold text-center">Premium Kristallglas</h3>
+                        <p className="text-center text-muted-foreground mt-2">
+                          Hochwertige Kristallglas-Gedenkplatte mit erweitertem Speicherplatz.
+                        </p>
+                      </CardContent>
+                      <CardFooter className="flex justify-center">
+                        <p className="font-bold">149 CHF</p>
+                      </CardFooter>
+                    </Card>
+                  </div>
+                </CarouselItem>
+                
+                {/* Luxury Product */}
+                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card className="h-full">
+                      <CardHeader className="p-0 overflow-hidden rounded-t-lg">
+                        <img 
+                          src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                          alt="Luxury Gedenkplatte" 
+                          className="w-full h-48 object-cover"
+                        />
+                      </CardHeader>
+                      <CardContent className="pt-4">
+                        <h3 className="text-xl font-bold text-center">Luxury Marmor</h3>
+                        <p className="text-center text-muted-foreground mt-2">
+                          Premium Marmor-Steinplatte mit lebenslangem Hosting-Service.
+                        </p>
+                      </CardContent>
+                      <CardFooter className="flex justify-center">
+                        <p className="font-bold">199 CHF</p>
+                      </CardFooter>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+              <CarouselPrevious className="lg:-left-12 md:left-2 left-1" />
+              <CarouselNext className="lg:-right-12 md:right-2 right-1" />
+            </Carousel>
           </div>
         </div>
       </section>
