@@ -24,7 +24,7 @@ const Ueber = () => {
                 <h2 className="text-2xl font-serif mb-4">Unsere Geschichte</h2>
                 <p>
                   Die Idee zu Ewige Erinnerung entstand aus einer persönlichen Erfahrung. Nach dem Verlust eines geliebten 
-                  Familienmitglieds suchten wir nach einer Möglichkeit, Erinnerungen lebendig zu halten und mit anderen zu teilen.
+                  Familienmitglieds verging Zeit und die Erinnerungen an die Person wurden schwächer und schwächer..
                 </p>
                 <p className="mt-4">
                   Wir entdeckten, dass traditionelle Gedenkformen oft statisch sind und nur begrenzte Möglichkeiten bieten, 
@@ -64,21 +64,21 @@ const Ueber = () => {
               </div>
               
               <div className="bg-card p-8 rounded-lg shadow-sm border border-border mb-12">
-                <h2 className="text-2xl font-serif mb-4">Unsere Glasplatten</h2>
+                <h2 className="text-2xl font-serif mb-4">Unsere Memoro Moments</h2>
                 <p>
-                  Jede QR-Code Glasplatte wird von uns mit größter Sorgfalt hergestellt. Wir verwenden hochwertiges, 
-                  witterungsbeständiges Glas, das speziell für den Außeneinsatz entwickelt wurde. Der eingebettete 
+                  Jede Memoro Moments Platte wird von uns mit größter Sorgfalt hergestellt. Wir verwenden hochwertiges, 
+                  witterungsbeständiges Material, das speziell für den Außeneinsatz entwickelt wurde. Der eingebettete 
                   QR-Code ist UV-beständig und bleibt über Jahre hinweg lesbar.
                 </p>
                 <p className="mt-4">
-                  Die Glasplatten werden auf Wunsch mit persönlichen Gravuren versehen und können 
+                  Die Platten werden auf Wunsch mit persönlichen Gravuren versehen und können 
                   direkt auf dem Grabstein befestigt werden. Sie sind dezent gestaltet und fügen sich 
                   harmonisch in die Gedenkstätte ein.
                 </p>
               </div>
               
               <div className="text-center my-16">
-                <p className="italic font-serif text-xl">"In der Erinnerung liegt Trost, in der Liebe Ewigkeit."</p>
+                <p className="italic font-serif text-xl">"Memoro - Erinnerungen die bleiben."</p>
               </div>
             </div>
           </div>
