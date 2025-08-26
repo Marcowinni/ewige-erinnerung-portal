@@ -185,7 +185,7 @@ const MemoryUploader = () => {
             
             <div className="p-4 bg-secondary rounded-lg">
               <p className="text-sm text-muted-foreground">
-                Die Musik wird beim Scannen des QR-Codes zusammen mit den Bildern und Videos abgespielt, 
+                Die Musik wird beim Berühren der NFC-Platte mit dem Handy zusammen mit den Bildern und Videos abgespielt, 
                 um ein ganzheitliches Erinnerungserlebnis zu schaffen.
               </p>
             </div>
@@ -201,7 +201,7 @@ const MemoryUploader = () => {
                 </div>
               </div>
               
-              <h3 className="text-center text-xl font-serif">Ihre QR-Code Glasplatte ist bereit für die Bestellung</h3>
+              <h3 className="text-center text-xl font-serif">Ihre NFC-Glasplatte ist bereit für die Bestellung</h3>
               
               <div className="text-center text-muted-foreground">
                 <p>Alle Medien wurden erfolgreich hochgeladen.</p>

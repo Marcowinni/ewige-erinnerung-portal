@@ -37,7 +37,7 @@ const Index = () => {
               Erinnerungen, die weiterleben – mit Herz und Klang.
             </h1>
             <p className="text-xl text-white/90 mb-8 text-shadow">
-              Aus Erinnerungen wird ein stilles Denkmal – ein QR-Code öffnet die Tür zu bewegenden
+              Aus Erinnerungen wird ein stilles Denkmal – eine NFC-Platte öffnet die Tür zu bewegenden
               Momenten mit Bild und Musik.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -58,7 +58,7 @@ const Index = () => {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif mb-4">Unvergessliche Momente für die Ewigkeit</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Unsere Memoro Moments Platten mit QR-Code vereint moderne Technologie mit würdevoller Erinnerung. Sie ermöglichen, 
+              Unsere Memoro Moments NFC-Platten vereinen moderne Technologie mit würdevoller Erinnerung. Sie ermöglichen, 
               das Leben eines geliebten Menschen durch Bilder, Videos und Musik lebendig zu halten – direkt am Grab.
             </p>
           </div>
@@ -68,7 +68,7 @@ const Index = () => {
               <FeatureCard 
                 icon={Sparkles}
                 title="Einzigartiges Gedenken"
-                description="Bewahren Sie besondere Erinnerungen mit einem personalisierten QR-Code, der Ihre schönsten Momente zugänglich macht."
+                description="Bewahren Sie besondere Erinnerungen mit einer personalisierten NFC-Platte, die Ihre schönsten Momente durch einfaches Berühren mit dem Handy zugänglich macht."
                 iconColor="text-amber-500"
               />
             </div>
@@ -111,7 +111,7 @@ const Index = () => {
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               In wenigen Schritten zur persönlichen Gedenkplatte: Laden Sie Fotos oder Videos hoch, 
               wählen Sie ein Lied, wir erstellen daraus ein liebevoll gestaltetes Video. Sie erhalten 
-              eine Platte mit QR-Code, der direkt zu Ihrer Erinnerung führt.
+              eine NFC-Platte, die durch Berühren mit dem Handy direkt zu Ihrer Erinnerung führt.
             </p>
           </div>
           
@@ -141,9 +141,9 @@ const Index = () => {
               <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <span className="text-2xl font-bold text-primary">3</span>
               </div>
-              <h3 className="text-xl font-serif text-center mb-4">QR-Code erhalten</h3>
+              <h3 className="text-xl font-serif text-center mb-4">NFC-Platte erhalten</h3>
               <p className="text-muted-foreground text-center">
-                Ihre persönliche Glasplatte mit QR-Code wird gefertigt und direkt zu Ihnen nach Hause geliefert.
+                Ihre persönliche NFC-Glasplatte wird gefertigt und direkt zu Ihnen nach Hause geliefert.
               </p>
             </div>
           </div>
@@ -200,7 +200,7 @@ const Index = () => {
                       <CardContent className="pt-4">
                         <h3 className="text-xl font-bold text-center">Standard Aluminium</h3>
                         <p className="text-center text-muted-foreground mt-2">
-                          Hochwertige Glasplatte mit QR-Code für Ihre digitalen Erinnerungen.
+                          Hochwertige NFC-Glasplatte für Ihre digitalen Erinnerungen.
                         </p>
                       </CardContent>
                       <CardFooter className="flex justify-center">
@@ -272,7 +272,7 @@ const Index = () => {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif mb-4">Wählen Sie Ihre Gedenktafel</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Wir bieten hochwertige Platten mit QR-Code in verschiedenen Materialien an. 
+              Wir bieten hochwertige NFC-Platten in verschiedenen Materialien an. 
               Jede Platte ist ein würdiges Andenken, das die Erinnerung an einen geliebten Menschen bewahrt.
             </p>
           </div>

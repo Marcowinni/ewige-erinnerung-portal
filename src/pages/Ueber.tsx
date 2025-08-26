@@ -67,8 +67,8 @@ const Ueber = () => {
                 <h2 className="text-2xl font-serif mb-4">Unsere Memoro Moments</h2>
                 <p>
                   Jede Memoro Moments Platte wird von uns mit größter Sorgfalt hergestellt. Wir verwenden hochwertiges, 
-                  witterungsbeständiges Material, das speziell für den Außeneinsatz entwickelt wurde. Der eingebettete 
-                  QR-Code ist UV-beständig und bleibt über Jahre hinweg lesbar.
+                  witterungsbeständiges Material, das speziell für den Außeneinsatz entwickelt wurde. Die eingebettete 
+                  NFC-Technologie ist UV-beständig und funktioniert über Jahre hinweg zuverlässig.
                 </p>
                 <p className="mt-4">
                   Die Platten werden auf Wunsch mit persönlichen Gravuren versehen und können 
