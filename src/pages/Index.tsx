@@ -5,7 +5,7 @@ import FeatureCard from "@/components/FeatureCard";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Heart, Camera, Music, Sparkles, Diamond, Package, Star, Images } from "lucide-react";
+import { Heart, Camera, Music, Sparkles, Diamond, Package, Star, Images, Check } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
@@ -182,264 +182,94 @@ const Index = () => {
             </div>
           </div>
           
-          {/* Product Images Carousel */}
+          {/* Product Categories */}
           <div className="max-w-5xl mx-auto">
-            <Carousel className="w-full" showControls={false}>
-              <CarouselContent>
-                {/* Standard Product */}
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-1">
-                    <Card className="h-full">
-                      <CardHeader className="p-0 overflow-hidden rounded-t-lg">
-                        <img 
-                          src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                          alt="Standard Gedenkplatte" 
-                          className="w-full h-48 object-cover"
-                        />
-                      </CardHeader>
-                      <CardContent className="pt-4">
-                        <h3 className="text-xl font-bold text-center">Standard Aluminium</h3>
-                        <p className="text-center text-muted-foreground mt-2">
-                          Hochwertige NFC-Glasplatte für Ihre digitalen Erinnerungen.
-                        </p>
-                      </CardContent>
-                      <CardFooter className="flex justify-center">
-                        <p className="font-bold">99 CHF</p>
-                      </CardFooter>
-                    </Card>
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Basic Version */}
+              <Card className="h-full">
+                <CardHeader className="p-0 overflow-hidden rounded-t-lg">
+                  <img 
+                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                    alt="Basis NFC-Platte" 
+                    className="w-full h-48 object-cover"
+                  />
+                </CardHeader>
+                <CardContent className="p-8">
+                  <h3 className="text-2xl font-serif mb-4 text-center">Basis Version</h3>
+                  <ul className="space-y-2 mb-6 text-muted-foreground">
+                    <li className="flex items-center">
+                      <Check className="w-4 h-4 mr-2 text-green-500" />
+                      Hochwertige Glasplatte
+                    </li>
+                    <li className="flex items-center">
+                      <Check className="w-4 h-4 mr-2 text-green-500" />
+                      NFC-Technologie integriert
+                    </li>
+                    <li className="flex items-center">
+                      <Check className="w-4 h-4 mr-2 text-green-500" />
+                      Standardformat 15x10cm
+                    </li>
+                    <li className="flex items-center">
+                      <Check className="w-4 h-4 mr-2 text-green-500" />
+                      Witterungsbeständig
+                    </li>
+                  </ul>
+                  <p className="text-center text-muted-foreground">
+                    Schlichte, elegante NFC-Platte für Ihre digitalen Erinnerungen.
+                  </p>
+                </CardContent>
+                <CardFooter className="flex justify-center">
+                  <p className="text-3xl font-bold">ab 60 CHF</p>
+                </CardFooter>
+              </Card>
+
+              {/* Customizable Version */}
+              <Card className="h-full border-2 border-primary">
+                <CardHeader className="p-0 overflow-hidden rounded-t-lg">
+                  <div className="bg-primary text-primary-foreground text-center py-1">
+                    Empfohlen
                   </div>
-                </CarouselItem>
-                
-                {/* Premium Product */}
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-1">
-                    <Card className="h-full border-2 border-primary">
-                      <CardHeader className="p-0 overflow-hidden rounded-t-lg">
-                        <div className="bg-primary text-primary-foreground text-center py-1">
-                          Empfohlen
-                        </div>
-                        <img 
-                          src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                          alt="Premium Gedenkplatte" 
-                          className="w-full h-48 object-cover"
-                        />
-                      </CardHeader>
-                      <CardContent className="pt-4">
-                        <h3 className="text-xl font-bold text-center">Premium Kristallglas</h3>
-                        <p className="text-center text-muted-foreground mt-2">
-                          Hochwertige Kristallglas-Gedenkplatte mit erweitertem Speicherplatz.
-                        </p>
-                      </CardContent>
-                      <CardFooter className="flex justify-center">
-                        <p className="font-bold">149 CHF</p>
-                      </CardFooter>
-                    </Card>
-                  </div>
-                </CarouselItem>
-                
-                {/* Luxury Product */}
-                <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-1">
-                    <Card className="h-full">
-                      <CardHeader className="p-0 overflow-hidden rounded-t-lg">
-                        <img 
-                          src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                          alt="Luxury Gedenkplatte" 
-                          className="w-full h-48 object-cover"
-                        />
-                      </CardHeader>
-                      <CardContent className="pt-4">
-                        <h3 className="text-xl font-bold text-center">Luxury Marmor</h3>
-                        <p className="text-center text-muted-foreground mt-2">
-                          Premium Marmor-Steinplatte mit lebenslangem Hosting-Service.
-                        </p>
-                      </CardContent>
-                      <CardFooter className="flex justify-center">
-                        <p className="font-bold">199 CHF</p>
-                      </CardFooter>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              </CarouselContent>
-            </Carousel>
-          </div>
-        </div>
-      </section>
-      
-      {/* Pricing Section */}
-      <section ref={pricingRef} className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif mb-4">Wählen Sie Ihre Gedenktafel</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Wir bieten hochwertige NFC-Platten in verschiedenen Materialien an. 
-              Jede Platte ist ein würdiges Andenken, das die Erinnerung an einen geliebten Menschen bewahrt.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* Standard Option */}
-            <Card className="border border-border">
-              <CardHeader>
-                <div className="flex items-center justify-center mb-4">
-                  <Package className="w-10 h-10 text-primary" />
-                </div>
-                <CardTitle className="text-2xl font-serif text-center">Memoro Moments Standard</CardTitle>
-                <CardDescription className="text-center text-muted-foreground">Aluminium</CardDescription>
-                <div className="text-3xl font-bold text-center mt-4">99 CHF</div>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Hochwertiges gehärtetes Glas
-                  </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Persönlicher Erinnerungsfilm
-                  </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Integration von Fotos und Musik
-                  </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    5 Jahre Hosting-Service
-                  </li>
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button asChild className="w-full">
-                  <Link to="/gedenken?product=standard">Jetzt bestellen</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-            
-            {/* Premium Option */}
-            <Card className="border-2 border-primary relative">
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground px-4 py-1 text-sm rounded-full">
-                Empfohlen
-              </div>
-              <CardHeader>
-                <div className="flex items-center justify-center mb-4">
-                  <Star className="w-10 h-10 text-primary" />
-                </div>
-                <CardTitle className="text-2xl font-serif text-center">Memoro Moments Premium</CardTitle>
-                <CardDescription className="text-center text-muted-foreground">Kristallglas</CardDescription>
-                <div className="text-3xl font-bold text-center mt-4">149 CHF</div>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Hochwertiges Kristallglas
-                  </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Erweiterter Erinnerungsfilm (bis zu 5 Min.)
-                  </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Integration von Fotos, Videos und Musik
-                  </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    10 Jahre Hosting-Service
-                  </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Kostenlose Lieferung innerhalb der Schweiz
-                  </li>
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button asChild className="w-full bg-primary">
-                  <Link to="/gedenken?product=premium">Jetzt bestellen</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-            
-            {/* Luxury Option */}
-            <Card className="border border-border">
-              <CardHeader>
-                <div className="flex items-center justify-center mb-4">
-                  <Diamond className="w-10 h-10 text-primary" />
-                </div>
-                <CardTitle className="text-2xl font-serif text-center">Memoro Moments Luxury</CardTitle>
-                <CardDescription className="text-center text-muted-foreground">Marmor-Steinplatte</CardDescription>
-                <div className="text-3xl font-bold text-center mt-4">199 CHF</div>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Premium optisches Kristallglas
-                  </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Unbegrenzter Erinnerungsfilm
-                  </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Vollständige Multimedia-Integration
-                  </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Lebenslanger Hosting-Service
-                  </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Kostenlose Express-Lieferung
-                  </li>
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button asChild className="w-full">
-                  <Link to="/gedenken?product=luxury">Jetzt bestellen</Link>
-                </Button>
-              </CardFooter>
-            </Card>
+                  <img 
+                    src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                    alt="Individuelle NFC-Platte mit Fotorahmen" 
+                    className="w-full h-48 object-cover"
+                  />
+                </CardHeader>
+                <CardContent className="p-8">
+                  <h3 className="text-2xl font-serif mb-4 text-center">Individuelle Gestaltung</h3>
+                  <ul className="space-y-2 mb-6 text-muted-foreground">
+                    <li className="flex items-center">
+                      <Check className="w-4 h-4 mr-2 text-green-500" />
+                      Alle Basis-Features
+                    </li>
+                    <li className="flex items-center">
+                      <Check className="w-4 h-4 mr-2 text-green-500" />
+                      Persönliches Foto im Rahmen
+                    </li>
+                    <li className="flex items-center">
+                      <Check className="w-4 h-4 mr-2 text-green-500" />
+                      Individuelle Gravur möglich
+                    </li>
+                    <li className="flex items-center">
+                      <Check className="w-4 h-4 mr-2 text-green-500" />
+                      Premium Materialien verfügbar
+                    </li>
+                  </ul>
+                  <p className="text-center text-muted-foreground">
+                    Vollständig personalisierbare NFC-Platte mit Foto und individueller Gestaltung.
+                  </p>
+                </CardContent>
+                <CardFooter className="flex justify-center">
+                  <p className="text-3xl font-bold">ab 120 CHF</p>
+                </CardFooter>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
       
       {/* Call to Action */}
       <section className="py-24 bg-secondary relative overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-10"
-          style={{ 
-            backgroundImage: "url('https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
-          }}
-        />
-        
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-serif mb-6">
