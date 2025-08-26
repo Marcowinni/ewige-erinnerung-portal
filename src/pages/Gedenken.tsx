@@ -23,7 +23,7 @@ const Gedenken = () => {
               </h1>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Erstellen Sie eine persönliche Erinnerung mit Bildern, Videos und der Lieblingsmusik Ihres Verstorbenen, 
-                zugänglich über einen QR-Code auf einer hochwertigen Glasplatte.
+                zugänglich durch Berühren einer hochwertigen NFC-Glasplatte mit dem Handy.
               </p>
             </div>
             

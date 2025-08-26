@@ -13,7 +13,7 @@ const Footer = () => {
               <span className="text-xl font-serif">Ewige Erinnerung</span>
             </div>
             <p className="text-sm text-primary-foreground/80 max-w-xs">
-              Bewahren Sie die Erinnerung an Ihre Liebsten mit unseren einzigartigen QR-Code Glasplatten - eine würdevolle Verbindung zu besonderen Momenten.
+              Bewahren Sie die Erinnerung an Ihre Liebsten mit unseren einzigartigen NFC-Glasplatten - eine würdevolle Verbindung zu besonderen Momenten.
             </p>
           </div>
 

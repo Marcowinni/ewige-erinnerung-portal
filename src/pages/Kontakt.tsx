@@ -47,7 +47,7 @@ const Kontakt = () => {
               <div>
                 <div className="prose prose-lg max-w-none mb-8">
                   <p>
-                    Haben Sie Fragen zu unseren QR-Code Glasplatten oder benötigen Sie Unterstützung 
+                    Haben Sie Fragen zu unseren NFC-Glasplatten oder benötigen Sie Unterstützung 
                     bei der Erstellung Ihres persönlichen Gedenkens? Unser Team steht Ihnen gerne zur Verfügung.
                   </p>
                 </div>
