@@ -16,13 +16,16 @@ import { Image, Upload, Music, Film, Check } from "lucide-react";
 
 const MemoryUploader = () => {
   const [activeStep, setActiveStep] = useState(1);
+  const [productType, setProductType] = useState<"basic" | "custom">("basic");
   const [photos, setPhotos] = useState<File[]>([]);
   const [video, setVideo] = useState<File | null>(null);
+  const [framePhoto, setFramePhoto] = useState<File | null>(null);
   const [name, setName] = useState("");
   const [dates, setDates] = useState({ birth: "", death: "" });
   const [song, setSong] = useState("");
   const [message, setMessage] = useState("");
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  const [framePhotoUrl, setFramePhotoUrl] = useState<string>("");
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -41,6 +44,14 @@ const MemoryUploader = () => {
     }
   };
 
+  const handleFramePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setFramePhoto(file);
+      setFramePhotoUrl(URL.createObjectURL(file));
+    }
+  };
+
   const nextStep = () => {
     setActiveStep(prev => prev + 1);
     window.scrollTo(0, 0);
@@ -56,6 +67,32 @@ const MemoryUploader = () => {
       case 1:
         return (
           <CardContent className="space-y-6">
+            <div className="space-y-4">
+              <Label className="text-lg">Produktkategorie wählen</Label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div 
+                  className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
+                    productType === "basic" ? "border-primary bg-primary/5" : "border-border hover:bg-secondary/50"
+                  }`}
+                  onClick={() => setProductType("basic")}
+                >
+                  <h3 className="font-medium mb-2">Basis Version</h3>
+                  <p className="text-sm text-muted-foreground mb-2">ab 60 CHF</p>
+                  <p className="text-xs text-muted-foreground">Schlichte NFC-Platte für digitale Erinnerungen</p>
+                </div>
+                <div 
+                  className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
+                    productType === "custom" ? "border-primary bg-primary/5" : "border-border hover:bg-secondary/50"
+                  }`}
+                  onClick={() => setProductType("custom")}
+                >
+                  <h3 className="font-medium mb-2">Individuelle Gestaltung</h3>
+                  <p className="text-sm text-muted-foreground mb-2">ab 120 CHF</p>
+                  <p className="text-xs text-muted-foreground">Mit persönlichem Foto im Rahmen</p>
+                </div>
+              </div>
+            </div>
+
             <div className="space-y-2">
               <Label htmlFor="name">Name des/der Verstorbenen</Label>
               <Input 
@@ -86,6 +123,32 @@ const MemoryUploader = () => {
                 />
               </div>
             </div>
+
+            {productType === "custom" && (
+              <div className="space-y-2">
+                <Label htmlFor="framePhoto">Foto für den Rahmen</Label>
+                <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:bg-secondary/50 transition-colors cursor-pointer">
+                  <Input 
+                    id="framePhoto" 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={handleFramePhotoUpload} 
+                    className="hidden"
+                  />
+                  <Label htmlFor="framePhoto" className="cursor-pointer w-full flex flex-col items-center">
+                    <Image className="h-8 w-8 text-muted-foreground mb-2" />
+                    <span className="text-muted-foreground text-sm">
+                      {framePhoto ? framePhoto.name : "Foto für den Rahmen auswählen"}
+                    </span>
+                  </Label>
+                </div>
+                {framePhotoUrl && (
+                  <div className="mt-2">
+                    <img src={framePhotoUrl} alt="Rahmen Foto Vorschau" className="w-24 h-24 object-cover rounded-md border" />
+                  </div>
+                )}
+              </div>
+            )}
             
             <div className="space-y-2">
               <Label htmlFor="message">Persönliche Botschaft</Label>
@@ -205,7 +268,12 @@ const MemoryUploader = () => {
               
               <div className="text-center text-muted-foreground">
                 <p>Alle Medien wurden erfolgreich hochgeladen.</p>
-                <p className="mt-2">Preis: <span className="font-bold">60 CHF</span></p>
+                <p className="mt-2">
+                  {productType === "basic" ? "Basis Version" : "Individuelle Gestaltung"}
+                </p>
+                <p className="mt-1">
+                  Preis: <span className="font-bold">{productType === "basic" ? "60" : "120"} CHF</span>
+                </p>
               </div>
               
               <div className="mt-6">
@@ -240,7 +308,7 @@ const MemoryUploader = () => {
         <CardDescription className="text-center">
           {activeStep < 4 ? 
             `Schritt ${activeStep} von 3: ${
-              activeStep === 1 ? "Informationen eingeben" : 
+              activeStep === 1 ? "Produkttyp und Informationen wählen" : 
               activeStep === 2 ? "Fotos und Videos hinzufügen" : 
               "Lieblingslied auswählen"
             }` : 
