@@ -8,11 +8,13 @@ import { Link } from "react-router-dom";
 import { Heart, Camera, Music, Sparkles, Diamond, Package, Star, Images, Check } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
   const productsRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -34,18 +36,17 @@ const Index = () => {
         <div className="container mx-auto px-4 h-full flex items-center">
           <div className="hero-content relative max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 text-shadow">
-              Erinnerungen, die weiterleben – mit Herz und Klang.
+              {t('hero.title')}
             </h1>
             <p className="text-xl text-white/90 mb-8 text-shadow">
-              Aus Erinnerungen wird ein stilles Denkmal – eine NFC-Platte öffnet die Tür zu bewegenden
-              Momenten mit Bild und Musik.
+              {t('hero.subtitle')}
             </p>
             <div className="flex flex-wrap gap-4">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-                <Link to="/gedenken">Jetzt beginnen</Link>
+                <Link to="/gedenken">{t('hero.start')}</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20">
-                <Link to="/ueber">Mehr erfahren</Link>
+                <Link to="/ueber">{t('hero.learn')}</Link>
               </Button>
             </div>
           </div>
@@ -56,10 +57,9 @@ const Index = () => {
       <section ref={featuresRef} className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif mb-4">Unvergessliche Momente für die Ewigkeit</h2>
+            <h2 className="text-3xl md:text-4xl font-serif mb-4">{t('features.title')}</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Unsere Memoro Moments NFC-Platten vereinen moderne Technologie mit würdevoller Erinnerung. Sie ermöglichen, 
-              das Leben eines geliebten Menschen durch Bilder, Videos und Musik lebendig zu halten – direkt am Grab.
+              {t('features.subtitle')}
             </p>
           </div>
           
@@ -67,8 +67,8 @@ const Index = () => {
             <div>
               <FeatureCard 
                 icon={Sparkles}
-                title="Einzigartiges Gedenken"
-                description="Bewahren Sie besondere Erinnerungen mit einer personalisierten NFC-Platte, die Ihre schönsten Momente durch einfaches Berühren mit dem Handy zugänglich macht."
+                title={t('features.unique.title')}
+                description={t('features.unique.desc')}
                 iconColor="text-amber-500"
               />
             </div>
@@ -76,8 +76,8 @@ const Index = () => {
             <div>
               <FeatureCard 
                 icon={Camera}
-                title="Multimedia Erinnerungen"
-                description="Laden Sie Fotos und Videos hoch, die die Persönlichkeit und das Leben des Verstorbenen zeigen."
+                title={t('features.multimedia.title')}
+                description={t('features.multimedia.desc')}
                 iconColor="text-blue-500"
               />
             </div>
@@ -85,8 +85,8 @@ const Index = () => {
             <div>
               <FeatureCard 
                 icon={Music}
-                title="Lieblingslied einbinden"
-                description="Fügen Sie bedeutungsvolle Musik hinzu, die beim Betrachten der Erinnerungen abgespielt wird."
+                title={t('features.music.title')}
+                description={t('features.music.desc')}
                 iconColor="text-purple-500"
               />
             </div>
@@ -94,8 +94,8 @@ const Index = () => {
             <div>
               <FeatureCard 
                 icon={Heart}
-                title="Würdevoll gestaltet"
-                description="Hochwertige Glasplatten, die sich harmonisch in den Grabstein einfügen und allen Wetterbedingungen standhalten."
+                title={t('features.quality.title')}
+                description={t('features.quality.desc')}
                 iconColor="text-red-500"
               />
             </div>
@@ -107,11 +107,9 @@ const Index = () => {
       <section className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif mb-4">So einfach funktioniert es</h2>
+            <h2 className="text-3xl md:text-4xl font-serif mb-4">{t('howitworks.title')}</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              In wenigen Schritten zur persönlichen Gedenkplatte: Laden Sie Fotos oder Videos hoch, 
-              wählen Sie ein Lied, wir erstellen daraus ein liebevoll gestaltetes Video. Sie erhalten 
-              eine NFC-Platte, die durch Berühren mit dem Handy direkt zu Ihrer Erinnerung führt.
+              {t('howitworks.subtitle')}
             </p>
           </div>
           
@@ -120,10 +118,9 @@ const Index = () => {
               <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <span className="text-2xl font-bold text-primary">1</span>
               </div>
-              <h3 className="text-xl font-serif text-center mb-4">Medien hochladen</h3>
+              <h3 className="text-xl font-serif text-center mb-4">{t('howitworks.step1.title')}</h3>
               <p className="text-muted-foreground text-center">
-                Wählen Sie die schönsten Fotos und Videos aus, die die Erinnerung an Ihren 
-                Liebsten festhalten.
+                {t('howitworks.step1.desc')}
               </p>
             </div>
             
@@ -131,9 +128,9 @@ const Index = () => {
               <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <span className="text-2xl font-bold text-primary">2</span>
               </div>
-              <h3 className="text-xl font-serif text-center mb-4">Musik auswählen</h3>
+              <h3 className="text-xl font-serif text-center mb-4">{t('howitworks.step2.title')}</h3>
               <p className="text-muted-foreground text-center">
-                Fügen Sie ein Lieblingslied hinzu, das besondere Bedeutung für den Verstorbenen hatte.
+                {t('howitworks.step2.desc')}
               </p>
             </div>
             
@@ -141,16 +138,16 @@ const Index = () => {
               <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <span className="text-2xl font-bold text-primary">3</span>
               </div>
-              <h3 className="text-xl font-serif text-center mb-4">NFC-Platte erhalten</h3>
+              <h3 className="text-xl font-serif text-center mb-4">{t('howitworks.step3.title')}</h3>
               <p className="text-muted-foreground text-center">
-                Ihre persönliche NFC-Glasplatte wird gefertigt und direkt zu Ihnen nach Hause geliefert.
+                {t('howitworks.step3.desc')}
               </p>
             </div>
           </div>
           
           <div className="text-center mt-12">
             <Button asChild size="lg">
-              <Link to="/gedenken">Gedenken erstellen</Link>
+              <Link to="/gedenken">{t('nav.create')}</Link>
             </Button>
           </div>
         </div>
@@ -161,10 +158,10 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif mb-4">
-              Unsere Produkte und wie sie funktionieren
+              {t('products.title')}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Erleben Sie den Memoro Moments in Aktion und sehen Sie unsere Gedenkplatten aus verschiedenen Materialien.
+              {t('products.subtitle')}
             </p>
           </div>
           
@@ -190,32 +187,32 @@ const Index = () => {
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
                   <img 
                     src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                    alt="Basis NFC-Platte" 
+                    alt={t('products.basic.title')} 
                     className="w-full h-48 object-cover"
                   />
                 </CardHeader>
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-serif mb-4 text-center">Basis Version</h3>
+                  <h3 className="text-2xl font-serif mb-4 text-center">{t('products.basic.title')}</h3>
                   <ul className="space-y-2 mb-6 text-muted-foreground">
                     <li className="flex items-center">
                       <Check className="w-4 h-4 mr-2 text-green-500" />
-                      Hochwertige Glasplatte
+                      {t('products.features.glass')}
                     </li>
                     <li className="flex items-center">
                       <Check className="w-4 h-4 mr-2 text-green-500" />
-                      NFC-Technologie integriert
+                      {t('products.features.nfc')}
                     </li>
                     <li className="flex items-center">
                       <Check className="w-4 h-4 mr-2 text-green-500" />
-                      Standardformat 15x10cm
+                      {t('products.features.format')}
                     </li>
                     <li className="flex items-center">
                       <Check className="w-4 h-4 mr-2 text-green-500" />
-                      Witterungsbeständig
+                      {t('products.features.weather')}
                     </li>
                   </ul>
                   <p className="text-center text-muted-foreground">
-                    Schlichte, elegante NFC-Platte für Ihre digitalen Erinnerungen.
+                    {t('products.basic.desc')}
                   </p>
                 </CardContent>
                 <CardFooter className="flex justify-center">
@@ -227,36 +224,36 @@ const Index = () => {
               <Card className="h-full border-2 border-primary">
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
                   <div className="bg-primary text-primary-foreground text-center py-1">
-                    Empfohlen
+                    {t('products.premium.recommended')}
                   </div>
                   <img 
                     src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                    alt="Individuelle NFC-Platte mit Fotorahmen" 
+                    alt={t('products.premium.title')} 
                     className="w-full h-48 object-cover"
                   />
                 </CardHeader>
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-serif mb-4 text-center">Individuelle Gestaltung</h3>
+                  <h3 className="text-2xl font-serif mb-4 text-center">{t('products.premium.title')}</h3>
                   <ul className="space-y-2 mb-6 text-muted-foreground">
                     <li className="flex items-center">
                       <Check className="w-4 h-4 mr-2 text-green-500" />
-                      Alle Basis-Features
+                      {t('products.features.all')}
                     </li>
                     <li className="flex items-center">
                       <Check className="w-4 h-4 mr-2 text-green-500" />
-                      Persönliches Foto im Rahmen
+                      {t('products.features.photo')}
                     </li>
                     <li className="flex items-center">
                       <Check className="w-4 h-4 mr-2 text-green-500" />
-                      Individuelle Gravur möglich
+                      {t('products.features.engraving')}
                     </li>
                     <li className="flex items-center">
                       <Check className="w-4 h-4 mr-2 text-green-500" />
-                      Premium Materialien verfügbar
+                      {t('products.features.premium')}
                     </li>
                   </ul>
                   <p className="text-center text-muted-foreground">
-                    Vollständig personalisierbare NFC-Platte mit Foto und individueller Gestaltung.
+                    {t('products.premium.desc')}
                   </p>
                 </CardContent>
                 <CardFooter className="flex justify-center">
@@ -273,18 +270,17 @@ const Index = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-serif mb-6">
-              Beginnen Sie Ihre Erinnerungsreise
+              {t('cta.title')}
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-              Werden Sie Teil einer Gemeinschaft, die das Leben wertschätzt. Erstellen Sie noch heute Ihr 
-              einzigartiges Gedenken und bewahren Sie kostbare Erinnerungen für kommende Generationen.
+              {t('cta.subtitle')}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button asChild size="lg">
-                <Link to="/gedenken">Gedenken erstellen</Link>
+                <Link to="/gedenken">{t('cta.create')}</Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link to="/kontakt">Kontakt aufnehmen</Link>
+                <Link to="/kontakt">{t('cta.contact')}</Link>
               </Button>
             </div>
           </div>
