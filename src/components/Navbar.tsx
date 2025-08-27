@@ -1,14 +1,18 @@
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Star, Moon, Sun } from "lucide-react";
+import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/ThemeProvider";
+import { useLanguage } from "@/contexts/LanguageContext";
+import MomentaLogo from "@/components/MomentaLogo";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,44 +38,46 @@ const Navbar = () => {
           to="/"
           className="flex items-center space-x-2 text-primary hover:opacity-90 transition-opacity"
         >
-          <Star className="w-6 h-6" />
-          <span className="font-serif text-xl font-medium">NFC Erinnerung </span>
+          <MomentaLogo />
+          <span className="font-serif text-xl font-medium">{t('brand.name')}</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-6">
+        <div className="hidden md:flex items-center space-x-4">
+          <LanguageSwitcher />
           <Link to="/" className="text-foreground hover:text-primary transition-colors">
-            Startseite
+            {t('nav.home')}
           </Link>
           <Link to="/gedenken" className="text-foreground hover:text-primary transition-colors">
-            Gedenken erstellen
+            {t('nav.create')}
           </Link>
           <Link to="/ueber" className="text-foreground hover:text-primary transition-colors">
-            Über uns
+            {t('nav.about')}
           </Link>
           <Link to="/kontakt" className="text-foreground hover:text-primary transition-colors">
-            Kontakt
+            {t('nav.contact')}
           </Link>
           <Button
             variant="outline"
             size="icon"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            aria-label="Farbmodus wechseln"
+            aria-label={t('nav.theme')}
           >
             {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
           <Button asChild className="bg-primary text-primary-foreground">
-            <Link to="/gedenken?product=premium">Jetzt starten</Link>
+            <Link to="/gedenken?product=premium">{t('nav.start')}</Link>
           </Button>
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="flex items-center md:hidden space-x-4">
+        <div className="flex items-center md:hidden space-x-2">
+          <LanguageSwitcher />
           <Button
             variant="outline"
             size="icon"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            aria-label="Farbmodus wechseln"
+            aria-label={t('nav.theme')}
           >
             {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
@@ -94,35 +100,35 @@ const Navbar = () => {
             className="text-foreground hover:text-primary transition-colors py-2"
             onClick={() => setIsMenuOpen(false)}
           >
-            Startseite
+            {t('nav.home')}
           </Link>
           <Link
             to="/gedenken"
             className="text-foreground hover:text-primary transition-colors py-2"
             onClick={() => setIsMenuOpen(false)}
           >
-            Gedenken erstellen
+            {t('nav.create')}
           </Link>
           <Link
             to="/ueber"
             className="text-foreground hover:text-primary transition-colors py-2"
             onClick={() => setIsMenuOpen(false)}
           >
-            Über uns
+            {t('nav.about')}
           </Link>
           <Link
             to="/kontakt"
             className="text-foreground hover:text-primary transition-colors py-2"
             onClick={() => setIsMenuOpen(false)}
           >
-            Kontakt
+            {t('nav.contact')}
           </Link>
           <Button
             asChild
             className="bg-primary text-primary-foreground w-full"
             onClick={() => setIsMenuOpen(false)}
           >
-            <Link to="/gedenken?product=premium">Jetzt starten</Link>
+            <Link to="/gedenken?product=premium">{t('nav.start')}</Link>
           </Button>
         </div>
       )}
