@@ -26,7 +26,7 @@ const Index = () => {
         <div 
           className="absolute inset-0 bg-center bg-no-repeat bg-cover -z-10"
           style={{ 
-            backgroundImage: "url('https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
+            backgroundImage: "url('/lovable-uploads/0e24d567-3609-48ba-8ce7-b60cb92a6e22.png')",
             filter: "brightness(0.7)"
           }}
         />
