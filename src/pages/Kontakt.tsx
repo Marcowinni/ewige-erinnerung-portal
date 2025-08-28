@@ -38,7 +38,7 @@ const Kontakt = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <h1 className="text-3xl md:text-4xl font-serif mb-8 text-center">
-              Kontaktieren Sie uns
+              Kontaktieren Sie uns!
             </h1>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

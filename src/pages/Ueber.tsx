@@ -12,7 +12,7 @@ const Ueber = () => {
       <main className="flex-grow pt-32 pb-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-3xl md:text-4xl font-serif mb-8 text-center">Über Ewige Erinnerung</h1>
+            <h1 className="text-3xl md:text-4xl font-serif mb-8 text-center">Über Memora Moments</h1>
             
             <div className="prose prose-lg max-w-none">
               <p className="lead text-xl text-center mb-12">
@@ -23,8 +23,8 @@ const Ueber = () => {
               <div className="my-12 p-8 bg-secondary rounded-xl">
                 <h2 className="text-2xl font-serif mb-4">Unsere Geschichte</h2>
                 <p>
-                  Die Idee zu Ewige Erinnerung entstand aus einer persönlichen Erfahrung. Nach dem Verlust eines geliebten 
-                  Familienmitglieds verging Zeit und die Erinnerungen an die Person wurden schwächer und schwächer..
+                  Die Idee zu Memora Moments entstand aus einer persönlichen Erfahrung. Nach dem frühen Verlust meines Grossvaters 
+                   verging Zeit und die Erinnerungen an die Person wurden schwächer und schwächer..
                 </p>
                 <p className="mt-4">
                   Wir entdeckten, dass traditionelle Gedenkformen oft statisch sind und nur begrenzte Möglichkeiten bieten, 
@@ -64,21 +64,20 @@ const Ueber = () => {
               </div>
               
               <div className="bg-card p-8 rounded-lg shadow-sm border border-border mb-12">
-                <h2 className="text-2xl font-serif mb-4">Unsere Memoro Moments</h2>
+                <h2 className="text-2xl font-serif mb-4">Unsere Memora Moments</h2>
                 <p>
-                  Jede Memoro Moments Platte wird von uns mit größter Sorgfalt hergestellt. Wir verwenden hochwertiges, 
-                  witterungsbeständiges Material, das speziell für den Außeneinsatz entwickelt wurde. Die eingebettete 
+                  Jede Memora Moments Platte besteht aus hochwertigem, 
+                  witterungsbeständigem Material, das speziell für den Ausseneinsatz entwickelt wurde. Die eingebettete 
                   NFC-Technologie ist UV-beständig und funktioniert über Jahre hinweg zuverlässig.
                 </p>
                 <p className="mt-4">
-                  Die Platten werden auf Wunsch mit persönlichen Gravuren versehen und können 
-                  direkt auf dem Grabstein befestigt werden. Sie sind dezent gestaltet und fügen sich 
+                  Die Platten sind dezent gestaltet und fügen sich 
                   harmonisch in die Gedenkstätte ein.
                 </p>
               </div>
               
               <div className="text-center my-16">
-                <p className="italic font-serif text-xl">"Memoro - Erinnerungen die bleiben."</p>
+                <p className="italic font-serif text-xl">"Memora - Erinnerungen die weiterleben."</p>
               </div>
             </div>
           </div>
