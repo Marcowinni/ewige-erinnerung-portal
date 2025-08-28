@@ -47,8 +47,8 @@ const Kontakt = () => {
               <div>
                 <div className="prose prose-lg max-w-none mb-8">
                   <p>
-                    Haben Sie Fragen zu unseren NFC-Glasplatten oder benötigen Sie Unterstützung 
-                    bei der Erstellung Ihres persönlichen Gedenkens? Unser Team steht Ihnen gerne zur Verfügung.
+                    Haben Sie Fragen zu unseren Produkten oder benötigen Sie Unterstützung 
+                    bei der Erstellung Ihres persönlichen Gedenkens? Wir stehen Ihnen gerne zur Verfügung.
                   </p>
                 </div>
                 
@@ -59,7 +59,7 @@ const Kontakt = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-lg">E-Mail</h3>
-                      <p className="text-muted-foreground">info@ewige-erinnerung.ch</p>
+                      <p className="text-muted-foreground">info.memora.moments@gmail.com</p>
                     </div>
                   </div>
                   
@@ -69,7 +69,7 @@ const Kontakt = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-lg">Telefon</h3>
-                      <p className="text-muted-foreground">+41 123 456 789</p>
+                      <p className="text-muted-foreground">+41 79 407 56 99</p>
                     </div>
                   </div>
                   
@@ -90,14 +90,6 @@ const Kontakt = () => {
                   <div className="flex items-start space-x-4">
                     <div className="bg-secondary p-3 rounded-full">
                       <Clock className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-lg">Öffnungszeiten</h3>
-                      <p className="text-muted-foreground">
-                        Montag - Freitag: 9:00 - 17:00 Uhr<br />
-                        Samstag: Nach Vereinbarung<br />
-                        Sonntag: Geschlossen
-                      </p>
                     </div>
                   </div>
                 </div>
