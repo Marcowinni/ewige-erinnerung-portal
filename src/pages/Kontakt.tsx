@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Send, Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Send, Mail, Phone, MapPin} from "lucide-react";
 
 const Kontakt = () => {
   const [formData, setFormData] = useState({
@@ -87,13 +87,6 @@ const Kontakt = () => {
                     </div>
                   </div>
                   
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-secondary p-3 rounded-full">
-                      <Clock className="h-6 w-6 text-primary" />
-                    </div>
-                  </div>
-                </div>
-              </div>
               
               <div>
                 <form onSubmit={handleSubmit} className="space-y-6 bg-card p-8 rounded-lg shadow-sm border border-border">
