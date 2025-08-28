@@ -5,7 +5,7 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/ThemeProvider";
 import { useLanguage } from "@/contexts/LanguageContext";
-import MomentaLogo from "@/components/MomentaLogo";
+import MemoraLogo from "@/components/MemoraLogo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const Navbar = () => {
@@ -38,7 +38,7 @@ const Navbar = () => {
           to="/"
           className="flex items-center space-x-2 text-primary hover:opacity-90 transition-opacity"
         >
-          <MomentaLogo />
+          <MemoraLogo className="w-8 h-8" />
           <span className="font-serif text-xl font-medium">{t('brand.name')}</span>
         </Link>
 
