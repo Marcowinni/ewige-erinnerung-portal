@@ -207,7 +207,7 @@ const Index = () => {
           <div className="max-w-5xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8">
               {/* Basic Version */}
-              <Card className="h-full">
+              <Card className="h-full border-2 border-border">
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
                   <img 
                     src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
@@ -245,7 +245,7 @@ const Index = () => {
               </Card>
 
               {/* Customizable Version */}
-              <Card className="h-full border-2 border-primary">
+              <Card className="h-full border-2 border-border">
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
                   <img 
                     src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
