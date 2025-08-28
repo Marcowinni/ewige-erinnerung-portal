@@ -76,7 +76,7 @@ const MemoryUploader = () => {
                   }`}
                   onClick={() => setProductType("basic")}
                 >
-                  <h3 className="font-medium mb-2">Basis Version</h3>
+                  <h3 className="font-medium mb-2">Memora Tag</h3>
                   <p className="text-sm text-muted-foreground mb-2">ab 60 CHF</p>
                   <p className="text-xs text-muted-foreground">Schlichte NFC-Platte für digitale Erinnerungen</p>
                 </div>
@@ -86,7 +86,7 @@ const MemoryUploader = () => {
                   }`}
                   onClick={() => setProductType("custom")}
                 >
-                  <h3 className="font-medium mb-2">Individuelle Gestaltung</h3>
+                  <h3 className="font-medium mb-2">Memora Frame</h3>
                   <p className="text-sm text-muted-foreground mb-2">ab 120 CHF</p>
                   <p className="text-xs text-muted-foreground">Mit persönlichem Foto im Rahmen</p>
                 </div>
@@ -198,7 +198,7 @@ const MemoryUploader = () => {
             )}
             
             <div className="space-y-2">
-              <Label htmlFor="video">Video hochladen (optional)</Label>
+              <Label htmlFor="video">Video hochladen</Label>
               <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:bg-secondary/50 transition-colors cursor-pointer">
                 <Input 
                   id="video" 
@@ -264,7 +264,7 @@ const MemoryUploader = () => {
                 </div>
               </div>
               
-              <h3 className="text-center text-xl font-serif">Ihre NFC-Glasplatte ist bereit für die Bestellung</h3>
+              <h3 className="text-center text-xl font-serif">Ihre NFC-Platte ist bereit für die Bestellung</h3>
               
               <div className="text-center text-muted-foreground">
                 <p>Alle Medien wurden erfolgreich hochgeladen.</p>
