@@ -82,6 +82,47 @@ const translations = {
     // Brand
     'brand.name': 'Memora Moments',
     'brand.tagline': 'Memora - Erinnerungen die weiterleben.',
+    
+    // Gedenken page
+    'gedenken.title': 'Gedenken erstellen | Ewige Erinnerung',
+    'gedenken.heading': 'Ein bleibendes Gedenken erschaffen',
+    'gedenken.description': 'Erstellen Sie eine persönliche Erinnerung mit Bildern, Videos und der Lieblingsmusik Ihres Verstorbenen, zugänglich durch Berühren einer hochwertigen NFC-Glasplatte mit dem Handy.',
+    
+    // Ueber page
+    'about.title': 'Über Memora Moments',
+    'about.lead': 'Wir verbinden moderne Technologie mit traditioneller Erinnerungskultur, um Ihnen zu helfen, das Andenken an Ihre Liebsten lebendig zu halten.',
+    'about.story.title': 'Unsere Geschichte',
+    'about.story.p1': 'Die Idee zu Memora Moments entstand aus einer persönlichen Erfahrung. Nach dem frühen Verlust meines Grossvaters verging Zeit und die Erinnerungen an die Person wurden schwächer und schwächer..',
+    'about.story.p2': 'Wir entdeckten, dass traditionelle Gedenkformen oft statisch sind und nur begrenzte Möglichkeiten bieten, die Persönlichkeit und die besonderen Momente des Verstorbenen zu vermitteln. So entwickelten wir eine Lösung, die Technologie nutzt, um Erinnerungen in einer respektvollen und dennoch lebendigen Weise zu bewahren.',
+    'about.values.title': 'Was uns antreibt',
+    'about.values.compassion.title': 'Mitgefühl',
+    'about.values.compassion.desc': 'Wir verstehen den Schmerz des Verlusts und schaffen einfühlsame Wege, Erinnerungen zu bewahren und zu würdigen.',
+    'about.values.personality.title': 'Persönlichkeit',
+    'about.values.personality.desc': 'Jeder Mensch ist einzigartig. Unsere Gedenkplatten spiegeln die Individualität und die besonderen Momente Ihrer Liebsten wider.',
+    'about.values.connection.title': 'Verbindung',
+    'about.values.connection.desc': 'Wir schaffen eine Brücke zwischen Vergangenheit und Gegenwart, die Generationen verbindet und Geschichten weiterträgt.',
+    'about.product.title': 'Unsere Memora Moments',
+    'about.product.p1': 'Jede Memora Moments Platte besteht aus hochwertigem, witterungsbeständigem Material, das speziell für den Ausseneinsatz entwickelt wurde. Die eingebettete NFC-Technologie ist UV-beständig und funktioniert über Jahre hinweg zuverlässig.',
+    'about.product.p2': 'Die Platten sind dezent gestaltet und fügen sich harmonisch in die Gedenkstätte ein.',
+    'about.quote': '"Memora - Erinnerungen die weiterleben."',
+    
+    // Kontakt page
+    'contact.title': 'Kontaktieren Sie uns!',
+    'contact.description': 'Haben Sie Fragen zu unseren Produkten oder benötigen Sie Unterstützung bei der Erstellung Ihres persönlichen Gedenkens? Wir stehen Ihnen gerne zur Verfügung.',
+    'contact.email': 'E-Mail',
+    'contact.phone': 'Telefon',
+    'contact.address': 'Adresse',
+    'contact.form.title': 'Nachricht senden',
+    'contact.form.name': 'Name',
+    'contact.form.name.placeholder': 'Ihr vollständiger Name',
+    'contact.form.email': 'E-Mail',
+    'contact.form.email.placeholder': 'Ihre E-Mail-Adresse',
+    'contact.form.subject': 'Betreff',
+    'contact.form.subject.placeholder': 'Worum geht es in Ihrer Nachricht?',
+    'contact.form.message': 'Nachricht',
+    'contact.form.message.placeholder': 'Wie können wir Ihnen helfen?',
+    'contact.form.submit': 'Nachricht senden',
+    'contact.form.success': 'Vielen Dank für Ihre Nachricht. Wir werden uns in Kürze bei Ihnen melden.',
   },
   
   en: {
@@ -155,6 +196,47 @@ const translations = {
     // Brand
     'brand.name': 'Memora Moments',
     'brand.tagline': 'Memora – Memories that live on.',
+    
+    // Gedenken page
+    'gedenken.title': 'Create Memorial | Eternal Memory',
+    'gedenken.heading': 'Create a Lasting Memorial',
+    'gedenken.description': 'Create a personal memory with photos, videos and your loved one\'s favorite music, accessible by touching a high-quality NFC glass plate with your phone.',
+    
+    // Ueber page
+    'about.title': 'About Memora Moments',
+    'about.lead': 'We connect modern technology with traditional remembrance culture to help you keep the memory of your loved ones alive.',
+    'about.story.title': 'Our Story',
+    'about.story.p1': 'The idea for Memora Moments arose from a personal experience. After the early loss of my grandfather, time passed and the memories of the person became weaker and weaker..',
+    'about.story.p2': 'We discovered that traditional forms of remembrance are often static and offer limited opportunities to convey the personality and special moments of the deceased. So we developed a solution that uses technology to preserve memories in a respectful yet vibrant way.',
+    'about.values.title': 'What drives us',
+    'about.values.compassion.title': 'Compassion',
+    'about.values.compassion.desc': 'We understand the pain of loss and create empathetic ways to preserve and honor memories.',
+    'about.values.personality.title': 'Personality',
+    'about.values.personality.desc': 'Every person is unique. Our memorial plates reflect the individuality and special moments of your loved ones.',
+    'about.values.connection.title': 'Connection',
+    'about.values.connection.desc': 'We create a bridge between past and present that connects generations and carries stories forward.',
+    'about.product.title': 'Our Memora Moments',
+    'about.product.p1': 'Each Memora Moments plate is made of high-quality, weather-resistant material specially developed for outdoor use. The embedded NFC technology is UV-resistant and works reliably for years.',
+    'about.product.p2': 'The plates are discreetly designed and blend harmoniously into the memorial site.',
+    'about.quote': '"Memora – Memories that live on."',
+    
+    // Kontakt page
+    'contact.title': 'Contact Us!',
+    'contact.description': 'Do you have questions about our products or need support creating your personal memorial? We are happy to help you.',
+    'contact.email': 'Email',
+    'contact.phone': 'Phone',
+    'contact.address': 'Address',
+    'contact.form.title': 'Send Message',
+    'contact.form.name': 'Name',
+    'contact.form.name.placeholder': 'Your full name',
+    'contact.form.email': 'Email',
+    'contact.form.email.placeholder': 'Your email address',
+    'contact.form.subject': 'Subject',
+    'contact.form.subject.placeholder': 'What is your message about?',
+    'contact.form.message': 'Message',
+    'contact.form.message.placeholder': 'How can we help you?',
+    'contact.form.submit': 'Send Message',
+    'contact.form.success': 'Thank you for your message. We will get back to you shortly.',
   },
 
   fr: {
@@ -228,6 +310,47 @@ const translations = {
     // Brand
     'brand.name': 'Memora Moments',
     'brand.tagline': 'Memora – Des souvenirs qui perdurent.',
+    
+    // Gedenken page
+    'gedenken.title': 'Créer un mémorial | Mémoire éternelle',
+    'gedenken.heading': 'Créer un mémorial durable',
+    'gedenken.description': 'Créez un souvenir personnel avec photos, vidéos et la musique préférée de votre proche, accessible en touchant une plaque NFC en verre de haute qualité avec votre téléphone.',
+    
+    // Ueber page
+    'about.title': 'À propos de Memora Moments',
+    'about.lead': 'Nous connectons la technologie moderne avec la culture traditionnelle du souvenir pour vous aider à garder vivante la mémoire de vos proches.',
+    'about.story.title': 'Notre histoire',
+    'about.story.p1': 'L\'idée de Memora Moments est née d\'une expérience personnelle. Après la perte précoce de mon grand-père, le temps a passé et les souvenirs de la personne sont devenus de plus en plus faibles..',
+    'about.story.p2': 'Nous avons découvert que les formes traditionnelles de commémoration sont souvent statiques et offrent des possibilités limitées pour transmettre la personnalité et les moments spéciaux du défunt. Nous avons donc développé une solution qui utilise la technologie pour préserver les souvenirs de manière respectueuse mais vivante.',
+    'about.values.title': 'Ce qui nous motive',
+    'about.values.compassion.title': 'Compassion',
+    'about.values.compassion.desc': 'Nous comprenons la douleur de la perte et créons des moyens empathiques de préserver et d\'honorer les souvenirs.',
+    'about.values.personality.title': 'Personnalité',
+    'about.values.personality.desc': 'Chaque personne est unique. Nos plaques commémoratives reflètent l\'individualité et les moments spéciaux de vos proches.',
+    'about.values.connection.title': 'Connexion',
+    'about.values.connection.desc': 'Nous créons un pont entre le passé et le présent qui connecte les générations et transmet les histoires.',
+    'about.product.title': 'Nos Memora Moments',
+    'about.product.p1': 'Chaque plaque Memora Moments est faite de matériau de haute qualité, résistant aux intempéries, spécialement développé pour une utilisation extérieure. La technologie NFC intégrée résiste aux UV et fonctionne de manière fiable pendant des années.',
+    'about.product.p2': 'Les plaques sont conçues discrètement et s\'intègrent harmonieusement dans le site commémoratif.',
+    'about.quote': '"Memora – Des souvenirs qui perdurent."',
+    
+    // Kontakt page
+    'contact.title': 'Contactez-nous !',
+    'contact.description': 'Avez-vous des questions sur nos produits ou besoin d\'aide pour créer votre mémorial personnel ? Nous sommes là pour vous aider.',
+    'contact.email': 'E-mail',
+    'contact.phone': 'Téléphone',
+    'contact.address': 'Adresse',
+    'contact.form.title': 'Envoyer un message',
+    'contact.form.name': 'Nom',
+    'contact.form.name.placeholder': 'Votre nom complet',
+    'contact.form.email': 'E-mail',
+    'contact.form.email.placeholder': 'Votre adresse e-mail',
+    'contact.form.subject': 'Sujet',
+    'contact.form.subject.placeholder': 'De quoi parle votre message ?',
+    'contact.form.message': 'Message',
+    'contact.form.message.placeholder': 'Comment pouvons-nous vous aider ?',
+    'contact.form.submit': 'Envoyer le message',
+    'contact.form.success': 'Merci pour votre message. Nous vous répondrons sous peu.',
   },
 
   it: {
@@ -301,6 +424,47 @@ const translations = {
     // Brand
     'brand.name': 'Memora Moments',
     'brand.tagline': 'Memora – Ricordi che vivono.',
+    
+    // Gedenken page
+    'gedenken.title': 'Crea memoriale | Memoria eterna',
+    'gedenken.heading': 'Crea un memoriale duraturo',
+    'gedenken.description': 'Crea un ricordo personale con foto, video e la musica preferita del tuo caro, accessibile toccando una piastra NFC in vetro di alta qualità con il telefono.',
+    
+    // Ueber page
+    'about.title': 'Chi siamo - Memora Moments',
+    'about.lead': 'Colleghiamo tecnologia moderna con cultura tradizionale della memoria per aiutarti a mantenere vivo il ricordo dei tuoi cari.',
+    'about.story.title': 'La nostra storia',
+    'about.story.p1': 'L\'idea di Memora Moments è nata da un\'esperienza personale. Dopo la perdita precoce di mio nonno, il tempo è passato e i ricordi della persona sono diventati sempre più deboli..',
+    'about.story.p2': 'Abbiamo scoperto che le forme tradizionali di commemorazione sono spesso statiche e offrono possibilità limitate per trasmettere la personalità e i momenti speciali del defunto. Così abbiamo sviluppato una soluzione che utilizza la tecnologia per preservare i ricordi in modo rispettoso ma vivace.',
+    'about.values.title': 'Cosa ci motiva',
+    'about.values.compassion.title': 'Compassione',
+    'about.values.compassion.desc': 'Comprendiamo il dolore della perdita e creiamo modi empatici per preservare e onorare i ricordi.',
+    'about.values.personality.title': 'Personalità',
+    'about.values.personality.desc': 'Ogni persona è unica. Le nostre piastre commemorative riflettono l\'individualità e i momenti speciali dei tuoi cari.',
+    'about.values.connection.title': 'Connessione',
+    'about.values.connection.desc': 'Creiamo un ponte tra passato e presente che collega le generazioni e trasmette le storie.',
+    'about.product.title': 'I nostri Memora Moments',
+    'about.product.p1': 'Ogni piastra Memora Moments è realizzata con materiale di alta qualità, resistente alle intemperie, sviluppato appositamente per uso esterno. La tecnologia NFC integrata resiste ai raggi UV e funziona in modo affidabile per anni.',
+    'about.product.p2': 'Le piastre sono progettate discretamente e si integrano armoniosamente nel sito commemorativo.',
+    'about.quote': '"Memora – Ricordi che vivono."',
+    
+    // Kontakt page
+    'contact.title': 'Contattaci!',
+    'contact.description': 'Hai domande sui nostri prodotti o hai bisogno di supporto per creare il tuo memoriale personale? Siamo qui per aiutarti.',
+    'contact.email': 'Email',
+    'contact.phone': 'Telefono',
+    'contact.address': 'Indirizzo',
+    'contact.form.title': 'Invia messaggio',
+    'contact.form.name': 'Nome',
+    'contact.form.name.placeholder': 'Il tuo nome completo',
+    'contact.form.email': 'Email',
+    'contact.form.email.placeholder': 'Il tuo indirizzo email',
+    'contact.form.subject': 'Oggetto',
+    'contact.form.subject.placeholder': 'Di cosa tratta il tuo messaggio?',
+    'contact.form.message': 'Messaggio',
+    'contact.form.message.placeholder': 'Come possiamo aiutarti?',
+    'contact.form.submit': 'Invia messaggio',
+    'contact.form.success': 'Grazie per il tuo messaggio. Ti risponderemo presto.',
   }
 
 };

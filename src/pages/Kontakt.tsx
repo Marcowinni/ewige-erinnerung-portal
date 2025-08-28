@@ -7,8 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Send, Mail, Phone, MapPin } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Kontakt = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,7 +29,7 @@ const Kontakt = () => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     setFormData({ name: "", email: "", subject: "", message: "" });
-    alert("Vielen Dank für Ihre Nachricht. Wir werden uns in Kürze bei Ihnen melden.");
+    alert(t('contact.form.success'));
   };
 
   return (
@@ -38,7 +40,7 @@ const Kontakt = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <h1 className="text-3xl md:text-4xl font-serif mb-8 text-center">
-              Kontaktieren Sie uns!
+              {t('contact.title')}
             </h1>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -46,8 +48,7 @@ const Kontakt = () => {
               <div>
                 <div className="prose prose-lg max-w-none mb-8">
                   <p>
-                    Haben Sie Fragen zu unseren Produkten oder benötigen Sie Unterstützung 
-                    bei der Erstellung Ihres persönlichen Gedenkens? Wir stehen Ihnen gerne zur Verfügung.
+                    {t('contact.description')}
                   </p>
                 </div>
 
@@ -57,7 +58,7 @@ const Kontakt = () => {
                       <Mail className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-lg">E-Mail</h3>
+                      <h3 className="font-medium text-lg">{t('contact.email')}</h3>
                       <p className="text-muted-foreground">
                         info.memora.moments@gmail.com
                       </p>
@@ -69,7 +70,7 @@ const Kontakt = () => {
                       <Phone className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-lg">Telefon</h3>
+                      <h3 className="font-medium text-lg">{t('contact.phone')}</h3>
                       <p className="text-muted-foreground">+41 79 407 56 99</p>
                     </div>
                   </div>
@@ -79,7 +80,7 @@ const Kontakt = () => {
                       <MapPin className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-lg">Adresse</h3>
+                      <h3 className="font-medium text-lg">{t('contact.address')}</h3>
                       <p className="text-muted-foreground">
                         Erinnerungsweg 7<br />
                         8000 Zürich<br />
@@ -96,60 +97,60 @@ const Kontakt = () => {
                   onSubmit={handleSubmit}
                   className="space-y-6 bg-card p-8 rounded-lg shadow-sm border border-border"
                 >
-                  <h2 className="text-2xl font-serif mb-6">Nachricht senden</h2>
+                  <h2 className="text-2xl font-serif mb-6">{t('contact.form.title')}</h2>
 
                   <div className="space-y-2">
-                    <Label htmlFor="name">Name</Label>
+                    <Label htmlFor="name">{t('contact.form.name')}</Label>
                     <Input
                       id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Ihr vollständiger Name"
+                      placeholder={t('contact.form.name.placeholder')}
                       required
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email">E-Mail</Label>
+                    <Label htmlFor="email">{t('contact.form.email')}</Label>
                     <Input
                       id="email"
                       name="email"
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="Ihre E-Mail-Adresse"
+                      placeholder={t('contact.form.email.placeholder')}
                       required
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="subject">Betreff</Label>
+                    <Label htmlFor="subject">{t('contact.form.subject')}</Label>
                     <Input
                       id="subject"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      placeholder="Worum geht es in Ihrer Nachricht?"
+                      placeholder={t('contact.form.subject.placeholder')}
                       required
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="message">Nachricht</Label>
+                    <Label htmlFor="message">{t('contact.form.message')}</Label>
                     <Textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Wie können wir Ihnen helfen?"
+                      placeholder={t('contact.form.message.placeholder')}
                       rows={5}
                       required
                     />
                   </div>
 
                   <Button type="submit" className="w-full">
-                    <Send className="mr-2 h-4 w-4" /> Nachricht senden
+                    <Send className="mr-2 h-4 w-4" /> {t('contact.form.submit')}
                   </Button>
                 </form>
               </div>
