@@ -165,18 +165,42 @@ const Index = () => {
             </p>
           </div>
           
-          {/* Demo Video */}
-          <div className="max-w-4xl mx-auto mb-16 rounded-lg overflow-hidden shadow-xl">
-            <div className="aspect-w-16 aspect-h-9 relative">
-              <video 
-                className="w-full rounded-lg" 
-                controls 
-                poster="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-              >
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-                Ihr Browser unterstützt keine Videos.
-              </video>
-            </div>
+          {/* Demo Videos Carousel */}
+          <div className="max-w-4xl mx-auto mb-16">
+            <Carousel className="w-full">
+              <CarouselContent>
+                <CarouselItem>
+                  <div className="rounded-lg overflow-hidden shadow-xl">
+                    <div className="aspect-w-16 aspect-h-9 relative">
+                      <video 
+                        className="w-full rounded-lg" 
+                        controls 
+                        poster="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                      >
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+                        Ihr Browser unterstützt keine Videos.
+                      </video>
+                    </div>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="rounded-lg overflow-hidden shadow-xl">
+                    <div className="aspect-w-16 aspect-h-9 relative">
+                      <video 
+                        className="w-full rounded-lg" 
+                        controls 
+                        poster="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                      >
+                        <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4" />
+                        Ihr Browser unterstützt keine Videos.
+                      </video>
+                    </div>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
           </div>
           
           {/* Product Categories */}
@@ -223,9 +247,6 @@ const Index = () => {
               {/* Customizable Version */}
               <Card className="h-full border-2 border-primary">
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
-                  <div className="bg-primary text-primary-foreground text-center py-1">
-                    {t('products.premium.recommended')}
-                  </div>
                   <img 
                     src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
                     alt={t('products.premium.title')} 

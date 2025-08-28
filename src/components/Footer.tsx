@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import MomentaLogo from "@/components/MomentaLogo";
+import MemoraLogo from "@/components/MemoraLogo";
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -12,7 +12,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <MomentaLogo className="w-5 h-5" />
+              <MemoraLogo className="w-8 h-8" />
               <span className="text-xl font-serif">{t('brand.name')}</span>
             </div>
             <p className="text-sm text-primary-foreground/80 max-w-xs">
@@ -25,7 +25,7 @@ const Footer = () => {
             <div className="space-y-2">
               <p className="flex items-center space-x-2">
                 <Mail className="w-4 h-4" />
-                <span>info@momenta-moments.ch</span>
+                <span>info@memora-moments.ch</span>
               </p>
               <p className="flex items-center space-x-2">
                 <Phone className="w-4 h-4" />

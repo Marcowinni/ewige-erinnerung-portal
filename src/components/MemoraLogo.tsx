@@ -1,4 +1,4 @@
-const MomentaLogo = ({ className = "w-6 h-6" }: { className?: string }) => {
+const MemoraLogo = ({ className = "w-6 h-6" }: { className?: string }) => {
   return (
     <svg 
       className={className} 
@@ -20,4 +20,4 @@ const MomentaLogo = ({ className = "w-6 h-6" }: { className?: string }) => {
   );
 };
 
-export default MomentaLogo;
+export default MemoraLogo;

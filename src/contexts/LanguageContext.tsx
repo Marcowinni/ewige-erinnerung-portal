@@ -28,7 +28,7 @@ const translations = {
     
     // Features
     'features.title': 'Unvergessliche Momente für die Ewigkeit',
-    'features.subtitle': 'Unsere Momenta Moments NFC-Platten vereinen moderne Technologie mit würdevoller Erinnerung. Sie ermöglichen, das Leben eines geliebten Menschen durch Bilder, Videos und Musik lebendig zu halten – direkt am Grab.',
+    'features.subtitle': 'Unsere Memora Moments NFC-Platten vereinen moderne Technologie mit würdevoller Erinnerung. Sie ermöglichen, das Leben eines geliebten Menschen durch Bilder, Videos und Musik lebendig zu halten – direkt am Grab.',
     'features.unique.title': 'Einzigartiges Gedenken',
     'features.unique.desc': 'Bewahren Sie besondere Erinnerungen mit einer personalisierten NFC-Platte, die Ihre schönsten Momente durch einfaches Berühren mit dem Handy zugänglich macht.',
     'features.multimedia.title': 'Multimedia Erinnerungen', 
@@ -50,7 +50,7 @@ const translations = {
     
     // Products
     'products.title': 'Unsere Produkte und wie sie funktionieren',
-    'products.subtitle': 'Erleben Sie den Momenta Moments in Aktion und sehen Sie unsere Gedenkplatten aus verschiedenen Materialien.',
+    'products.subtitle': 'Erleben Sie den Memora Moments in Aktion und sehen Sie unsere Gedenkplatten aus verschiedenen Materialien.',
     'products.basic.title': 'Basis Version',
     'products.basic.desc': 'Schlichte, elegante NFC-Platte für Ihre digitalen Erinnerungen.',
     'products.premium.title': 'Individuelle Gestaltung',
@@ -81,7 +81,7 @@ const translations = {
     'footer.imprint': 'Impressum',
     
     // Brand
-    'brand.name': 'Momenta Moments',
+    'brand.name': 'Memora Moments',
     'brand.tagline': 'Memoro - Erinnerungen die bleiben.',
   },
   
@@ -102,7 +102,7 @@ const translations = {
     
     // Features
     'features.title': 'Unforgettable Moments for Eternity',
-    'features.subtitle': 'Our Momenta Moments NFC plates combine modern technology with dignified remembrance. They enable keeping the life of a loved one alive through pictures, videos and music – directly at the grave.',
+    'features.subtitle': 'Our Memora Moments NFC plates combine modern technology with dignified remembrance. They enable keeping the life of a loved one alive through pictures, videos and music – directly at the grave.',
     'features.unique.title': 'Unique Memorial',
     'features.unique.desc': 'Preserve special memories with a personalized NFC plate that makes your most beautiful moments accessible by simply touching with your phone.',
     'features.multimedia.title': 'Multimedia Memories',
@@ -124,7 +124,7 @@ const translations = {
     
     // Products
     'products.title': 'Our Products and How They Work',
-    'products.subtitle': 'Experience Momenta Moments in action and see our memorial plates made from various materials.',
+    'products.subtitle': 'Experience Memora Moments in action and see our memorial plates made from various materials.',
     'products.basic.title': 'Basic Version',
     'products.basic.desc': 'Simple, elegant NFC plate for your digital memories.',
     'products.premium.title': 'Individual Design',
@@ -155,7 +155,7 @@ const translations = {
     'footer.imprint': 'Imprint',
     
     // Brand
-    'brand.name': 'Momenta Moments',
+    'brand.name': 'Memora Moments',
     'brand.tagline': 'Memoro - Memories that remain.',
   },
   
@@ -176,7 +176,7 @@ const translations = {
     
     // Features
     'features.title': 'Moments inoubliables pour l\'éternité',
-    'features.subtitle': 'Nos plaques NFC Momenta Moments allient technologie moderne et souvenir digne. Elles permettent de garder vivante la vie d\'un être cher grâce aux images, vidéos et musique – directement sur la tombe.',
+    'features.subtitle': 'Nos plaques NFC Memora Moments allient technologie moderne et souvenir digne. Elles permettent de garder vivante la vie d\'un être cher grâce aux images, vidéos et musique – directement sur la tombe.',
     'features.unique.title': 'Mémorial unique',
     'features.unique.desc': 'Préservez des souvenirs spéciaux avec une plaque NFC personnalisée qui rend vos plus beaux moments accessibles en touchant simplement avec votre téléphone.',
     'features.multimedia.title': 'Souvenirs multimédia',
@@ -198,7 +198,7 @@ const translations = {
     
     // Products
     'products.title': 'Nos produits et comment ils fonctionnent',
-    'products.subtitle': 'Découvrez Momenta Moments en action et voyez nos plaques commémoratives faites de divers matériaux.',
+    'products.subtitle': 'Découvrez Memora Moments en action et voyez nos plaques commémoratives faites de divers matériaux.',
     'products.basic.title': 'Version de base',
     'products.basic.desc': 'Plaque NFC simple et élégante pour vos souvenirs numériques.',
     'products.premium.title': 'Design individuel',
@@ -229,7 +229,7 @@ const translations = {
     'footer.imprint': 'Mentions légales',
     
     // Brand
-    'brand.name': 'Momenta Moments',
+    'brand.name': 'Memora Moments',
     'brand.tagline': 'Memoro - Souvenirs qui demeurent.',
   },
   
@@ -250,7 +250,7 @@ const translations = {
     
     // Features
     'features.title': 'Momenti indimenticabili per l\'eternità',
-    'features.subtitle': 'Le nostre piastre NFC Momenta Moments combinano tecnologia moderna con ricordo dignitoso. Permettono di mantenere viva la vita di una persona cara attraverso immagini, video e musica – direttamente sulla tomba.',
+    'features.subtitle': 'Le nostre piastre NFC Memora Moments combinano tecnologia moderna con ricordo dignitoso. Permettono di mantenere viva la vita di una persona cara attraverso immagini, video e musica – direttamente sulla tomba.',
     'features.unique.title': 'Memoriale unico',
     'features.unique.desc': 'Preserva ricordi speciali con una piastra NFC personalizzata che rende i tuoi momenti più belli accessibili semplicemente toccando con il telefono.',
     'features.multimedia.title': 'Ricordi multimediali',
@@ -272,7 +272,7 @@ const translations = {
     
     // Products
     'products.title': 'I nostri prodotti e come funzionano',
-    'products.subtitle': 'Sperimenta Momenta Moments in azione e vedi le nostre piastre commemorative realizzate con vari materiali.',
+    'products.subtitle': 'Sperimenta Memora Moments in azione e vedi le nostre piastre commemorative realizzate con vari materiali.',
     'products.basic.title': 'Versione base',
     'products.basic.desc': 'Piastra NFC semplice ed elegante per i tuoi ricordi digitali.',
     'products.premium.title': 'Design individuale',
@@ -303,7 +303,7 @@ const translations = {
     'footer.imprint': 'Colofone',
     
     // Brand
-    'brand.name': 'Momenta Moments',
+    'brand.name': 'Memora Moments',
     'brand.tagline': 'Memoro - Ricordi che rimangono.',
   }
 };
