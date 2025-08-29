@@ -13,8 +13,10 @@ import {
   CardTitle 
 } from "@/components/ui/card";
 import { Image, Upload, Music, Film, Check } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const MemoryUploader = () => {
+  const { t } = useLanguage();
   const [activeStep, setActiveStep] = useState(1);
   const [productType, setProductType] = useState<"basic" | "custom">("basic");
   const [photos, setPhotos] = useState<File[]>([]);
@@ -68,7 +70,7 @@ const MemoryUploader = () => {
         return (
           <CardContent className="space-y-6">
             <div className="space-y-4">
-              <Label className="text-lg">Produktkategorie wählen</Label>
+              <Label className="text-lg">{t('memoryUploader.selectCategory')}</Label>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div 
                   className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
@@ -76,9 +78,9 @@ const MemoryUploader = () => {
                   }`}
                   onClick={() => setProductType("basic")}
                 >
-                  <h3 className="font-medium mb-2">Memora Tag</h3>
+                  <h3 className="font-medium mb-2">{t('memoryUploader.memoraTag')}</h3>
                   <p className="text-sm text-muted-foreground mb-2">ab 60 CHF</p>
-                  <p className="text-xs text-muted-foreground">Schlichte NFC-Platte für digitale Erinnerungen</p>
+                  <p className="text-xs text-muted-foreground">{t('memoryUploader.memoraTagDescription')}</p>
                 </div>
                 <div 
                   className={`border-2 rounded-lg p-4 cursor-pointer transition-colors ${
@@ -86,26 +88,26 @@ const MemoryUploader = () => {
                   }`}
                   onClick={() => setProductType("custom")}
                 >
-                  <h3 className="font-medium mb-2">Memora Frame</h3>
+                  <h3 className="font-medium mb-2">{t('memoryUploader.memoraFrame')}</h3>
                   <p className="text-sm text-muted-foreground mb-2">ab 120 CHF</p>
-                  <p className="text-xs text-muted-foreground">Mit persönlichem Foto im Rahmen</p>
+                  <p className="text-xs text-muted-foreground">{t('memoryUploader.memoraFrameDescription')}</p>
                 </div>
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="name">Name des/der Verstorbenen</Label>
+              <Label htmlFor="name">{t('memoryUploader.deceasedName')}</Label>
               <Input 
                 id="name" 
                 value={name} 
                 onChange={(e) => setName(e.target.value)} 
-                placeholder="Vollständiger Name"
+                placeholder={t('memoryUploader.fullName')}
               />
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="birthDate">Geburtsdatum</Label>
+                <Label htmlFor="birthDate">{t('memoryUploader.birthDate')}</Label>
                 <Input 
                   id="birthDate" 
                   type="date" 
@@ -114,7 +116,7 @@ const MemoryUploader = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="deathDate">Sterbedatum</Label>
+                <Label htmlFor="deathDate">{t('memoryUploader.deathDate')}</Label>
                 <Input 
                   id="deathDate" 
                   type="date" 
@@ -126,7 +128,7 @@ const MemoryUploader = () => {
 
             {productType === "custom" && (
               <div className="space-y-2">
-                <Label htmlFor="framePhoto">Foto für den Rahmen</Label>
+                <Label htmlFor="framePhoto">{t('memoryUploader.framePhoto')}</Label>
                 <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:bg-secondary/50 transition-colors cursor-pointer">
                   <Input 
                     id="framePhoto" 
@@ -138,25 +140,25 @@ const MemoryUploader = () => {
                   <Label htmlFor="framePhoto" className="cursor-pointer w-full flex flex-col items-center">
                     <Image className="h-8 w-8 text-muted-foreground mb-2" />
                     <span className="text-muted-foreground text-sm">
-                      {framePhoto ? framePhoto.name : "Foto für den Rahmen auswählen"}
+                      {framePhoto ? framePhoto.name : t('memoryUploader.selectFramePhoto')}
                     </span>
                   </Label>
                 </div>
                 {framePhotoUrl && (
                   <div className="mt-2">
-                    <img src={framePhotoUrl} alt="Rahmen Foto Vorschau" className="w-24 h-24 object-cover rounded-md border" />
+                    <img src={framePhotoUrl} alt={t('memoryUploader.framePhotoPreview')} className="w-24 h-24 object-cover rounded-md border" />
                   </div>
                 )}
               </div>
             )}
             
             <div className="space-y-2">
-              <Label htmlFor="message">Persönliche Botschaft</Label>
+              <Label htmlFor="message">{t('memoryUploader.personalMessage')}</Label>
               <Textarea 
                 id="message" 
                 value={message} 
                 onChange={(e) => setMessage(e.target.value)} 
-                placeholder="Eine persönliche Nachricht oder ein Zitat..."
+                placeholder={t('memoryUploader.personalMessagePlaceholder')}
                 rows={5}
               />
             </div>
@@ -166,7 +168,7 @@ const MemoryUploader = () => {
         return (
           <CardContent className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="photos">Fotos hochladen</Label>
+              <Label htmlFor="photos">{t('memoryUploader.uploadPhotos')}</Label>
               <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:bg-secondary/50 transition-colors cursor-pointer">
                 <Input 
                   id="photos" 
@@ -178,19 +180,19 @@ const MemoryUploader = () => {
                 />
                 <Label htmlFor="photos" className="cursor-pointer w-full flex flex-col items-center">
                   <Image className="h-10 w-10 text-muted-foreground mb-2" />
-                  <span className="text-muted-foreground">Klicken Sie hier, um Fotos auszuwählen</span>
-                  <span className="text-xs text-muted-foreground/70 mt-1">JPG, PNG oder GIF (max. 10MB)</span>
+                  <span className="text-muted-foreground">{t('memoryUploader.clickToSelectPhotos')}</span>
+                  <span className="text-xs text-muted-foreground/70 mt-1">{t('memoryUploader.photoFormats')}</span>
                 </Label>
               </div>
             </div>
             
             {previewUrls.length > 0 && (
               <div className="space-y-2">
-                <Label>Vorschau der Fotos</Label>
+                <Label>{t('memoryUploader.photoPreview')}</Label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                   {previewUrls.map((url, index) => (
                     <div key={index} className="relative aspect-square overflow-hidden rounded-md border border-border">
-                      <img src={url} alt={`Vorschau ${index + 1}`} className="object-cover w-full h-full" />
+                      <img src={url} alt={`${t('memoryUploader.preview')} ${index + 1}`} className="object-cover w-full h-full" />
                     </div>
                   ))}
                 </div>
@@ -198,7 +200,7 @@ const MemoryUploader = () => {
             )}
             
             <div className="space-y-2">
-              <Label htmlFor="video">Video hochladen</Label>
+              <Label htmlFor="video">{t('memoryUploader.uploadVideo')}</Label>
               <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:bg-secondary/50 transition-colors cursor-pointer">
                 <Input 
                   id="video" 
@@ -209,8 +211,8 @@ const MemoryUploader = () => {
                 />
                 <Label htmlFor="video" className="cursor-pointer w-full flex flex-col items-center">
                   <Film className="h-10 w-10 text-muted-foreground mb-2" />
-                  <span className="text-muted-foreground">{video ? video.name : "Klicken Sie hier, um ein Video auszuwählen"}</span>
-                  <span className="text-xs text-muted-foreground/70 mt-1">MP4, MOV oder AVI (max. 50MB)</span>
+                  <span className="text-muted-foreground">{video ? video.name : t('memoryUploader.clickToSelectVideo')}</span>
+                  <span className="text-xs text-muted-foreground/70 mt-1">{t('memoryUploader.videoFormats')}</span>
                 </Label>
               </div>
             </div>
@@ -220,7 +222,7 @@ const MemoryUploader = () => {
         return (
           <CardContent className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="song">Lieblingslied</Label>
+              <Label htmlFor="song">{t('memoryUploader.favoriteSong')}</Label>
               <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:bg-secondary/50 transition-colors cursor-pointer">
                 <Input 
                   id="song" 
@@ -230,26 +232,25 @@ const MemoryUploader = () => {
                 />
                 <Label htmlFor="song" className="cursor-pointer w-full flex flex-col items-center">
                   <Music className="h-10 w-10 text-muted-foreground mb-2" />
-                  <span className="text-muted-foreground">Klicken Sie hier, um ein Lied hochzuladen</span>
-                  <span className="text-xs text-muted-foreground/70 mt-1">MP3 oder WAV (max. 10MB)</span>
+                  <span className="text-muted-foreground">{t('memoryUploader.clickToUploadSong')}</span>
+                  <span className="text-xs text-muted-foreground/70 mt-1">{t('memoryUploader.audioFormats')}</span>
                 </Label>
               </div>
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="songLink">Oder Link zu Spotify/YouTube einfügen</Label>
+              <Label htmlFor="songLink">{t('memoryUploader.orLinkSpotify')}</Label>
               <Input 
                 id="songLink" 
                 value={song} 
                 onChange={(e) => setSong(e.target.value)} 
-                placeholder="z.B. https://open.spotify.com/track/..."
+                placeholder={t('memoryUploader.linkPlaceholder')}
               />
             </div>
             
             <div className="p-4 bg-secondary rounded-lg">
               <p className="text-sm text-muted-foreground">
-                Die Musik wird beim Berühren der NFC-Platte mit dem Handy zusammen mit den Bildern und Videos abgespielt, 
-                um ein ganzheitliches Erinnerungserlebnis zu schaffen.
+                {t('memoryUploader.musicExplanation')}
               </p>
             </div>
           </CardContent>
@@ -264,31 +265,30 @@ const MemoryUploader = () => {
                 </div>
               </div>
               
-              <h3 className="text-center text-xl font-serif">Ihre NFC-Platte ist bereit für die Bestellung</h3>
+              <h3 className="text-center text-xl font-serif">{t('memoryUploader.plateReady')}</h3>
               
               <div className="text-center text-muted-foreground">
-                <p>Alle Medien wurden erfolgreich hochgeladen.</p>
+                <p>{t('memoryUploader.mediaUploaded')}</p>
                 <p className="mt-2">
-                  {productType === "basic" ? "Basis Version" : "Individuelle Gestaltung"}
+                  {productType === "basic" ? t('memoryUploader.memoraTag') : t('memoryUploader.memoraFrame')}
                 </p>
                 <p className="mt-1">
-                  Preis: <span className="font-bold">{productType === "basic" ? "60" : "120"} CHF</span>
+                  {t('memoryUploader.price')} <span className="font-bold">{productType === "basic" ? "60" : "120"} CHF</span>
                 </p>
               </div>
               
               <div className="mt-6">
                 <p className="text-sm text-muted-foreground text-center">
-                  Nach Abschluss der Bestellung erhalten Sie eine Bestätigungs-E-Mail 
-                  mit allen Details und dem Lieferzeitplan.
+                  {t('memoryUploader.orderConfirmation')}
                 </p>
               </div>
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="address">Lieferadresse</Label>
+              <Label htmlFor="address">{t('memoryUploader.deliveryAddress')}</Label>
               <Textarea 
                 id="address" 
-                placeholder="Vollständige Lieferadresse"
+                placeholder={t('memoryUploader.fullDeliveryAddress')}
                 rows={3}
               />
             </div>
@@ -303,16 +303,16 @@ const MemoryUploader = () => {
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader>
         <CardTitle className="text-center">
-          {activeStep < 4 ? "Gedenken erstellen" : "Bestellung abschließen"}
+          {activeStep < 4 ? t('memoryUploader.createMemory') : t('memoryUploader.completeOrder')}
         </CardTitle>
         <CardDescription className="text-center">
           {activeStep < 4 ? 
-            `Schritt ${activeStep} von 3: ${
-              activeStep === 1 ? "Produkttyp und Informationen wählen" : 
-              activeStep === 2 ? "Fotos und Videos hinzufügen" : 
-              "Lieblingslied auswählen"
+            `${t('memoryUploader.step')} ${activeStep} ${t('memoryUploader.of')} 3: ${
+              activeStep === 1 ? t('memoryUploader.step1Title') : 
+              activeStep === 2 ? t('memoryUploader.step2Title') : 
+              t('memoryUploader.step3Title')
             }` : 
-            "Überprüfen und bestätigen"
+            t('memoryUploader.step4Title')
           }
         </CardDescription>
       </CardHeader>
@@ -322,7 +322,7 @@ const MemoryUploader = () => {
       <CardFooter className="flex justify-between pt-6">
         {activeStep > 1 ? (
           <Button variant="outline" onClick={prevStep}>
-            Zurück
+            {t('memoryUploader.back')}
           </Button>
         ) : (
           <div></div> // Placeholder for flex alignment
@@ -330,11 +330,11 @@ const MemoryUploader = () => {
         
         {activeStep < 4 ? (
           <Button onClick={nextStep}>
-            Weiter
+            {t('memoryUploader.next')}
           </Button>
         ) : (
           <Button>
-            Jetzt bestellen
+            {t('memoryUploader.orderNow')}
           </Button>
         )}
       </CardFooter>
