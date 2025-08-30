@@ -209,11 +209,33 @@ const Index = () => {
               {/* Basic Version */}
               <Card className="h-full border-2 border-border">
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
-                  <img 
-                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                    alt={t('products.basic.title')} 
-                    className="w-full h-48 object-cover"
-                  />
+                  <Carousel className="w-full">
+                    <CarouselContent>
+                      <CarouselItem>
+                        <img 
+                          src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                          alt={t('products.basic.title')} 
+                          className="w-full h-64 object-cover"
+                        />
+                      </CarouselItem>
+                      <CarouselItem>
+                        <img 
+                          src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                          alt={`${t('products.basic.title')} - Detail`} 
+                          className="w-full h-64 object-cover"
+                        />
+                      </CarouselItem>
+                      <CarouselItem>
+                        <img 
+                          src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                          alt={`${t('products.basic.title')} - Verwendung`} 
+                          className="w-full h-64 object-cover"
+                        />
+                      </CarouselItem>
+                    </CarouselContent>
+                    <CarouselPrevious className="left-2" />
+                    <CarouselNext className="right-2" />
+                  </Carousel>
                 </CardHeader>
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-serif mb-4 text-center">{t('products.basic.title')}</h3>
@@ -247,11 +269,40 @@ const Index = () => {
               {/* Customizable Version */}
               <Card className="h-full border-2 border-border">
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
-                  <img 
-                    src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                    alt={t('products.premium.title')} 
-                    className="w-full h-48 object-cover"
-                  />
+                  <Carousel className="w-full">
+                    <CarouselContent>
+                      <CarouselItem>
+                        <img 
+                          src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                          alt={t('products.premium.title')} 
+                          className="w-full h-64 object-cover"
+                        />
+                      </CarouselItem>
+                      <CarouselItem>
+                        <img 
+                          src="https://images.unsplash.com/photo-1605693803834-d6b0cd20ecbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                          alt={`${t('products.premium.title')} - Gravur`} 
+                          className="w-full h-64 object-cover"
+                        />
+                      </CarouselItem>
+                      <CarouselItem>
+                        <img 
+                          src="https://images.unsplash.com/photo-1560472354-4cb83edd6080?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                          alt={`${t('products.premium.title')} - Personalisierung`} 
+                          className="w-full h-64 object-cover"
+                        />
+                      </CarouselItem>
+                      <CarouselItem>
+                        <img 
+                          src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                          alt={`${t('products.premium.title')} - Qualität`} 
+                          className="w-full h-64 object-cover"
+                        />
+                      </CarouselItem>
+                    </CarouselContent>
+                    <CarouselPrevious className="left-2" />
+                    <CarouselNext className="right-2" />
+                  </Carousel>
                 </CardHeader>
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-serif mb-4 text-center">{t('products.premium.title')}</h3>
