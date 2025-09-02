@@ -7,6 +7,7 @@ import { useTheme } from "@/components/ThemeProvider";
 import { useLanguage } from "@/contexts/LanguageContext";
 import MemoraLogo from "@/components/MemoraLogo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import PetModeToggle from "@/components/PetModeToggle";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,6 +45,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-4">
+          <PetModeToggle />
           <LanguageSwitcher />
           <Link to="/" className="text-foreground hover:text-primary transition-colors">
             {t('nav.home')}
@@ -72,6 +74,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <div className="flex items-center md:hidden space-x-2">
+          <PetModeToggle />
           <LanguageSwitcher />
           <Button
             variant="outline"

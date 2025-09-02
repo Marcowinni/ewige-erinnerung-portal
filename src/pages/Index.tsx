@@ -5,16 +5,18 @@ import FeatureCard from "@/components/FeatureCard";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Heart, Camera, Music, Sparkles, Diamond, Package, Star, Images, Check } from "lucide-react";
+import { Heart, Camera, Music, Sparkles, Diamond, Package, Star, Images, Check, PawPrint } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { usePetMode } from "@/contexts/PetModeContext";
 
 const Index = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
   const productsRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
+  const { isPetMode } = usePetMode();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -66,10 +68,10 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div>
               <FeatureCard 
-                icon={Sparkles}
+                icon={isPetMode ? PawPrint : Sparkles}
                 title={t('features.unique.title')}
                 description={t('features.unique.desc')}
-                iconColor="text-amber-500"
+                iconColor={isPetMode ? "text-orange-500" : "text-amber-500"}
               />
             </div>
             

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
+import { usePetMode } from './PetModeContext';
 
 export type Language = 'de' | 'en' | 'fr' | 'it';
 
@@ -20,15 +21,30 @@ const translations = {
     'nav.start': 'Jetzt starten',
     'nav.theme': 'Farbmodus wechseln',
     
-    // Hero
+    // Mode Toggle
+    'mode.toggle': 'Haustier-Modus',
+    'mode.human': 'Für Menschen',
+    'mode.pet': 'Für Haustiere',
+    
+    // Hero - Human
     'hero.title': 'Erinnerungen, die weiterleben – mit Herz und Klang.',
     'hero.subtitle': 'Aus Erinnerungen wird ein stilles Denkmal – Memora Moments öffnet die Tür zu bewegenden Momenten mit Bild und Musik.',
     'hero.start': 'Jetzt beginnen',
     'hero.learn': 'Mehr erfahren',
     
-    // Features
+    // Hero - Pet
+    'hero.pet.title': 'Für unsere treuen Begleiter – Erinnerungen mit Herz und Klang.',
+    'hero.pet.subtitle': 'Memora Moments für Haustiere – bewahren Sie die schönsten Momente mit Ihrem geliebten Vierbeiner durch Bilder, Videos und Musik.',
+    'hero.pet.start': 'Jetzt beginnen',
+    'hero.pet.learn': 'Mehr erfahren',
+    
+    // Features - Human
     'features.title': 'Unvergessliche Momente für die Ewigkeit',
     'features.subtitle': 'Unsere Memora Moments NFC-Platten vereinen moderne Technologie mit würdevoller Erinnerung. Sie ermöglichen, das Leben eines geliebten Menschen durch Bilder, Videos und Musik lebendig zu halten – direkt am Grab.',
+    
+    // Features - Pet
+    'features.pet.title': 'Unvergessliche Momente mit Ihrem Liebling',
+    'features.pet.subtitle': 'Unsere Memora Moments für Haustiere bewahren die schönsten Erinnerungen an Ihren treuen Begleiter. Durch NFC-Technologie können Sie Bilder, Videos und Lieblingsgeräusche dauerhaft zugänglich machen.',
     'features.unique.title': 'Einzigartiges Gedenken',
     'features.unique.desc': 'Bewahren Sie besondere Erinnerungen mit Memora Moments, die Ihre schönsten Momente durch einfaches Berühren mit dem Handy zugänglich macht.',
     'features.multimedia.title': 'Multimedia Erinnerungen', 
@@ -37,6 +53,16 @@ const translations = {
     'features.music.desc': 'Fügen Sie bedeutungsvolle Musik hinzu, die beim Betrachten der Erinnerungen abgespielt wird.',
     'features.quality.title': 'Würdevoll gestaltet',
     'features.quality.desc': 'Hochwertige Glasplatten, die sich harmonisch in den Grabstein einfügen und allen Wetterbedingungen standhalten.',
+    
+    // Features - Pet specific
+    'features.pet.unique.title': 'Liebevolle Erinnerung',
+    'features.pet.unique.desc': 'Bewahren Sie die besonderen Momente mit Ihrem Haustier - von den ersten Tagen bis zu den schönsten gemeinsamen Erlebnissen.',
+    'features.pet.multimedia.title': 'Tierische Erinnerungen', 
+    'features.pet.multimedia.desc': 'Sammeln Sie Fotos und Videos, die die einzigartige Persönlichkeit und die schönsten Momente Ihres Lieblings zeigen.',
+    'features.pet.music.title': 'Lieblingsgeräusche',
+    'features.pet.music.desc': 'Fügen Sie vertraute Geräusche oder Musik hinzu, die Ihr Haustier geliebt hat oder die Sie an gemeinsame Momente erinnern.',
+    'features.pet.quality.title': 'Wetterbeständig',
+    'features.pet.quality.desc': 'Robust und wetterbeständig - perfekt für Gärten, Tierfriedhöfe oder besondere Erinnerungsorte im Freien.',
     
     // How it works
     'howitworks.title': 'So einfach funktioniert es',
@@ -181,15 +207,30 @@ const translations = {
     'nav.start': 'Get Started',
     'nav.theme': 'Toggle theme',
 
-    // Hero
+    // Mode Toggle
+    'mode.toggle': 'Pet Mode',
+    'mode.human': 'For Humans',
+    'mode.pet': 'For Pets',
+
+    // Hero - Human
     'hero.title': 'Memories that live on – with heart and sound.',
     'hero.subtitle': 'Memora Moments turns memories into a quiet monument – opening the door to moving moments with images and music.',
     'hero.start': 'Get Started',
     'hero.learn': 'Learn More',
+    
+    // Hero - Pet
+    'hero.pet.title': 'For our faithful companions – memories with heart and sound.',
+    'hero.pet.subtitle': 'Memora Moments for pets – preserve the most beautiful moments with your beloved companion through photos, videos and sounds.',
+    'hero.pet.start': 'Get Started',
+    'hero.pet.learn': 'Learn More',
 
-    // Features
+    // Features - Human
     'features.title': 'Unforgettable Moments for Eternity',
     'features.subtitle': 'Our Memora Moments NFC plates combine modern technology with dignified remembrance. They keep the life of a loved one alive through photos, videos and music – directly at the graveside.',
+    
+    // Features - Pet
+    'features.pet.title': 'Unforgettable Moments with Your Beloved Pet',
+    'features.pet.subtitle': 'Our Memora Moments for pets preserve the most beautiful memories of your faithful companion. Through NFC technology, you can make photos, videos and favorite sounds permanently accessible.',
     'features.unique.title': 'A Unique Tribute',
     'features.unique.desc': 'Preserve special memories with Memora Moments, making your most beautiful moments accessible with a simple tap of a phone.',
     'features.multimedia.title': 'Multimedia Memories',
@@ -198,6 +239,16 @@ const translations = {
     'features.music.desc': 'Include meaningful music that plays while viewing the memories.',
     'features.quality.title': 'Dignified Design',
     'features.quality.desc': 'High-quality plates that blend harmoniously with the headstone and withstand all weather conditions.',
+    
+    // Features - Pet specific
+    'features.pet.unique.title': 'Loving Remembrance',
+    'features.pet.unique.desc': 'Preserve the special moments with your pet - from the first days to the most beautiful shared experiences.',
+    'features.pet.multimedia.title': 'Pet Memories', 
+    'features.pet.multimedia.desc': 'Collect photos and videos that show the unique personality and most beautiful moments of your beloved companion.',
+    'features.pet.music.title': 'Favorite Sounds',
+    'features.pet.music.desc': 'Add familiar sounds or music that your pet loved or that remind you of shared moments.',
+    'features.pet.quality.title': 'Weather Resistant',
+    'features.pet.quality.desc': 'Robust and weather-resistant - perfect for gardens, pet cemeteries or special outdoor memorial places.',
 
     // How it works
     'howitworks.title': 'It’s that simple',
@@ -663,8 +714,24 @@ interface LanguageProviderProps {
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('de');
+  const { isPetMode } = usePetMode();
 
   const t = (key: string): string => {
+    // Check if there's a pet-specific version of the key
+    if (isPetMode && key.startsWith('hero.') && !key.startsWith('hero.pet.')) {
+      const petKey = key.replace('hero.', 'hero.pet.');
+      if (translations[language][petKey]) {
+        return translations[language][petKey];
+      }
+    }
+    
+    if (isPetMode && key.startsWith('features.') && !key.startsWith('features.pet.')) {
+      const petKey = key.replace('features.', 'features.pet.');
+      if (translations[language][petKey]) {
+        return translations[language][petKey];
+      }
+    }
+
     return translations[language][key] || key;
   };
 
