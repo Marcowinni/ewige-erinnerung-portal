@@ -30,7 +30,9 @@ const Index = () => {
         <div 
           className="absolute inset-0 bg-center bg-no-repeat bg-cover -z-10"
           style={{ 
-            backgroundImage: "url('/lovable-uploads/0e24d567-3609-48ba-8ce7-b60cb92a6e22.png')",
+            backgroundImage: isPetMode 
+              ? "url('/lovable-uploads/ec30a21b-4126-4466-9e7a-df8c7027f48d.png')" 
+              : "url('/lovable-uploads/0e24d567-3609-48ba-8ce7-b60cb92a6e22.png')",
             filter: "brightness(0.7)"
           }}
         />
