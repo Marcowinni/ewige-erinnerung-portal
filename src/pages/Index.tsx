@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { usePetMode } from "@/contexts/PetModeContext";
+import { getMediaForMode } from "@/data/productMedia";
 
 const Index = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
@@ -17,6 +18,7 @@ const Index = () => {
   const pricingRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
   const { isPetMode } = usePetMode();
+  const media = getMediaForMode(isPetMode);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -171,34 +173,22 @@ const Index = () => {
           <div className="max-w-4xl mx-auto mb-16">
             <Carousel className="w-full">
               <CarouselContent>
-                <CarouselItem>
-                  <div className="rounded-lg overflow-hidden shadow-xl">
-                    <div className="aspect-w-16 aspect-h-9 relative">
-                      <video 
-                        className="w-full rounded-lg" 
-                        controls 
-                        poster="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-                      >
-                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-                        Ihr Browser unterstützt keine Videos.
-                      </video>
+                {media.demoVideos.map((video, index) => (
+                  <CarouselItem key={index}>
+                    <div className="rounded-lg overflow-hidden shadow-xl">
+                      <div className="aspect-w-16 aspect-h-9 relative">
+                        <video 
+                          className="w-full rounded-lg" 
+                          controls 
+                          poster={video.poster}
+                        >
+                          <source src={video.src} type="video/mp4" />
+                          Ihr Browser unterstützt keine Videos.
+                        </video>
+                      </div>
                     </div>
-                  </div>
-                </CarouselItem>
-                <CarouselItem>
-                  <div className="rounded-lg overflow-hidden shadow-xl">
-                    <div className="aspect-w-16 aspect-h-9 relative">
-                      <video 
-                        className="w-full rounded-lg" 
-                        controls 
-                        poster="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-                      >
-                        <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4" />
-                        Ihr Browser unterstützt keine Videos.
-                      </video>
-                    </div>
-                  </div>
-                </CarouselItem>
+                  </CarouselItem>
+                ))}
               </CarouselContent>
               <CarouselPrevious />
               <CarouselNext />
@@ -213,27 +203,15 @@ const Index = () => {
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
                   <Carousel className="w-full">
                     <CarouselContent>
-                      <CarouselItem>
-                        <img 
-                          src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                          alt={t('products.basic.title')} 
-                          className="w-full h-64 object-cover"
-                        />
-                      </CarouselItem>
-                      <CarouselItem>
-                        <img 
-                          src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                          alt={`${t('products.basic.title')} - Detail`} 
-                          className="w-full h-64 object-cover"
-                        />
-                      </CarouselItem>
-                      <CarouselItem>
-                        <img 
-                          src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                          alt={`${t('products.basic.title')} - Verwendung`} 
-                          className="w-full h-64 object-cover"
-                        />
-                      </CarouselItem>
+                      {media.basicProduct.images.map((image, index) => (
+                        <CarouselItem key={index}>
+                          <img 
+                            src={image.src} 
+                            alt={image.alt} 
+                            className="w-full h-64 object-cover"
+                          />
+                        </CarouselItem>
+                      ))}
                     </CarouselContent>
                     <CarouselPrevious className="left-2" />
                     <CarouselNext className="right-2" />
@@ -273,34 +251,15 @@ const Index = () => {
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
                   <Carousel className="w-full">
                     <CarouselContent>
-                      <CarouselItem>
-                        <img 
-                          src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                          alt={t('products.premium.title')} 
-                          className="w-full h-64 object-cover"
-                        />
-                      </CarouselItem>
-                      <CarouselItem>
-                        <img 
-                          src="https://images.unsplash.com/photo-1605693803834-d6b0cd20ecbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                          alt={`${t('products.premium.title')} - Gravur`} 
-                          className="w-full h-64 object-cover"
-                        />
-                      </CarouselItem>
-                      <CarouselItem>
-                        <img 
-                          src="https://images.unsplash.com/photo-1560472354-4cb83edd6080?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                          alt={`${t('products.premium.title')} - Personalisierung`} 
-                          className="w-full h-64 object-cover"
-                        />
-                      </CarouselItem>
-                      <CarouselItem>
-                        <img 
-                          src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                          alt={`${t('products.premium.title')} - Qualität`} 
-                          className="w-full h-64 object-cover"
-                        />
-                      </CarouselItem>
+                      {media.premiumProduct.images.map((image, index) => (
+                        <CarouselItem key={index}>
+                          <img 
+                            src={image.src} 
+                            alt={image.alt} 
+                            className="w-full h-64 object-cover"
+                          />
+                        </CarouselItem>
+                      ))}
                     </CarouselContent>
                     <CarouselPrevious className="left-2" />
                     <CarouselNext className="right-2" />
