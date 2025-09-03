@@ -37,12 +37,12 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         <Link
           to="/"
-          className="flex items-center space-x-2 text-primary hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 text-primary hover:opacity-90 transition-opacity"
         >
-          <div className="flex items-center justify-center">
-            <MemoraLogo className="w-8 h-8" />
-          </div>
-          <span className="font-serif text-xl font-medium leading-none">{t('brand.name')}</span>
+          <MemoraLogo className="w-8 h-8 flex-shrink-0 align-middle" />
+          <span className="font-serif text-xl font-medium leading-none align-middle relative" style={{ top: '2px' }}>
+            {t('brand.name')}
+          </span>
         </Link>
 
         {/* Desktop Navigation */}

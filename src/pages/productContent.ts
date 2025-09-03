@@ -55,153 +55,182 @@ export interface ProductContent {
 
 export const humanContent: ProductContent = {
   hero: {
-    title: "Ewige Erinnerungen schaffen",
-    subtitle: "Bewahren Sie die kostbarsten Momente Ihrer Liebsten für die Ewigkeit mit unserem innovativen Memora System.",
-    startButton: "Erinnerung erstellen",
-    learnButton: "Mehr erfahren"
+    title: "Erinnerungen, die weiterleben – mit Herz und Klang.",
+    subtitle:
+      "Aus Erinnerungen wird ein stilles Denkmal – Memora Moments öffnet die Tür zu bewegenden Momenten mit Bild und Musik.",
+    startButton: "Jetzt beginnen",
+    learnButton: "Mehr erfahren",
   },
   features: {
-    title: "Warum Memora wählen?",
-    subtitle: "Innovative Technologie trifft auf zeitloses Design",
+    title: "Unvergessliche Momente für die Ewigkeit",
+    subtitle:
+      "Unsere Memora Moments NFC-Platten vereinen moderne Technologie mit würdevoller Erinnerung. Sie ermöglichen, das Leben eines geliebten Menschen durch Bilder, Videos und Musik lebendig zu halten – direkt am Grab.",
     unique: {
-      title: "Einzigartige Erinnerungen",
-      desc: "Jedes Memora ist ein Unikat, das die Geschichte eines Menschen erzählt"
+      title: "Einzigartiges Gedenken",
+      desc:
+        "Bewahren Sie besondere Erinnerungen mit Memora Moments, die Ihre schönsten Momente durch einfaches Berühren mit dem Handy zugänglich macht.",
     },
     multimedia: {
-      title: "Multimedia-Inhalte",
-      desc: "Fotos, Videos und persönliche Nachrichten in einem System"
+      title: "Multimedia Erinnerungen",
+      desc:
+        "Laden Sie Fotos und Videos hoch, die die Persönlichkeit und das Leben des Verstorbenen zeigen.",
     },
     music: {
-      title: "Lieblingsmusik",
-      desc: "Verbinden Sie Erinnerungen mit den Lieblingsliedern Ihrer Familie"
+      title: "Lieblingslied einbinden",
+      desc:
+        "Fügen Sie bedeutungsvolle Musik hinzu, die beim Betrachten der Erinnerungen abgespielt wird.",
     },
     quality: {
-      title: "Premium Qualität",
-      desc: "Hochwertige Materialien für dauerhafte Erinnerungen"
-    }
+      title: "Würdevoll gestaltet",
+      desc:
+        "Hochwertige Glasplatten, die sich harmonisch in den Grabstein einfügen und allen Wetterbedingungen standhalten.",
+    },
   },
   howitworks: {
-    title: "So funktioniert's",
-    subtitle: "In nur drei einfachen Schritten zu Ihrer persönlichen Gedenkstätte",
+    title: "So einfach funktioniert es",
+    subtitle:
+      "In wenigen Schritten zur persönlichen Gedenkplatte: Laden Sie Fotos oder Videos hoch, wählen Sie ein Lied, wir erstellen daraus ein liebevoll gestaltetes Video. Sie erhalten eine NFC-Platte, die durch Berühren mit dem Handy direkt zu Ihrer Erinnerung führt.",
     step1: {
-      title: "Inhalte sammeln",
-      desc: "Laden Sie Fotos, Videos und persönliche Nachrichten hoch"
+      title: "Medien hochladen",
+      desc:
+        "Wählen Sie die schönsten Fotos und Videos aus, die die Erinnerung an Ihren Liebsten festhalten.",
     },
     step2: {
-      title: "Personalisieren",
-      desc: "Gestalten Sie Ihr Memora nach Ihren Wünschen"
+      title: "Musik auswählen",
+      desc:
+        "Fügen Sie ein Lieblingslied hinzu, das besondere Bedeutung für den Verstorbenen hatte.",
     },
     step3: {
-      title: "Für immer bewahren",
-      desc: "Erhalten Sie Ihr fertiges Memora und teilen Sie Erinnerungen"
-    }
+      title: "NFC-Platte erhalten",
+      desc:
+        "Ihre persönliche NFC-Platte wird gefertigt und direkt zu Ihnen nach Hause geliefert.",
+    },
   },
   products: {
-    title: "Unsere Memora Produkte",
-    subtitle: "Wählen Sie das perfekte Format für Ihre Erinnerungen",
+    title: "Unsere Produkte und wie sie funktionieren",
+    subtitle:
+      "Erleben Sie den Memora Moments in Aktion und sehen Sie unsere Gedenkplatten.",
     basic: {
       title: "Memora Tag",
-      desc: "Elegante Grundausstattung für Ihre wertvollsten Erinnerungen",
-      price: "ab 60 CHF"
+      desc: "Schlichte, elegante NFC-Platte für Ihre digitalen Erinnerungen.",
+      price: "ab 60 CHF",
     },
     premium: {
       title: "Memora Frame",
-      desc: "Premium-Version mit individueller Gravur und erweiterten Funktionen",
-      price: "ab 120 CHF"
+      desc:
+        "Die stilvolle Verbindung von klassischem Bilderrahmen und moderner NFC-Technologie – für persönliche Erinnerungen, die bleiben.",
+      price: "ab 120 CHF",
     },
     features: {
-      glass: "Sicherheitsglas",
-      nfc: "NFC-Technologie",
-      format: "Verschiedene Formate",
-      weather: "Wetterfest",
-      all: "Alle Grundfunktionen",
-      photo: "Foto-Integration",
-      engraving: "Individuelle Gravur",
-      premium: "Premium-Materialien"
-    }
+      glass: "6×6 cm NFC-Platte aus hochwertigem Kunststoff",
+      nfc: "Minimalistische, elegante Gestaltung",
+      format: "Witterungsbeständig & langlebig",
+      weather: "Einfaches Aufbringen an Grabsteinen, Urnen oder Erinnerungsorten",
+      all: "Hochwertiger Bilderrahmen mit integriertem NFC-Tag",
+      photo: "Persönliches Foto im Rahmen",
+      engraving: "Kleinere, dezente NFC-Einheit für unauffällige Nutzung",
+      premium: "Ideal für Wohnzimmer, Gedenkecken oder private Erinnerungsorte",
+    },
   },
   cta: {
-    title: "Beginnen Sie heute",
-    subtitle: "Schaffen Sie bleibende Erinnerungen für Ihre Familie",
-    create: "Jetzt erstellen",
-    contact: "Kontakt aufnehmen"
-  }
+    title: "Beginnen Sie Ihre Erinnerungsreise",
+    subtitle:
+      "Werden Sie Teil einer Gemeinschaft, die das Leben wertschätzt. Erstellen Sie noch heute Ihr einzigartiges Gedenken und bewahren Sie kostbare Erinnerungen für kommende Generationen.",
+    create: "Gedenken erstellen",
+    contact: "Kontakt aufnehmen",
+  },
 };
+
 
 export const petContent: ProductContent = {
   hero: {
-    title: "Ewige Erinnerungen an Ihre Fellfreunde",
-    subtitle: "Bewahren Sie die kostbarsten Momente mit Ihren geliebten Haustieren für die Ewigkeit mit unserem innovativen Memora System.",
-    startButton: "Haustier-Erinnerung erstellen",
-    learnButton: "Mehr über Haustier-Memora"
+    title: "Für unsere treuen Begleiter – Erinnerungen mit Herz und Klang.",
+    subtitle:
+      "Memora Moments für Haustiere – bewahren Sie die schönsten Momente mit Ihrem geliebten Vierbeiner durch Bilder, Videos und Musik.",
+    startButton: "Jetzt beginnen",
+    learnButton: "Mehr erfahren",
   },
   features: {
-    title: "Warum Memora für Haustiere?",
-    subtitle: "Liebevolle Technologie für unsere treuen Begleiter",
+    title: "Unvergessliche Momente mit Ihrem Liebling",
+    subtitle:
+      "Unsere Memora Moments für Haustiere bewahren die schönsten Erinnerungen an Ihren treuen Begleiter. Durch NFC-Technologie können Sie Bilder, Videos und Lieblingsgeräusche dauerhaft zugänglich machen.",
     unique: {
-      title: "Einzigartige Haustier-Erinnerungen",
-      desc: "Jedes Memora erzählt die besondere Geschichte Ihres Lieblings"
+      title: "Liebevolle Erinnerung",
+      desc:
+        "Bewahren Sie die besonderen Momente mit Ihrem Haustier – von den ersten Tagen bis zu den schönsten gemeinsamen Erlebnissen.",
     },
     multimedia: {
-      title: "Multimedia-Inhalte",
-      desc: "Süße Fotos, Videos und persönliche Botschaften an Ihren Vierbeiner"
+      title: "Tierische Erinnerungen",
+      desc:
+        "Sammeln Sie Fotos und Videos, die die einzigartige Persönlichkeit und die schönsten Momente Ihres Lieblings zeigen.",
     },
     music: {
       title: "Lieblingsgeräusche",
-      desc: "Verbinden Sie Erinnerungen mit den Lieblingsgeräuschen Ihres Haustiers"
+      desc:
+        "Fügen Sie vertraute Geräusche oder Musik hinzu, die Ihr Haustier geliebt hat oder die Sie an gemeinsame Momente erinnern.",
     },
     quality: {
-      title: "Haustierfreundlich",
-      desc: "Sichere, hochwertige Materialien für dauerhafte Erinnerungen"
-    }
+      title: "Wetterbeständig",
+      desc:
+        "Robust und wetterbeständig – perfekt für Gärten, Tierfriedhöfe oder besondere Erinnerungsorte im Freien.",
+    },
   },
   howitworks: {
-    title: "So funktioniert's für Haustiere",
-    subtitle: "In nur drei einfachen Schritten zu Ihrer persönlichen Haustier-Gedenkstätte",
+    title: "So einfach funktioniert es",
+    subtitle:
+      "In wenigen Schritten zur persönlichen Haustier-Gedenkplatte: Laden Sie Fotos oder Videos hoch, wählen Sie ein Lied oder vertraute Geräusche – wir erstellen ein liebevoll gestaltetes Video. Ihre NFC-Platte führt per Berührung direkt zur Erinnerung.",
     step1: {
-      title: "Haustier-Inhalte sammeln",
-      desc: "Laden Sie süße Fotos, Videos und persönliche Nachrichten an Ihren Liebling hoch"
+      title: "Medien hochladen",
+      desc:
+        "Wählen Sie die schönsten Fotos und Videos aus, die das Wesen Ihres Lieblings festhalten.",
     },
     step2: {
-      title: "Personalisieren",
-      desc: "Gestalten Sie Ihr Haustier-Memora mit Namen, Daten und besonderen Details"
+      title: "Musik/Geräusch auswählen",
+      desc:
+        "Fügen Sie ein Lieblingslied oder vertraute Geräusche hinzu, die besondere Bedeutung haben.",
     },
     step3: {
-      title: "Für immer im Herzen",
-      desc: "Erhalten Sie Ihr fertiges Haustier-Memora und bewahren Sie die Liebe"
-    }
+      title: "NFC-Platte erhalten",
+      desc:
+        "Ihre Haustier-NFC-Platte wird gefertigt und bequem zu Ihnen nach Hause geliefert.",
+    },
   },
   products: {
-    title: "Unsere Haustier-Memora Produkte",
-    subtitle: "Wählen Sie das perfekte Format für die Erinnerungen an Ihren Liebling",
+    title: "Unsere Produkte und wie sie funktionieren",
+    subtitle:
+      "Erleben Sie Memora Moments für Haustiere in Aktion und entdecken Sie unsere liebevoll gestalteten Lösungen.",
     basic: {
       title: "Haustier-Memora Tag",
-      desc: "Liebevolle Grundausstattung für Ihre wertvollsten Haustier-Erinnerungen",
-      price: "ab 55 CHF"
+      desc:
+        "Schlichte, liebevolle NFC-Platte für Ihre digitalen Erinnerungen an Ihren Liebling.",
+      price: "ab 55 CHF",
     },
     premium: {
       title: "Haustier-Memora Frame",
-      desc: "Premium-Version mit Pfoten-Gravur und speziellen Haustier-Funktionen",
-      price: "ab 110 CHF"
+      desc:
+        "Ein stilvoller Bilderrahmen mit integriertem NFC – ideal für bleibende Erinnerungen an Ihren Begleiter.",
+      price: "ab 110 CHF",
     },
     features: {
-      glass: "Bruchsicheres Glas",
-      nfc: "NFC-Technologie",
+      glass: "6×6 cm NFC-Platte, kratz- und wetterfest",
+      nfc: "Minimalistische, liebevolle Gestaltung",
       format: "Haustier-optimierte Formate",
-      weather: "Wetter- und kratzfest",
-      all: "Alle Haustier-Grundfunktionen",
-      photo: "Mehrfach-Foto-Integration",
-      engraving: "Pfoten- und Namen-Gravur",
-      premium: "Haustierfreundliche Premium-Materialien"
-    }
+      weather: "Wetter- und alltagsbeständig – für drinnen & draussen",
+      all: "Hochwertiger Bilderrahmen mit integriertem NFC-Tag",
+      photo: "Persönliches Foto im Rahmen",
+      engraving: "Optional: Pfoten- und Namensgravur",
+      premium: "Ideal für Zuhause, Gedenkecken oder besondere Erinnerungsorte",
+    },
   },
   cta: {
     title: "Ehren Sie Ihren Liebling heute",
-    subtitle: "Schaffen Sie bleibende Erinnerungen an Ihren treuen Begleiter",
-    create: "Haustier-Memora erstellen",
-    contact: "Beratung für Haustiere"
-  }
+    subtitle:
+      "Schaffen Sie eine würdige Erinnerung an Ihren treuen Begleiter – liebevoll, persönlich und jederzeit zugänglich.",
+    create: "Haustier-Gedenken erstellen",
+    contact: "Beratung für Haustiere",
+  },
 };
+
 
 export const getContentForMode = (isPetMode: boolean): ProductContent => {
   return isPetMode ? petContent : humanContent;
