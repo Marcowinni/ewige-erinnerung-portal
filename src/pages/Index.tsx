@@ -11,6 +11,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useLanguage } from "@/contexts/LanguageContext";
 import { usePetMode } from "@/contexts/PetModeContext";
 import { getMediaForMode } from "@/data/productMedia";
+import { getContentForMode } from "@/data/productContent";
 
 const Index = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
