@@ -39,8 +39,10 @@ const Navbar = () => {
           to="/"
           className="flex items-center space-x-2 text-primary hover:opacity-90 transition-opacity"
         >
-          <MemoraLogo className="w-8 h-8" />
-          <span className="font-serif text-xl font-medium">{t('brand.name')}</span>
+          <div className="flex items-center justify-center">
+            <MemoraLogo className="w-8 h-8" />
+          </div>
+          <span className="font-serif text-xl font-medium leading-none">{t('brand.name')}</span>
         </Link>
 
         {/* Desktop Navigation */}
