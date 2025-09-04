@@ -1,8 +1,9 @@
-import { useLanguage, Language } from '@/contexts/LanguageContext';
+import { useContent } from '@/contexts/ContentContext';
+import { Language } from '@/data/content';
 import { Button } from '@/components/ui/button';
 
 const LanguageSwitcher = () => {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage } = useContent();
 
   const languages = [
     { code: 'de' as Language, flag: '🇩🇪', name: 'Deutsch' },

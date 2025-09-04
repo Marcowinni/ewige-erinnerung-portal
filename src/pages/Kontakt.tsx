@@ -7,10 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Send, Mail, Phone } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useContent } from "@/contexts/ContentContext";
 
 const Kontakt = () => {
-  const { t } = useLanguage();
+  const { sharedContent } = useContent();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
