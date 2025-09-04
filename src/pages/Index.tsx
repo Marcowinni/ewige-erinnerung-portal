@@ -19,6 +19,7 @@ const Index = () => {
   const { isPetMode, modeContent } = useContent();
   console.log("MODE:", isPetMode ? "pet" : "human", "TITLE:", modeContent.hero.title);
 
+  const content = modeContent;
   const media = getMediaForMode(isPetMode);
 
   return (

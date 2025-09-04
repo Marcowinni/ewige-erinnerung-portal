@@ -13,10 +13,10 @@ import {
   CardTitle 
 } from "@/components/ui/card";
 import { Image, Upload, Music, Film, Check } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useContent } from "@/contexts/ContentContext";
 
 const MemoryUploader = () => {
-  const { t } = useLanguage();
+  const { t } = useContent();
   const [activeStep, setActiveStep] = useState(1);
   const [productType, setProductType] = useState<"basic" | "custom">("basic");
   const [photos, setPhotos] = useState<File[]>([]);

@@ -10,7 +10,7 @@ import { Send, Mail, Phone } from "lucide-react";
 import { useContent } from "@/contexts/ContentContext";
 
 const Kontakt = () => {
-  const { sharedContent } = useContent();
+  const { sharedContent, t } = useContent();
   const [formData, setFormData] = useState({
     name: "",
     email: "",

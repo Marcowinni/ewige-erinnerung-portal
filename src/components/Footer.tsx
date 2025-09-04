@@ -5,7 +5,7 @@ import { useContent } from "@/contexts/ContentContext";
 import MemoraLogo from "@/components/MemoraLogo";
 
 const Footer = () => {
-  const { sharedContent } = useContent();
+  const { sharedContent, t } = useContent();
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-12">
