@@ -21,7 +21,11 @@ export const getSharedContent = (language: Language) => {
 
 export const getModeContent = (language: Language, mode: Mode) => {
   const content = getContent(language);
-  return mode === 'pet' ? content.pet : content.human;
+  if (mode === 'pet') return content.pet;
+  if (mode === 'surprise') return content.surprise; 
+  return content.human;
 };
+
+
 
 export * from './types';

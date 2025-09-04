@@ -1,32 +1,51 @@
 import { Button } from "@/components/ui/button";
 import { useContent } from "@/contexts/ContentContext";
-import { Heart, PawPrint } from "lucide-react";
+import { Heart, PawPrint, Sparkles } from "lucide-react";
 
 const PetModeToggle = () => {
-  const { mode, setMode, isPetMode, sharedContent } = useContent();
+  const { mode, setMode, sharedContent } = useContent();
 
-  const toggleMode = () => {
-    setMode(isPetMode ? 'human' : 'pet');
+  const cycleMode = () => {
+    if (mode === "human") return setMode("pet");
+    if (mode === "pet") return setMode("surprise");
+    return setMode("human");
   };
 
-  return (
-    <Button
-      onClick={toggleMode}
-      variant="outline"
-      size="sm"
-      className="flex items-center gap-2 border-primary/20 hover:border-primary/40 transition-colors"
-    >
-      {isPetMode ? (
+  const iconAndLabel = () => {
+    if (mode === "human") {
+      return (
         <>
           <Heart className="w-4 h-4" />
           <span className="hidden sm:inline">{sharedContent.navigation.mode.human}</span>
         </>
-      ) : (
+      );
+    }
+    if (mode === "pet") {
+      return (
         <>
           <PawPrint className="w-4 h-4" />
           <span className="hidden sm:inline">{sharedContent.navigation.mode.pet}</span>
         </>
-      )}
+      );
+    }
+    return (
+      <>
+        <Sparkles className="w-4 h-4" />
+        <span className="hidden sm:inline">{sharedContent.navigation.mode.surprise}</span>
+      </>
+    );
+  };
+
+  return (
+    <Button
+      onClick={cycleMode}
+      variant="outline"
+      size="sm"
+      className="gap-2"
+      aria-label="Modus wechseln"
+      title="Modus wechseln"
+    >
+      {iconAndLabel()}
     </Button>
   );
 };

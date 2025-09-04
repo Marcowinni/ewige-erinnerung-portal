@@ -4,181 +4,183 @@ export const enContent: ContentData = {
   shared: {
     navigation: {
       home: 'Home',
-      gedenken: 'Create Memorial',
-      about: 'About Us',
+      gedenken: 'Create Tribute',
+      about: 'About',
       contact: 'Contact',
       mode: {
         human: 'Humans',
-        pet: 'Pets'
+        pet: 'Pets',
+        surprise: 'Surprise'
       }
     },
     about: {
-      title: 'About Us - Memora Moments',
+      title: 'About - Memora Moments',
       heading: 'About Memora Moments',
       description: 'Learn more about our mission to create dignified memories.'
     },
     contact: {
       title: 'Contact - Memora Moments',
-      heading: 'Get in Touch',
-      description: 'Have questions? We are here to help you.'
+      heading: 'Get in touch',
+      description: 'Questions? We are here to help.'
     }
   },
+
+  // --- HUMAN MODE ---
   human: {
     hero: {
-      title: "Memories that live on – with heart and sound.",
-      subtitle: "Memories become a silent monument – Memora Moments opens the door to moving moments with images and music.",
-      startButton: "Get started",
-      learnButton: "Learn more",
+      title: 'Memories that live on — with heart and sound.',
+      subtitle: 'Memora Moments turns memories into a quiet monument with image and music.',
+      startButton: 'Start now',
+      learnButton: 'Learn more'
     },
     features: {
-      title: "Unforgettable moments for eternity",
-      subtitle: "Our Memora Moments NFC plates combine modern technology with dignified remembrance. They enable you to keep the life of a loved one alive through images, videos and music – directly at the grave.",
-      unique: {
-        title: "Unique remembrance",
-        desc: "Preserve special memories with Memora Moments, making your most beautiful moments accessible by simply touching your phone.",
-      },
-      multimedia: {
-        title: "Multimedia memories",
-        desc: "Upload photos and videos that show the personality and life of the deceased.",
-      },
-      music: {
-        title: "Include favorite song",
-        desc: "Add meaningful music that plays while viewing the memories.",
-      },
-      quality: {
-        title: "Dignified design",
-        desc: "High-quality glass plates that harmoniously integrate into the gravestone and withstand all weather conditions.",
-      },
+      title: 'Unforgettable moments for eternity',
+      subtitle: 'Our NFC plates combine modern technology with dignified remembrance.',
+      unique: { title: 'Unique tribute', desc: 'Preserve special memories with Memora Moments.' },
+      multimedia: { title: 'Multimedia memories', desc: 'Photos and videos that tell a life.' },
+      music: { title: 'Add a favorite song', desc: 'Enrich the moment with meaningful music.' },
+      quality: { title: 'Dignified design', desc: 'High-quality, weather-resistant plates with an elegant finish.' }
     },
     howitworks: {
-      title: "How it works so simply",
-      subtitle: "In just a few steps to your personal memorial plate: Upload photos or videos, choose a song, we create a lovingly designed video from it. You receive an NFC plate that leads directly to your memory by touching it with your phone.",
-      step1: {
-        title: "Upload media",
-        desc: "Choose the most beautiful photos and videos that capture the memory of your loved one.",
-      },
-      step2: {
-        title: "Select music",
-        desc: "Add a favorite song that had special meaning for the deceased.",
-      },
-      step3: {
-        title: "Receive NFC plate",
-        desc: "Your personal NFC plate is manufactured and delivered directly to your home.",
-      },
+      title: 'How it works',
+      subtitle: 'Create your personal tribute in a few steps.',
+      step1: { title: 'Upload media', desc: 'Select photos and videos.' },
+      step2: { title: 'Select music', desc: 'Add a meaningful song.' },
+      step3: { title: 'Receive NFC plate', desc: 'Your tribute arrives at your home.' }
     },
     products: {
-      title: "Our products and how they work",
-      subtitle: "Experience Memora Moments in action and see our memorial plates.",
-      basic: {
-        title: "Memora Tag",
-        desc: "Simple, elegant NFC plate for your digital memories.",
-        price: "from 60 CHF",
-      },
-      premium: {
-        title: "Memora Frame",
-        desc: "The stylish connection of classic picture frame and modern NFC technology – for personal memories that last.",
-        price: "from 120 CHF",
-      },
+      title: 'Our products',
+      subtitle: 'The classic Memora range.',
+      basic: { title: 'Memora Tag', desc: 'Minimal NFC plate for digital memories.', price: 'from 60 CHF' },
+      premium: { title: 'Memora Frame', desc: 'Picture frame with integrated NFC.', price: 'from 120 CHF' },
+      deluxe: { title: 'Memora Deluxe', desc: 'Exclusive glass plate with engraving and extended features.', price: 'from 200 CHF' },
       features: {
-        glass: "6×6 cm NFC plate made of high-quality plastic",
-        nfc: "Minimalistic, elegant design",
-        format: "Weather-resistant & durable",
-        weather: "Easy application to gravestones, urns or memorial sites",
-        all: "High-quality picture frame with integrated NFC tag",
-        photo: "Personal photo in frame",
-        engraving: "Smaller, discreet NFC unit for inconspicuous use",
-        premium: "Ideal for living rooms, memorial corners or private memorial sites",
-      },
+        glass: '6×6 cm NFC plate',
+        nfc: 'Elegant design',
+        format: 'Weather-resistant',
+        weather: 'For headstones, urns, memorial spots',
+        all: 'Frame with NFC',
+        photo: 'Personal photo',
+        engraving: 'Optional engraving',
+        premium: 'Ideal for home display'
+      }
     },
     cta: {
-      title: "Begin your memory journey",
-      subtitle: "Become part of a community that values life. Create your unique memorial today and preserve precious memories for future generations.",
-      create: "Create memorial",
-      contact: "Get in touch",
+      title: 'Begin your journey of remembrance',
+      subtitle: 'Create your tribute and preserve what matters.',
+      create: 'Create tribute',
+      contact: 'Contact us'
     },
     gedenken: {
-      title: "Create Memorial - Memora Moments",
-      heading: "Create Your Memorial",
-      description: "Upload your most beautiful memories and we will create a dignified memorial from them."
+      title: 'Create Tribute - Memora Moments',
+      heading: 'Create your tribute',
+      description: 'Upload your memories and we craft a dignified tribute.'
     }
   },
+
+  // --- PET MODE ---
   pet: {
     hero: {
-      title: "For our faithful companions – memories with heart and sound.",
-      subtitle: "Memora Moments for pets – preserve the most beautiful moments with your beloved four-legged friend through images, videos and music.",
-      startButton: "Get started",
-      learnButton: "Learn more",
+      title: 'For our loyal companions — memories with heart and sound.',
+      subtitle: 'Memora Moments for pets — preserve the most beautiful shared moments.',
+      startButton: 'Start now',
+      learnButton: 'Learn more'
     },
     features: {
-      title: "Unforgettable moments with your beloved",
-      subtitle: "Our Memora Moments for pets preserve the most beautiful memories of your faithful companion. Through NFC technology, you can make images, videos and favorite sounds permanently accessible.",
-      unique: {
-        title: "Loving memory",
-        desc: "Preserve the special moments with your pet – from the first days to the most beautiful shared experiences.",
-      },
-      multimedia: {
-        title: "Animal memories",
-        desc: "Collect photos and videos that show the unique personality and the most beautiful moments of your beloved.",
-      },
-      music: {
-        title: "Favorite sounds",
-        desc: "Add familiar sounds or music that your pet loved or that remind you of shared moments.",
-      },
-      quality: {
-        title: "Weather resistant",
-        desc: "Robust and weather-resistant – perfect for gardens, pet cemeteries or special memorial sites outdoors.",
-      },
+      title: 'Unforgettable moments with your companion',
+      subtitle: 'Digital tributes for pets.',
+      unique: { title: 'Loving remembrance', desc: 'Celebrate the bond with your pet.' },
+      multimedia: { title: 'Pet memories', desc: 'Photos and videos of your beloved friend.' },
+      music: { title: 'Favorite sounds', desc: 'Add familiar sounds or music.' },
+      quality: { title: 'Weather-proof', desc: 'Robust for indoors and outdoors.' }
     },
     howitworks: {
-      title: "How it works so simply",
-      subtitle: "In just a few steps to your personal pet memorial plate: Upload photos or videos, choose a song or familiar sounds – we create a lovingly designed video. Your NFC plate leads directly to the memory with a touch.",
-      step1: {
-        title: "Upload media",
-        desc: "Choose the most beautiful photos and videos that capture the essence of your beloved.",
-      },
-      step2: {
-        title: "Select music/sound",
-        desc: "Add a favorite song or familiar sounds that have special meaning.",
-      },
-      step3: {
-        title: "Receive NFC plate",
-        desc: "Your pet NFC plate is manufactured and conveniently delivered to your home.",
-      },
+      title: 'How it works',
+      subtitle: 'Three steps to your pet tribute.',
+      step1: { title: 'Upload media', desc: 'Choose photos and videos.' },
+      step2: { title: 'Add sounds/music', desc: 'Include meaningful audio.' },
+      step3: { title: 'Receive NFC plate', desc: 'Your pet plate is delivered.' }
     },
     products: {
-      title: "Our products and how they work",
-      subtitle: "Experience Memora Moments for pets in action and discover our lovingly designed solutions.",
-      basic: {
-        title: "Pet Memora Tag",
-        desc: "Simple, loving NFC plate for your digital memories of your beloved.",
-        price: "from 55 CHF",
-      },
-      premium: {
-        title: "Pet Memora Frame",
-        desc: "A stylish picture frame with integrated NFC – ideal for lasting memories of your companion.",
-        price: "from 110 CHF",
-      },
+      title: 'Pet products',
+      subtitle: 'Remembrance for loyal companions.',
+      basic: { title: 'Pet Memora Tag', desc: 'Simple NFC plate for pets.', price: 'from 55 CHF' },
+      premium: { title: 'Pet Memora Frame', desc: 'Frame with NFC for pets.', price: 'from 110 CHF' },
+      deluxe: { title: 'Pet Memora Deluxe', desc: 'Deluxe version with engraving and extended media options.', price: 'from 180 CHF' },
       features: {
-        glass: "6×6 cm NFC plate, scratch and weather resistant",
-        nfc: "Minimalistic, loving design",
-        format: "Pet-optimized formats",
-        weather: "Weather and everyday resistant – for indoors & outdoors",
-        all: "High-quality picture frame with integrated NFC tag",
-        photo: "Personal photo in frame",
-        engraving: "Optional: paw and name engraving",
-        premium: "Ideal for home, memorial corners or special memorial sites",
-      },
+        glass: '6×6 cm NFC plate, weather-proof',
+        nfc: 'Loving design',
+        format: 'Pet-friendly formats',
+        weather: 'For indoor and outdoor use',
+        all: 'Frame with NFC',
+        photo: 'Photo in frame',
+        engraving: 'Optional paw/name engraving',
+        premium: 'Ideal for home'
+      }
     },
     cta: {
-      title: "Honor your beloved today",
-      subtitle: "Create a dignified memory of your faithful companion – loving, personal and always accessible.",
-      create: "Create pet memorial",
-      contact: "Pet consultation",
+      title: 'Honor your companion',
+      subtitle: 'Create a loving tribute.',
+      create: 'Create pet tribute',
+      contact: 'Pet advice'
     },
     gedenken: {
-      title: "Create Pet Memorial - Memora Moments",
-      heading: "Create Memorial for Your Beloved",
-      description: "Upload the most beautiful memories of your faithful companion and we will create a loving memorial from them."
+      title: 'Create Pet Tribute - Memora Moments',
+      heading: 'Create your pet tribute',
+      description: 'Upload memories of your beloved companion.'
+    }
+  },
+
+  // --- SURPRISE MODE ---
+  surprise: {
+    hero: {
+      title: 'Moments of surprise that touch the heart.',
+      subtitle: 'The Surprise collection blends design with a curated experience.',
+      startButton: 'Start Surprise',
+      learnButton: 'Learn more'
+    },
+    features: {
+      title: 'That special touch',
+      subtitle: 'Curated, subtle and a little magical.',
+      unique: { title: 'Curated experience', desc: 'Each Surprise plate tells a small story.' },
+      multimedia: { title: 'Image • Video • Sound', desc: 'All media on one plate.' },
+      music: { title: 'Signature sound', desc: 'A tasteful sound layer for special moments.' },
+      quality: { title: 'Premium materials', desc: 'Durable, weather-resistant and elegant.' }
+    },
+    howitworks: {
+      title: 'How Surprise works',
+      subtitle: 'Three steps to the moment.',
+      step1: { title: 'Choose content', desc: 'Pick photos, clips and music.' },
+      step2: { title: 'Set the scene', desc: 'We craft a tasteful sequence.' },
+      step3: { title: 'Receive Surprise', desc: 'Tap and enjoy the experience.' }
+    },
+    products: {
+      title: 'Surprise products',
+      subtitle: 'Choose your style.',
+      basic: { title: 'Surprise Tag', desc: 'Minimal NFC plate for surprise moments.', price: 'from 70 CHF' },
+      premium: { title: 'Surprise Frame', desc: 'Elegant frame with integrated experience.', price: 'from 140 CHF' },
+      deluxe: { title: 'Surprise Deluxe', desc: 'Exclusive Surprise with extended options.', price: 'from 220 CHF' },
+      features: {
+        glass: 'Robust finish',
+        nfc: 'Integrated NFC tag',
+        format: 'Optimized for multimedia',
+        weather: 'Weather-resistant',
+        all: 'Frame with hidden NFC',
+        photo: 'Optional photo',
+        engraving: 'Optional engraving',
+        premium: 'Refined materials'
+      }
+    },
+    cta: {
+      title: 'Ready to surprise?',
+      subtitle: 'Gift unique moments that last.',
+      create: 'Create Surprise',
+      contact: 'Request advice'
+    },
+    gedenken: {
+      title: 'Create Surprise - Memora Moments',
+      heading: 'Your Surprise moment',
+      description: 'Upload content and we craft the experience.'
     }
   }
 };

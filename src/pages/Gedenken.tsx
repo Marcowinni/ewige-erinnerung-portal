@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import MemoryUploader from "@/components/MemoryUploader";
-import TagDesigner from "@/components/TagDesigner";
 import { useContent } from "@/contexts/ContentContext";
 import { Button } from "@/components/ui/button";
 
@@ -56,19 +55,6 @@ const Gedenken = () => {
                 </button>
               </div>
             </section>
-
-            {/* Tag designer for Memora Tag */}
-            {productType === "basic" && (
-              <section className="max-w-5xl mx-auto mb-16">
-                <h2 className="text-2xl font-serif mb-4">{isPetMode ? "Gestalte deinen 3cm Memora Tag" : "Gestalte deinen 6×6cm Memora Tag"}</h2>
-                <p className="text-sm text-muted-foreground mb-6">
-                  {isPetMode
-                    ? "Füge ein Bild hinzu und platziere deinen Text frei auf dem runden Tag."
-                    : "Füge ein Bild hinzu und platziere deinen Text frei auf dem rechteckigen Tag."}
-                </p>
-                <TagDesigner shape={isPetMode ? "round" : "square"} />
-              </section>
-            )}
 
             {/* Memory uploader (bestehende Schritte) */}
             <section className="max-w-5xl mx-auto">
