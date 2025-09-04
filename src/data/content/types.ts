@@ -1,6 +1,6 @@
 // Content type definitions for the application
 export type Language = 'de' | 'en' | 'fr' | 'it';
-export type Mode = 'human' | 'pet';
+export type Mode = 'human' | 'pet' | 'surprise';
 
 export interface HeroContent {
   title: string;
@@ -39,6 +39,11 @@ export interface ProductsContent {
     desc: string;
     price: string;
   };
+  deluxe: {                 
+    title: string;
+    desc: string;
+    price: string;
+  };
   features: {
     glass: string;
     nfc: string;
@@ -50,6 +55,7 @@ export interface ProductsContent {
     premium: string;
   };
 }
+
 
 export interface CTAContent {
   title: string;
@@ -72,6 +78,7 @@ export interface NavigationContent {
   mode: {
     human: string;
     pet: string;
+    surprise: string; // neu
   };
 }
 
@@ -102,4 +109,5 @@ export interface ContentData {
   shared: SharedContent;
   human: ModeContent;
   pet: ModeContent;
+  surprise: ModeContent;
 }

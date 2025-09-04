@@ -4,181 +4,183 @@ export const itContent: ContentData = {
   shared: {
     navigation: {
       home: 'Home',
-      gedenken: 'Crea memoriale',
+      gedenken: 'Crea tributo',
       about: 'Chi siamo',
-      contact: 'Contatto',
+      contact: 'Contatti',
       mode: {
-        human: 'Umani',
-        pet: 'Animali'
+        human: 'Persone',
+        pet: 'Animali',
+        surprise: 'Surprise'
       }
     },
     about: {
       title: 'Chi siamo - Memora Moments',
       heading: 'Su Memora Moments',
-      description: 'Scopri di più sulla nostra missione di creare ricordi degni.'
+      description: 'Scopri la nostra missione: creare ricordi dignitosi.'
     },
     contact: {
-      title: 'Contatto - Memora Moments',
-      heading: 'Mettiti in contatto',
-      description: 'Hai domande? Siamo qui per aiutarti.'
+      title: 'Contatti - Memora Moments',
+      heading: 'Contattaci',
+      description: 'Domande? Siamo qui per aiutarti.'
     }
   },
+
+  // --- HUMAN MODE ---
   human: {
     hero: {
-      title: "Ricordi che vivono – con cuore e suono.",
-      subtitle: "I ricordi diventano un monumento silenzioso – Memora Moments apre la porta a momenti commoventi con immagini e musica.",
-      startButton: "Inizia ora",
-      learnButton: "Scopri di più",
+      title: 'Ricordi che vivono — con cuore e suono.',
+      subtitle: 'Memora Moments trasforma i ricordi in un omaggio discreto con immagini e musica.',
+      startButton: 'Inizia ora',
+      learnButton: 'Scopri di più'
     },
     features: {
-      title: "Momenti indimenticabili per l'eternità",
-      subtitle: "Le nostre piastre NFC Memora Moments uniscono tecnologia moderna con ricordo dignitoso. Permettono di mantenere viva la vita di una persona cara attraverso immagini, video e musica – direttamente sulla tomba.",
-      unique: {
-        title: "Ricordo unico",
-        desc: "Preserva ricordi speciali con Memora Moments, rendendo i tuoi momenti più belli accessibili semplicemente toccando il telefono.",
-      },
-      multimedia: {
-        title: "Ricordi multimediali",
-        desc: "Carica foto e video che mostrano la personalità e la vita del defunto.",
-      },
-      music: {
-        title: "Includi canzone preferita",
-        desc: "Aggiungi musica significativa che suona mentre visualizzi i ricordi.",
-      },
-      quality: {
-        title: "Design dignitoso",
-        desc: "Piastre di vetro di alta qualità che si integrano armoniosamente nella lapide e resistono a tutte le condizioni meteorologiche.",
-      },
+      title: 'Momenti indimenticabili per l’eternità',
+      subtitle: 'Le nostre piastre NFC uniscono tecnologia e dignità.',
+      unique: { title: 'Omaggio unico', desc: 'Conserva i ricordi speciali con Memora Moments.' },
+      multimedia: { title: 'Ricordi multimediali', desc: 'Foto e video che raccontano una vita.' },
+      music: { title: 'Aggiungi una canzone', desc: 'Arricchisci il momento con musica significativa.' },
+      quality: { title: 'Design elegante', desc: 'Materiali di qualità, resistenti agli agenti atmosferici.' }
     },
     howitworks: {
-      title: "Come funziona così semplicemente",
-      subtitle: "In pochi passi alla tua piastra commemorativa personale: Carica foto o video, scegli una canzone, creiamo un video amorevolmente progettato. Ricevi una piastra NFC che porta direttamente al tuo ricordo toccandola con il telefono.",
-      step1: {
-        title: "Carica media",
-        desc: "Scegli le foto e i video più belli che catturano il ricordo della tua persona cara.",
-      },
-      step2: {
-        title: "Seleziona musica",
-        desc: "Aggiungi una canzone preferita che aveva un significato speciale per il defunto.",
-      },
-      step3: {
-        title: "Ricevi piastra NFC",
-        desc: "La tua piastra NFC personale viene prodotta e consegnata direttamente a casa tua.",
-      },
+      title: 'Come funziona',
+      subtitle: 'Crea il tuo omaggio in pochi passi.',
+      step1: { title: 'Carica i media', desc: 'Seleziona foto e video.' },
+      step2: { title: 'Scegli la musica', desc: 'Aggiungi una canzone significativa.' },
+      step3: { title: 'Ricevi la piastra NFC', desc: 'Il tuo omaggio arriva a casa.' }
     },
     products: {
-      title: "I nostri prodotti e come funzionano",
-      subtitle: "Sperimenta Memora Moments in azione e vedi le nostre piastre commemorative.",
-      basic: {
-        title: "Memora Tag",
-        desc: "Piastra NFC semplice ed elegante per i tuoi ricordi digitali.",
-        price: "da 60 CHF",
-      },
-      premium: {
-        title: "Memora Frame",
-        desc: "L'elegante connessione tra cornice classica e tecnologia NFC moderna – per ricordi personali che durano.",
-        price: "da 120 CHF",
-      },
+      title: 'I nostri prodotti',
+      subtitle: 'La linea classica Memora.',
+      basic: { title: 'Memora Tag', desc: 'Piastra NFC minimale per ricordi digitali.', price: 'da 60 CHF' },
+      premium: { title: 'Memora Frame', desc: 'Cornice con NFC integrato.', price: 'da 120 CHF' },
+      deluxe: { title: 'Memora Deluxe', desc: 'Piastra in vetro esclusiva con incisione e funzioni avanzate.', price: 'da 200 CHF' },
       features: {
-        glass: "Piastra NFC 6×6 cm in plastica di alta qualità",
-        nfc: "Design minimalista ed elegante",
-        format: "Resistente alle intemperie e durevole",
-        weather: "Facile applicazione su lapidi, urne o siti commemorativi",
-        all: "Cornice di alta qualità con tag NFC integrato",
-        photo: "Foto personale nella cornice",
-        engraving: "Unità NFC più piccola e discreta per uso discreto",
-        premium: "Ideale per salotti, angoli commemorativi o siti commemorativi privati",
-      },
+        glass: 'Piastra NFC 6×6 cm',
+        nfc: 'Design elegante',
+        format: 'Resistente agli agenti atmosferici',
+        weather: 'Per lapidi, urne, luoghi di memoria',
+        all: 'Cornice con NFC',
+        photo: 'Foto personale',
+        engraving: 'Incisione opzionale',
+        premium: 'Ideale per la casa'
+      }
     },
     cta: {
-      title: "Inizia il tuo viaggio dei ricordi",
-      subtitle: "Diventa parte di una comunità che valorizza la vita. Crea il tuo memoriale unico oggi e preserva ricordi preziosi per le generazioni future.",
-      create: "Crea memoriale",
-      contact: "Mettiti in contatto",
+      title: 'Inizia il tuo percorso di memoria',
+      subtitle: 'Crea il tuo omaggio e conserva ciò che conta.',
+      create: 'Crea tributo',
+      contact: 'Contattaci'
     },
     gedenken: {
-      title: "Crea memoriale - Memora Moments",
-      heading: "Crea il tuo memoriale",
-      description: "Carica i tuoi ricordi più belli e ne creeremo un memoriale dignitoso."
+      title: 'Crea tributo - Memora Moments',
+      heading: 'Crea il tuo tributo',
+      description: 'Carica i tuoi ricordi — creiamo un omaggio dignitoso.'
     }
   },
+
+  // --- PET MODE ---
   pet: {
     hero: {
-      title: "Per i nostri fedeli compagni – ricordi con cuore e suono.",
-      subtitle: "Memora Moments per animali – preserva i momenti più belli con il tuo amato amico a quattro zampe attraverso immagini, video e musica.",
-      startButton: "Inizia ora",
-      learnButton: "Scopri di più",
+      title: 'Per i nostri fedeli compagni — ricordi con cuore e suono.',
+      subtitle: 'Memora Moments per animali — conserva i momenti più belli insieme.',
+      startButton: 'Inizia ora',
+      learnButton: 'Scopri di più'
     },
     features: {
-      title: "Momenti indimenticabili con il tuo amato",
-      subtitle: "I nostri Memora Moments per animali preservano i ricordi più belli del tuo fedele compagno. Attraverso la tecnologia NFC, puoi rendere immagini, video e suoni preferiti accessibili permanentemente.",
-      unique: {
-        title: "Ricordo amorevole",
-        desc: "Preserva i momenti speciali con il tuo animale – dai primi giorni alle più belle esperienze condivise.",
-      },
-      multimedia: {
-        title: "Ricordi animali",
-        desc: "Raccogli foto e video che mostrano la personalità unica e i momenti più belli del tuo amato.",
-      },
-      music: {
-        title: "Suoni preferiti",
-        desc: "Aggiungi suoni familiari o musica che il tuo animale amava o che ti ricordano momenti condivisi.",
-      },
-      quality: {
-        title: "Resistente alle intemperie",
-        desc: "Robusto e resistente alle intemperie – perfetto per giardini, cimiteri per animali o siti commemorativi speciali all'aperto.",
-      },
+      title: 'Momenti indimenticabili con il tuo compagno',
+      subtitle: 'Omaggi digitali per animali.',
+      unique: { title: 'Ricordo affettuoso', desc: 'Celebra il legame con il tuo animale.' },
+      multimedia: { title: 'Ricordi per animali', desc: 'Foto e video del tuo amico.' },
+      music: { title: 'Suoni preferiti', desc: 'Aggiungi suoni familiari o musica.' },
+      quality: { title: 'Resistente', desc: 'Robusto per interno ed esterno.' }
     },
     howitworks: {
-      title: "Come funziona così semplicemente",
-      subtitle: "In pochi passi alla tua piastra commemorativa personale per animali: Carica foto o video, scegli una canzone o suoni familiari – creiamo un video amorevolmente progettato. La tua piastra NFC porta direttamente al ricordo con un tocco.",
-      step1: {
-        title: "Carica media",
-        desc: "Scegli le foto e i video più belli che catturano l'essenza del tuo amato.",
-      },
-      step2: {
-        title: "Seleziona musica/suono",
-        desc: "Aggiungi una canzone preferita o suoni familiari che hanno un significato speciale.",
-      },
-      step3: {
-        title: "Ricevi piastra NFC",
-        desc: "La tua piastra NFC per animali viene prodotta e consegnata comodamente a casa tua.",
-      },
+      title: 'Come funziona',
+      subtitle: 'Tre passi per l’omaggio.',
+      step1: { title: 'Carica i media', desc: 'Scegli foto e video.' },
+      step2: { title: 'Aggiungi suoni/musica', desc: 'Inserisci audio significativo.' },
+      step3: { title: 'Ricevi la piastra NFC', desc: 'La piastra viene consegnata.' }
     },
     products: {
-      title: "I nostri prodotti e come funzionano",
-      subtitle: "Sperimenta Memora Moments per animali in azione e scopri le nostre soluzioni amorevolmente progettate.",
-      basic: {
-        title: "Memora Tag Animale",
-        desc: "Piastra NFC semplice e amorevole per i tuoi ricordi digitali del tuo amato.",
-        price: "da 55 CHF",
-      },
-      premium: {
-        title: "Memora Frame Animale",
-        desc: "Una cornice elegante con NFC integrato – ideale per ricordi duraturi del tuo compagno.",
-        price: "da 110 CHF",
-      },
+      title: 'Prodotti per animali',
+      subtitle: 'Ricordi per compagni fedeli.',
+      basic: { title: 'Pet Memora Tag', desc: 'Piastra NFC semplice per animali.', price: 'da 55 CHF' },
+      premium: { title: 'Pet Memora Frame', desc: 'Cornice con NFC per animali.', price: 'da 110 CHF' },
+      deluxe: { title: 'Pet Memora Deluxe', desc: 'Versione Deluxe con incisione e opzioni media estese.', price: 'da 180 CHF' },
       features: {
-        glass: "Piastra NFC 6×6 cm, resistente a graffi e intemperie",
-        nfc: "Design minimalista e amorevole",
-        format: "Formati ottimizzati per animali",
-        weather: "Resistente alle intemperie e all'uso quotidiano – per interno ed esterno",
-        all: "Cornice di alta qualità con tag NFC integrato",
-        photo: "Foto personale nella cornice",
-        engraving: "Opzionale: incisione zampe e nome",
-        premium: "Ideale per casa, angoli commemorativi o siti commemorativi speciali",
-      },
+        glass: 'Piastra NFC 6×6 cm, resistente',
+        nfc: 'Design affettuoso',
+        format: 'Formati adatti agli animali',
+        weather: 'Per interno ed esterno',
+        all: 'Cornice con NFC',
+        photo: 'Foto in cornice',
+        engraving: 'Incisione zampa/nome opzionale',
+        premium: 'Ideale per la casa'
+      }
     },
     cta: {
-      title: "Onora il tuo amato oggi",
-      subtitle: "Crea un ricordo degno del tuo fedele compagno – amorevole, personale e sempre accessibile.",
-      create: "Crea memoriale animale",
-      contact: "Consulenza animali",
+      title: 'Onora il tuo compagno',
+      subtitle: 'Crea un ricordo affettuoso.',
+      create: 'Crea tributo per animali',
+      contact: 'Consulenza animali'
     },
     gedenken: {
-      title: "Crea memoriale animale - Memora Moments",
-      heading: "Crea memoriale per il tuo amato",
-      description: "Carica i ricordi più belli del tuo fedele compagno e ne creeremo un memoriale amorevole."
+      title: 'Crea tributo per animali - Memora Moments',
+      heading: 'Crea il tributo del tuo animale',
+      description: 'Carica i ricordi del tuo compagno.'
+    }
+  },
+
+  // --- SURPRISE MODE ---
+  surprise: {
+    hero: {
+      title: 'Momenti di sorpresa che toccano.',
+      subtitle: 'La collezione Surprise unisce design ed esperienza curata.',
+      startButton: 'Avvia Surprise',
+      learnButton: 'Scopri di più'
+    },
+    features: {
+      title: 'Quel tocco speciale',
+      subtitle: 'Curato, sobrio e un po’ magico.',
+      unique: { title: 'Esperienza curata', desc: 'Ogni piastra Surprise racconta una piccola storia.' },
+      multimedia: { title: 'Immagine • Video • Suono', desc: 'Tutti i media su un’unica piastra.' },
+      music: { title: 'Suono signature', desc: 'Un layer sonoro di buon gusto.' },
+      quality: { title: 'Materiali premium', desc: 'Duraturi, resistenti ed eleganti.' }
+    },
+    howitworks: {
+      title: 'Come funziona Surprise',
+      subtitle: 'Tre passi al momento.',
+      step1: { title: 'Scegli i contenuti', desc: 'Foto, clip e musica.' },
+      step2: { title: 'Imposta la scena', desc: 'Creiamo una sequenza elegante.' },
+      step3: { title: 'Ricevi Surprise', desc: 'Tocca e vivi l’esperienza.' }
+    },
+    products: {
+      title: 'Prodotti Surprise',
+      subtitle: 'Scegli il tuo stile.',
+      basic: { title: 'Surprise Tag', desc: 'Piastra NFC minimale per momenti sorpresa.', price: 'da 70 CHF' },
+      premium: { title: 'Surprise Frame', desc: 'Cornice elegante con esperienza integrata.', price: 'da 140 CHF' },
+      deluxe: { title: 'Surprise Deluxe', desc: 'Versione esclusiva con opzioni estese.', price: 'da 220 CHF' },
+      features: {
+        glass: 'Finitura robusta',
+        nfc: 'Tag NFC integrato',
+        format: 'Ottimizzata per multimedia',
+        weather: 'Resistente agli agenti atmosferici',
+        all: 'Cornice con NFC nascosto',
+        photo: 'Foto opzionale',
+        engraving: 'Incisione opzionale',
+        premium: 'Materiali raffinati'
+      }
+    },
+    cta: {
+      title: 'Pronto per sorprendere?',
+      subtitle: 'Regala momenti unici che durano.',
+      create: 'Crea Surprise',
+      contact: 'Richiedi consulenza'
+    },
+    gedenken: {
+      title: 'Crea Surprise - Memora Moments',
+      heading: 'Il tuo momento Surprise',
+      description: 'Carica i contenuti e curiamo l’esperienza.'
     }
   }
 };

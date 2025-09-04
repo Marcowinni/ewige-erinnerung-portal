@@ -4,18 +4,19 @@ export const frContent: ContentData = {
   shared: {
     navigation: {
       home: 'Accueil',
-      gedenken: 'Créer un mémorial',
+      gedenken: 'Créer un hommage',
       about: 'À propos',
       contact: 'Contact',
       mode: {
         human: 'Humains',
-        pet: 'Animaux'
+        pet: 'Animaux',
+        surprise: 'Surprise'
       }
     },
     about: {
       title: 'À propos - Memora Moments',
       heading: 'À propos de Memora Moments',
-      description: 'Découvrez notre mission de créer des souvenirs dignes.'
+      description: 'Découvrez notre mission : créer des souvenirs dignes.'
     },
     contact: {
       title: 'Contact - Memora Moments',
@@ -23,162 +24,163 @@ export const frContent: ContentData = {
       description: 'Des questions ? Nous sommes là pour vous aider.'
     }
   },
+
+  // --- HUMAN MODE ---
   human: {
     hero: {
-      title: "Des souvenirs qui perdurent – avec cœur et son.",
-      subtitle: "Les souvenirs deviennent un monument silencieux – Memora Moments ouvre la porte à des moments émouvants avec images et musique.",
-      startButton: "Commencer",
-      learnButton: "En savoir plus",
+      title: 'Des souvenirs qui perdurent — avec cœur et musique.',
+      subtitle: 'Memora Moments transforme les souvenirs en un hommage discret, en image et en musique.',
+      startButton: 'Commencer',
+      learnButton: 'En savoir plus'
     },
     features: {
-      title: "Moments inoubliables pour l'éternité",
-      subtitle: "Nos plaques NFC Memora Moments allient technologie moderne et souvenir digne. Elles permettent de maintenir vivante la vie d'un être cher à travers images, vidéos et musique – directement sur la tombe.",
-      unique: {
-        title: "Souvenir unique",
-        desc: "Préservez des souvenirs spéciaux avec Memora Moments, rendant vos plus beaux moments accessibles en touchant simplement votre téléphone.",
-      },
-      multimedia: {
-        title: "Souvenirs multimédia",
-        desc: "Téléchargez des photos et vidéos qui montrent la personnalité et la vie du défunt.",
-      },
-      music: {
-        title: "Inclure chanson préférée",
-        desc: "Ajoutez une musique significative qui se joue lors de la visualisation des souvenirs.",
-      },
-      quality: {
-        title: "Conception digne",
-        desc: "Plaques de verre de haute qualité qui s'intègrent harmonieusement dans la pierre tombale et résistent à toutes conditions météorologiques.",
-      },
+      title: 'Des instants inoubliables pour l’éternité',
+      subtitle: 'Nos plaques NFC allient technologie et dignité.',
+      unique: { title: 'Hommage unique', desc: 'Préservez vos plus beaux souvenirs.' },
+      multimedia: { title: 'Souvenirs multimédias', desc: 'Des photos et des vidéos qui racontent une vie.' },
+      music: { title: 'Ajouter une chanson', desc: 'Enrichissez l’instant avec une musique signifiante.' },
+      quality: { title: 'Design digne', desc: 'Matériaux de qualité, résistants aux intempéries.' }
     },
     howitworks: {
-      title: "Comment cela fonctionne si simplement",
-      subtitle: "En quelques étapes vers votre plaque commémorative personnelle : Téléchargez photos ou vidéos, choisissez une chanson, nous créons une vidéo amoureusement conçue. Vous recevez une plaque NFC qui mène directement à votre souvenir en la touchant avec votre téléphone.",
-      step1: {
-        title: "Télécharger média",
-        desc: "Choisissez les plus belles photos et vidéos qui capturent le souvenir de votre proche.",
-      },
-      step2: {
-        title: "Sélectionner musique",
-        desc: "Ajoutez une chanson préférée qui avait une signification spéciale pour le défunt.",
-      },
-      step3: {
-        title: "Recevoir plaque NFC",
-        desc: "Votre plaque NFC personnelle est fabriquée et livrée directement chez vous.",
-      },
+      title: 'Comment ça marche',
+      subtitle: 'Votre hommage en quelques étapes.',
+      step1: { title: 'Télécharger des médias', desc: 'Choisissez photos et vidéos.' },
+      step2: { title: 'Choisir une musique', desc: 'Ajoutez une chanson significative.' },
+      step3: { title: 'Recevoir la plaque NFC', desc: 'Votre hommage est livré chez vous.' }
     },
     products: {
-      title: "Nos produits et comment ils fonctionnent",
-      subtitle: "Découvrez Memora Moments en action et voyez nos plaques commémoratives.",
-      basic: {
-        title: "Memora Tag",
-        desc: "Plaque NFC simple et élégante pour vos souvenirs numériques.",
-        price: "à partir de 60 CHF",
-      },
-      premium: {
-        title: "Memora Frame",
-        desc: "La connexion élégante entre cadre photo classique et technologie NFC moderne – pour des souvenirs personnels qui durent.",
-        price: "à partir de 120 CHF",
-      },
+      title: 'Nos produits',
+      subtitle: 'La gamme classique Memora.',
+      basic: { title: 'Memora Tag', desc: 'Plaque NFC minimaliste pour souvenirs numériques.', price: 'dès 60 CHF' },
+      premium: { title: 'Memora Frame', desc: 'Cadre photo avec NFC intégré.', price: 'dès 120 CHF' },
+      deluxe: { title: 'Memora Deluxe', desc: 'Plaque en verre exclusive avec gravure et options avancées.', price: 'dès 200 CHF' },
       features: {
-        glass: "Plaque NFC 6×6 cm en plastique de haute qualité",
-        nfc: "Design minimaliste et élégant",
-        format: "Résistant aux intempéries et durable",
-        weather: "Application facile sur pierres tombales, urnes ou sites commémoratifs",
-        all: "Cadre photo de haute qualité avec tag NFC intégré",
-        photo: "Photo personnelle dans le cadre",
-        engraving: "Unité NFC plus petite et discrète pour usage discret",
-        premium: "Idéal pour salons, coins commémoratifs ou sites commémoratifs privés",
-      },
+        glass: 'Plaque NFC 6×6 cm',
+        nfc: 'Design élégant',
+        format: 'Résistant aux intempéries',
+        weather: 'Pour pierres tombales, urnes et lieux de mémoire',
+        all: 'Cadre avec NFC',
+        photo: 'Photo personnelle',
+        engraving: 'Gravure en option',
+        premium: 'Idéal pour la maison'
+      }
     },
     cta: {
-      title: "Commencez votre voyage de souvenirs",
-      subtitle: "Rejoignez une communauté qui valorise la vie. Créez votre mémorial unique aujourd'hui et préservez des souvenirs précieux pour les générations futures.",
-      create: "Créer mémorial",
-      contact: "Nous contacter",
+      title: 'Commencez votre hommage',
+      subtitle: 'Créez votre hommage et préservez l’essentiel.',
+      create: 'Créer un hommage',
+      contact: 'Nous contacter'
     },
     gedenken: {
-      title: "Créer un mémorial - Memora Moments",
-      heading: "Créer votre mémorial",
-      description: "Téléchargez vos plus beaux souvenirs et nous en créerons un mémorial digne."
+      title: 'Créer un hommage - Memora Moments',
+      heading: 'Créer votre hommage',
+      description: 'Téléchargez vos souvenirs — nous réalisons un hommage digne.'
     }
   },
+
+  // --- PET MODE ---
   pet: {
     hero: {
-      title: "Pour nos fidèles compagnons – souvenirs avec cœur et son.",
-      subtitle: "Memora Moments pour animaux – préservez les plus beaux moments avec votre compagnon à quatre pattes bien-aimé à travers images, vidéos et musique.",
-      startButton: "Commencer",
-      learnButton: "En savoir plus",
+      title: 'Pour nos fidèles compagnons — des souvenirs avec cœur et musique.',
+      subtitle: 'Memora Moments pour animaux — préservez vos plus beaux moments partagés.',
+      startButton: 'Commencer',
+      learnButton: 'En savoir plus'
     },
     features: {
-      title: "Moments inoubliables avec votre bien-aimé",
-      subtitle: "Nos Memora Moments pour animaux préservent les plus beaux souvenirs de votre fidèle compagnon. Grâce à la technologie NFC, vous pouvez rendre images, vidéos et sons favoris accessibles en permanence.",
-      unique: {
-        title: "Souvenir aimant",
-        desc: "Préservez les moments spéciaux avec votre animal – des premiers jours aux plus belles expériences partagées.",
-      },
-      multimedia: {
-        title: "Souvenirs d'animaux",
-        desc: "Collectez photos et vidéos qui montrent la personnalité unique et les plus beaux moments de votre bien-aimé.",
-      },
-      music: {
-        title: "Sons favoris",
-        desc: "Ajoutez des sons familiers ou de la musique que votre animal aimait ou qui vous rappellent des moments partagés.",
-      },
-      quality: {
-        title: "Résistant aux intempéries",
-        desc: "Robuste et résistant aux intempéries – parfait pour jardins, cimetières d'animaux ou sites commémoratifs spéciaux en extérieur.",
-      },
+      title: 'Instants inoubliables avec votre compagnon',
+      subtitle: 'Hommages numériques pour animaux.',
+      unique: { title: 'Souvenir affectueux', desc: 'Célébrez votre lien avec votre animal.' },
+      multimedia: { title: 'Souvenirs pour animaux', desc: 'Photos et vidéos de votre compagnon.' },
+      music: { title: 'Sons favoris', desc: 'Ajoutez des sons familiers ou de la musique.' },
+      quality: { title: 'Résistant', desc: 'Robuste pour l’intérieur et l’extérieur.' }
     },
     howitworks: {
-      title: "Comment cela fonctionne si simplement",
-      subtitle: "En quelques étapes vers votre plaque commémorative personnelle pour animal : Téléchargez photos ou vidéos, choisissez une chanson ou sons familiers – nous créons une vidéo amoureusement conçue. Votre plaque NFC mène directement au souvenir d'un toucher.",
-      step1: {
-        title: "Télécharger média",
-        desc: "Choisissez les plus belles photos et vidéos qui capturent l'essence de votre bien-aimé.",
-      },
-      step2: {
-        title: "Sélectionner musique/son",
-        desc: "Ajoutez une chanson préférée ou des sons familiers qui ont une signification spéciale.",
-      },
-      step3: {
-        title: "Recevoir plaque NFC",
-        desc: "Votre plaque NFC pour animal est fabriquée et livrée confortablement chez vous.",
-      },
+      title: 'Comment ça marche',
+      subtitle: 'Trois étapes pour l’hommage.',
+      step1: { title: 'Télécharger des médias', desc: 'Choisissez photos et vidéos.' },
+      step2: { title: 'Ajouter sons/musique', desc: 'Incluez un audio significatif.' },
+      step3: { title: 'Recevoir la plaque NFC', desc: 'Votre plaque est livrée.' }
     },
     products: {
-      title: "Nos produits et comment ils fonctionnent",
-      subtitle: "Découvrez Memora Moments pour animaux en action et découvrez nos solutions amoureusement conçues.",
-      basic: {
-        title: "Memora Tag Animal",
-        desc: "Plaque NFC simple et aimante pour vos souvenirs numériques de votre bien-aimé.",
-        price: "à partir de 55 CHF",
-      },
-      premium: {
-        title: "Memora Frame Animal",
-        desc: "Un cadre photo élégant avec NFC intégré – idéal pour des souvenirs durables de votre compagnon.",
-        price: "à partir de 110 CHF",
-      },
+      title: 'Produits animaux',
+      subtitle: 'Souvenirs pour fidèles compagnons.',
+      basic: { title: 'Pet Memora Tag', desc: 'Plaque NFC simple pour animaux.', price: 'dès 55 CHF' },
+      premium: { title: 'Pet Memora Frame', desc: 'Cadre avec NFC pour animaux.', price: 'dès 110 CHF' },
+      deluxe: { title: 'Pet Memora Deluxe', desc: 'Version Deluxe avec gravure et options média étendues.', price: 'dès 180 CHF' },
       features: {
-        glass: "Plaque NFC 6×6 cm, résistante aux rayures et aux intempéries",
-        nfc: "Design minimaliste et aimant",
-        format: "Formats optimisés pour animaux",
-        weather: "Résistant aux intempéries et au quotidien – pour intérieur et extérieur",
-        all: "Cadre photo de haute qualité avec tag NFC intégré",
-        photo: "Photo personnelle dans le cadre",
-        engraving: "Optionnel : gravure de pattes et nom",
-        premium: "Idéal pour maison, coins commémoratifs ou sites commémoratifs spéciaux",
-      },
+        glass: 'Plaque NFC 6×6 cm, résistante',
+        nfc: 'Design affectueux',
+        format: 'Formats adaptés aux animaux',
+        weather: 'Pour intérieur et extérieur',
+        all: 'Cadre avec NFC',
+        photo: 'Photo dans le cadre',
+        engraving: 'Gravure patte/nom en option',
+        premium: 'Idéal pour la maison'
+      }
     },
     cta: {
-      title: "Honorez votre bien-aimé aujourd'hui",
-      subtitle: "Créez un souvenir digne de votre fidèle compagnon – aimant, personnel et toujours accessible.",
-      create: "Créer mémorial animal",
-      contact: "Consultation animaux",
+      title: 'Honorez votre compagnon',
+      subtitle: 'Créez un souvenir affectueux.',
+      create: 'Créer un hommage animal',
+      contact: 'Conseil animaux'
     },
     gedenken: {
-      title: "Créer mémorial animal - Memora Moments",
-      heading: "Créer mémorial pour votre bien-aimé",
-      description: "Téléchargez les plus beaux souvenirs de votre fidèle compagnon et nous en créerons un mémorial aimant."
+      title: 'Créer un hommage animal - Memora Moments',
+      heading: 'Créer votre hommage animal',
+      description: 'Téléchargez les souvenirs de votre compagnon.'
+    }
+  },
+
+  // --- SURPRISE MODE ---
+  surprise: {
+    hero: {
+      title: 'Des instants de surprise qui touchent.',
+      subtitle: 'La collection Surprise allie design et expérience scénarisée.',
+      startButton: 'Lancer Surprise',
+      learnButton: 'En savoir plus'
+    },
+    features: {
+      title: 'Ce petit quelque chose',
+      subtitle: 'Ciselé, subtil et un peu magique.',
+      unique: { title: 'Expérience curatoriale', desc: 'Chaque plaque Surprise raconte une petite histoire.' },
+      multimedia: { title: 'Image • Vidéo • Son', desc: 'Tous les médias sur une même plaque.' },
+      music: { title: 'Signature sonore', desc: 'Une ambiance sonore de bon goût.' },
+      quality: { title: 'Matériaux premium', desc: 'Durables, résistants et élégants.' }
+    },
+    howitworks: {
+      title: 'Fonctionnement',
+      subtitle: 'Trois étapes pour l’instant.',
+      step1: { title: 'Choisir le contenu', desc: 'Photos, clips et musique.' },
+      step2: { title: 'Mettre en scène', desc: 'Nous créons une séquence élégante.' },
+      step3: { title: 'Recevoir Surprise', desc: 'Touchez et profitez de l’expérience.' }
+    },
+    products: {
+      title: 'Produits Surprise',
+      subtitle: 'Choisissez votre style.',
+      basic: { title: 'Surprise Tag', desc: 'Plaque NFC minimaliste pour instants surprise.', price: 'dès 70 CHF' },
+      premium: { title: 'Surprise Frame', desc: 'Cadre élégant avec expérience intégrée.', price: 'dès 140 CHF' },
+      deluxe: { title: 'Surprise Deluxe', desc: 'Version exclusive avec options étendues.', price: 'dès 220 CHF' },
+      features: {
+        glass: 'Finition robuste',
+        nfc: 'Tag NFC intégré',
+        format: 'Optimisé pour le multimédia',
+        weather: 'Résistant aux intempéries',
+        all: 'Cadre avec NFC caché',
+        photo: 'Photo en option',
+        engraving: 'Gravure en option',
+        premium: 'Matériaux raffinés'
+      }
+    },
+    cta: {
+      title: 'Prêt pour la surprise ?',
+      subtitle: 'Offrez des instants uniques qui durent.',
+      create: 'Créer Surprise',
+      contact: 'Demander conseil'
+    },
+    gedenken: {
+      title: 'Créer Surprise - Memora Moments',
+      heading: 'Votre moment Surprise',
+      description: 'Téléchargez votre contenu, nous concevons l’expérience.'
     }
   }
 };

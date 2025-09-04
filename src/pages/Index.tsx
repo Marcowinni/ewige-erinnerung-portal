@@ -16,11 +16,19 @@ const Index = () => {
   const productsRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
 
-  const { isPetMode, modeContent } = useContent();
-  console.log("MODE:", isPetMode ? "pet" : "human", "TITLE:", modeContent.hero.title);
-
+  // Neu: wir holen auch das mode (human | pet | surprise)
+  const { mode, isPetMode, modeContent } = useContent();
   const content = modeContent;
-  const media = getMediaForMode(isPetMode);
+
+  // Produktmedien basierend auf dem Modus
+  const media = getMediaForMode(mode);
+
+  // Hintergrundbild je Modus
+  const heroBg = mode === "pet"
+    ? "url('/lovable-uploads/ec30a21b-4126-4466-9e7a-df8c7027f48d.png')"
+    : mode === "surprise"
+      ? "url('https://images.unsplash.com/photo-1579208575657-c595a05383b7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"
+      : "url('/lovable-uploads/0e24d567-3609-48ba-8ce7-b60cb92a6e22.png')";
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -31,9 +39,7 @@ const Index = () => {
         <div
           className="absolute inset-0 bg-center bg-no-repeat bg-cover -z-10"
           style={{
-            backgroundImage: isPetMode
-              ? "url('/lovable-uploads/ec30a21b-4126-4466-9e7a-df8c7027f48d.png')"
-              : "url('/lovable-uploads/0e24d567-3609-48ba-8ce7-b60cb92a6e22.png')",
+            backgroundImage: heroBg,
             filter: "brightness(0.7)",
           }}
         />
@@ -42,14 +48,14 @@ const Index = () => {
         <div className="container mx-auto px-4 h-full flex items-center">
           <div className="hero-content relative max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 text-shadow">
-              {modeContent.hero.title}
+              {content.hero.title}
             </h1>
             <p className="text-xl text-white/90 mb-8 text-shadow">
-              {modeContent.hero.subtitle}
+              {content.hero.subtitle}
             </p>
             <div className="flex flex-wrap gap-4">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-                <Link to="/gedenken">{modeContent.hero.startButton}</Link>
+                <Link to="/gedenken">{content.hero.startButton}</Link>
               </Button>
               <Button
                 asChild
@@ -57,7 +63,7 @@ const Index = () => {
                 size="lg"
                 className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
               >
-                <Link to="/ueber">{modeContent.hero.learnButton}</Link>
+                <Link to="/ueber">{content.hero.learnButton}</Link>
               </Button>
             </div>
           </div>
@@ -74,7 +80,7 @@ const Index = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <FeatureCard
-              icon={isPetMode ? PawPrint : Sparkles}
+              icon={isPetMode ? PawPrint : Sparkles} // Surprise nutzt Sparkles
               title={content.features.unique.title}
               description={content.features.unique.desc}
               iconColor={isPetMode ? "text-orange-500" : "text-amber-500"}
@@ -171,15 +177,15 @@ const Index = () => {
             </Carousel>
           </div>
 
-          {/* Product Categories */}
-          <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Basic Version */}
+          {/* Product Cards */}
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Basic */}
               <Card className="h-full border-2 border-border">
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
                   <Carousel className="w-full">
                     <CarouselContent>
-                      {media.basicProduct.images.map((image, index) => (
+                      {(media.basicProduct?.images ?? []).map((image, index) => (
                         <CarouselItem key={index}>
                           <img src={image.src} alt={image.alt} className="w-full h-64 object-cover" />
                         </CarouselItem>
@@ -192,22 +198,10 @@ const Index = () => {
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-serif mb-4 text-center">{content.products.basic.title}</h3>
                   <ul className="space-y-2 mb-6 text-muted-foreground">
-                    <li className="flex items-center">
-                      <Check className="w-4 h-4 mr-2 text-green-500" />
-                      {content.products.features.glass}
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="w-4 h-4 mr-2 text-green-500" />
-                      {content.products.features.nfc}
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="w-4 h-4 mr-2 text-green-500" />
-                      {content.products.features.format}
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="w-4 h-4 mr-2 text-green-500" />
-                      {content.products.features.weather}
-                    </li>
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.glass}</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.nfc}</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.format}</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.weather}</li>
                   </ul>
                   <p className="text-center text-muted-foreground">{content.products.basic.desc}</p>
                 </CardContent>
@@ -216,12 +210,12 @@ const Index = () => {
                 </CardFooter>
               </Card>
 
-              {/* Premium Version */}
+              {/* Premium */}
               <Card className="h-full border-2 border-border">
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
                   <Carousel className="w-full">
                     <CarouselContent>
-                      {media.premiumProduct.images.map((image, index) => (
+                      {(media.premiumProduct?.images ?? []).map((image, index) => (
                         <CarouselItem key={index}>
                           <img src={image.src} alt={image.alt} className="w-full h-64 object-cover" />
                         </CarouselItem>
@@ -234,27 +228,46 @@ const Index = () => {
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-serif mb-4 text-center">{content.products.premium.title}</h3>
                   <ul className="space-y-2 mb-6 text-muted-foreground">
-                    <li className="flex items-center">
-                      <Check className="w-4 h-4 mr-2 text-green-500" />
-                      {content.products.features.all}
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="w-4 h-4 mr-2 text-green-500" />
-                      {content.products.features.photo}
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="w-4 h-4 mr-2 text-green-500" />
-                      {content.products.features.engraving}
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="w-4 h-4 mr-2 text-green-500" />
-                      {content.products.features.premium}
-                    </li>
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.all}</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.photo}</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.engraving}</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.premium}</li>
                   </ul>
                   <p className="text-center text-muted-foreground">{content.products.premium.desc}</p>
                 </CardContent>
                 <CardFooter className="flex justify-center">
                   <p className="text-3xl font-bold">{content.products.premium.price}</p>
+                </CardFooter>
+              </Card>
+
+              {/* Deluxe (NEU) */}
+              <Card className="h-full border-2 border-border">
+                <CardHeader className="p-0 overflow-hidden rounded-t-lg">
+                  <Carousel className="w-full">
+                    <CarouselContent>
+                      {(media.deluxeProduct?.images ?? media.premiumProduct?.images ?? []).map((image, index) => (
+                        <CarouselItem key={index}>
+                          <img src={image.src} alt={image.alt} className="w-full h-64 object-cover" />
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="left-2" />
+                    <CarouselNext className="right-2" />
+                  </Carousel>
+                </CardHeader>
+                <CardContent className="p-8">
+                  <h3 className="text-2xl font-serif mb-4 text-center">{content.products.deluxe.title}</h3>
+                  <ul className="space-y-2 mb-6 text-muted-foreground">
+                    {/* Du kannst hier eigene Deluxe-Features anzeigen – vorerst wiederverwenden wir "premium" als Beispiele */}
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.all}</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.photo}</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.engraving}</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.premium}</li>
+                  </ul>
+                  <p className="text-center text-muted-foreground">{content.products.deluxe.desc}</p>
+                </CardContent>
+                <CardFooter className="flex justify-center">
+                  <p className="text-3xl font-bold">{content.products.deluxe.price}</p>
                 </CardFooter>
               </Card>
             </div>
