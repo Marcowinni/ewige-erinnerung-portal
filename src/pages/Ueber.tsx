@@ -3,10 +3,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import { Heart, User, Mail } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useContent } from "@/contexts/ContentContext";
 
 const Ueber = () => {
-  const { t } = useLanguage();
+  const { t } = useContent();
 
   return (
     <div className="min-h-screen flex flex-col">

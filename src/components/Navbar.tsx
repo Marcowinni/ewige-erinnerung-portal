@@ -13,7 +13,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
-  const { sharedContent } = useContent();
+  const { sharedContent, t } = useContent();
 
   useEffect(() => {
     const handleScroll = () => {
