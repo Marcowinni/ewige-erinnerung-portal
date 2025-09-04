@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { Heart, Camera, Music, Sparkles, Check, PawPrint } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { usePetMode } from "@/contexts/PetModeContext";
+import { useContent } from "@/contexts/ContentContext";
 import { getMediaForMode } from "@/data/productMedia";
 
 const Index = () => {
@@ -16,9 +16,8 @@ const Index = () => {
   const productsRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
 
-  // Content + Media aus dem Context/Helper abhängig vom Modus
-  const { isPetMode, productContent: content } = usePetMode();
-  console.log("MODE:", isPetMode ? "pet" : "human", "TITLE:", content.hero.title);
+  const { isPetMode, modeContent } = useContent();
+  console.log("MODE:", isPetMode ? "pet" : "human", "TITLE:", modeContent.hero.title);
 
   const media = getMediaForMode(isPetMode);
 
@@ -42,14 +41,14 @@ const Index = () => {
         <div className="container mx-auto px-4 h-full flex items-center">
           <div className="hero-content relative max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 text-shadow">
-              {content.hero.title}
+              {modeContent.hero.title}
             </h1>
             <p className="text-xl text-white/90 mb-8 text-shadow">
-              {content.hero.subtitle}
+              {modeContent.hero.subtitle}
             </p>
             <div className="flex flex-wrap gap-4">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-                <Link to="/gedenken">{content.hero.startButton}</Link>
+                <Link to="/gedenken">{modeContent.hero.startButton}</Link>
               </Button>
               <Button
                 asChild
@@ -57,7 +56,7 @@ const Index = () => {
                 size="lg"
                 className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
               >
-                <Link to="/ueber">{content.hero.learnButton}</Link>
+                <Link to="/ueber">{modeContent.hero.learnButton}</Link>
               </Button>
             </div>
           </div>

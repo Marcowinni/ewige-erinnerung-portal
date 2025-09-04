@@ -4,15 +4,15 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import MemoryUploader from "@/components/MemoryUploader";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useContent } from "@/contexts/ContentContext";
 
 const Gedenken = () => {
-  const { t } = useLanguage();
+  const { modeContent } = useContent();
 
   return (
     <>
       <Helmet>
-        <title>{t('gedenken.title')}</title>
+        <title>{modeContent.gedenken.title}</title>
       </Helmet>
       
       <div className="min-h-screen flex flex-col">

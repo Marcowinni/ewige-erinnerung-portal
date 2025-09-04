@@ -1,11 +1,11 @@
 
 import { Link } from "react-router-dom";
 import { Mail, Phone } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useContent } from "@/contexts/ContentContext";
 import MemoraLogo from "@/components/MemoraLogo";
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const { sharedContent } = useContent();
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-12">

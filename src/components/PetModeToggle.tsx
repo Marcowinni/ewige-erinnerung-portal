@@ -1,11 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { usePetMode } from "@/contexts/PetModeContext";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useContent } from "@/contexts/ContentContext";
 import { Heart, PawPrint } from "lucide-react";
 
 const PetModeToggle = () => {
-  const { mode, setMode, isPetMode } = usePetMode();
-  const { t } = useLanguage();
+  const { mode, setMode, isPetMode, sharedContent } = useContent();
 
   const toggleMode = () => {
     setMode(isPetMode ? 'human' : 'pet');
@@ -21,12 +19,12 @@ const PetModeToggle = () => {
       {isPetMode ? (
         <>
           <Heart className="w-4 h-4" />
-          <span className="hidden sm:inline">{t('mode.human')}</span>
+          <span className="hidden sm:inline">{sharedContent.navigation.mode.human}</span>
         </>
       ) : (
         <>
           <PawPrint className="w-4 h-4" />
-          <span className="hidden sm:inline">{t('mode.pet')}</span>
+          <span className="hidden sm:inline">{sharedContent.navigation.mode.pet}</span>
         </>
       )}
     </Button>

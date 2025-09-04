@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/ThemeProvider";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useContent } from "@/contexts/ContentContext";
 import MemoraLogo from "@/components/MemoraLogo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import PetModeToggle from "@/components/PetModeToggle";
@@ -13,7 +13,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
-  const { t } = useLanguage();
+  const { sharedContent } = useContent();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,7 +41,7 @@ const Navbar = () => {
         >
           <MemoraLogo className="w-8 h-8 flex-shrink-0 align-middle" />
           <span className="font-serif text-xl font-medium leading-none align-middle relative" style={{ top: '2px' }}>
-            {t('brand.name')}
+            {sharedContent.navigation.home}
           </span>
         </Link>
 
