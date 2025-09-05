@@ -20,6 +20,7 @@ import {
 /* -------------------- Types & Helpers -------------------- */
 type ProductKey = "basic" | "premium" | "deluxe";
 const productKeyOrder: ProductKey[] = ["basic", "premium", "deluxe"];
+type TagFormat = "round_3cm" | "square_6cm";
 
 type EditorText = {
   id: string;
@@ -79,8 +80,11 @@ type FormState = {
 
   invoice_sameAsContact?: boolean;
 
-  // Optionen für Haustier–Memora Tag (basic im pet-Modus)
-  pet_tag_keychain?: boolean; // +7 CHF
+  // Tag-Format (gilt für alle Modi beim "basic"-Produkt)
+  tag_format?: TagFormat; // "round_3cm" | "square_6cm"
+
+  // Optionen NUR für Haustier–Memora Tag (basic im pet-Modus)
+  pet_tag_keychain?: boolean; // +7 CHF (nur bei rund)
   pet_tag_customEnabled?: boolean; // Standard vs. individuell
   pet_tag_custom?: CustomDesign; // Editor-Zustand + Vorschau
 
@@ -167,6 +171,112 @@ function DesignEditor({
     origY: number;
   } | null>(null);
 
+  // Globales Dragging für Text (Pointer Events)
+  useEffect(() => {
+    const handleMove = (e: PointerEvent | MouseEvent) => {
+      if (!dragText) return;
+      const rect = overlayRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const dx = (e.clientX - dragText.startX) / rect.width;
+      const dy = (e.clientY - dragText.startY) / rect.height;
+      const nx = Math.min(0.98, Math.max(0.02, dragText.origX + dx));
+      const ny = Math.min(0.98, Math.max(0.02, dragText.origY + dy));
+      setLocal((s) => ({
+        ...s,
+        texts: s.texts.map((t) => (t.id === dragText.id ? { ...t, x: nx, y: ny } : t)),
+      }));
+    };
+
+    const handleUp = () => setDragText(null);
+
+    window.addEventListener("pointermove", handleMove);
+    window.addEventListener("pointerup", handleUp);
+    window.addEventListener("pointercancel", handleUp);
+    return () => {
+      window.removeEventListener("pointermove", handleMove);
+      window.removeEventListener("pointerup", handleUp);
+      window.removeEventListener("pointercancel", handleUp);
+    };
+  }, [dragText, setLocal]);
+
+  // --- Interaktion: Zoom & Pan (Maus/Touch) ---
+  const ZOOM_MIN = 0.5;
+  const ZOOM_MAX = 3;
+
+  const zoomAt = (clientX: number, clientY: number, scaleFactor: number) => {
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) {
+      setLocal((s) => ({ ...s, scale: Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, s.scale * scaleFactor)) }));
+      return;
+    }
+    const cx = clientX - rect.left;
+    const cy = clientY - rect.top;
+
+    setLocal((s) => {
+      const oldScale = s.scale;
+      const newScale = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, oldScale * scaleFactor));
+      const k = newScale / oldScale - 1;
+      return {
+        ...s,
+        scale: newScale,
+        offsetX: s.offsetX - (cx - W / 2) * k,
+        offsetY: s.offsetY - (cy - H / 2) * k,
+      };
+    });
+  };
+
+  const onWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
+    const factor = e.deltaY < 0 ? 1.08 : 1 / 1.08;
+    zoomAt(e.clientX, e.clientY, factor);
+  };
+
+  // Pointer/Touch: Pan + Pinch
+  const pointers = useRef<Map<number, { x: number; y: number }>>(new Map());
+  const lastPinch = useRef<{ dist: number; midX: number; midY: number } | null>(null);
+
+  const onPointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (pointers.current.size === 1) {
+      setDragImg({ x: e.clientX, y: e.clientY });
+    } else if (pointers.current.size === 2) {
+      const [a, b] = Array.from(pointers.current.values());
+      const dx = a.x - b.x,
+        dy = a.y - b.y;
+      lastPinch.current = { dist: Math.hypot(dx, dy), midX: (a.x + b.x) / 2, midY: (a.y + b.y) / 2 };
+    }
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (pointers.current.size === 1 && dragImg) {
+      const p = pointers.current.get(e.pointerId)!;
+      const dx = p.x - dragImg.x;
+      const dy = p.y - dragImg.y;
+      setDragImg({ x: p.x, y: p.y });
+      setLocal((s) => ({ ...s, offsetX: s.offsetX + dx, offsetY: s.offsetY + dy }));
+    } else if (pointers.current.size === 2 && lastPinch.current) {
+      const [a, b] = Array.from(pointers.current.values());
+      const dx = a.x - b.x,
+        dy = a.y - b.y;
+      const dist = Math.hypot(dx, dy);
+      const factor = dist / lastPinch.current.dist;
+      zoomAt(lastPinch.current.midX, lastPinch.current.midY, factor);
+      const midX = (a.x + b.x) / 2,
+        midY = (a.y + b.y) / 2;
+      lastPinch.current = { dist, midX, midY };
+    }
+  };
+
+  const onPointerUpOrCancel = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    pointers.current.delete(e.pointerId);
+    setDragImg(null);
+    if (pointers.current.size < 2) lastPinch.current = null;
+  };
+
   useEffect(() => {
     onChange(local);
   }, [local, onChange]);
@@ -194,7 +304,7 @@ function DesignEditor({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [local.scale, local.offsetX, local.offsetY, local.texts]);
 
-  // Clip-Path auf Canvas anwenden (Kreis oder Rounded Rect)
+  // Clip-Path
   const applyClip = (ctx: CanvasRenderingContext2D) => {
     ctx.save();
     if (shape === "circle") {
@@ -210,7 +320,6 @@ function DesignEditor({
     }
   };
 
-  // Hilfsfunktion für Rounded-Rect-Pfad
   function roundedRectPath(
     ctx: CanvasRenderingContext2D,
     x: number,
@@ -228,7 +337,7 @@ function DesignEditor({
     ctx.closePath();
   }
 
-  // renderTexts steuert, ob Texte in die Canvas gemalt werden (nur Export)
+  // Zeichnen
   const draw = (renderTexts: boolean = false) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -236,11 +345,8 @@ function DesignEditor({
     if (!ctx) return;
 
     ctx.clearRect(0, 0, W, H);
-
-    // Clip anwenden
     applyClip(ctx);
 
-    // Bild zeichnen
     if (imgRef.current) {
       const img = imgRef.current;
       const scaledW = img.width * local.scale;
@@ -249,12 +355,10 @@ function DesignEditor({
       const y = -scaledH / 2 + H / 2 + local.offsetY;
       ctx.drawImage(img, x, y, scaledW, scaledH);
     } else {
-      ctx.fillStyle = "rgba(148, 163, 184, 0.15)"; 
+      ctx.fillStyle = "rgba(148, 163, 184, 0.15)";
       ctx.fillRect(0, 0, W, H);
     }
 
-
-    // Texte in Canvas nur beim Export
     if (renderTexts) {
       for (const t of local.texts) {
         ctx.fillStyle = t.color || "#ffffff";
@@ -300,19 +404,6 @@ function DesignEditor({
     setLocal((s) => ({ ...s, bgImageUrl: url }));
   };
 
-  // Drag Bild
-  const onMouseDownCanvas = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    setDragImg({ x: e.clientX, y: e.clientY });
-  };
-  const onMouseMoveCanvas = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!dragImg) return;
-    const dx = e.clientX - dragImg.x;
-    const dy = e.clientY - dragImg.y;
-    setDragImg({ x: e.clientX, y: e.clientY });
-    setLocal((s) => ({ ...s, offsetX: s.offsetX + dx, offsetY: s.offsetY + dy }));
-  };
-  const onMouseUpCanvas = () => setDragImg(null);
-
   // Texte
   const addText = () => {
     const id = crypto.randomUUID();
@@ -341,7 +432,6 @@ function DesignEditor({
     setActiveTextId(null);
   };
 
-  // Drag Text
   const onMouseDownText = (e: React.MouseEvent<HTMLDivElement>, id: string) => {
     e.stopPropagation();
     const rect = overlayRef.current?.getBoundingClientRect();
@@ -356,22 +446,7 @@ function DesignEditor({
     });
     setActiveTextId(id);
   };
-  const onMouseMoveOverlay = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!dragText) return;
-    const rect = overlayRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const dx = (e.clientX - dragText.startX) / rect.width;
-    const dy = (e.clientY - dragText.startY) / rect.height;
-    const nx = Math.min(0.98, Math.max(0.02, dragText.origX + dx));
-    const ny = Math.min(0.98, Math.max(0.02, dragText.origY + dy));
-    setLocal((s) => ({
-      ...s,
-      texts: s.texts.map((t) => (t.id === dragText.id ? { ...t, x: nx, y: ny } : t)),
-    }));
-  };
-  const onMouseUpOverlay = () => setDragText(null);
 
-  // Export
   const exportPng = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -383,7 +458,6 @@ function DesignEditor({
 
   const activeText = local.texts.find((t) => t.id === activeTextId) || null;
 
-  // Container-Klasse je nach Form
   const containerClass =
     shape === "circle" ? "rounded-full overflow-hidden" : "rounded-xl overflow-hidden";
 
@@ -405,14 +479,15 @@ function DesignEditor({
                   ref={canvasRef}
                   width={W}
                   height={H}
-                  onMouseDown={onMouseDownCanvas}
-                  onMouseMove={onMouseMoveCanvas}
-                  onMouseUp={onMouseUpCanvas}
-                  onMouseLeave={onMouseUpCanvas}
-                  className="w-full h-full"
+                  onPointerDown={onPointerDown}
+                  onPointerMove={onPointerMove}
+                  onPointerUp={onPointerUpOrCancel}
+                  onPointerCancel={onPointerUpOrCancel}
+                  onWheel={onWheel}
+                  className="w-full h-full touch-none"
+                  style={{ touchAction: "none", cursor: dragImg ? "grabbing" : "grab" }}
                 />
 
-                {/* Platzhalter, solange kein Bild gewählt ist */}
                 {isEmpty && (
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
                     <div className="text-center text-muted-foreground">
@@ -426,19 +501,13 @@ function DesignEditor({
           })()}
 
           {/* Text Overlay */}
-          <div
-            ref={overlayRef}
-            className="absolute inset-0 pointer-events-auto"
-            onMouseMove={onMouseMoveOverlay}
-            onMouseUp={onMouseUpOverlay}
-            onMouseLeave={onMouseUpOverlay}
-          >
+          <div ref={overlayRef} className="absolute inset-0 pointer-events-none">
             {local.texts.map((t) => (
               <div
                 key={t.id}
-                onMouseDown={(e) => onMouseDownText(e, t.id)}
+                onMouseDown={(e) => onMouseDownText(e as any, t.id)}
                 onClick={() => selectText(t.id)}
-                className="absolute cursor-move select-none hover:ring-2 hover:ring-primary/40 hover:rounded"
+                className="absolute cursor-move select-none hover:ring-2 hover:ring-primary/40 hover:rounded pointer-events-auto"
                 style={{
                   left: t.x * W - 2,
                   top: t.y * H - t.fontSize / 2 - 2,
@@ -459,7 +528,6 @@ function DesignEditor({
             ))}
           </div>
         </div>
-
 
         {/* Controls */}
         <div className="flex-1 space-y-4">
@@ -637,6 +705,8 @@ function Step1View(props: {
 
   const showPetTagOptions = mode === "pet" && selected === "basic";
   const showFrameOptions = selected === "premium"; // in allen Modi
+  const showTagFormat = selected === "basic"; // Format-Auswahl für alle Modi beim basic-Produkt
+  const isRound = (form.tag_format ?? "round_3cm") === "round_3cm";
 
   return (
     <div>
@@ -690,20 +760,47 @@ function Step1View(props: {
         })}
       </div>
 
-      {/* Optionen nur für Haustier–Tag */}
+      {/* Format-Auswahl für alle Modi beim "basic"-Produkt */}
+      {showTagFormat && (
+        <div className="mt-8 border rounded-lg p-6 space-y-4">
+          <h3 className="text-xl font-serif">Format</h3>
+          <div className="flex flex-wrap gap-3">
+            <Button
+              type="button"
+              variant={isRound ? "default" : "outline"}
+              onClick={() => setForm((s) => ({ ...s, tag_format: "round_3cm", pet_tag_keychain: s.pet_tag_keychain }))}
+            >
+              Rund · Ø 3 cm
+            </Button>
+            <Button
+              type="button"
+              variant={!isRound ? "default" : "outline"}
+              onClick={() => setForm((s) => ({ ...s, tag_format: "square_6cm", pet_tag_keychain: false }))}
+            >
+              Quadratisch · 6×6 cm
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Optionen nur für Haustier–Tag (ohne erneute Formatwahl) */}
       {showPetTagOptions && (
         <div className="mt-8 border rounded-lg p-6 space-y-6">
           <h3 className="text-xl font-serif">Optionen für Haustier–Memora Tag</h3>
 
-          <div className="flex items-center gap-3">
-            <Checkbox
-              id="keychain"
-              checked={!!form.pet_tag_keychain}
-              onCheckedChange={(v) => setForm((s) => ({ ...s, pet_tag_keychain: !!v }))}
-            />
-            <Label htmlFor="keychain">mit Schluesselanhaenger (+7 CHF)</Label>
-          </div>
+          {/* Schlüsselanhänger nur bei Rund Ø 3 cm */}
+          {(form.tag_format ?? "round_3cm") === "round_3cm" && (
+            <div className="flex items-center gap-3">
+              <Checkbox
+                id="keychain"
+                checked={!!form.pet_tag_keychain}
+                onCheckedChange={(v) => setForm((s) => ({ ...s, pet_tag_keychain: !!v }))}
+              />
+              <Label htmlFor="keychain">mit Schluesselanhaenger (+7 CHF)</Label>
+            </div>
+          )}
 
+          {/* Standard vs. individuell */}
           <div className="space-y-3">
             <Label>Design</Label>
             <div className="flex flex-wrap gap-3">
@@ -728,27 +825,37 @@ function Step1View(props: {
             Hinweis: Individuelles Design kostet <span className="font-semibold">+10 CHF</span>.
           </p>
 
+          {/* Editor – Kreis oder Quadrat, je nach tag_format */}
           {form.pet_tag_customEnabled && (
             <div className="pt-4">
-              {/* Runder Tag */}
-              <DesignEditor
-                shape="circle"
-                width={420}
-                height={420}
-                value={form.pet_tag_custom}
-                onChange={(v) => setForm((s) => ({ ...s, pet_tag_custom: v }))}
-              />
+              {(form.tag_format ?? "round_3cm") === "round_3cm" ? (
+                <DesignEditor
+                  shape="circle"
+                  width={420}
+                  height={420}
+                  value={form.pet_tag_custom}
+                  onChange={(v) => setForm((s) => ({ ...s, pet_tag_custom: v }))}
+                />
+              ) : (
+                <DesignEditor
+                  shape="roundedRect"
+                  width={420}
+                  height={420}
+                  cornerRadius={20}
+                  value={form.pet_tag_custom}
+                  onChange={(v) => setForm((s) => ({ ...s, pet_tag_custom: v }))}
+                />
+              )}
             </div>
           )}
         </div>
       )}
 
-      {/* Frame-Design (premium) – in ALLEN Modi, immer individuell */}
-      {selected === "premium" && (
+      {/* Frame-Design (premium) – immer individuell */}
+      {showFrameOptions && (
         <div className="mt-8 border rounded-lg p-6 space-y-6">
           <h3 className="text-xl font-serif">Frame gestalten</h3>
 
-          {/* Ausrichtung */}
           <div className="space-y-2">
             <Label>Ausrichtung</Label>
             <div className="flex gap-3">
@@ -769,13 +876,11 @@ function Step1View(props: {
             </div>
           </div>
 
-          {/* Editor */}
           <div className="pt-2">
             {(() => {
               const isPortrait = (form.frame_orientation ?? "landscape") === "portrait";
               const W = isPortrait ? 360 : 520;
               const H = isPortrait ? 520 : 360;
-
               return (
                 <DesignEditor
                   shape="roundedRect"
@@ -790,11 +895,11 @@ function Step1View(props: {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Tipp: Zoomen per Schieberegler, Texte hinzufügen & frei positionieren.
+            Tipp: Bild mit der Maus/Touch verschieben, mit dem Mausrad/Pinch zoomen, Texte hinzufügen & frei
+            positionieren.
           </p>
         </div>
       )}
-
 
       <div className="mt-8 flex justify-center gap-3">
         <Button size="lg" disabled={!selected} onClick={onNext}>
@@ -1132,16 +1237,18 @@ function Step5InvoiceAndPayView(props: {
 
   // kleine Text-Zusammenfassung inkl. Optionen
   const options: string[] = [];
-  if (form.pet_tag_keychain) options.push("mit Schluesselanhaenger (+7 CHF)");
+  if ((form.tag_format ?? "round_3cm") === "round_3cm" && form.pet_tag_keychain) {
+    options.push("mit Schluesselanhaenger (+7 CHF)");
+  }
   if (form.pet_tag_customEnabled) options.push("individuell gestalteter Tag (+10 CHF)");
-  if (form.frame_orientation) options.push(`Frame-Ausrichtung: ${form.frame_orientation === "portrait" ? "Hochformat" : "Querformat"}`);
-
+  if (form.frame_orientation)
+    options.push(`Frame-Ausrichtung: ${form.frame_orientation === "portrait" ? "Hochformat" : "Querformat"}`);
 
   return (
     <div>
       <h2 className="text-2xl md:text-3xl font-serif mb-3">Rechnungsangaben & Uebersicht</h2>
       <p className="text-muted-foreground mb-8">
-        Bitte pruefe die Adresse und die Zusammenfassung. Mit „Weiter zur Zahlung“ geht es spaeter in den Checkout.
+        Bitte prüfe die Adresse und die Zusammenfassung. Mit „Weiter zur Zahlung“ geht es später in den Checkout.
       </p>
 
       <div className="space-y-10">
@@ -1190,11 +1297,21 @@ function Step5InvoiceAndPayView(props: {
             </div>
             <div>
               <Label htmlFor="invoice_zip">PLZ *</Label>
-              <Input id="invoice_zip" value={form.invoice_zip ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_zip: e.target.value }))} required />
+              <Input
+                id="invoice_zip"
+                value={form.invoice_zip ?? ""}
+                onChange={(e) => setForm((s) => ({ ...s, invoice_zip: e.target.value }))}
+                required
+              />
             </div>
             <div>
               <Label htmlFor="invoice_city">Ort *</Label>
-              <Input id="invoice_city" value={form.invoice_city ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_city: e.target.value }))} required />
+              <Input
+                id="invoice_city"
+                value={form.invoice_city ?? ""}
+                onChange={(e) => setForm((s) => ({ ...s, invoice_city: e.target.value }))}
+                required
+              />
             </div>
             <div className="md:col-span-2">
               <Label htmlFor="invoice_country">Land *</Label>
@@ -1219,6 +1336,14 @@ function Step5InvoiceAndPayView(props: {
             <li>
               <strong>Produkt:</strong> {productLabel || "-"}
             </li>
+
+            {form.product === "basic" && (
+              <li>
+                <strong>Format:</strong>{" "}
+                {(form.tag_format ?? "round_3cm") === "square_6cm" ? "Quadratisch 6×6 cm" : "Rund Ø 3 cm"}
+              </li>
+            )}
+
             {options.length > 0 && (
               <li>
                 <strong>Optionen:</strong> {options.join(", ")}
@@ -1303,10 +1428,10 @@ const MemoryUploader = () => {
     images: [],
     videos: [],
     invoice_sameAsContact: true,
-    frame_orientation: "landscape",
+    frame_orientation: "portrait", // default Hochformat
+    tag_format: "round_3cm", // default Rund Ø 3 cm
     ...(persistedInit?.form ?? {}),
   });
-
 
   const [selected, setSelected] = useState<ProductKey | null>(
     (persistedInit?.form?.product ?? null) as ProductKey | null
@@ -1407,16 +1532,13 @@ const MemoryUploader = () => {
       {step === 2 && (
         <Step2View mode={mode as Mode} form={form} setForm={setForm} onBack={backFromStep2} onNext={nextFromStep2} />
       )}
-      {step === 3 && (
-        <Step3View form={form} setForm={setForm} onBack={backFromStep3} onNext={nextFromStep3} />
-      )}
+      {step === 3 && <Step3View form={form} setForm={setForm} onBack={backFromStep3} onNext={nextFromStep3} />}
       {step === 4 && (
         <Step4ContactView
           form={form}
           setForm={setForm}
           onBack={backFromStep3}
           onNext={() => {
-            // Rechnung default auf Kontakt setzen, wenn Checkbox aktiv und noch leer
             setForm((s) =>
               s.invoice_sameAsContact
                 ? {
