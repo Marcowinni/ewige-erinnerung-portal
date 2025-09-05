@@ -2,7 +2,7 @@ import { deContent } from './de';
 import { enContent } from './en';
 import { frContent } from './fr';
 import { itContent } from './it';
-import { ContentData, Language, Mode } from './types';
+import { SharedContent, ContentData, Language, Mode } from './types';
 
 const contentMap = {
   de: deContent,
@@ -15,9 +15,10 @@ export const getContent = (language: Language): ContentData => {
   return contentMap[language];
 };
 
-export const getSharedContent = (language: Language) => {
-  return getContent(language).shared;
-};
+export function getSharedContent(lang: Language): SharedContent {
+  const data = getContent(lang);
+  return data.shared;   // NICHT destructuren/picken!
+}
 
 export const getModeContent = (language: Language, mode: Mode) => {
   const content = getContent(language);

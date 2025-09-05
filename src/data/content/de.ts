@@ -1,29 +1,58 @@
 import { ContentData } from './types';
 
 export const deContent: ContentData = {
-  shared: {
-    navigation: {
-      home: 'Startseite',
-      gedenken: 'Gedenken erstellen',
-      about: 'Über uns',
-      contact: 'Kontakt',
-      mode: {
-        human: 'Menschen',
-        pet: 'Haustiere',
-        surprise: 'Surprise'
+    shared: {
+      navigation: {
+        home: 'Memora Moments',
+        gedenken: 'Gedenken erstellen',
+        about: 'Über uns',
+        contact: 'Kontakt',
+        start: 'Gedenken starten',
+        mode: { human: 'Menschen', pet: 'Haustiere', surprise: 'Surprise' }
+      },
+      // SEO/Meta für die About-Seite (kann bleiben wie gehabt)
+      about: {
+        title: 'Über uns - Memora Moments',
+        heading: 'Über Memora Moments',
+        description: 'Erfahren Sie mehr über unsere Mission, würdevolle Erinnerungen zu schaffen.'
+      },
+      contact: {
+        title: 'Kontakt - Memora Moments',
+        heading: 'Kontakt aufnehmen',
+        description: 'Haben Sie Fragen? Wir sind hier, um Ihnen zu helfen.'
+      },
+
+      //About-Seite Content
+      aboutPage: {
+        lead: 'Wir verbinden Erinnerungen mit Technologie – einfühlsam, persönlich, zugänglich.',
+        story: {
+          title: 'Unsere Geschichte',
+          p1: 'Memora Moments ist aus dem Wunsch entstanden, Erinnerungen würdevoll zu bewahren.',
+          p2: 'Mit NFC und Multimedia schaffen wir eine neue Form des Gedenkens – nahbar und modern.'
+        },
+        values: {
+          title: 'Unsere Werte',
+          compassion: {
+            title: 'Mitgefühl',
+            desc: 'Wir arbeiten respektvoll und einfühlsam – für Menschen in besonderen Lebensmomenten.'
+          },
+          personality: {
+            title: 'Persönlichkeit',
+            desc: 'Jedes Gedenken ist individuell – wir gestalten so viel wie nötig, so wenig wie möglich.'
+          },
+          connection: {
+            title: 'Verbundenheit',
+            desc: 'Bilder, Videos und Klang schaffen Nähe – jederzeit, am Erinnerungsort oder zuhause.'
+          }
+        },
+        product: {
+          title: 'Warum Memora?',
+          p1: 'Hochwertige Materialien, wetterfestes Design und ein klarer Fokus auf das Wesentliche.',
+          p2: 'Einfach erstellen, wertig erhalten, jederzeit teilen – mit einem sanften Tap.'
+        }
       }
     },
-    about: {
-      title: 'Über uns - Memora Moments',
-      heading: 'Über Memora Moments',
-      description: 'Erfahren Sie mehr über unsere Mission, würdevolle Erinnerungen zu schaffen.'
-    },
-    contact: {
-      title: 'Kontakt - Memora Moments',
-      heading: 'Kontakt aufnehmen',
-      description: 'Haben Sie Fragen? Wir sind hier, um Ihnen zu helfen.'
-    }
-  },
+
 
   // --- HUMAN MODE ---
   human: {
@@ -118,7 +147,7 @@ export const deContent: ContentData = {
       step2Fields: {
         human_lastName: "Nachname *",
         human_firstName: "Vorname *",
-        human_deathDate: "Sterbedatum *",
+        human_deathDate: "Sterbedatum",
         human_notesPH: "Besondere Wünsche, Zitate, Musik-Hinweise …",
         pet_name: "Name des Haustiers *",           // irrelevant im Human-Modus
         pet_deathDate: "Sterbedatum *",             // irrelevant im Human-Modus
@@ -227,7 +256,7 @@ export const deContent: ContentData = {
       },
       step2Fields: {
         pet_name: "Name des Haustiers *",
-        pet_deathDate: "Sterbedatum *",
+        pet_deathDate: "Sterbedatum",
         pet_notesPH: "Besondere Wünsche, Lieblingsgeräusche, Hinweise …"
       }
     }

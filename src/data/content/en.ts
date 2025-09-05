@@ -3,27 +3,59 @@ import { ContentData } from './types';
 export const enContent: ContentData = {
   shared: {
     navigation: {
-      home: 'Home',
-      gedenken: 'Create Tribute',
+      home: 'Memora Moments',
+      gedenken: 'Create memorial',
       about: 'About',
       contact: 'Contact',
-      mode: {
-        human: 'Humans',
-        pet: 'Pets',
-        surprise: 'Surprise'
-      }
+      start: 'Start memorial',
+      mode: { human: 'People', pet: 'Pets', surprise: 'Surprise' },
     },
+
+    // SEO/meta for the About page
     about: {
-      title: 'About - Memora Moments',
+      title: 'About — Memora Moments',
       heading: 'About Memora Moments',
-      description: 'Learn more about our mission to create dignified memories.'
+      description: 'Learn more about our mission to preserve memories with dignity.',
     },
+
     contact: {
-      title: 'Contact - Memora Moments',
+      title: 'Contact — Memora Moments',
       heading: 'Get in touch',
-      description: 'Questions? We are here to help.'
-    }
+      description: 'Have questions? We’re here to help.',
+    },
+
+    // Content rendered on the About page
+    aboutPage: {
+      title: 'About us',
+      lead: 'We connect memories with technology—empathetic, personal, accessible.',
+      story: {
+        title: 'Our story',
+        p1: 'Memora Moments was born from the wish to preserve memories with care and dignity.',
+        p2: 'With NFC and multimedia, we create a modern, approachable way to remember.',
+      },
+      values: {
+        title: 'Our values',
+        compassion: {
+          title: 'Compassion',
+          desc: 'We work respectfully and empathetically—for people in significant life moments.',
+        },
+        personality: {
+          title: 'Personality',
+          desc: 'Every tribute is individual—we design as much as needed, as little as possible.',
+        },
+        connection: {
+          title: 'Connection',
+          desc: 'Images, videos, and sound create closeness—anytime, at the memorial site or at home.',
+        },
+      },
+      product: {
+        title: 'Why Memora?',
+        p1: 'Premium materials, weather-resistant design, and a clear focus on what matters.',
+        p2: 'Create easily, receive something of lasting value, and share anytime—with a gentle tap.',
+      },
+    },
   },
+
 
   // --- HUMAN MODE ---
   human: {
