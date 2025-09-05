@@ -73,8 +73,89 @@ export const deContent: ContentData = {
     },
     gedenken: {
       title: "Gedenken erstellen - Memora Moments",
-      heading: "Ihr Gedenken erstellen",
+      heading: "Ihr Gedenken erstellen!",
       description: "Laden Sie Erinnerungen hoch und wir erstellen ein würdevolles Gedenken."
+    },
+
+    /** ---------- Uploader-Overrides (nur was von den Fallbacks abweichen soll) ---------- */
+    uploaderCopy: {
+      headings: {
+        pageTitleByMode: {
+          human: "Produkt wählen (Menschen)"
+        },
+        step1Subtitle: "Wähle dein Produkt – die Inhalte lädst du im nächsten Schritt hoch.",
+        step2ByMode: { human: "Angaben zur Person" },
+        step2Subtitle: "Bitte die folgenden Felder ausfüllen. Notizen sind optional.",
+        step3Title: "Bilder & Videos hochladen",
+        step3Subtitle: "Dateien werden im Formular gespeichert und später mitgesendet (nicht im LocalStorage).",
+        step4Title: "Kontaktangaben",
+        step4Subtitle: "Diese Daten verwenden wir für Rückfragen und die Auftragsbestätigung.",
+        step5Title: "Rechnungsangaben & Übersicht",
+        step5Subtitle: "Bitte prüfe die Adresse und die Zusammenfassung. Mit „Weiter zur Zahlung“ geht es später in den Checkout.",
+        summary: "Zusammenfassung"
+      },
+      products: {
+        formatTitle: "Format",
+        roundLabel: "Rund · Ø 3 cm",
+        squareLabel: "Quadratisch · 6×6 cm",
+        petOptionsTitle: "Optionen für Haustier–Memora Tag" // bleibt, wird im Human-Modus nicht angezeigt
+      },
+      editor: {
+        image: "Bild",
+        zoom: "Zoom",
+        posX: "Horizontale Position",
+        posY: "Vertikale Position",
+        emptyTitle: "Kein Bild ausgewählt",
+        emptySub: "Bitte oben ein Bild wählen",
+        selectedText: "Ausgewählter Text",
+        content: "Inhalt",
+        font: "Schriftart",
+        size: "Grösse",
+        color: "Farbe",
+        previewLabel: "Übernommene Vorschau",
+        previewNote: "Diese Vorschau wird mit der Bestellung gespeichert."
+      },
+      step2Fields: {
+        human_lastName: "Nachname *",
+        human_firstName: "Vorname *",
+        human_deathDate: "Sterbedatum *",
+        human_notesPH: "Besondere Wünsche, Zitate, Musik-Hinweise …",
+        pet_name: "Name des Haustiers *",           // irrelevant im Human-Modus
+        pet_deathDate: "Sterbedatum *",             // irrelevant im Human-Modus
+        pet_notesPH: "Besondere Wünsche, Lieblingsgeräusche, Hinweise …",
+        surprise_name: "Name (Empfänger) *",
+        surprise_notesPH: "Hochzeit, Geburtstag, Jubiläum … besondere Wünsche"
+      },
+      step3Fields: {
+        imagesLabel: "Bilder (mehrfach möglich)",
+        videosLabel: "Videos (mehrfach möglich)",
+        remove: "Entfernen"
+      },
+      contactFields: { firstName: "Vorname *", lastName: "Nachname *", email: "E-Mail *", phoneOpt: "Telefon (optional)" },
+      invoiceFields: {
+        sameAsContact: "Rechnungsadresse gleich Kontaktadresse",
+        companyOpt: "Firma (optional)",
+        firstName: "Vorname *",
+        lastName: "Nachname *",
+        street: "Strasse & Nr. *",
+        zip: "PLZ *",
+        city: "Ort *",
+        country: "Land *"
+      },
+      summary: {
+        mode: "Modus",
+        product: "Produkt",
+        format: "Format",
+        formatRound: "Rund Ø 3 cm",
+        formatSquare: "Quadratisch 6×6 cm",
+        options: "Optionen",
+        person: "Person",
+        pet: "Haustier",
+        recipient: "Empfänger",
+        notes: "Notizen",
+        counts: (imgs, vids) => `Bilder: ${imgs} • Videos: ${vids}`,
+        previewTitle: "Individuelle Vorschau"
+      }
     }
   },
 
@@ -104,9 +185,9 @@ export const deContent: ContentData = {
     products: {
       title: "Haustier-Produkte",
       subtitle: "Erinnerungen für treue Begleiter.",
-      basic: { title: "Haustier-Memora Tag", desc: "Einfache NFC-Platte für Haustiere.", price: "ab 55 CHF" },
-      premium: { title: "Haustier-Memora Frame", desc: "Rahmen mit NFC für Haustiere.", price: "ab 110 CHF" },
-      deluxe: { title: "Haustier-Memora Deluxe", desc: "Deluxe-Version mit Gravur und erweiterten Medienoptionen.", price: "ab 180 CHF" },
+      basic: { title: "Memora Pet Tag", desc: "Einfache NFC-Platte für Haustiere.", price: "ab 55 CHF" },
+      premium: { title: "Memora Pet Frame", desc: "Rahmen mit NFC für Haustiere.", price: "ab 110 CHF" },
+      deluxe: { title: "Memora Pet Deluxe", desc: "Deluxe-Version mit Gravur und erweiterten Medienoptionen.", price: "ab 180 CHF" },
       features: {
         glass: "6×6 cm NFC-Platte, wetterfest",
         nfc: "Liebevolles Design",
@@ -128,6 +209,27 @@ export const deContent: ContentData = {
       title: "Haustier-Gedenken erstellen - Memora Moments",
       heading: "Gedenken für Ihr Haustier",
       description: "Laden Sie Erinnerungen Ihres Lieblings hoch."
+    },
+
+    /** ---------- Uploader-Overrides für PET ---------- */
+    uploaderCopy: {
+      headings: {
+        pageTitleByMode: { pet: "Produkt wählen (Haustiere)" },
+        step2ByMode: { pet: "Angaben zum Haustier" }
+      },
+      products: {
+        petOptionsTitle: "Optionen für Haustier–Memora Tag",
+        keychainLabel: "mit Schlüsselanhänger (+7 CHF)",
+        designLabel: "Design",
+        designStandard: "Standard",
+        designCustom: "Individuell gestaltbar",
+        designCustomNote: "Hinweis: Individuelles Design kostet +10 CHF."
+      },
+      step2Fields: {
+        pet_name: "Name des Haustiers *",
+        pet_deathDate: "Sterbedatum *",
+        pet_notesPH: "Besondere Wünsche, Lieblingsgeräusche, Hinweise …"
+      }
     }
   },
 
@@ -157,9 +259,9 @@ export const deContent: ContentData = {
     products: {
       title: "Surprise-Produkte",
       subtitle: "Wählen Sie Ihren Stil.",
-      basic: { title: "Surprise Tag", desc: "Minimalistische NFC-Platte für Überraschungsmomente.", price: "ab 70 CHF" },
-      premium: { title: "Surprise Frame", desc: "Eleganter Rahmen mit Surprise-Inszenierung.", price: "ab 140 CHF" },
-      deluxe: { title: "Surprise Deluxe", desc: "Exklusive Surprise-Inszenierung mit erweiterten Optionen.", price: "ab 220 CHF" },
+      basic: { title: "Memora Surprise Tag", desc: "Minimalistische NFC-Platte für Überraschungsmomente.", price: "ab 70 CHF" },
+      premium: { title: "Memora Surprise Frame", desc: "Eleganter Rahmen mit Surprise-Inszenierung.", price: "ab 140 CHF" },
+      deluxe: { title: "Memora Surprise Deluxe", desc: "Exklusive Surprise-Inszenierung mit erweiterten Optionen.", price: "ab 220 CHF" },
       features: {
         glass: "Robustes Finish",
         nfc: "Integrierter NFC-Tag",
@@ -181,6 +283,18 @@ export const deContent: ContentData = {
       title: "Surprise erstellen - Memora Moments",
       heading: "Ihr Surprise-Moment",
       description: "Laden Sie Inhalte hoch und wir gestalten Ihr Erlebnis."
+    },
+
+    /** ---------- Uploader-Overrides für SURPRISE ---------- */
+    uploaderCopy: {
+      headings: {
+        pageTitleByMode: { surprise: "Produkt wählen (Surprise)" },
+        step2ByMode: { surprise: "Angaben für Surprise" }
+      },
+      step2Fields: {
+        surprise_name: "Name (Empfänger) *",
+        surprise_notesPH: "Anlass, Idee oder besondere Wünsche …"
+      }
     }
   }
 };

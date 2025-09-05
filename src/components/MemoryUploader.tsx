@@ -25,20 +25,20 @@ type TagFormat = "round_3cm" | "square_6cm";
 type EditorText = {
   id: string;
   text: string;
-  x: number; // 0..1 relativ
-  y: number; // 0..1 relativ
+  x: number;
+  y: number;
   fontFamily: string;
-  fontSize: number; // px
+  fontSize: number;
   color: string;
 };
 
 type CustomDesign = {
-  bgImageUrl?: string; // ObjectURL für Vorschau
-  scale: number; // Zoom
-  offsetX: number; // px relativ zum Canvas
-  offsetY: number; // px
+  bgImageUrl?: string;
+  scale: number;
+  offsetX: number;
+  offsetY: number;
   texts: EditorText[];
-  previewDataUrl?: string; // gerenderte PNG Vorschau
+  previewDataUrl?: string;
 };
 
 type FormState = {
@@ -81,17 +81,255 @@ type FormState = {
   invoice_sameAsContact?: boolean;
 
   // Tag-Format (gilt für alle Modi beim "basic"-Produkt)
-  tag_format?: TagFormat; // "round_3cm" | "square_6cm"
+  tag_format?: TagFormat;
 
   // Optionen NUR für Haustier–Memora Tag (basic im pet-Modus)
   pet_tag_keychain?: boolean; // +7 CHF (nur bei rund)
   pet_tag_customEnabled?: boolean; // Standard vs. individuell
-  pet_tag_custom?: CustomDesign; // Editor-Zustand + Vorschau
+  pet_tag_custom?: CustomDesign;
 
   // Optionen für Frame-Produkte (premium, in allen Modi)
   frame_orientation?: "portrait" | "landscape";
-  frame_custom?: CustomDesign; // Editor-Zustand + Vorschau
+  frame_custom?: CustomDesign;
 };
+
+// --- Copy (Texte zentral) ---
+type UploaderCopy = {
+  headings: {
+    pageTitleByMode: { human: string; pet: string; surprise: string };
+    step1Subtitle: string;
+    step2ByMode: { human: string; pet: string; surprise: string };
+    step2Subtitle: string;
+    step3Title: string;
+    step3Subtitle: string;
+    step4Title: string;
+    step4Subtitle: string;
+    step5Title: string;
+    step5Subtitle: string;
+    summary: string;
+  };
+  buttons: {
+    back: string;
+    next: string;
+    reset: string;
+    toPay: string;
+    addText: string;
+    applyDesign: string;
+    remove: string;
+  };
+  products: {
+    formatTitle: string;
+    roundLabel: string;
+    squareLabel: string;
+    petOptionsTitle: string;
+    keychainLabel: string;
+    designLabel: string;
+    designStandard: string;
+    designCustom: string;
+    designCustomNote: string;
+    frameTitle: string;
+    frameOrientationLabel: string;
+    framePortrait: string;
+    frameLandscape: string;
+    frameTip: string;
+  };
+  editor: {
+    image: string;
+    zoom: string;
+    posX: string;
+    posY: string;
+    emptyTitle: string;
+    emptySub: string;
+    selectedText: string;
+    content: string;
+    font: string;
+    size: string;
+    color: string;
+    previewLabel: string;
+    previewNote: string;
+  };
+  step2Fields: {
+    human_lastName: string;
+    human_firstName: string;
+    human_deathDate: string;
+    human_notesPH: string;
+    pet_name: string;
+    pet_deathDate: string;
+    pet_notesPH: string;
+    surprise_name: string;
+    surprise_notesPH: string;
+  };
+  step3Fields: {
+    imagesLabel: string;
+    videosLabel: string;
+    remove: string;
+  };
+  contactFields: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneOpt: string;
+  };
+  invoiceFields: {
+    sameAsContact: string;
+    companyOpt: string;
+    firstName: string;
+    lastName: string;
+    street: string;
+    zip: string;
+    city: string;
+    country: string;
+  };
+  summary: {
+    mode: string;
+    product: string;
+    format: string;
+    formatRound: string;
+    formatSquare: string;
+    options: string;
+    person: string;
+    pet: string;
+    recipient: string;
+    notes: string;
+    counts: (imgs: number, vids: number) => string;
+    previewTitle: string;
+  };
+};
+
+// Fallbacks (werden mit Content gemerged)
+const DEFAULT_COPY: UploaderCopy = {
+  headings: {
+    pageTitleByMode: {
+      human: "Produkt wählen (Menschen)",
+      pet: "Produkt wählen (Haustiere)",
+      surprise: "Produkt wählen (Surprise)",
+    },
+    step1Subtitle: "Wähle dein Produkt – die Inhalte lädst du im nächsten Schritt hoch.",
+    step2ByMode: {
+      human: "Angaben zur Person",
+      pet: "Angaben zum Haustier",
+      surprise: "Angaben für Surprise",
+    },
+    step2Subtitle: "Bitte die folgenden Felder ausfüllen. Notizen sind optional.",
+    step3Title: "Bilder & Videos hochladen",
+    step3Subtitle:
+      "Dateien werden im Formular gespeichert und später mitgesendet (nicht im LocalStorage).",
+    step4Title: "Kontaktangaben",
+    step4Subtitle:
+      "Diese Daten verwenden wir für Rückfragen und die Auftragsbestätigung.",
+    step5Title: "Rechnungsangaben & Übersicht",
+    step5Subtitle:
+      "Bitte prüfe die Adresse und die Zusammenfassung. Mit „Weiter zur Zahlung“ geht es später in den Checkout.",
+    summary: "Zusammenfassung",
+  },
+  buttons: {
+    back: "Zurück",
+    next: "Weiter",
+    reset: "Zurücksetzen",
+    toPay: "Weiter zur Zahlung",
+    addText: "Text hinzufügen",
+    applyDesign: "Design übernehmen",
+    remove: "Entfernen",
+  },
+  products: {
+    formatTitle: "Format",
+    roundLabel: "Rund · Ø 3 cm",
+    squareLabel: "Quadratisch · 6×6 cm",
+    petOptionsTitle: "Optionen für Haustier–Memora Tag",
+    keychainLabel: "mit Schlüsselanhänger (+7 CHF)",
+    designLabel: "Design",
+    designStandard: "Standard",
+    designCustom: "Individuell gestaltbar",
+    designCustomNote: "Hinweis: Individuelles Design kostet +10 CHF.",
+    frameTitle: "Frame gestalten",
+    frameOrientationLabel: "Ausrichtung",
+    framePortrait: "Hochformat",
+    frameLandscape: "Querformat",
+    frameTip:
+      "Tipp: Bild mit der Maus/Touch verschieben, mit dem Mausrad/Pinch zoomen, Texte hinzufügen & frei positionieren.",
+  },
+  editor: {
+    image: "Bild",
+    zoom: "Zoom",
+    posX: "Horizontale Position",
+    posY: "Vertikale Position",
+    emptyTitle: "Kein Bild ausgewählt",
+    emptySub: "Bitte oben ein Bild wählen",
+    selectedText: "Ausgewählter Text",
+    content: "Inhalt",
+    font: "Schriftart",
+    size: "Grösse",
+    color: "Farbe",
+    previewLabel: "Übernommene Vorschau",
+    previewNote: "Diese Vorschau wird mit der Bestellung gespeichert.",
+  },
+  step2Fields: {
+    human_lastName: "Nachname *",
+    human_firstName: "Vorname *",
+    human_deathDate: "Sterbedatum *",
+    human_notesPH: "Besondere Wünsche, Zitate, Musik-Hinweise …",
+    pet_name: "Name des Haustiers *",
+    pet_deathDate: "Sterbedatum *",
+    pet_notesPH: "Besondere Wünsche, Lieblingsgeräusche, Hinweise …",
+    surprise_name: "Name (Empfänger) *",
+    surprise_notesPH: "Hochzeit, Geburtstag, Jubiläum … besondere Wünsche",
+  },
+  step3Fields: {
+    imagesLabel: "Bilder (mehrfach möglich)",
+    videosLabel: "Videos (mehrfach möglich)",
+    remove: "Entfernen",
+  },
+  contactFields: {
+    firstName: "Vorname *",
+    lastName: "Nachname *",
+    email: "E-Mail *",
+    phoneOpt: "Telefon (optional)",
+  },
+  invoiceFields: {
+    sameAsContact: "Rechnungsadresse gleich Kontaktadresse",
+    companyOpt: "Firma (optional)",
+    firstName: "Vorname *",
+    lastName: "Nachname *",
+    street: "Strasse & Nr. *",
+    zip: "PLZ *",
+    city: "Ort *",
+    country: "Land *",
+  },
+  summary: {
+    mode: "Modus",
+    product: "Produkt",
+    format: "Format",
+    formatRound: "Rund Ø 3 cm",
+    formatSquare: "Quadratisch 6×6 cm",
+    options: "Optionen",
+    person: "Person",
+    pet: "Haustier",
+    recipient: "Empfänger",
+    notes: "Notizen",
+    counts: (imgs, vids) => `Bilder: ${imgs} • Videos: ${vids}`,
+    previewTitle: "Individuelle Vorschau",
+  },
+};
+// ---- Deep-Merge Helper (direkt unter DEFAULT_COPY einfügen) ----
+function mergeCopy<T>(base: T, patch?: Partial<T>): T {
+  if (!patch) return base;
+  const out: any = Array.isArray(base) ? [...(base as any)] : { ...(base as any) };
+  for (const key in patch) {
+    const pv = (patch as any)[key];
+    if (pv === undefined) continue;
+    const bv = (out as any)[key];
+    if (pv && typeof pv === "object" && !Array.isArray(pv)) {
+      (out as any)[key] = mergeCopy(
+        (bv && typeof bv === "object" && !Array.isArray(bv)) ? bv : {},
+        pv
+      );
+    } else {
+      (out as any)[key] = pv;
+    }
+  }
+  return out as T;
+}
+
 
 // --- LocalStorage Helpers ---
 const STORAGE_KEY = "memora:memoryUploader:v1";
@@ -113,21 +351,17 @@ function loadPersisted():
 function persist(step: number, form: FormState) {
   try {
     if (typeof window === "undefined") return;
-    const { images, videos, ...rest } = form; // Files NICHT speichern
+    const { images, videos, ...rest } = form;
     const payload = { step, form: rest as PersistedForm };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-  } catch {
-    /* ignore */
-  }
+  } catch {}
 }
 
 function clearPersisted() {
   try {
     if (typeof window === "undefined") return;
     localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    /* ignore */
-  }
+  } catch {}
 }
 
 /* ==================== Design Editor (parametrisierbar) ==================== */
@@ -138,6 +372,8 @@ function DesignEditor({
   width = 420,
   height = 420,
   cornerRadius = 24,
+  copy,
+  buttons,
 }: {
   value: CustomDesign | undefined;
   onChange: (v: CustomDesign) => void;
@@ -145,6 +381,8 @@ function DesignEditor({
   width?: number;
   height?: number;
   cornerRadius?: number;
+  copy: UploaderCopy["editor"];
+  buttons: UploaderCopy["buttons"];
 }) {
   const W = width;
   const H = height;
@@ -171,7 +409,7 @@ function DesignEditor({
     origY: number;
   } | null>(null);
 
-  // Globales Dragging für Text (Pointer Events)
+  // Globales Dragging für Text
   useEffect(() => {
     const handleMove = (e: PointerEvent | MouseEvent) => {
       if (!dragText) return;
@@ -197,9 +435,9 @@ function DesignEditor({
       window.removeEventListener("pointerup", handleUp);
       window.removeEventListener("pointercancel", handleUp);
     };
-  }, [dragText, setLocal]);
+  }, [dragText]);
 
-  // --- Interaktion: Zoom & Pan (Maus/Touch) ---
+  // --- Interaktion: Zoom & Pan ---
   const ZOOM_MIN = 0.5;
   const ZOOM_MAX = 3;
 
@@ -491,8 +729,8 @@ function DesignEditor({
                 {isEmpty && (
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
                     <div className="text-center text-muted-foreground">
-                      <div className="text-sm font-medium mb-1">Kein Bild ausgewählt</div>
-                      <div className="text-xs opacity-80">Bitte oben ein Bild wählen</div>
+                      <div className="text-sm font-medium mb-1">{copy.emptyTitle}</div>
+                      <div className="text-xs opacity-80">{copy.emptySub}</div>
                     </div>
                   </div>
                 )}
@@ -532,12 +770,12 @@ function DesignEditor({
         {/* Controls */}
         <div className="flex-1 space-y-4">
           <div className="space-y-2">
-            <Label>Bild</Label>
+            <Label>{copy.image}</Label>
             <Input type="file" accept="image/*" onChange={(e) => onUpload(e.target.files)} />
           </div>
 
           <div className="space-y-2">
-            <Label>Zoom</Label>
+            <Label>{copy.zoom}</Label>
             <input
               type="range"
               min={0.5}
@@ -549,9 +787,8 @@ function DesignEditor({
             />
           </div>
 
-          {/* Position – Horizontal */}
           <div className="space-y-2">
-            <Label>Horizontale Position</Label>
+            <Label>{copy.posX}</Label>
             <div className="flex items-center gap-2">
               <Button
                 type="button"
@@ -579,9 +816,8 @@ function DesignEditor({
             </div>
           </div>
 
-          {/* Position – Vertikal */}
           <div className="space-y-2">
-            <Label>Vertikale Position</Label>
+            <Label>{copy.posY}</Label>
             <div className="flex items-center gap-2">
               <Button
                 type="button"
@@ -611,10 +847,10 @@ function DesignEditor({
 
           <div className="flex gap-2">
             <Button onClick={addText} type="button">
-              Text hinzufügen
+              {buttons.addText}
             </Button>
             <Button onClick={exportPng} type="button" variant="secondary">
-              Design übernehmen
+              {buttons.applyDesign}
             </Button>
           </div>
 
@@ -622,18 +858,21 @@ function DesignEditor({
           {activeText && (
             <div className="space-y-3 border rounded-md p-3">
               <div className="flex justify-between items-center">
-                <Label className="font-semibold">Ausgewählter Text</Label>
+                <Label className="font-semibold">{copy.selectedText}</Label>
                 <Button size="sm" variant="outline" onClick={removeActiveText}>
-                  Entfernen
+                  {buttons.remove}
                 </Button>
               </div>
               <div className="space-y-2">
-                <Label>Inhalt</Label>
-                <Input value={activeText.text} onChange={(e) => updateActiveText({ text: e.target.value })} />
+                <Label>{copy.content}</Label>
+                <Input
+                  value={activeText.text}
+                  onChange={(e) => updateActiveText({ text: e.target.value })}
+                />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <Label>Schriftart</Label>
+                  <Label>{copy.font}</Label>
                   <select
                     className="w-full border rounded-md h-10 px-2 bg-background"
                     value={activeText.fontFamily}
@@ -647,7 +886,7 @@ function DesignEditor({
                   </select>
                 </div>
                 <div>
-                  <Label>Grösse</Label>
+                  <Label>{copy.size}</Label>
                   <Input
                     type="number"
                     min={10}
@@ -658,21 +897,25 @@ function DesignEditor({
                 </div>
               </div>
               <div>
-                <Label>Farbe</Label>
-                <input type="color" value={activeText.color} onChange={(e) => updateActiveText({ color: e.target.value })} />
+                <Label>{copy.color}</Label>
+                <input
+                  type="color"
+                  value={activeText.color}
+                  onChange={(e) => updateActiveText({ color: e.target.value })}
+                />
               </div>
             </div>
           )}
 
           {local.previewDataUrl && (
             <div className="space-y-2">
-              <Label>Übernommene Vorschau</Label>
+              <Label>{copy.previewLabel}</Label>
               <img
                 src={local.previewDataUrl}
                 alt="Vorschau"
                 className={`border w-48 h-auto ${shape === "circle" ? "rounded-full" : "rounded-xl"}`}
               />
-              <p className="text-xs text-muted-foreground">Diese Vorschau wird mit der Bestellung gespeichert.</p>
+              <p className="text-xs text-muted-foreground">{copy.previewNote}</p>
             </div>
           )}
         </div>
@@ -686,13 +929,7 @@ function Step1View(props: {
   mode: Mode;
   productMap: Record<
     ProductKey,
-    {
-      title: string;
-      desc: string;
-      price: string;
-      images: { src: string; alt: string }[];
-      features: string[];
-    }
+    { title: string; desc: string; price: string; images: { src: string; alt: string }[]; features: string[] }
   >;
   selected: ProductKey | null;
   setSelected: (k: ProductKey) => void;
@@ -700,20 +937,26 @@ function Step1View(props: {
 
   form: FormState;
   setForm: React.Dispatch<React.SetStateAction<FormState>>;
+  copy: UploaderCopy;
 }) {
-  const { mode, productMap, selected, setSelected, onNext, form, setForm } = props;
+  const { mode, productMap, selected, setSelected, onNext, form, setForm, copy } = props;
 
   const showPetTagOptions = mode === "pet" && selected === "basic";
-  const showFrameOptions = selected === "premium"; // in allen Modi
-  const showTagFormat = selected === "basic"; // Format-Auswahl für alle Modi beim basic-Produkt
+  const showFrameOptions = selected === "premium";
+  const showTagFormat = selected === "basic";
   const isRound = (form.tag_format ?? "round_3cm") === "round_3cm";
+
+  const pageTitle =
+    mode === "pet"
+      ? copy.headings.pageTitleByMode.pet
+      : mode === "surprise"
+      ? copy.headings.pageTitleByMode.surprise
+      : copy.headings.pageTitleByMode.human;
 
   return (
     <div>
-      <h2 className="text-2xl md:text-3xl font-serif mb-3">
-        Produkt wählen {mode === "pet" ? "(Haustiere)" : mode === "surprise" ? "(Surprise)" : "(Menschen)"}
-      </h2>
-      <p className="text-muted-foreground mb-8">Wähle dein Produkt – die Inhalte lädst du im nächsten Schritt hoch.</p>
+      <h2 className="text-2xl md:text-3xl font-serif mb-3">{pageTitle}</h2>
+      <p className="text-muted-foreground mb-8">{copy.headings.step1Subtitle}</p>
 
       <div className="grid gap-6 md:grid-cols-3">
         {productKeyOrder.map((key) => {
@@ -763,32 +1006,31 @@ function Step1View(props: {
       {/* Format-Auswahl für alle Modi beim "basic"-Produkt */}
       {showTagFormat && (
         <div className="mt-8 border rounded-lg p-6 space-y-4">
-          <h3 className="text-xl font-serif">Format</h3>
+          <h3 className="text-xl font-serif">{copy.products.formatTitle}</h3>
           <div className="flex flex-wrap gap-3">
             <Button
               type="button"
               variant={isRound ? "default" : "outline"}
               onClick={() => setForm((s) => ({ ...s, tag_format: "round_3cm", pet_tag_keychain: s.pet_tag_keychain }))}
             >
-              Rund · Ø 3 cm
+              {copy.products.roundLabel}
             </Button>
             <Button
               type="button"
               variant={!isRound ? "default" : "outline"}
               onClick={() => setForm((s) => ({ ...s, tag_format: "square_6cm", pet_tag_keychain: false }))}
             >
-              Quadratisch · 6×6 cm
+              {copy.products.squareLabel}
             </Button>
           </div>
         </div>
       )}
 
-      {/* Optionen nur für Haustier–Tag (ohne erneute Formatwahl) */}
+      {/* Optionen nur für Haustier–Tag */}
       {showPetTagOptions && (
         <div className="mt-8 border rounded-lg p-6 space-y-6">
-          <h3 className="text-xl font-serif">Optionen für Haustier–Memora Tag</h3>
+          <h3 className="text-xl font-serif">{copy.products.petOptionsTitle}</h3>
 
-          {/* Schlüsselanhänger nur bei Rund Ø 3 cm */}
           {(form.tag_format ?? "round_3cm") === "round_3cm" && (
             <div className="flex items-center gap-3">
               <Checkbox
@@ -796,36 +1038,32 @@ function Step1View(props: {
                 checked={!!form.pet_tag_keychain}
                 onCheckedChange={(v) => setForm((s) => ({ ...s, pet_tag_keychain: !!v }))}
               />
-              <Label htmlFor="keychain">mit Schluesselanhaenger (+7 CHF)</Label>
+              <Label htmlFor="keychain">{copy.products.keychainLabel}</Label>
             </div>
           )}
 
-          {/* Standard vs. individuell */}
           <div className="space-y-3">
-            <Label>Design</Label>
+            <Label>{copy.products.designLabel}</Label>
             <div className="flex flex-wrap gap-3">
               <Button
                 type="button"
                 variant={form.pet_tag_customEnabled ? "outline" : "default"}
                 onClick={() => setForm((s) => ({ ...s, pet_tag_customEnabled: false }))}
               >
-                Standard
+                {copy.products.designStandard}
               </Button>
               <Button
                 type="button"
                 variant={form.pet_tag_customEnabled ? "default" : "outline"}
                 onClick={() => setForm((s) => ({ ...s, pet_tag_customEnabled: true }))}
               >
-                Individuell gestaltbar
+                {copy.products.designCustom}
               </Button>
             </div>
           </div>
 
-          <p className="text-sm text-muted-foreground">
-            Hinweis: Individuelles Design kostet <span className="font-semibold">+10 CHF</span>.
-          </p>
+          <p className="text-sm text-muted-foreground">{copy.products.designCustomNote}</p>
 
-          {/* Editor – Kreis oder Quadrat, je nach tag_format */}
           {form.pet_tag_customEnabled && (
             <div className="pt-4">
               {(form.tag_format ?? "round_3cm") === "round_3cm" ? (
@@ -835,6 +1073,8 @@ function Step1View(props: {
                   height={420}
                   value={form.pet_tag_custom}
                   onChange={(v) => setForm((s) => ({ ...s, pet_tag_custom: v }))}
+                  copy={copy.editor}
+                  buttons={copy.buttons}
                 />
               ) : (
                 <DesignEditor
@@ -844,6 +1084,8 @@ function Step1View(props: {
                   cornerRadius={20}
                   value={form.pet_tag_custom}
                   onChange={(v) => setForm((s) => ({ ...s, pet_tag_custom: v }))}
+                  copy={copy.editor}
+                  buttons={copy.buttons}
                 />
               )}
             </div>
@@ -851,27 +1093,27 @@ function Step1View(props: {
         </div>
       )}
 
-      {/* Frame-Design (premium) – immer individuell */}
+      {/* Frame-Design */}
       {showFrameOptions && (
         <div className="mt-8 border rounded-lg p-6 space-y-6">
-          <h3 className="text-xl font-serif">Frame gestalten</h3>
+          <h3 className="text-xl font-serif">{copy.products.frameTitle}</h3>
 
           <div className="space-y-2">
-            <Label>Ausrichtung</Label>
+            <Label>{copy.products.frameOrientationLabel}</Label>
             <div className="flex gap-3">
               <Button
                 type="button"
                 variant={(form.frame_orientation ?? "landscape") === "portrait" ? "default" : "outline"}
                 onClick={() => setForm((s) => ({ ...s, frame_orientation: "portrait" }))}
               >
-                Hochformat
+                {copy.products.framePortrait}
               </Button>
               <Button
                 type="button"
                 variant={(form.frame_orientation ?? "landscape") === "landscape" ? "default" : "outline"}
                 onClick={() => setForm((s) => ({ ...s, frame_orientation: "landscape" }))}
               >
-                Querformat
+                {copy.products.frameLandscape}
               </Button>
             </div>
           </div>
@@ -889,21 +1131,20 @@ function Step1View(props: {
                   cornerRadius={24}
                   value={form.frame_custom}
                   onChange={(v) => setForm((s) => ({ ...s, frame_custom: v }))}
+                  copy={copy.editor}
+                  buttons={copy.buttons}
                 />
               );
             })()}
           </div>
 
-          <p className="text-sm text-muted-foreground">
-            Tipp: Bild mit der Maus/Touch verschieben, mit dem Mausrad/Pinch zoomen, Texte hinzufügen & frei
-            positionieren.
-          </p>
+          <p className="text-sm text-muted-foreground">{copy.products.frameTip}</p>
         </div>
       )}
 
       <div className="mt-8 flex justify-center gap-3">
         <Button size="lg" disabled={!selected} onClick={onNext}>
-          Weiter {selected ? `– ${productMap[selected].title}` : ""}
+          {copy.buttons.next} {selected ? `– ${productMap[selected].title}` : ""}
         </Button>
       </div>
     </div>
@@ -917,25 +1158,31 @@ function Step2View(props: {
   setForm: React.Dispatch<React.SetStateAction<FormState>>;
   onBack: () => void;
   onNext: () => void;
+  copy: UploaderCopy;
 }) {
-  const { mode, form, setForm, onBack, onNext } = props;
+  const { mode, form, setForm, onBack, onNext, copy } = props;
 
   const humanInvalid = mode === "human" && (!form.human_lastName || !form.human_firstName || !form.human_deathDate);
   const petInvalid = mode === "pet" && (!form.pet_name || !form.pet_deathDate);
   const surpriseInvalid = mode === "surprise" && !form.surprise_name;
 
+  const title =
+    mode === "pet"
+      ? copy.headings.step2ByMode.pet
+      : mode === "surprise"
+      ? copy.headings.step2ByMode.surprise
+      : copy.headings.step2ByMode.human;
+
   return (
     <div>
-      <h2 className="text-2xl md:text-3xl font-serif mb-3">
-        {mode === "human" ? "Angaben zur Person" : mode === "pet" ? "Angaben zum Haustier" : "Angaben für Surprise"}
-      </h2>
-      <p className="text-muted-foreground mb-8">Bitte die folgenden Felder ausfuellen. Notizen sind optional.</p>
+      <h2 className="text-2xl md:text-3xl font-serif mb-3">{title}</h2>
+      <p className="text-muted-foreground mb-8">{copy.headings.step2Subtitle}</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {mode === "human" && (
           <>
             <div>
-              <Label htmlFor="human_lastName">Nachname *</Label>
+              <Label htmlFor="human_lastName">{copy.step2Fields.human_lastName}</Label>
               <Input
                 id="human_lastName"
                 value={form.human_lastName ?? ""}
@@ -945,7 +1192,7 @@ function Step2View(props: {
               />
             </div>
             <div>
-              <Label htmlFor="human_firstName">Vorname *</Label>
+              <Label htmlFor="human_firstName">{copy.step2Fields.human_firstName}</Label>
               <Input
                 id="human_firstName"
                 value={form.human_firstName ?? ""}
@@ -955,7 +1202,7 @@ function Step2View(props: {
               />
             </div>
             <div>
-              <Label htmlFor="human_deathDate">Sterbedatum *</Label>
+              <Label htmlFor="human_deathDate">{copy.step2Fields.human_deathDate}</Label>
               <Input
                 id="human_deathDate"
                 type="date"
@@ -969,7 +1216,7 @@ function Step2View(props: {
               <Textarea
                 id="notes_human"
                 rows={4}
-                placeholder="Besondere Wuensche, Zitate, Musik-Hinweise …"
+                placeholder={copy.step2Fields.human_notesPH}
                 value={form.notes ?? ""}
                 onChange={(e) => setForm((s) => ({ ...s, notes: e.target.value }))}
               />
@@ -980,7 +1227,7 @@ function Step2View(props: {
         {mode === "pet" && (
           <>
             <div>
-              <Label htmlFor="pet_name">Name des Haustiers *</Label>
+              <Label htmlFor="pet_name">{copy.step2Fields.pet_name}</Label>
               <Input
                 id="pet_name"
                 value={form.pet_name ?? ""}
@@ -990,7 +1237,7 @@ function Step2View(props: {
               />
             </div>
             <div>
-              <Label htmlFor="pet_deathDate">Sterbedatum *</Label>
+              <Label htmlFor="pet_deathDate">{copy.step2Fields.pet_deathDate}</Label>
               <Input
                 id="pet_deathDate"
                 type="date"
@@ -1004,7 +1251,7 @@ function Step2View(props: {
               <Textarea
                 id="notes_pet"
                 rows={4}
-                placeholder="Besondere Wuensche, Lieblingsgeraeusche, Hinweise …"
+                placeholder={copy.step2Fields.pet_notesPH}
                 value={form.notes ?? ""}
                 onChange={(e) => setForm((s) => ({ ...s, notes: e.target.value }))}
               />
@@ -1015,7 +1262,7 @@ function Step2View(props: {
         {mode === "surprise" && (
           <>
             <div>
-              <Label htmlFor="surprise_name">Name (Empfaenger) *</Label>
+              <Label htmlFor="surprise_name">{copy.step2Fields.surprise_name}</Label>
               <Input
                 id="surprise_name"
                 value={form.surprise_name ?? ""}
@@ -1029,7 +1276,7 @@ function Step2View(props: {
               <Textarea
                 id="notes_surprise"
                 rows={4}
-                placeholder="Hochzeit, Geburtstag, Jubilaeum … besondere Wuensche"
+                placeholder={copy.step2Fields.surprise_notesPH}
                 value={form.notes ?? ""}
                 onChange={(e) => setForm((s) => ({ ...s, notes: e.target.value }))}
               />
@@ -1040,10 +1287,10 @@ function Step2View(props: {
 
       <div className="mt-8 flex justify-between gap-3">
         <Button variant="outline" onClick={onBack}>
-          Zurueck
+          {copy.buttons.back}
         </Button>
         <Button onClick={onNext} disabled={humanInvalid || petInvalid || surpriseInvalid}>
-          Weiter
+          {copy.buttons.next}
         </Button>
       </div>
     </div>
@@ -1056,8 +1303,9 @@ function Step3View(props: {
   setForm: React.Dispatch<React.SetStateAction<FormState>>;
   onBack: () => void;
   onNext: () => void;
+  copy: UploaderCopy;
 }) {
-  const { form, setForm, onBack, onNext } = props;
+  const { form, setForm, onBack, onNext, copy } = props;
 
   const addImages = (files: FileList | null) => {
     if (files) setForm((s) => ({ ...s, images: [...s.images, ...Array.from(files)] }));
@@ -1070,15 +1318,13 @@ function Step3View(props: {
 
   return (
     <div>
-      <h2 className="text-2xl md:text-3xl font-serif mb-3">Bilder & Videos hochladen</h2>
-      <p className="text-muted-foreground mb-8">
-        Dateien werden im Formular gespeichert und spaeter mitgesendet (nicht im LocalStorage).
-      </p>
+      <h2 className="text-2xl md:text-3xl font-serif mb-3">{copy.headings.step3Title}</h2>
+      <p className="text-muted-foreground mb-8">{copy.headings.step3Subtitle}</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Bilder */}
         <div>
-          <Label htmlFor="images">Bilder (mehrfach moeglich)</Label>
+          <Label htmlFor="images">{copy.step3Fields.imagesLabel}</Label>
           <Input id="images" type="file" accept="image/*" multiple onChange={(e) => addImages(e.target.files)} />
           {form.images.length > 0 && (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
@@ -1093,7 +1339,7 @@ function Step3View(props: {
                       className="absolute top-2 right-2"
                       onClick={() => removeImage(idx)}
                     >
-                      Entfernen
+                      {copy.step3Fields.remove}
                     </Button>
                   </div>
                 );
@@ -1104,7 +1350,7 @@ function Step3View(props: {
 
         {/* Videos */}
         <div>
-          <Label htmlFor="videos">Videos (mehrfach moeglich)</Label>
+          <Label htmlFor="videos">{copy.step3Fields.videosLabel}</Label>
           <Input id="videos" type="file" accept="video/*" multiple onChange={(e) => addVideos(e.target.files)} />
           {form.videos.length > 0 && (
             <div className="space-y-3 mt-4">
@@ -1116,7 +1362,7 @@ function Step3View(props: {
                     <div className="flex justify-between items-center mt-2">
                       <span className="text-sm text-muted-foreground truncate">{f.name}</span>
                       <Button size="sm" variant="outline" onClick={() => removeVideo(idx)}>
-                        Entfernen
+                        {copy.step3Fields.remove}
                       </Button>
                     </div>
                   </div>
@@ -1129,10 +1375,10 @@ function Step3View(props: {
 
       <div className="mt-8 flex justify-between gap-3">
         <Button variant="outline" onClick={onBack}>
-          Zurueck
+          {copy.buttons.back}
         </Button>
         <Button onClick={onNext} disabled={form.images.length === 0 && form.videos.length === 0}>
-          Weiter
+          {copy.buttons.next}
         </Button>
       </div>
     </div>
@@ -1145,18 +1391,19 @@ function Step4ContactView(props: {
   setForm: React.Dispatch<React.SetStateAction<FormState>>;
   onBack: () => void;
   onNext: () => void;
+  copy: UploaderCopy;
 }) {
-  const { form, setForm, onBack, onNext } = props;
+  const { form, setForm, onBack, onNext, copy } = props;
   const invalid = !form.contact_firstName || !form.contact_lastName || !form.contact_email;
 
   return (
     <div>
-      <h2 className="text-2xl md:text-3xl font-serif mb-3">Kontaktangaben</h2>
-      <p className="text-muted-foreground mb-8">Diese Daten verwenden wir fuer Rueckfragen und die Auftragsbestaetigung.</p>
+      <h2 className="text-2xl md:text-3xl font-serif mb-3">{copy.headings.step4Title}</h2>
+      <p className="text-muted-foreground mb-8">{copy.headings.step4Subtitle}</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <Label htmlFor="contact_firstName">Vorname *</Label>
+          <Label htmlFor="contact_firstName">{copy.contactFields.firstName}</Label>
           <Input
             id="contact_firstName"
             value={form.contact_firstName ?? ""}
@@ -1165,7 +1412,7 @@ function Step4ContactView(props: {
           />
         </div>
         <div>
-          <Label htmlFor="contact_lastName">Nachname *</Label>
+          <Label htmlFor="contact_lastName">{copy.contactFields.lastName}</Label>
           <Input
             id="contact_lastName"
             value={form.contact_lastName ?? ""}
@@ -1174,7 +1421,7 @@ function Step4ContactView(props: {
           />
         </div>
         <div className="md:col-span-2">
-          <Label htmlFor="contact_email">E-Mail *</Label>
+          <Label htmlFor="contact_email">{copy.contactFields.email}</Label>
           <Input
             id="contact_email"
             type="email"
@@ -1184,7 +1431,7 @@ function Step4ContactView(props: {
           />
         </div>
         <div className="md:col-span-2">
-          <Label htmlFor="contact_phone">Telefon (optional)</Label>
+          <Label htmlFor="contact_phone">{copy.contactFields.phoneOpt}</Label>
           <Input
             id="contact_phone"
             value={form.contact_phone ?? ""}
@@ -1196,10 +1443,10 @@ function Step4ContactView(props: {
 
       <div className="mt-8 flex justify-between gap-3">
         <Button variant="outline" onClick={onBack}>
-          Zurueck
+          {copy.buttons.back}
         </Button>
         <Button onClick={onNext} disabled={invalid}>
-          Weiter
+          {copy.buttons.next}
         </Button>
       </div>
     </div>
@@ -1213,10 +1460,11 @@ function Step5InvoiceAndPayView(props: {
   setForm: React.Dispatch<React.SetStateAction<FormState>>;
   productLabel: string;
   onBack: () => void;
-  onPlaceOrder: () => void; // später Stripe starten
+  onPlaceOrder: () => void;
   onReset: () => void;
+  copy: UploaderCopy;
 }) {
-  const { mode, form, setForm, productLabel, onBack, onPlaceOrder, onReset } = props;
+  const { mode, form, setForm, productLabel, onBack, onPlaceOrder, onReset, copy } = props;
 
   const toggleSame = (checked: boolean) => {
     setForm((s) => ({
@@ -1235,33 +1483,34 @@ function Step5InvoiceAndPayView(props: {
     !form.invoice_city ||
     !form.invoice_country;
 
-  // kleine Text-Zusammenfassung inkl. Optionen
   const options: string[] = [];
   if ((form.tag_format ?? "round_3cm") === "round_3cm" && form.pet_tag_keychain) {
-    options.push("mit Schluesselanhaenger (+7 CHF)");
+    options.push(copy.products.keychainLabel);
   }
-  if (form.pet_tag_customEnabled) options.push("individuell gestalteter Tag (+10 CHF)");
+  if (form.pet_tag_customEnabled) options.push(copy.products.designCustom + " (+10 CHF)");
   if (form.frame_orientation)
-    options.push(`Frame-Ausrichtung: ${form.frame_orientation === "portrait" ? "Hochformat" : "Querformat"}`);
+    options.push(
+      `Frame-Ausrichtung: ${
+        form.frame_orientation === "portrait" ? copy.products.framePortrait : copy.products.frameLandscape
+      }`,
+    );
 
   return (
     <div>
-      <h2 className="text-2xl md:text-3xl font-serif mb-3">Rechnungsangaben & Uebersicht</h2>
-      <p className="text-muted-foreground mb-8">
-        Bitte prüfe die Adresse und die Zusammenfassung. Mit „Weiter zur Zahlung“ geht es später in den Checkout.
-      </p>
+      <h2 className="text-2xl md:text-3xl font-serif mb-3">{copy.headings.step5Title}</h2>
+      <p className="text-muted-foreground mb-8">{copy.headings.step5Subtitle}</p>
 
       <div className="space-y-10">
         {/* Rechnungsadresse */}
         <div>
           <div className="flex items-center gap-2 mb-4">
             <Checkbox id="same" checked={!!form.invoice_sameAsContact} onCheckedChange={(v) => toggleSame(!!v)} />
-            <Label htmlFor="same">Rechnungsadresse gleich Kontaktadresse</Label>
+            <Label htmlFor="same">{copy.invoiceFields.sameAsContact}</Label>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="md:col-span-2">
-              <Label htmlFor="invoice_company">Firma (optional)</Label>
+              <Label htmlFor="invoice_company">{copy.invoiceFields.companyOpt}</Label>
               <Input
                 id="invoice_company"
                 value={form.invoice_company ?? ""}
@@ -1269,7 +1518,7 @@ function Step5InvoiceAndPayView(props: {
               />
             </div>
             <div>
-              <Label htmlFor="invoice_firstName">Vorname *</Label>
+              <Label htmlFor="invoice_firstName">{copy.invoiceFields.firstName}</Label>
               <Input
                 id="invoice_firstName"
                 value={form.invoice_firstName ?? ""}
@@ -1278,7 +1527,7 @@ function Step5InvoiceAndPayView(props: {
               />
             </div>
             <div>
-              <Label htmlFor="invoice_lastName">Nachname *</Label>
+              <Label htmlFor="invoice_lastName">{copy.invoiceFields.lastName}</Label>
               <Input
                 id="invoice_lastName"
                 value={form.invoice_lastName ?? ""}
@@ -1287,7 +1536,7 @@ function Step5InvoiceAndPayView(props: {
               />
             </div>
             <div className="md:col-span-2">
-              <Label htmlFor="invoice_street">Strasse & Nr. *</Label>
+              <Label htmlFor="invoice_street">{copy.invoiceFields.street}</Label>
               <Input
                 id="invoice_street"
                 value={form.invoice_street ?? ""}
@@ -1296,7 +1545,7 @@ function Step5InvoiceAndPayView(props: {
               />
             </div>
             <div>
-              <Label htmlFor="invoice_zip">PLZ *</Label>
+              <Label htmlFor="invoice_zip">{copy.invoiceFields.zip}</Label>
               <Input
                 id="invoice_zip"
                 value={form.invoice_zip ?? ""}
@@ -1305,7 +1554,7 @@ function Step5InvoiceAndPayView(props: {
               />
             </div>
             <div>
-              <Label htmlFor="invoice_city">Ort *</Label>
+              <Label htmlFor="invoice_city">{copy.invoiceFields.city}</Label>
               <Input
                 id="invoice_city"
                 value={form.invoice_city ?? ""}
@@ -1314,7 +1563,7 @@ function Step5InvoiceAndPayView(props: {
               />
             </div>
             <div className="md:col-span-2">
-              <Label htmlFor="invoice_country">Land *</Label>
+              <Label htmlFor="invoice_country">{copy.invoiceFields.country}</Label>
               <Input
                 id="invoice_country"
                 value={form.invoice_country ?? ""}
@@ -1328,37 +1577,48 @@ function Step5InvoiceAndPayView(props: {
 
         {/* Zusammenfassung */}
         <div className="border rounded-lg p-6">
-          <h3 className="text-xl font-serif mb-4">Zusammenfassung</h3>
+          <h3 className="text-xl font-serif mb-4">{copy.headings.summary}</h3>
           <ul className="space-y-1 text-sm">
             <li>
-              <strong>Modus:</strong> {mode === "pet" ? "Haustiere" : mode === "surprise" ? "Surprise" : "Menschen"}
+              <strong>{copy.summary.mode}:</strong>{" "}
+              {mode === "pet" ? "Haustiere" : mode === "surprise" ? "Surprise" : "Menschen"}
             </li>
             <li>
-              <strong>Produkt:</strong> {productLabel || "-"}
+              <strong>{copy.summary.product}:</strong> {productLabel || "-"}
             </li>
 
             {form.product === "basic" && (
               <li>
-                <strong>Format:</strong>{" "}
-                {(form.tag_format ?? "round_3cm") === "square_6cm" ? "Quadratisch 6×6 cm" : "Rund Ø 3 cm"}
+                <strong>{copy.summary.format}:</strong>{" "}
+                {(form.tag_format ?? "round_3cm") === "square_6cm"
+                  ? copy.summary.formatSquare
+                  : copy.summary.formatRound}
               </li>
             )}
 
             {options.length > 0 && (
               <li>
-                <strong>Optionen:</strong> {options.join(", ")}
+                <strong>{copy.summary.options}:</strong> {options.join(", ")}
               </li>
             )}
 
             {(form.pet_tag_custom?.previewDataUrl || form.frame_custom?.previewDataUrl) && (
               <li className="mt-2">
-                <strong>Individuelle Vorschau:</strong>
+                <strong>{copy.summary.previewTitle}:</strong>
                 <div className="mt-2 flex items-center gap-4">
                   {form.pet_tag_custom?.previewDataUrl && (
-                    <img src={form.pet_tag_custom.previewDataUrl} alt="Tag Vorschau" className="w-20 h-20 rounded-full border" />
+                    <img
+                      src={form.pet_tag_custom.previewDataUrl}
+                      alt="Tag Vorschau"
+                      className="w-20 h-20 rounded-full border"
+                    />
                   )}
                   {form.frame_custom?.previewDataUrl && (
-                    <img src={form.frame_custom.previewDataUrl} alt="Frame Vorschau" className="w-28 h-auto rounded-xl border" />
+                    <img
+                      src={form.frame_custom.previewDataUrl}
+                      alt="Frame Vorschau"
+                      className="w-28 h-auto rounded-xl border"
+                    />
                   )}
                 </div>
               </li>
@@ -1366,42 +1626,41 @@ function Step5InvoiceAndPayView(props: {
 
             {mode === "human" && (
               <li>
-                <strong>Person:</strong> {form.human_firstName} {form.human_lastName}{" "}
+                <strong>{copy.summary.person}:</strong> {form.human_firstName} {form.human_lastName}{" "}
                 {form.human_deathDate ? `(${form.human_deathDate})` : ""}
               </li>
             )}
             {mode === "pet" && (
               <li>
-                <strong>Haustier:</strong> {form.pet_name} {form.pet_deathDate ? `(${form.pet_deathDate})` : ""}
+                <strong>{copy.summary.pet}:</strong> {form.pet_name}{" "}
+                {form.pet_deathDate ? `(${form.pet_deathDate})` : ""}
               </li>
             )}
             {mode === "surprise" && (
               <li>
-                <strong>Empfaenger:</strong> {form.surprise_name}
+                <strong>{copy.summary.recipient}:</strong> {form.surprise_name}
               </li>
             )}
             {form.notes && (
               <li>
-                <strong>Notizen:</strong> {form.notes}
+                <strong>{copy.summary.notes}:</strong> {form.notes}
               </li>
             )}
-            <li>
-              <strong>Bilder:</strong> {form.images.length} • <strong>Videos:</strong> {form.videos.length}
-            </li>
+            <li>{copy.summary.counts(form.images.length, form.videos.length)}</li>
           </ul>
         </div>
 
         <div className="mt-2 flex flex-wrap justify-between gap-3">
           <div className="flex gap-3">
             <Button variant="outline" onClick={onBack}>
-              Zurueck
+              {copy.buttons.back}
             </Button>
             <Button variant="ghost" onClick={onReset}>
-              Zuruecksetzen
+              {copy.buttons.reset}
             </Button>
           </div>
           <Button onClick={onPlaceOrder} disabled={invalid}>
-            Weiter zur Zahlung
+            {copy.buttons.toPay}
           </Button>
         </div>
       </div>
@@ -1411,9 +1670,14 @@ function Step5InvoiceAndPayView(props: {
 
 /* -------------------- Parent: MemoryUploader -------------------- */
 const MemoryUploader = () => {
-  const { mode, modeContent } = useContent();
+  // ⬇️ getUploaderCopy zusätzlich aus dem Context holen
+  const { mode, modeContent, getUploaderCopy } = useContent();
   const media = useMemo(() => getMediaForMode(mode as Mode), [mode]);
   const products = modeContent.products;
+
+  // ⬇️ Copy aus Content (modeContent.uploaderCopy) + Fallbacks (DEFAULT_COPY) mergen
+  //    Kein mergeCopy mehr nötig – zentral über den Context-Helper:
+  const COPY: UploaderCopy = getUploaderCopy<UploaderCopy>(DEFAULT_COPY);
 
   // Persisted Defaults laden
   const persistedInit = loadPersisted();
@@ -1428,8 +1692,8 @@ const MemoryUploader = () => {
     images: [],
     videos: [],
     invoice_sameAsContact: true,
-    frame_orientation: "portrait", // default Hochformat
-    tag_format: "round_3cm", // default Rund Ø 3 cm
+    frame_orientation: "portrait",
+    tag_format: "round_3cm",
     ...(persistedInit?.form ?? {}),
   });
 
@@ -1503,10 +1767,8 @@ const MemoryUploader = () => {
     scrollToTop();
   };
   const goPayment = () => {
-    // Hier später Checkout (Stripe o. ä.) starten
     console.log("CHECKOUT PAYLOAD", { mode, form });
     alert("Daten sind gespeichert. Zahlungsintegration (Stripe) folgt.");
-    // Nach erfolgreicher Zahlung ggf. clearPersisted();
   };
   const resetAll = () => {
     clearPersisted();
@@ -1527,12 +1789,28 @@ const MemoryUploader = () => {
           onNext={nextFromStep1}
           form={form}
           setForm={setForm}
+          copy={COPY}
         />
       )}
       {step === 2 && (
-        <Step2View mode={mode as Mode} form={form} setForm={setForm} onBack={backFromStep2} onNext={nextFromStep2} />
+        <Step2View
+          mode={mode as Mode}
+          form={form}
+          setForm={setForm}
+          onBack={backFromStep2}
+          onNext={nextFromStep2}
+          copy={COPY}
+        />
       )}
-      {step === 3 && <Step3View form={form} setForm={setForm} onBack={backFromStep3} onNext={nextFromStep3} />}
+      {step === 3 && (
+        <Step3View
+          form={form}
+          setForm={setForm}
+          onBack={backFromStep3}
+          onNext={nextFromStep3}
+          copy={COPY}
+        />
+      )}
       {step === 4 && (
         <Step4ContactView
           form={form}
@@ -1551,6 +1829,7 @@ const MemoryUploader = () => {
             setStep(5);
             scrollToTop();
           }}
+          copy={COPY}
         />
       )}
       {step === 5 && (
@@ -1562,10 +1841,12 @@ const MemoryUploader = () => {
           onBack={backFromStep4}
           onPlaceOrder={goPayment}
           onReset={resetAll}
+          copy={COPY}
         />
       )}
     </div>
   );
 };
+
 
 export default MemoryUploader;

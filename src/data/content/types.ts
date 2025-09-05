@@ -2,6 +2,128 @@
 export type Language = 'de' | 'en' | 'fr' | 'it';
 export type Mode = 'human' | 'pet' | 'surprise';
 
+/* =========================================================
+   Uploader: zentrale Copy-Struktur
+   ========================================================= */
+export interface UploaderCopy {
+  headings: {
+    pageTitleByMode: { human: string; pet: string; surprise: string };
+    step1Subtitle: string;
+    step2ByMode: { human: string; pet: string; surprise: string };
+    step2Subtitle: string;
+    step3Title: string;
+    step3Subtitle: string;
+    step4Title: string;
+    step4Subtitle: string;
+    step5Title: string;
+    step5Subtitle: string;
+    summary: string;
+  };
+  buttons: {
+    back: string;
+    next: string;
+    reset: string;
+    toPay: string;
+    addText: string;
+    applyDesign: string;
+    remove: string;
+  };
+  products: {
+    formatTitle: string;
+    roundLabel: string;
+    squareLabel: string;
+    petOptionsTitle: string;
+    keychainLabel: string;
+    designLabel: string;
+    designStandard: string;
+    designCustom: string;
+    designCustomNote: string;
+    frameTitle: string;
+    frameOrientationLabel: string;
+    framePortrait: string;
+    frameLandscape: string;
+    frameTip: string;
+  };
+  editor: {
+    image: string;
+    zoom: string;
+    posX: string;
+    posY: string;
+    emptyTitle: string;
+    emptySub: string;
+    selectedText: string;
+    content: string;
+    font: string;
+    size: string;
+    color: string;
+    previewLabel: string;
+    previewNote: string;
+  };
+  step2Fields: {
+    human_lastName: string;
+    human_firstName: string;
+    human_deathDate: string;
+    human_notesPH: string;
+    pet_name: string;
+    pet_deathDate: string;
+    pet_notesPH: string;
+    surprise_name: string;
+    surprise_notesPH: string;
+  };
+  step3Fields: {
+    imagesLabel: string;
+    videosLabel: string;
+    remove: string;
+  };
+  contactFields: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneOpt: string;
+  };
+  invoiceFields: {
+    sameAsContact: string;
+    companyOpt: string;
+    firstName: string;
+    lastName: string;
+    street: string;
+    zip: string;
+    city: string;
+    country: string;
+  };
+  summary: {
+    mode: string;
+    product: string;
+    format: string;
+    formatRound: string;
+    formatSquare: string;
+    options: string;
+    person: string;
+    pet: string;
+    recipient: string;
+    notes: string;
+    counts: (imgs: number, vids: number) => string;
+    previewTitle: string;
+  };
+}
+
+/* =========================================================
+   DeepPartial für bequeme, tiefe Overrides in Sprachdateien
+   ========================================================= */
+export type DeepPartial<T> = {
+  [K in keyof T]?: T[K] extends object
+    ? T[K] extends Function
+      ? T[K]
+      : DeepPartial<T[K]>
+    : T[K];
+};
+
+/** Sprach-/Modus-Overrides: jetzt tief partiell */
+export type UploaderCopyOverrides = DeepPartial<UploaderCopy>;
+
+/* =========================
+   Bestehende Content-Typen
+   ========================= */
 export interface HeroContent {
   title: string;
   subtitle: string;
@@ -39,7 +161,7 @@ export interface ProductsContent {
     desc: string;
     price: string;
   };
-  deluxe: {                 
+  deluxe: {
     title: string;
     desc: string;
     price: string;
@@ -55,7 +177,6 @@ export interface ProductsContent {
     premium: string;
   };
 }
-
 
 export interface CTAContent {
   title: string;
@@ -78,7 +199,7 @@ export interface NavigationContent {
   mode: {
     human: string;
     pet: string;
-    surprise: string; // neu
+    surprise: string;
   };
 }
 
@@ -96,6 +217,9 @@ export interface SharedContent {
   };
 }
 
+/* ==========================================
+   ModeContent: um uploaderCopy erweitert 
+   ========================================== */
 export interface ModeContent {
   hero: HeroContent;
   features: FeatureContent;
@@ -103,6 +227,9 @@ export interface ModeContent {
   products: ProductsContent;
   cta: CTAContent;
   gedenken: GedenkContent;
+
+  /** Optionale Überschreibungen für den MemoryUploader (Texte) */
+  uploaderCopy?: UploaderCopyOverrides;
 }
 
 export interface ContentData {
