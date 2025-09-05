@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Check } from "lucide-react";
 import {
   Carousel,
@@ -1162,8 +1163,8 @@ function Step2View(props: {
 }) {
   const { mode, form, setForm, onBack, onNext, copy } = props;
 
-  const humanInvalid = mode === "human" && (!form.human_lastName || !form.human_firstName || !form.human_deathDate);
-  const petInvalid = mode === "pet" && (!form.pet_name || !form.pet_deathDate);
+  const humanInvalid = mode === "human" && (!form.human_lastName || !form.human_firstName);
+  const petInvalid   = mode === "pet"   && (!form.pet_name);
   const surpriseInvalid = mode === "surprise" && !form.surprise_name;
 
   const title =
@@ -1208,7 +1209,6 @@ function Step2View(props: {
                 type="date"
                 value={form.human_deathDate ?? ""}
                 onChange={(e) => setForm((s) => ({ ...s, human_deathDate: e.target.value }))}
-                required
               />
             </div>
             <div className="md:col-span-2">
@@ -1243,7 +1243,6 @@ function Step2View(props: {
                 type="date"
                 value={form.pet_deathDate ?? ""}
                 onChange={(e) => setForm((s) => ({ ...s, pet_deathDate: e.target.value }))}
-                required
               />
             </div>
             <div className="md:col-span-2">
@@ -1463,8 +1462,9 @@ function Step5InvoiceAndPayView(props: {
   onPlaceOrder: () => void;
   onReset: () => void;
   copy: UploaderCopy;
+  defaultTagImage?: string;
 }) {
-  const { mode, form, setForm, productLabel, onBack, onPlaceOrder, onReset, copy } = props;
+  const { mode, form, setForm, productLabel, onBack, onPlaceOrder, onReset, copy, defaultTagImage } = props;
 
   const toggleSame = (checked: boolean) => {
     setForm((s) => ({
@@ -1488,12 +1488,15 @@ function Step5InvoiceAndPayView(props: {
     options.push(copy.products.keychainLabel);
   }
   if (form.pet_tag_customEnabled) options.push(copy.products.designCustom + " (+10 CHF)");
-  if (form.frame_orientation)
+  if (form.product === "premium" && form.frame_orientation) {
     options.push(
       `Frame-Ausrichtung: ${
-        form.frame_orientation === "portrait" ? copy.products.framePortrait : copy.products.frameLandscape
-      }`,
+        form.frame_orientation === "portrait"
+          ? copy.products.framePortrait
+          : copy.products.frameLandscape
+      }`
     );
+  }
 
   return (
     <div>
@@ -1602,27 +1605,97 @@ function Step5InvoiceAndPayView(props: {
               </li>
             )}
 
-            {(form.pet_tag_custom?.previewDataUrl || form.frame_custom?.previewDataUrl) && (
-              <li className="mt-2">
-                <strong>{copy.summary.previewTitle}:</strong>
-                <div className="mt-2 flex items-center gap-4">
-                  {form.pet_tag_custom?.previewDataUrl && (
-                    <img
-                      src={form.pet_tag_custom.previewDataUrl}
-                      alt="Tag Vorschau"
-                      className="w-20 h-20 rounded-full border"
-                    />
-                  )}
-                  {form.frame_custom?.previewDataUrl && (
-                    <img
-                      src={form.frame_custom.previewDataUrl}
-                      alt="Frame Vorschau"
-                      className="w-28 h-auto rounded-xl border"
-                    />
-                  )}
-                </div>
-              </li>
-            )}
+            {/* Vorschau: Tag (basic) oder Frame (premium) */}
+            {(() => {
+              // Tag (basic):
+              if (form.product === "basic") {
+                // Nur im PET-Modus gibt es die individuelle Tag-Gestaltung
+                const customActive =
+                  mode === "pet" &&
+                  !!form.pet_tag_customEnabled &&
+                  !!form.pet_tag_custom?.previewDataUrl;
+
+                const tagImg = customActive
+                  ? form.pet_tag_custom!.previewDataUrl!
+                  : defaultTagImage; // <- fällt auf Standardbild zurück
+
+                if (tagImg) {
+                  const isRound = (form.tag_format ?? "round_3cm") === "round_3cm";
+                  return (
+                    <li className="mt-2">
+                      <strong>{copy.summary.previewTitle}:</strong>
+                      <div className="mt-2 flex items-center gap-4">
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <button
+                              type="button"
+                              aria-label="Tag-Vorschau vergrössern"
+                              className="focus:outline-none"
+                            >
+                              <img
+                                src={tagImg}
+                                alt={customActive ? "Individuelle Tag-Vorschau" : "Standard Tag-Vorschau"}
+                                className={`border ${isRound ? "w-20 h-20 rounded-full" : "w-24 h-24 rounded-xl"} object-cover hover:opacity-90 transition`}
+                              />
+                            </button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-[720px]">
+                            <div className="w-full flex items-center justify-center">
+                              <img
+                                src={tagImg}
+                                alt={customActive ? "Individuelle Tag-Vorschau (gross)" : "Standard Tag-Vorschau (gross)"}
+                                className={`${isRound ? "rounded-full" : "rounded-xl"} w-full h-auto max-h-[80vh] object-contain`}
+                              />
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+
+                      </div>
+                    </li>
+                  );
+                }
+                return null;
+              }
+
+              // Frame (premium):
+              if (form.product === "premium" && form.frame_custom?.previewDataUrl) {
+                return (
+                  <li className="mt-2">
+                    <strong>{copy.summary.previewTitle}:</strong>
+                    <div className="mt-2 flex items-center gap-4">
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <button
+                            type="button"
+                            aria-label="Frame-Vorschau vergrössern"
+                            className="focus:outline-none"
+                          >
+                            <img
+                              src={form.frame_custom.previewDataUrl}
+                              alt="Frame Vorschau"
+                              className="w-28 h-auto rounded-xl border hover:opacity-90 transition"
+                            />
+                          </button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[900px]">
+                          <div className="w-full flex items-center justify-center">
+                            <img
+                              src={form.frame_custom.previewDataUrl}
+                              alt="Frame Vorschau (gross)"
+                              className="rounded-xl w-full h-auto max-h-[85vh] object-contain"
+                            />
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+
+                    </div>
+                  </li>
+                );
+              }
+
+              return null;
+            })()}
+
 
             {mode === "human" && (
               <li>
@@ -1692,7 +1765,6 @@ const MemoryUploader = () => {
     images: [],
     videos: [],
     invoice_sameAsContact: true,
-    frame_orientation: "portrait",
     tag_format: "round_3cm",
     ...(persistedInit?.form ?? {}),
   });
@@ -1742,7 +1814,12 @@ const MemoryUploader = () => {
   // Navigation
   const nextFromStep1 = () => {
     if (!selected) return;
-    setForm((s) => ({ ...s, product: selected }));
+    setForm((s) => ({ ...s, product: selected,
+    // wenn kein premium: Frame-Felder leeren
+    ...(selected !== "premium" ? { frame_orientation: undefined, frame_custom: undefined } : {}),
+    // wenn kein basic: Tag-Custom-Felder leeren
+    ...(selected !== "basic" ? { pet_tag_customEnabled: undefined, pet_tag_custom: undefined } : {}),
+  }));
     setStep(2);
     scrollToTop();
   };
@@ -1777,6 +1854,14 @@ const MemoryUploader = () => {
     setForm({ images: [], videos: [], invoice_sameAsContact: true });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  // --- Default-Tag-Preview anhand Modus & Format bestimmen ---
+  const defaultTagImage =
+    form.product === "basic"
+      ? (form.tag_format === "square_6cm"
+          ? media.tagDefaults?.square
+          : media.tagDefaults?.round)
+      : undefined;
 
   return (
     <div id="memory-form-start" className="space-y-10">
@@ -1842,6 +1927,7 @@ const MemoryUploader = () => {
           onPlaceOrder={goPayment}
           onReset={resetAll}
           copy={COPY}
+          defaultTagImage={defaultTagImage}
         />
       )}
     </div>

@@ -196,12 +196,35 @@ export interface NavigationContent {
   gedenken: string;
   about: string;
   contact: string;
+  start: string;
   mode: {
     human: string;
     pet: string;
     surprise: string;
   };
 }
+
+export interface AboutPageContent {
+  title: string;
+  lead: string;
+  story: {
+    title: string;
+    p1: string;
+    p2: string;
+  };
+  values: {
+    title: string;
+    compassion: { title: string; desc: string };
+    personality: { title: string; desc: string };
+    connection: { title: string; desc: string };
+  };
+  product: {
+    title: string;
+    p1: string;
+    p2: string;
+  };
+}
+
 
 export interface SharedContent {
   navigation: NavigationContent;
@@ -215,6 +238,7 @@ export interface SharedContent {
     heading: string;
     description: string;
   };
+  aboutPage: AboutPageContent;
 }
 
 /* ==========================================

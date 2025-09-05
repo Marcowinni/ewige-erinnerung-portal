@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Moon, Sun } from "lucide-react";
@@ -13,17 +12,13 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
-  const { sharedContent, t } = useContent();
+
+  // Holt die Texte aus den Sprachdateien (shared Bereich)
+  const { sharedContent } = useContent();
+  const nav = sharedContent.navigation;
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -40,8 +35,11 @@ const Navbar = () => {
           className="flex items-center gap-2 text-primary hover:opacity-90 transition-opacity"
         >
           <MemoraLogo className="w-8 h-8 flex-shrink-0 align-middle" />
-          <span className="font-serif text-xl font-medium leading-none align-middle relative" style={{ top: '2px' }}>
-            {sharedContent.navigation.home}
+          <span
+            className="font-serif text-xl font-medium leading-none align-middle relative"
+            style={{ top: "2px" }}
+          >
+            {nav.home}
           </span>
         </Link>
 
@@ -49,28 +47,32 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-4">
           <PetModeToggle />
           <LanguageSwitcher />
+
           <Link to="/" className="text-foreground hover:text-primary transition-colors">
-            {t('nav.home')}
+            {nav.home}
           </Link>
           <Link to="/gedenken" className="text-foreground hover:text-primary transition-colors">
-            {t('nav.create')}
+            {nav.gedenken}
           </Link>
           <Link to="/ueber" className="text-foreground hover:text-primary transition-colors">
-            {t('nav.about')}
+            {nav.about}
           </Link>
           <Link to="/kontakt" className="text-foreground hover:text-primary transition-colors">
-            {t('nav.contact')}
+            {nav.contact}
           </Link>
+
           <Button
             variant="outline"
             size="icon"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            aria-label={t('nav.theme')}
+            aria-label="Theme"
+            title="Theme"
           >
             {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
+
           <Button asChild className="bg-primary text-primary-foreground">
-            <Link to="/gedenken?product=premium">{t('nav.start')}</Link>
+            <Link to="/gedenken?product=premium">{nav.start}</Link>
           </Button>
         </div>
 
@@ -82,7 +84,8 @@ const Navbar = () => {
             variant="outline"
             size="icon"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            aria-label={t('nav.theme')}
+            aria-label="Theme"
+            title="Theme"
           >
             {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
@@ -105,35 +108,35 @@ const Navbar = () => {
             className="text-foreground hover:text-primary transition-colors py-2"
             onClick={() => setIsMenuOpen(false)}
           >
-            {t('nav.home')}
+            {nav.home}
           </Link>
           <Link
             to="/gedenken"
             className="text-foreground hover:text-primary transition-colors py-2"
             onClick={() => setIsMenuOpen(false)}
           >
-            {t('nav.create')}
+            {nav.gedenken}
           </Link>
           <Link
             to="/ueber"
             className="text-foreground hover:text-primary transition-colors py-2"
             onClick={() => setIsMenuOpen(false)}
           >
-            {t('nav.about')}
+            {nav.about}
           </Link>
           <Link
             to="/kontakt"
             className="text-foreground hover:text-primary transition-colors py-2"
             onClick={() => setIsMenuOpen(false)}
           >
-            {t('nav.contact')}
+            {nav.contact}
           </Link>
           <Button
             asChild
             className="bg-primary text-primary-foreground w-full"
             onClick={() => setIsMenuOpen(false)}
           >
-            <Link to="/gedenken?product=premium">{t('nav.start')}</Link>
+            <Link to="/gedenken?product=premium">{nav.start}</Link>
           </Button>
         </div>
       )}

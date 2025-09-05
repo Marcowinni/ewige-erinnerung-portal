@@ -2,7 +2,7 @@
 
 import { Mode } from "./content/types";
 
-// Product media configuration for human, pet and surprise modes
+/** ---------------------- Typen ---------------------- **/
 export interface ProductMedia {
   demoVideos: {
     src: string;
@@ -10,22 +10,18 @@ export interface ProductMedia {
     alt: string;
   }[];
   basicProduct: {
-    images: {
-      src: string;
-      alt: string;
-    }[];
+    images: { src: string; alt: string }[];
   };
   premiumProduct: {
-    images: {
-      src: string;
-      alt: string;
-    }[];
+    images: { src: string; alt: string }[];
   };
   deluxeProduct: {
-    images: {
-      src: string;
-      alt: string;
-    }[];
+    images: { src: string; alt: string }[];
+  };
+  /** Standardbilder für den Memora Tag (werden für die Vorschau genutzt) */
+  tagDefaults?: {
+    round: string;   // Pfad zum runden Standard-Tag
+    square: string;  // Pfad zum quadratischen Standard-Tag
   };
 }
 
@@ -97,6 +93,10 @@ export const humanMedia: ProductMedia = {
       },
     ],
   },
+  tagDefaults: {
+    round:  "/vorschaubilder/tag-default-round.png",
+    square: "/vorschaubilder/tag-default-square.png",
+  },
 };
 
 /** ---------------------- PET MEDIA ---------------------- **/
@@ -167,6 +167,10 @@ export const petMedia: ProductMedia = {
       },
     ],
   },
+  tagDefaults: {
+    round:  "/vorschaubilder/pet-tag-default-round.png",
+    square: "/vorschaubilder/pet-tag-default-square.png",
+  },
 };
 
 /** ---------------------- SURPRISE MEDIA ---------------------- **/
@@ -233,6 +237,11 @@ export const surpriseMedia: ProductMedia = {
       },
     ],
   },
+  // Surprise kann auf die Human-Defaults zeigen – oder eigene bekommen
+  tagDefaults: {
+    round:  "/vorschaubilder/tag-default-round.png",
+    square: "/vorschaubilder/tag-default-square.png",
+  },
 };
 
 /** ---------------------- SELECTOR ---------------------- **/
@@ -241,7 +250,6 @@ export const getMediaForMode = (modeOrIsPet: Mode | boolean): ProductMedia => {
     // alte Aufrufe: true => pet, false => human
     return modeOrIsPet ? petMedia : humanMedia;
   }
-
   if (modeOrIsPet === "pet") return petMedia;
   if (modeOrIsPet === "surprise") return surpriseMedia;
   return humanMedia;

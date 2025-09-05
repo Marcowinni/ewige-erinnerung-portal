@@ -21,7 +21,10 @@ function isPlainObject(v: unknown): v is Record<string, any> {
   return !!v && typeof v === "object" && !Array.isArray(v);
 }
 
-function deepMerge<T extends Record<string, any>, U extends Record<string, any>>(base: T, override: U): T {
+function deepMerge<T extends Record<string, any>, U extends Record<string, any>>(
+  base: T,
+  override: U
+): T {
   const out: any = Array.isArray(base) ? [...base] : { ...base };
 
   for (const key of Object.keys(override || {})) {
@@ -56,7 +59,7 @@ interface ContentContextType {
   sharedContent: SharedContent;
   modeContent: ModeContent;
 
-  // Legacy helper (for backwards compatibility during migration)
+  // Legacy helper (für schrittweise Migration)
   t: (key: string) => string;
 
   /**
@@ -78,37 +81,57 @@ export const ContentProvider = ({ children }: { children: ReactNode }) => {
   // Content basierend auf Sprache/Modus laden
   const fullContent = useMemo(() => getContent(language), [language]);
   const sharedContent = useMemo(() => getSharedContent(language), [language]);
-  const modeContent = useMemo(() => getModeContent(language, mode), [language, mode]);
+  const modeContent = useMemo(
+    () => getModeContent(language, mode),
+    [language, mode]
+  );
 
-  // Legacy t() Pfad-Resolver (shared -> mode fallback)
+  // ---------- t(): Pfad-Resolver mit Aliasen für Rückwärtskompatibilität ----------
   const t = useMemo(() => {
-    return (key: string): string => {
-      const walk = (obj: any, path: string[]): any => {
-        let cur: any = obj;
-        for (const k of path) {
-          if (cur && typeof cur === "object" && k in cur) {
-            cur = cur[k];
-          } else {
-            return undefined;
-          }
-        }
-        return cur;
-      };
+    // Aliase: erlauben alte Keys wie "nav.*" und "about.*"
+    const aliasRoots: Record<string, string> = {
+      nav: "shared.navigation",     // t('nav.start') -> shared.navigation.start
+      about: "shared.aboutPage",     // t('about.story.title') -> shared.aboutPage.story.title
+    };
 
-      const path = key.split(".");
-      const fromShared = walk(sharedContent as any, path);
+    const walk = (obj: any, path: string[]): any => {
+      let cur: any = obj;
+      for (const k of path) {
+        if (cur && typeof cur === "object" && k in cur) {
+          cur = cur[k];
+        } else {
+          return undefined;
+        }
+      }
+      return cur;
+    };
+
+    return (key: string): string => {
+      const rawPath = key.split(".");
+      const root = rawPath[0];
+
+      // ggf. Alias anwenden
+      const resolved =
+        root in aliasRoots
+          ? (aliasRoots[root] + "." + rawPath.slice(1).join(".")).split(".")
+          : rawPath;
+
+      // 1) shared prüfen
+      const fromShared = walk(sharedContent as any, resolved);
       if (typeof fromShared === "string") return fromShared;
 
-      const fromMode = walk(modeContent as any, path);
+      // 2) mode prüfen
+      const fromMode = walk(modeContent as any, resolved);
       if (typeof fromMode === "string") return fromMode;
 
-      return key; // Fallback: Key zurückgeben
+      // 3) Fallback: Key anzeigen (hilfreich zum Debuggen)
+      return key;
     };
   }, [sharedContent, modeContent]);
 
   /**
    * getUploaderCopy: merged DEFAULT_COPY mit modeContent.uploaderCopy
-   * -> so zentralisierst du alle Uploader-Texte pro Sprache/Modus in de.ts/en.ts...
+   * -> zentralisiert alle Uploader-Texte pro Sprache/Modus in de.ts/en.ts...
    */
   const getUploaderCopy = useMemo(() => {
     return <T extends Record<string, any>>(defaults: T): T => {
