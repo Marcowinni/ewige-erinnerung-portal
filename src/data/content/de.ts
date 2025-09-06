@@ -3,79 +3,83 @@ import { ContentData } from './types';
 export const deContent: ContentData = {
     shared: {
       navigation: {
-        home: 'Memora Moments',
-        gedenken: 'Gedenken erstellen',
-        about: 'Über uns',
-        contact: 'Kontakt',
-        start: 'Gedenken starten',
-        mode: { human: 'Menschen', pet: 'Haustiere', surprise: 'Surprise' }
+        home: "Memora Moments",
+        gedenken: "Gedenken erstellen",
+        about: "Über uns",
+        contact: "Kontakt",
+        start: "Gedenken starten",
+        mode: { human: "Menschen", pet: "Haustiere", surprise: "Surprise" }
       },
-      // SEO/Meta für die About-Seite (kann bleiben wie gehabt)
+
+      // SEO/Meta für die About-Seite
       about: {
-        title: 'Über uns - Memora Moments',
-        heading: 'Über Memora Moments',
-        description: 'Erfahren Sie mehr über unsere Mission, würdevolle Erinnerungen zu schaffen.'
+        title: "Über uns - Memora Moments",
+        heading: "Über Memora Moments",
+        description: "Erfahren Sie mehr über unsere Mission, würdevolle Erinnerungen zu schaffen."
       },
+
+      // Kontaktseite (vollständig, ohne Fallbacks)
       contact: {
-        title: 'Kontakt - Memora Moments',
-        heading: 'Kontakt aufnehmen',
-        description: 'Haben Sie Fragen? Wir sind hier, um Ihnen zu helfen.',
-        email: 'E-Mail',
-        phone: 'Telefon',
+        title: "Kontakt - Memora Moments",
+        heading: "Kontakt aufnehmen",
+        description: "Haben Sie Fragen? Wir sind hier, um Ihnen zu helfen.",
+        email: "E-Mail",
+        phone: "Telefon",
         form: {
-          title: 'Nachricht senden',
-          submit: 'Nachricht senden',
-          success: 'Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet.',
+          title: "Nachricht senden",
+          submit: "Absenden",
+          success: "Danke! Wir melden uns so schnell wie möglich.",
           name: {
-            label: 'Name',
-            placeholder: 'Ihr Name'
+            label: "Name",
+            placeholder: "Vor- und Nachname"
           },
           email: {
-            label: 'E-Mail',
-            placeholder: 'ihre.email@beispiel.de'
+            label: "E-Mail",
+            placeholder: "dein@beispiel.ch"
           },
           subject: {
-            label: 'Betreff',
-            placeholder: 'Worum geht es?'
+            label: "Betreff",
+            placeholder: "Worum geht’s?"
           },
           message: {
-            label: 'Nachricht',
-            placeholder: 'Teilen Sie uns mit, wie wir Ihnen helfen können...'
+            label: "Nachricht",
+            placeholder: "Deine Nachricht an uns…"
           }
         }
       },
 
-      //About-Seite Content
+      // About-Seite Content
       aboutPage: {
-        title: 'Über uns',
-        lead: 'Wir verbinden Erinnerungen mit Technologie – einfühlsam, persönlich, zugänglich.',
+        title: "Über uns",
+        lead: "Wir verbinden Erinnerungen mit Technologie – einfühlsam, persönlich, zugänglich.",
         story: {
-          title: 'Unsere Geschichte',
-          p1: 'Memora Moments ist aus dem Wunsch entstanden, Erinnerungen würdevoll zu bewahren.',
-          p2: 'Mit NFC und Multimedia schaffen wir eine neue Form des Gedenkens – nahbar und modern.'
+          title: "Unsere Geschichte",
+          p1: "Memora Moments ist aus dem Wunsch entstanden, Erinnerungen würdevoll zu bewahren.",
+          p2: "Mit NFC und Multimedia schaffen wir eine neue Form des Gedenkens – nahbar und modern."
         },
         values: {
-          title: 'Unsere Werte',
+          title: "Unsere Werte",
           compassion: {
-            title: 'Mitgefühl',
-            desc: 'Wir arbeiten respektvoll und einfühlsam – für Menschen in besonderen Lebensmomenten.'
+            title: "Mitgefühl",
+            desc: "Wir arbeiten respektvoll und einfühlsam – für Menschen in besonderen Lebensmomenten."
           },
           personality: {
-            title: 'Persönlichkeit',
-            desc: 'Jedes Gedenken ist individuell – wir gestalten so viel wie nötig, so wenig wie möglich.'
+            title: "Persönlichkeit",
+            desc: "Jedes Gedenken ist individuell – wir gestalten so viel wie nötig, so wenig wie möglich."
           },
           connection: {
-            title: 'Verbundenheit',
-            desc: 'Bilder, Videos und Klang schaffen Nähe – jederzeit, am Erinnerungsort oder zuhause.'
+            title: "Verbundenheit",
+            desc: "Bilder, Videos und Klang schaffen Nähe – jederzeit, am Erinnerungsort oder zuhause."
           }
         },
         product: {
-          title: 'Warum Memora?',
-          p1: 'Hochwertige Materialien, wetterfestes Design und ein klarer Fokus auf das Wesentliche.',
-          p2: 'Einfach erstellen, wertig erhalten, jederzeit teilen – mit einem sanften Tap.'
+          title: "Warum Memora?",
+          p1: "Hochwertige Materialien, wetterfestes Design und ein klarer Fokus auf das Wesentliche.",
+          p2: "Einfach erstellen, wertig erhalten, jederzeit teilen – mit einem sanften Tap."
         }
       }
     },
+
 
 
   // --- HUMAN MODE ---
@@ -144,7 +148,7 @@ export const deContent: ContentData = {
         step4Title: "Kontaktangaben",
         step4Subtitle: "Diese Daten verwenden wir für Rückfragen und die Auftragsbestätigung.",
         step5Title: "Rechnungsangaben & Übersicht",
-        step5Subtitle: "Bitte prüfe die Adresse und die Zusammenfassung. Mit „Weiter zur Zahlung" geht es später in den Checkout.",
+        step5Subtitle: "Bitte prüfe die Adresse und die Zusammenfassung. Mit Weiter zur Zahlung! geht es später in den Checkout.",
         summary: "Zusammenfassung"
       },
       products: {
@@ -206,7 +210,7 @@ export const deContent: ContentData = {
         pet: "Haustier",
         recipient: "Empfänger",
         notes: "Notizen",
-        counts: (imgs: number, vids: number) => `Bilder: ${imgs} • Videos: ${vids}`,
+        counts: (imgs, vids) => `Bilder: ${imgs} • Videos: ${vids}`,
         previewTitle: "Individuelle Vorschau"
       }
     }
