@@ -225,7 +225,6 @@ export interface AboutPageContent {
   };
 }
 
-
 export interface SharedContent {
   navigation: NavigationContent;
   about: {
@@ -237,9 +236,10 @@ export interface SharedContent {
     title: string;
     heading: string;
     description: string;
-    email: string;
-    phone: string;
-    form: {
+    /** optional, damit Minimal-Content nicht bricht */
+    email?: string;
+    phone?: string;
+    form?: {
       title: string;
       submit: string;
       success: string;
@@ -265,7 +265,7 @@ export interface SharedContent {
 }
 
 /* ==========================================
-   ModeContent: um uploaderCopy erweitert 
+   ModeContent: mit optionalem uploaderCopy-Override
    ========================================== */
 export interface ModeContent {
   hero: HeroContent;

@@ -10,7 +10,8 @@ import { Send, Mail, Phone } from "lucide-react";
 import { useContent } from "@/contexts/ContentContext";
 
 const Kontakt = () => {
-  const { sharedContent, t } = useContent();
+  const { t } = useContent();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,7 +30,7 @@ const Kontakt = () => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     setFormData({ name: "", email: "", subject: "", message: "" });
-    alert(sharedContent.contact.form.success);
+    alert(t("contact.form.success"));
   };
 
   return (
@@ -40,16 +41,14 @@ const Kontakt = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <h1 className="text-3xl md:text-4xl font-serif mb-8 text-center">
-              {sharedContent.contact.title}
+              {t("contact.title")}
             </h1>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Kontakt-Infos */}
               <div>
                 <div className="prose prose-lg max-w-none mb-8">
-                  <p>
-                    {sharedContent.contact.description}
-                  </p>
+                  <p>{t("contact.description")}</p>
                 </div>
 
                 <div className="space-y-6">
@@ -58,7 +57,9 @@ const Kontakt = () => {
                       <Mail className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-lg">{sharedContent.contact.email}</h3>
+                      <h3 className="font-medium text-lg">{t("contact.email")}</h3>
+                      {/* Falls du Adresse auch im Content pflegen willst:
+                          Füge z.B. contact.emailAddress in den Content ein und nutze ihn hier */}
                       <p className="text-muted-foreground">
                         info.memora.moments@gmail.com
                       </p>
@@ -70,12 +71,11 @@ const Kontakt = () => {
                       <Phone className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-lg">{sharedContent.contact.phone}</h3>
+                      <h3 className="font-medium text-lg">{t("contact.phone")}</h3>
+                      {/* Ebenso optional contact.phoneNumber in den Content legen */}
                       <p className="text-muted-foreground">+41 79 407 56 99</p>
                     </div>
                   </div>
-
-                  
                 </div>
               </div>
 
@@ -85,60 +85,66 @@ const Kontakt = () => {
                   onSubmit={handleSubmit}
                   className="space-y-6 bg-card p-8 rounded-lg shadow-sm border border-border"
                 >
-                  <h2 className="text-2xl font-serif mb-6">{sharedContent.contact.form.title}</h2>
+                  <h2 className="text-2xl font-serif mb-6">
+                    {t("contact.form.title")}
+                  </h2>
 
                   <div className="space-y-2">
-        <Label htmlFor="name">{sharedContent.contact.form.name.label}</Label>
-        <Input
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder={sharedContent.contact.form.name.placeholder}
-          required
-        />
+                    <Label htmlFor="name">{t("contact.form.name.label")}</Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder={t("contact.form.name.placeholder")}
+                      required
+                    />
                   </div>
 
                   <div className="space-y-2">
-        <Label htmlFor="email">{sharedContent.contact.form.email.label}</Label>
-        <Input
-          id="email"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder={sharedContent.contact.form.email.placeholder}
-          required
-        />
+                    <Label htmlFor="email">{t("contact.form.email.label")}</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder={t("contact.form.email.placeholder")}
+                      required
+                    />
                   </div>
 
                   <div className="space-y-2">
-        <Label htmlFor="subject">{sharedContent.contact.form.subject.label}</Label>
-        <Input
-          id="subject"
-          name="subject"
-          value={formData.subject}
-          onChange={handleChange}
-          placeholder={sharedContent.contact.form.subject.placeholder}
-          required
-        />
+                    <Label htmlFor="subject">
+                      {t("contact.form.subject.label")}
+                    </Label>
+                    <Input
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder={t("contact.form.subject.placeholder")}
+                      required
+                    />
                   </div>
 
                   <div className="space-y-2">
-        <Label htmlFor="message">{sharedContent.contact.form.message.label}</Label>
-        <Textarea
-          id="message"
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          placeholder={sharedContent.contact.form.message.placeholder}
-          rows={5}
-          required
-        />
+                    <Label htmlFor="message">
+                      {t("contact.form.message.label")}
+                    </Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder={t("contact.form.message.placeholder")}
+                      rows={5}
+                      required
+                    />
                   </div>
 
                   <Button type="submit" className="w-full">
-                    <Send className="mr-2 h-4 w-4" /> {sharedContent.contact.form.submit}
+                    <Send className="mr-2 h-4 w-4" /> {t("contact.form.submit")}
                   </Button>
                 </form>
               </div>
