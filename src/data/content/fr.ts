@@ -22,7 +22,30 @@ export const frContent: ContentData = {
     contact: {
       title: 'Contact - Memora Moments',
       heading: 'Nous contacter',
-      description: 'Des questions ? Nous sommes là pour vous aider.'
+      description: 'Des questions ? Nous sommes là pour vous aider.',
+      email: 'E-mail',
+      phone: 'Téléphone',
+      form: {
+        title: 'Envoyer un message',
+        submit: 'Envoyer le message',
+        success: 'Merci ! Votre message a été envoyé avec succès.',
+        name: {
+          label: 'Nom',
+          placeholder: 'Votre nom'
+        },
+        email: {
+          label: 'E-mail',
+          placeholder: 'votre.email@exemple.fr'
+        },
+        subject: {
+          label: 'Sujet',
+          placeholder: 'De quoi s\'agit-il ?'
+        },
+        message: {
+          label: 'Message',
+          placeholder: 'Dites-nous comment nous pouvons vous aider...'
+        }
+      }
     },
     
     // Content rendered on the About page
