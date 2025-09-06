@@ -7,6 +7,7 @@ export const itContent: ContentData = {
       gedenken: 'Crea tributo',
       about: 'Chi siamo',
       contact: 'Contatti',
+      start: 'Inizia memoriale',
       mode: {
         human: 'Persone',
         pet: 'Animali',
@@ -22,6 +23,37 @@ export const itContent: ContentData = {
       title: 'Contatti - Memora Moments',
       heading: 'Contattaci',
       description: 'Domande? Siamo qui per aiutarti.'
+    },
+    
+    // Content rendered on the About page
+    aboutPage: {
+      title: 'Chi siamo',
+      lead: 'Colleghiamo i ricordi alla tecnologia – con compassione, personalizzazione e accessibilità.',
+      story: {
+        title: 'La nostra storia',
+        p1: 'Memora Moments è nata dal desiderio di preservare i ricordi con cura e dignità.',
+        p2: 'Con NFC e multimedia, creiamo un modo moderno e accessibile di ricordare.'
+      },
+      values: {
+        title: 'I nostri valori',
+        compassion: {
+          title: 'Compassione',
+          desc: 'Lavoriamo rispettosamente e con empatia — per le persone in momenti di vita significativi.'
+        },
+        personality: {
+          title: 'Personalità',
+          desc: 'Ogni tributo è individuale — progettiamo quanto necessario, il meno possibile.'
+        },
+        connection: {
+          title: 'Connessione',
+          desc: 'Immagini, video e suono creano vicinanza — in qualsiasi momento, nel luogo del ricordo o a casa.'
+        }
+      },
+      product: {
+        title: 'Perché Memora?',
+        p1: 'Materiali di qualità, design resistente agli agenti atmosferici e un focus chiaro sull\'essenziale.',
+        p2: 'Creare facilmente, ricevere qualcosa di duraturo e condividere in qualsiasi momento — con un semplice tap.'
+      }
     }
   },
 
@@ -34,7 +66,7 @@ export const itContent: ContentData = {
       learnButton: 'Scopri di più'
     },
     features: {
-      title: 'Momenti indimenticabili per l’eternità',
+      title: 'Momenti indimenticabili per l\'eternità',
       subtitle: 'Le nostre piastre NFC uniscono tecnologia e dignità.',
       unique: { title: 'Omaggio unico', desc: 'Conserva i ricordi speciali con Memora Moments.' },
       multimedia: { title: 'Ricordi multimediali', desc: 'Foto e video che raccontano una vita.' },
@@ -96,7 +128,7 @@ export const itContent: ContentData = {
     },
     howitworks: {
       title: 'Come funziona',
-      subtitle: 'Tre passi per l’omaggio.',
+      subtitle: 'Tre passi per l\'omaggio.',
       step1: { title: 'Carica i media', desc: 'Scegli foto e video.' },
       step2: { title: 'Aggiungi suoni/musica', desc: 'Inserisci audio significativo.' },
       step3: { title: 'Ricevi la piastra NFC', desc: 'La piastra viene consegnata.' }
@@ -141,9 +173,9 @@ export const itContent: ContentData = {
     },
     features: {
       title: 'Quel tocco speciale',
-      subtitle: 'Curato, sobrio e un po’ magico.',
+      subtitle: 'Curato, sobrio e un po\' magico.',
       unique: { title: 'Esperienza curata', desc: 'Ogni piastra Surprise racconta una piccola storia.' },
-      multimedia: { title: 'Immagine • Video • Suono', desc: 'Tutti i media su un’unica piastra.' },
+      multimedia: { title: 'Immagine • Video • Suono', desc: 'Tutti i media su un\'unica piastra.' },
       music: { title: 'Suono signature', desc: 'Un layer sonoro di buon gusto.' },
       quality: { title: 'Materiali premium', desc: 'Duraturi, resistenti ed eleganti.' }
     },
@@ -152,7 +184,7 @@ export const itContent: ContentData = {
       subtitle: 'Tre passi al momento.',
       step1: { title: 'Scegli i contenuti', desc: 'Foto, clip e musica.' },
       step2: { title: 'Imposta la scena', desc: 'Creiamo una sequenza elegante.' },
-      step3: { title: 'Ricevi Surprise', desc: 'Tocca e vivi l’esperienza.' }
+      step3: { title: 'Ricevi Surprise', desc: 'Tocca e vivi l\'esperienza.' }
     },
     products: {
       title: 'Prodotti Surprise',
@@ -180,7 +212,7 @@ export const itContent: ContentData = {
     gedenken: {
       title: 'Crea Surprise - Memora Moments',
       heading: 'Il tuo momento Surprise',
-      description: 'Carica i contenuti e curiamo l’esperienza.'
+      description: 'Carica i contenuti e curiamo l\'esperienza.'
     }
   }
 };

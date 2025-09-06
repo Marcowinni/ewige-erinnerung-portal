@@ -7,6 +7,7 @@ export const frContent: ContentData = {
       gedenken: 'Créer un hommage',
       about: 'À propos',
       contact: 'Contact',
+      start: 'Commencer le mémorial',
       mode: {
         human: 'Humains',
         pet: 'Animaux',
@@ -22,6 +23,37 @@ export const frContent: ContentData = {
       title: 'Contact - Memora Moments',
       heading: 'Nous contacter',
       description: 'Des questions ? Nous sommes là pour vous aider.'
+    },
+    
+    // Content rendered on the About page
+    aboutPage: {
+      title: 'À propos de nous',
+      lead: 'Nous connectons les souvenirs à la technologie – avec compassion, personnalisation et accessibilité.',
+      story: {
+        title: 'Notre histoire',
+        p1: 'Memora Moments est née du désir de préserver les souvenirs avec soin et dignité.',
+        p2: 'Avec la NFC et le multimédia, nous créons une façon moderne et accessible de se souvenir.'
+      },
+      values: {
+        title: 'Nos valeurs',
+        compassion: {
+          title: 'Compassion',
+          desc: 'Nous travaillons respectueusement et avec empathie — pour les personnes dans des moments de vie significatifs.'
+        },
+        personality: {
+          title: 'Personnalité',
+          desc: 'Chaque hommage est individuel — nous concevons autant que nécessaire, aussi peu que possible.'
+        },
+        connection: {
+          title: 'Connexion',
+          desc: 'Images, vidéos et son créent la proximité — à tout moment, sur le lieu du souvenir ou à la maison.'
+        }
+      },
+      product: {
+        title: 'Pourquoi Memora ?',
+        p1: 'Matériaux de qualité, design résistant aux intempéries et un focus clair sur l\'essentiel.',
+        p2: 'Créer facilement, recevoir quelque chose de durable, et partager à tout moment — avec un simple tap.'
+      }
     }
   },
 
@@ -34,11 +66,11 @@ export const frContent: ContentData = {
       learnButton: 'En savoir plus'
     },
     features: {
-      title: 'Des instants inoubliables pour l’éternité',
+      title: 'Des instants inoubliables pour l\'éternité',
       subtitle: 'Nos plaques NFC allient technologie et dignité.',
       unique: { title: 'Hommage unique', desc: 'Préservez vos plus beaux souvenirs.' },
       multimedia: { title: 'Souvenirs multimédias', desc: 'Des photos et des vidéos qui racontent une vie.' },
-      music: { title: 'Ajouter une chanson', desc: 'Enrichissez l’instant avec une musique signifiante.' },
+      music: { title: 'Ajouter une chanson', desc: 'Enrichissez l\'instant avec une musique signifiante.' },
       quality: { title: 'Design digne', desc: 'Matériaux de qualité, résistants aux intempéries.' }
     },
     howitworks: {
@@ -67,7 +99,7 @@ export const frContent: ContentData = {
     },
     cta: {
       title: 'Commencez votre hommage',
-      subtitle: 'Créez votre hommage et préservez l’essentiel.',
+      subtitle: 'Créez votre hommage et préservez l\'essentiel.',
       create: 'Créer un hommage',
       contact: 'Nous contacter'
     },
@@ -92,11 +124,11 @@ export const frContent: ContentData = {
       unique: { title: 'Souvenir affectueux', desc: 'Célébrez votre lien avec votre animal.' },
       multimedia: { title: 'Souvenirs pour animaux', desc: 'Photos et vidéos de votre compagnon.' },
       music: { title: 'Sons favoris', desc: 'Ajoutez des sons familiers ou de la musique.' },
-      quality: { title: 'Résistant', desc: 'Robuste pour l’intérieur et l’extérieur.' }
+      quality: { title: 'Résistant', desc: 'Robuste pour l\'intérieur et l\'extérieur.' }
     },
     howitworks: {
       title: 'Comment ça marche',
-      subtitle: 'Trois étapes pour l’hommage.',
+      subtitle: 'Trois étapes pour l\'hommage.',
       step1: { title: 'Télécharger des médias', desc: 'Choisissez photos et vidéos.' },
       step2: { title: 'Ajouter sons/musique', desc: 'Incluez un audio significatif.' },
       step3: { title: 'Recevoir la plaque NFC', desc: 'Votre plaque est livrée.' }
@@ -149,10 +181,10 @@ export const frContent: ContentData = {
     },
     howitworks: {
       title: 'Fonctionnement',
-      subtitle: 'Trois étapes pour l’instant.',
+      subtitle: 'Trois étapes pour l\'instant.',
       step1: { title: 'Choisir le contenu', desc: 'Photos, clips et musique.' },
       step2: { title: 'Mettre en scène', desc: 'Nous créons une séquence élégante.' },
-      step3: { title: 'Recevoir Surprise', desc: 'Touchez et profitez de l’expérience.' }
+      step3: { title: 'Recevoir Surprise', desc: 'Touchez et profitez de l\'expérience.' }
     },
     products: {
       title: 'Produits Surprise',
@@ -180,7 +212,7 @@ export const frContent: ContentData = {
     gedenken: {
       title: 'Créer Surprise - Memora Moments',
       heading: 'Votre moment Surprise',
-      description: 'Téléchargez votre contenu, nous concevons l’expérience.'
+      description: 'Téléchargez votre contenu, nous concevons l\'expérience.'
     }
   }
 };
