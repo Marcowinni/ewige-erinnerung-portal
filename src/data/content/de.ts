@@ -24,6 +24,7 @@ export const deContent: ContentData = {
 
       //About-Seite Content
       aboutPage: {
+        title: 'Über uns',
         lead: 'Wir verbinden Erinnerungen mit Technologie – einfühlsam, persönlich, zugänglich.',
         story: {
           title: 'Unsere Geschichte',
