@@ -237,6 +237,29 @@ export interface SharedContent {
     title: string;
     heading: string;
     description: string;
+    email: string;
+    phone: string;
+    form: {
+      title: string;
+      submit: string;
+      success: string;
+      name: {
+        label: string;
+        placeholder: string;
+      };
+      email: {
+        label: string;
+        placeholder: string;
+      };
+      subject: {
+        label: string;
+        placeholder: string;
+      };
+      message: {
+        label: string;
+        placeholder: string;
+      };
+    };
   };
   aboutPage: AboutPageContent;
 }

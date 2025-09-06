@@ -21,7 +21,30 @@ export const enContent: ContentData = {
     contact: {
       title: 'Contact — Memora Moments',
       heading: 'Get in touch',
-      description: 'Have questions? We’re here to help.',
+      description: 'Have questions? We\'re here to help.',
+      email: 'Email',
+      phone: 'Phone',
+      form: {
+        title: 'Send Message',
+        submit: 'Send Message',
+        success: 'Thank you! Your message has been sent successfully.',
+        name: {
+          label: 'Name',
+          placeholder: 'Your Name'
+        },
+        email: {
+          label: 'Email',
+          placeholder: 'your.email@example.com'
+        },
+        subject: {
+          label: 'Subject',
+          placeholder: 'What is this about?'
+        },
+        message: {
+          label: 'Message',
+          placeholder: 'Let us know how we can help you...'
+        }
+      }
     },
 
     // Content rendered on the About page

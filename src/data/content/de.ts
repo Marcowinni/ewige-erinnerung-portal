@@ -19,7 +19,30 @@ export const deContent: ContentData = {
       contact: {
         title: 'Kontakt - Memora Moments',
         heading: 'Kontakt aufnehmen',
-        description: 'Haben Sie Fragen? Wir sind hier, um Ihnen zu helfen.'
+        description: 'Haben Sie Fragen? Wir sind hier, um Ihnen zu helfen.',
+        email: 'E-Mail',
+        phone: 'Telefon',
+        form: {
+          title: 'Nachricht senden',
+          submit: 'Nachricht senden',
+          success: 'Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet.',
+          name: {
+            label: 'Name',
+            placeholder: 'Ihr Name'
+          },
+          email: {
+            label: 'E-Mail',
+            placeholder: 'ihre.email@beispiel.de'
+          },
+          subject: {
+            label: 'Betreff',
+            placeholder: 'Worum geht es?'
+          },
+          message: {
+            label: 'Nachricht',
+            placeholder: 'Teilen Sie uns mit, wie wir Ihnen helfen können...'
+          }
+        }
       },
 
       //About-Seite Content
@@ -121,7 +144,7 @@ export const deContent: ContentData = {
         step4Title: "Kontaktangaben",
         step4Subtitle: "Diese Daten verwenden wir für Rückfragen und die Auftragsbestätigung.",
         step5Title: "Rechnungsangaben & Übersicht",
-        step5Subtitle: "Bitte prüfe die Adresse und die Zusammenfassung. Mit „Weiter zur Zahlung“ geht es später in den Checkout.",
+        step5Subtitle: "Bitte prüfe die Adresse und die Zusammenfassung. Mit „Weiter zur Zahlung" geht es später in den Checkout.",
         summary: "Zusammenfassung"
       },
       products: {
@@ -183,7 +206,7 @@ export const deContent: ContentData = {
         pet: "Haustier",
         recipient: "Empfänger",
         notes: "Notizen",
-        counts: (imgs, vids) => `Bilder: ${imgs} • Videos: ${vids}`,
+        counts: (imgs: number, vids: number) => `Bilder: ${imgs} • Videos: ${vids}`,
         previewTitle: "Individuelle Vorschau"
       }
     }
