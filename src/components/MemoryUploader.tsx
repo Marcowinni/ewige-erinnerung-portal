@@ -379,6 +379,7 @@ function DesignEditor({
   height = 420,
   cornerRadius = 24,
   copy,
+  tip,
 }: {
   value: CustomDesign | undefined;
   onChange: (v: CustomDesign) => void;
@@ -387,6 +388,7 @@ function DesignEditor({
   height?: number;
   cornerRadius?: number;
   copy: UploaderCopy["editor"];
+  tip?: string;
 }) {
   const W = width;
   const H = height;
@@ -729,7 +731,11 @@ function DesignEditor({
   return (
     <div className="space-y-4">
       <div className="flex flex-col md:flex-row gap-6">
+        {/* Linke Spalte: Tipp + Canvas */}
         <div className="relative">
+          {/* NEU: Tipp direkt über dem Bild */}
+          {tip && <p className="text-xs text-muted-foreground mb-2">{tip}</p>}
+
           {(() => {
             const isEmpty = !local.bgImageUrl;
             const wrapperClasses =
@@ -761,40 +767,40 @@ function DesignEditor({
                     </div>
                   </div>
                 )}
+
+                {/* WICHTIG: Overlay INS Wrapper, damit es exakt über dem Canvas liegt */}
+                <div ref={overlayRef} className="absolute inset-0 pointer-events-none">
+                  {local.texts.map((t) => (
+                    <div
+                      key={t.id}
+                      onMouseDown={(e) => onMouseDownText(e as any, t.id)}
+                      onClick={() => selectText(t.id)}
+                      className="absolute cursor-move select-none hover:ring-2 hover:ring-primary/40 hover:rounded pointer-events-auto"
+                      style={{
+                        left: t.x * W - 2,
+                        top: t.y * H - t.fontSize / 2 - 2,
+                        transform: "translate(-50%, 0)",
+                        padding: "2px 4px",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: t.fontFamily,
+                          fontSize: t.fontSize,
+                          color: t.color,
+                        }}
+                      >
+                        {t.text}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             );
           })()}
-
-          {/* Text Overlay */}
-          <div ref={overlayRef} className="absolute inset-0 pointer-events-none">
-            {local.texts.map((t) => (
-              <div
-                key={t.id}
-                onMouseDown={(e) => onMouseDownText(e as any, t.id)}
-                onClick={() => selectText(t.id)}
-                className="absolute cursor-move select-none hover:ring-2 hover:ring-primary/40 hover:rounded pointer-events-auto"
-                style={{
-                  left: t.x * W - 2,
-                  top: t.y * H - t.fontSize / 2 - 2,
-                  transform: "translate(-50%, 0)",
-                  padding: "2px 4px",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: t.fontFamily,
-                    fontSize: t.fontSize,
-                    color: t.color,
-                  }}
-                >
-                  {t.text}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
 
-        {/* Controls */}
+        {/* Rechte Spalte: Controls */}
         <div className="flex-1 space-y-4">
           <div className="space-y-2">
             <Label>{copy.image}</Label>
@@ -818,13 +824,7 @@ function DesignEditor({
           <div className="space-y-2">
             <Label>{copy.posX}</Label>
             <div className="flex items-center gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setLocal((s) => ({ ...s, offsetX: s.offsetX - 10 }))}
-              >
-                ←
-              </Button>
+              <Button type="button" variant="outline" onClick={() => setLocal((s) => ({ ...s, offsetX: s.offsetX - 10 }))}>←</Button>
               <input
                 type="range"
                 min={-Math.max(W, H) / 2}
@@ -834,13 +834,7 @@ function DesignEditor({
                 onChange={(e) => setLocal((s) => ({ ...s, offsetX: Number(e.target.value) }))}
                 className="flex-1"
               />
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setLocal((s) => ({ ...s, offsetX: s.offsetX + 10 }))}
-              >
-                →
-              </Button>
+              <Button type="button" variant="outline" onClick={() => setLocal((s) => ({ ...s, offsetX: s.offsetX + 10 }))}>→</Button>
             </div>
           </div>
 
@@ -848,13 +842,7 @@ function DesignEditor({
           <div className="space-y-2">
             <Label>{copy.posY}</Label>
             <div className="flex items-center gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setLocal((s) => ({ ...s, offsetY: s.offsetY - 10 }))}
-              >
-                ↑
-              </Button>
+              <Button type="button" variant="outline" onClick={() => setLocal((s) => ({ ...s, offsetY: s.offsetY - 10 }))}>↑</Button>
               <input
                 type="range"
                 min={-Math.max(W, H) / 2}
@@ -864,33 +852,20 @@ function DesignEditor({
                 onChange={(e) => setLocal((s) => ({ ...s, offsetY: Number(e.target.value) }))}
                 className="flex-1"
               />
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setLocal((s) => ({ ...s, offsetY: s.offsetY + 10 }))}
-              >
-                ↓
-              </Button>
+              <Button type="button" variant="outline" onClick={() => setLocal((s) => ({ ...s, offsetY: s.offsetY + 10 }))}>↓</Button>
             </div>
           </div>
 
           <div className="flex gap-2">
-            <Button onClick={addText} type="button">
-              {DEFAULT_COPY.buttons.addText}
-            </Button>
-            <Button onClick={exportPng} type="button" variant="secondary">
-              {DEFAULT_COPY.buttons.applyDesign}
-            </Button>
+            <Button onClick={addText} type="button">{DEFAULT_COPY.buttons.addText}</Button>
+            <Button onClick={exportPng} type="button" variant="secondary">{DEFAULT_COPY.buttons.applyDesign}</Button>
           </div>
 
-          {/* Text-Eigenschaften */}
           {activeText && (
             <div className="space-y-3 border rounded-md p-3">
               <div className="flex justify-between items-center">
                 <Label className="font-semibold">{copy.selectedText}</Label>
-                <Button size="sm" variant="outline" onClick={removeActiveText}>
-                  {DEFAULT_COPY.buttons.remove}
-                </Button>
+                <Button size="sm" variant="outline" onClick={removeActiveText}>{DEFAULT_COPY.buttons.remove}</Button>
               </div>
               <div className="space-y-2">
                 <Label>{copy.content}</Label>
@@ -905,9 +880,7 @@ function DesignEditor({
                     onChange={(e) => updateActiveText({ fontFamily: e.target.value })}
                   >
                     {FONT_OPTIONS.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
+                      <option key={opt.value} value={opt.value}>{opt.label}</option>
                     ))}
                   </select>
                 </div>
@@ -944,6 +917,7 @@ function DesignEditor({
       </div>
     </div>
   );
+
 }
 
 /* -------------------- Step 1 (Produktwahl + Optionen) -------------------- */
@@ -1105,6 +1079,7 @@ function Step1View(props: {
                   value={form.pet_tag_custom}
                   onChange={(v) => setForm((s) => ({ ...s, pet_tag_custom: v }))}
                   copy={DEFAULT_COPY.editor}
+                  tip={copy.products.frameTip}
                 />
               ) : (
                 <DesignEditor
@@ -1115,6 +1090,7 @@ function Step1View(props: {
                   value={form.pet_tag_custom}
                   onChange={(v) => setForm((s) => ({ ...s, pet_tag_custom: v }))}
                   copy={DEFAULT_COPY.editor}
+                  tip={copy.products.frameTip}
                 />
               )}
               <PrivacyTermsNotice />
@@ -1162,13 +1138,13 @@ function Step1View(props: {
                   value={form.frame_custom}
                   onChange={(v) => setForm((s) => ({ ...s, frame_custom: v }))}
                   copy={DEFAULT_COPY.editor}
+                  tip={copy.products.frameTip}
                 />
               );
             })()}
             <PrivacyTermsNotice />
           </div>
 
-          <p className="text-sm text-muted-foreground">{copy.products.frameTip}</p>
         </div>
       )}
 
@@ -1176,7 +1152,6 @@ function Step1View(props: {
       {showDeluxeEditor && (
         <div className="mt-8 border rounded-lg p-6 space-y-6">
           <h3 className="text-xl font-serif">
-            {/* wenn du in de.ts products.deluxeTitle ergänzt, wird der hier automatisch genommen */}
             {(copy.products as any).deluxeTitle ?? copy.products.formatTitleDeluxe}
           </h3>
 
@@ -1190,11 +1165,11 @@ function Step1View(props: {
               value={form.deluxe_custom}
               onChange={(v) => setForm((s) => ({ ...s, deluxe_custom: v }))}
               copy={DEFAULT_COPY.editor}
+              tip={copy.products.frameTip}
             />
             <PrivacyTermsNotice />
           </div>
 
-          <p className="text-sm text-muted-foreground">{copy.products.frameTip}</p>
         </div>
       )}
 
