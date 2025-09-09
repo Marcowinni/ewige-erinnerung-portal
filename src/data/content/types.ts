@@ -30,6 +30,7 @@ export interface UploaderCopy {
   };
   products: {
     formatTitle: string;
+    formatTitleDeluxe: string;
     roundLabel: string;
     squareLabel: string;
     petOptionsTitle: string;

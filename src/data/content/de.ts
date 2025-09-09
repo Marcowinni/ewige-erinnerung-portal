@@ -153,6 +153,8 @@ export const deContent: ContentData = {
       },
       products: {
         formatTitle: "Format",
+        frameTitle: "Frame gestalten",
+        formatTitleDeluxe: "Deluxe Gestalten",
         roundLabel: "Rund · Ø 3 cm",
         squareLabel: "Quadratisch · 6×6 cm",
         petOptionsTitle: "Optionen für Haustier–Memora Tag" // bleibt, wird im Human-Modus nicht angezeigt
