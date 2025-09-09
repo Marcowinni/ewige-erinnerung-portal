@@ -266,6 +266,21 @@ export interface LegalContent {
   };
 }
 
+export interface FooterContent {
+  brand: {
+    name: string;
+    description: string;
+  };
+  contactTitle: string;     // Überschrift "Kontakt"
+  linksTitle: string;       // Überschrift "Links" o.ä.
+  legal: {                  // Linktexte für Rechtliches
+    privacy: string;        // Datenschutz
+    terms: string;          // AGB
+    imprint: string;        // Impressum
+  };
+  copyright: string;        // z.B. "Alle Rechte vorbehalten."
+}
+
 export interface SharedContent {
   navigation: NavigationContent;
   about: {
@@ -277,7 +292,6 @@ export interface SharedContent {
     title: string;
     heading: string;
     description: string;
-    /** optional, damit Minimal-Content nicht bricht */
     email?: string;
     phone?: string;
     form?: {
@@ -304,6 +318,7 @@ export interface SharedContent {
   };
   aboutPage: AboutPageContent;
   legal: LegalContent;
+  footer: FooterContent;
 }
 
 /* ==========================================

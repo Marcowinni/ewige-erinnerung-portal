@@ -21,7 +21,7 @@ export const enContent: ContentData = {
     contact: {
       title: 'Contact — Memora Moments',
       heading: 'Get in touch',
-      description: 'Have questions? We\'re here to help.',
+      description: "Have questions? We're here to help.",
       email: 'Email',
       phone: 'Phone',
       form: {
@@ -30,123 +30,159 @@ export const enContent: ContentData = {
         success: 'Thank you! Your message has been sent successfully.',
         name: {
           label: 'Name',
-          placeholder: 'Your Name'
+          placeholder: 'Your Name',
         },
         email: {
           label: 'Email',
-          placeholder: 'your.email@example.com'
+          placeholder: 'your.email@example.com',
         },
         subject: {
           label: 'Subject',
-          placeholder: 'What is this about?'
+          placeholder: 'What is this about?',
         },
         message: {
           label: 'Message',
-          placeholder: 'Let us know how we can help you...'
-      }
+          placeholder: 'Let us know how we can help you...',
+        },
+      },
     },
+
+    // Legal (privacy, terms, imprint)
     legal: {
       privacy: {
-        title: "Privacy Policy",
+        title: 'Privacy Policy',
         sections: {
           responsible: {
-            title: "1. Data Controller",
-            content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99"
+            title: '1. Data Controller',
+            content:
+              'Memora Moments\nE-Mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99',
           },
           dataCollection: {
-            title: "2. Data Collection and Use",
-            content: "We collect and process personal data only to the extent necessary to provide our services. This includes:",
+            title: '2. Data Collection and Use',
+            content:
+              'We collect and process personal data only to the extent necessary to provide our services. This includes:',
             list: [
-              "Contact information for order processing",
-              "Billing information for payment",
-              "Images and texts uploaded by you for product customization"
-            ]
+              'Contact information for order processing',
+              'Billing information for payment',
+              'Images and texts uploaded by you for product customization',
+            ],
           },
           imageProcessing: {
-            title: "3. Image Processing",
-            content: "Images uploaded by you are used exclusively for creating your personalized product. Your images are stored securely and deleted after order completion or after a reasonable period."
+            title: '3. Image Processing',
+            content:
+              'Images uploaded by you are used exclusively for creating your personalized product. Your images are stored securely and deleted after order completion or after a reasonable period.',
           },
           rights: {
-            title: "4. Your Rights",
-            content: "You have the right to access, correct, delete and restrict the processing of your personal data. Contact us at info.memora.moments@gmail.com for data inquiries."
+            title: '4. Your Rights',
+            content:
+              'You have the right to access, correct, delete and restrict the processing of your personal data. Contact us at info.memora.moments@gmail.com for data inquiries.',
           },
           cookies: {
-            title: "5. Cookies",
-            content: "Our website uses necessary cookies for functionality. We only use additional tracking cookies with your consent."
-          }
-        }
+            title: '5. Cookies',
+            content:
+              'Our website uses necessary cookies for functionality. We only use additional tracking cookies with your consent.',
+          },
+        },
       },
       terms: {
-        title: "Terms of Service",
+        title: 'Terms of Service',
         sections: {
           scope: {
-            title: "1. Scope",
-            content: "These Terms of Service apply to all orders and contracts between Memora Moments and our customers."
+            title: '1. Scope',
+            content:
+              'These Terms of Service apply to all orders and contracts between Memora Moments and our customers.',
           },
           contract: {
-            title: "2. Contract Formation",
-            content: "The contract is formed through your order and our confirmation. We reserve the right to decline orders if technical or legal obstacles exist."
+            title: '2. Contract Formation',
+            content:
+              'The contract is formed through your order and our confirmation. We reserve the right to decline orders if technical or legal obstacles exist.',
           },
           prices: {
-            title: "3. Prices and Payment Terms",
-            content: "All prices include applicable VAT. Payment is due before production. We accept common payment methods."
+            title: '3. Prices and Payment Terms',
+            content:
+              'All prices include applicable VAT. Payment is due before production. We accept common payment methods.',
           },
           delivery: {
-            title: "4. Delivery and Production Time",
-            content: "Our personalized products are individually manufactured. Production time is typically 7-14 business days after payment and final design approval."
+            title: '4. Delivery and Production Time',
+            content:
+              'Our personalized products are individually manufactured. Production time is typically 7–14 business days after payment and final design approval.',
           },
           rights: {
-            title: "5. Copyright and Image Rights",
-            content: "You confirm that you have all necessary rights to the images and texts you provide. You indemnify us against third-party claims regarding copyright or personality rights violations."
+            title: '5. Copyright and Image Rights',
+            content:
+              'You confirm that you have all necessary rights to the images and texts you provide. You indemnify us against third-party claims regarding copyright or personality rights violations.',
           },
           cancellation: {
-            title: "6. Right of Withdrawal",
-            content: "As these are personalized products, withdrawal is excluded under § 312g para. 2 no. 1 BGB once production has begun."
+            title: '6. Right of Withdrawal',
+            content:
+              'As these are personalized products, withdrawal is excluded under § 312g para. 2 no. 1 BGB once production has begun.',
           },
           warranty: {
-            title: "7. Warranty",
-            content: "We guarantee the quality of our products. For defects, please contact us within 14 days of receipt."
+            title: '7. Warranty',
+            content:
+              'We guarantee the quality of our products. For defects, please contact us within 14 days of receipt.',
           },
           contact: {
-            title: "8. Contact",
-            content: "For questions about these Terms of Service, contact us at:\nE-Mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99"
-          }
-        }
+            title: '8. Contact',
+            content:
+              'For questions about these Terms of Service, contact us at:\nE-Mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99',
+          },
+        },
       },
       imprint: {
-        title: "Imprint",
+        title: 'Imprint',
         sections: {
           info: {
-            title: "Information according to § 5 TMG",
-            content: "Memora Moments\nPersonalized Memory Products"
+            title: 'Information according to § 5 TMG',
+            content: 'Memora Moments\nPersonalized Memory Products',
           },
           contact: {
-            title: "Contact",
-            content: "E-Mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99"
+            title: 'Contact',
+            content:
+              'E-Mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99',
           },
           responsible: {
-            title: "Responsible for content according to § 55 para. 2 RStV",
-            content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com"
+            title: 'Responsible for content according to § 55 para. 2 RStV',
+            content: 'Memora Moments\nE-Mail: info.memora.moments@gmail.com',
           },
           disclaimer: {
-            title: "Disclaimer",
+            title: 'Disclaimer',
             content: {
-              title: "Liability for Content",
-              content: "As a service provider, we are responsible for our own content on these pages under general law according to § 7 para. 1 TMG. However, according to §§ 8 to 10 TMG, we are not obligated to monitor transmitted or stored third-party information or investigate circumstances indicating illegal activity."
+              title: 'Liability for Content',
+              content:
+                'As a service provider, we are responsible for our own content on these pages under general law according to § 7 para. 1 TMG. However, according to §§ 8 to 10 TMG, we are not obligated to monitor transmitted or stored third-party information or investigate circumstances indicating illegal activity.',
             },
             links: {
-              title: "Liability for Links",
-              content: "Our website contains links to external third-party websites over whose content we have no influence. Therefore, we cannot assume any liability for this external content. The respective provider or operator of the linked pages is always responsible for their content."
+              title: 'Liability for Links',
+              content:
+                'Our website contains links to external third-party websites over whose content we have no influence. Therefore, we cannot assume any liability for this external content. The respective provider or operator of the linked pages is always responsible for their content.',
             },
             copyright: {
-              title: "Copyright",
-              content: "The content and works created by the site operators on these pages are subject to German copyright law. Reproduction, editing, distribution and any kind of exploitation outside the limits of copyright require written consent from the respective author or creator."
-            }
-          }
-        }
-      }
-    }
-  },
+              title: 'Copyright',
+              content:
+                'The content and works created by the site operators on these pages are subject to German copyright law. Reproduction, editing, distribution and any kind of exploitation outside the limits of copyright require written consent from the respective author or creator.',
+            },
+          },
+        },
+      },
+    },
+
+    // Footer translations (match FooterContent type)
+    footer: {
+      brand: {
+        name: 'Memora Moments',
+        description:
+          'Digital tributes — thoughtfully crafted, weather-resistant and easy to share.',
+      },
+      contactTitle: 'Contact',
+      linksTitle: 'Links',
+      legal: {
+        privacy: 'Privacy',
+        terms: 'Terms',
+        imprint: 'Imprint',
+      },
+      copyright: 'All rights reserved.',
+    },
 
     // Content rendered on the About page
     aboutPage: {
@@ -179,7 +215,6 @@ export const enContent: ContentData = {
       },
     },
   },
-
 
   // --- HUMAN MODE ---
   human: {
@@ -337,107 +372,6 @@ export const enContent: ContentData = {
       title: 'Create Surprise - Memora Moments',
       heading: 'Your Surprise moment',
       description: 'Upload content and we craft the experience.'
-    }
-  },
-  legal: {
-    privacy: {
-      title: "Privacy Policy",
-      sections: {
-        responsible: {
-          title: "1. Data Controller",
-          content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99"
-        },
-        dataCollection: {
-          title: "2. Data Collection and Use",
-          content: "We collect and process personal data only to the extent necessary to provide our services. This includes:",
-          list: [
-            "Contact information for order processing",
-            "Billing information for payment",
-            "Images and texts uploaded by you for product customization"
-          ]
-        },
-        imageProcessing: {
-          title: "3. Image Processing",
-          content: "Images uploaded by you are used exclusively for creating your personalized product. Your images are stored securely and deleted after order completion or after a reasonable period."
-        },
-        rights: {
-          title: "4. Your Rights",
-          content: "You have the right to access, correct, delete and restrict the processing of your personal data. Contact us at info.memora.moments@gmail.com for data inquiries."
-        },
-        cookies: {
-          title: "5. Cookies",
-          content: "Our website uses necessary cookies for functionality. We only use additional tracking cookies with your consent."
-        }
-      }
-    },
-    terms: {
-      title: "Terms of Service",
-      sections: {
-        scope: {
-          title: "1. Scope",
-          content: "These Terms of Service apply to all orders and contracts between Memora Moments and our customers."
-        },
-        contract: {
-          title: "2. Contract Formation",
-          content: "The contract is formed through your order and our confirmation. We reserve the right to decline orders if technical or legal obstacles exist."
-        },
-        prices: {
-          title: "3. Prices and Payment Terms",
-          content: "All prices include applicable VAT. Payment is due before production. We accept common payment methods."
-        },
-        delivery: {
-          title: "4. Delivery and Production Time",
-          content: "Our personalized products are individually manufactured. Production time is typically 7-14 business days after payment and final design approval."
-        },
-        rights: {
-          title: "5. Copyright and Image Rights",
-          content: "You confirm that you have all necessary rights to the images and texts you provide. You indemnify us against third-party claims regarding copyright or personality rights violations."
-        },
-        cancellation: {
-          title: "6. Right of Withdrawal",
-          content: "As these are personalized products, withdrawal is excluded under § 312g para. 2 no. 1 BGB once production has begun."
-        },
-        warranty: {
-          title: "7. Warranty",
-          content: "We guarantee the quality of our products. For defects, please contact us within 14 days of receipt."
-        },
-        contact: {
-          title: "8. Contact",
-          content: "For questions about these Terms of Service, contact us at:\nE-Mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99"
-        }
-      }
-    },
-    imprint: {
-      title: "Imprint",
-      sections: {
-        info: {
-          title: "Information according to § 5 TMG",
-          content: "Memora Moments\nPersonalized Memory Products"
-        },
-        contact: {
-          title: "Contact",
-          content: "E-Mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99"
-        },
-        responsible: {
-          title: "Responsible for content according to § 55 para. 2 RStV",
-          content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com"
-        },
-        disclaimer: {
-          title: "Disclaimer",
-          content: {
-            title: "Liability for Content",
-            content: "As a service provider, we are responsible for our own content on these pages under general law according to § 7 para. 1 TMG. However, according to §§ 8 to 10 TMG, we are not obligated to monitor transmitted or stored third-party information or investigate circumstances indicating illegal activity."
-          },
-          links: {
-            title: "Liability for Links",
-            content: "Our website contains links to external third-party websites over whose content we have no influence. Therefore, we cannot assume any liability for this external content. The respective provider or operator of the linked pages is always responsible for their content."
-          },
-          copyright: {
-            title: "Copyright",
-            content: "The content and works created by the site operators on these pages are subject to German copyright law. Reproduction, editing, distribution and any kind of exploitation outside the limits of copyright require written consent from the respective author or creator."
-          }
-        }
-      }
     }
   }
 };

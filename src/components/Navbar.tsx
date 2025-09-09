@@ -48,9 +48,6 @@ const Navbar = () => {
           <PetModeToggle />
           <LanguageSwitcher />
 
-          <Link to="/" className="text-foreground hover:text-primary transition-colors">
-            {nav.home}
-          </Link>
           <Link to="/gedenken" className="text-foreground hover:text-primary transition-colors">
             {nav.gedenken}
           </Link>

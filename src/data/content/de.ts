@@ -1,94 +1,98 @@
 import { ContentData } from './types';
 
 export const deContent: ContentData = {
-    shared: {
-      navigation: {
-        home: "Memora Moments",
-        gedenken: "Gedenken erstellen",
-        about: "Über uns",
-        contact: "Kontakt",
-        start: "Gedenken starten",
-        mode: { human: "Menschen", pet: "Haustiere", surprise: "Surprise" }
-      },
+  shared: {
+    navigation: {
+      home: "Memora Moments",
+      gedenken: "Gedenken erstellen",
+      about: "Über uns",
+      contact: "Kontakt",
+      start: "Gedenken starten",
+      mode: { human: "Menschen", pet: "Haustiere", surprise: "Surprise" }
+    },
 
-      // SEO/Meta für die About-Seite
-      about: {
-        title: "Über uns - Memora Moments",
-        heading: "Über Memora Moments",
-        description: "Erfahren Sie mehr über unsere Mission, würdevolle Erinnerungen zu schaffen."
-      },
+    // SEO/Meta für die About-Seite
+    about: {
+      title: "Über uns - Memora Moments",
+      heading: "Über Memora Moments",
+      description: "Erfahren Sie mehr über unsere Mission, würdevolle Erinnerungen zu schaffen."
+    },
 
-      // Kontaktseite (vollständig, ohne Fallbacks)
-      contact: {
-        title: "Kontakt - Memora Moments",
-        heading: "Kontakt aufnehmen",
-        description: "Haben Sie Fragen? Wir sind hier, um Ihnen zu helfen.",
-        email: "E-Mail",
-        phone: "Telefon",
-        form: {
-          title: "Nachricht senden",
-          submit: "Absenden",
-          success: "Danke! Wir melden uns so schnell wie möglich.",
-          name: {
-            label: "Name",
-            placeholder: "Vor- und Nachname"
-          },
-          email: {
-            label: "E-Mail",
-            placeholder: "dein@beispiel.ch"
-          },
-          subject: {
-            label: "Betreff",
-            placeholder: "Worum geht’s?"
-          },
-          message: {
-            label: "Nachricht",
-            placeholder: "Deine Nachricht an uns…"
-          }
+    // Kontaktseite (vollständig, ohne Fallbacks)
+    contact: {
+      title: "Kontakt - Memora Moments",
+      heading: "Kontakt aufnehmen",
+      description: "Haben Sie Fragen? Wir sind hier, um Ihnen zu helfen.",
+      email: "E-Mail",
+      phone: "Telefon",
+      form: {
+        title: "Nachricht senden",
+        submit: "Absenden",
+        success: "Danke! Wir melden uns so schnell wie möglich.",
+        name: {
+          label: "Name",
+          placeholder: "Vor- und Nachname"
+        },
+        email: {
+          label: "E-Mail",
+          placeholder: "dein@beispiel.ch"
+        },
+        subject: {
+          label: "Betreff",
+          placeholder: "Worum geht’s?"
+        },
+        message: {
+          label: "Nachricht",
+          placeholder: "Deine Nachricht an uns…"
         }
-      },
-
-      // About-Seite Content
-      aboutPage: {
-        title: "Über uns",
-        lead: "Wir verbinden Erinnerungen mit Technologie – einfühlsam, persönlich, zugänglich.",
-        story: {
-          title: "Unsere Geschichte",
-          p1: "Memora Moments ist aus dem Wunsch entstanden, Erinnerungen würdevoll zu bewahren.",
-          p2: "Mit NFC und Multimedia schaffen wir eine neue Form des Gedenkens – nahbar und modern."
-        },
-        values: {
-          title: "Unsere Werte",
-          compassion: {
-            title: "Mitgefühl",
-            desc: "Wir arbeiten respektvoll und einfühlsam – für Menschen in besonderen Lebensmomenten."
-          },
-          personality: {
-            title: "Persönlichkeit",
-            desc: "Jedes Gedenken ist individuell – wir gestalten so viel wie nötig, so wenig wie möglich."
-          },
-          connection: {
-            title: "Verbundenheit",
-            desc: "Bilder, Videos und Klang schaffen Nähe – jederzeit, am Erinnerungsort oder zuhause."
-          }
-        },
-        product: {
-          title: "Warum Memora?",
-          p1: "Hochwertige Materialien, wetterfestes Design und ein klarer Fokus auf das Wesentliche.",
-          p2: "Einfach erstellen, wertig erhalten, jederzeit teilen – mit einem sanften Tap."
       }
     },
+
+    // About-Seite Content
+    aboutPage: {
+      title: "Über uns",
+      lead: "Wir verbinden Erinnerungen mit Technologie – einfühlsam, persönlich, zugänglich.",
+      story: {
+        title: "Unsere Geschichte",
+        p1: "Memora Moments ist aus dem Wunsch entstanden, Erinnerungen würdevoll zu bewahren.",
+        p2: "Mit NFC und Multimedia schaffen wir eine neue Form des Gedenkens – nahbar und modern."
+      },
+      values: {
+        title: "Unsere Werte",
+        compassion: {
+          title: "Mitgefühl",
+          desc: "Wir arbeiten respektvoll und einfühlsam – für Menschen in besonderen Lebensmomenten."
+        },
+        personality: {
+          title: "Persönlichkeit",
+          desc: "Jedes Gedenken ist individuell – wir gestalten so viel wie nötig, so wenig wie möglich."
+        },
+        connection: {
+          title: "Verbundenheit",
+          desc: "Bilder, Videos und Klang schaffen Nähe – jederzeit, am Erinnerungsort oder zuhause."
+        }
+      },
+      product: {
+        title: "Warum Memora?",
+        p1: "Hochwertige Materialien, wetterfestes Design und ein klarer Fokus auf das Wesentliche.",
+        p2: "Einfach erstellen, wertig erhalten, jederzeit teilen – mit einem sanften Tap."
+      }
+    },
+
+    // Rechtstexte (für Datenschutz/AGB/Impressum-Seiten)
     legal: {
       privacy: {
         title: "Datenschutzerklärung",
         sections: {
           responsible: {
             title: "1. Verantwortlicher",
-            content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
+            content:
+              "Memora Moments\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
           },
           dataCollection: {
             title: "2. Datenerhebung und -verwendung",
-            content: "Wir erheben und verarbeiten personenbezogene Daten nur in dem Umfang, wie es für die Bereitstellung unserer Dienstleistungen erforderlich ist. Dies umfasst:",
+            content:
+              "Wir erheben und verarbeiten personenbezogene Daten nur in dem Umfang, wie es für die Bereitstellung unserer Dienstleistungen erforderlich ist. Dies umfasst:",
             list: [
               "Kontaktdaten für die Bestellabwicklung",
               "Rechnungsdaten für die Bezahlung",
@@ -97,15 +101,18 @@ export const deContent: ContentData = {
           },
           imageProcessing: {
             title: "3. Bildverarbeitung",
-            content: "Die von Ihnen hochgeladenen Bilder werden ausschließlich für die Erstellung Ihres personalisierten Produkts verwendet. Ihre Bilder werden sicher gespeichert und nach Abschluss der Bestellung bzw. nach angemessener Zeit gelöscht."
+            content:
+              "Die von Ihnen hochgeladenen Bilder werden ausschließlich für die Erstellung Ihres personalisierten Produkts verwendet. Ihre Bilder werden sicher gespeichert und nach Abschluss der Bestellung bzw. nach angemessener Zeit gelöscht."
           },
           rights: {
             title: "4. Ihre Rechte",
-            content: "Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten. Kontaktieren Sie uns unter info.memora.moments@gmail.com für Anfragen zu Ihren Daten."
+            content:
+              "Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten. Kontaktieren Sie uns unter info.memora.moments@gmail.com für Anfragen zu Ihren Daten."
           },
           cookies: {
             title: "5. Cookies",
-            content: "Unsere Website verwendet notwendige Cookies für die Funktionalität. Weitere Tracking-Cookies verwenden wir nur mit Ihrer Einwilligung."
+            content:
+              "Unsere Website verwendet notwendige Cookies für die Funktionalität. Weitere Tracking-Cookies verwenden wir nur mit Ihrer Einwilligung."
           }
         }
       },
@@ -114,35 +121,43 @@ export const deContent: ContentData = {
         sections: {
           scope: {
             title: "1. Geltungsbereich",
-            content: "Diese Allgemeinen Geschäftsbedingungen gelten für alle Bestellungen und Verträge zwischen Memora Moments und unseren Kunden."
+            content:
+              "Diese Allgemeinen Geschäftsbedingungen gelten für alle Bestellungen und Verträge zwischen Memora Moments und unseren Kunden."
           },
           contract: {
             title: "2. Vertragsschluss",
-            content: "Der Vertrag kommt durch Ihre Bestellung und unsere Bestätigung zustande. Wir behalten uns vor, Bestellungen abzulehnen, falls technische oder rechtliche Hindernisse bestehen."
+            content:
+              "Der Vertrag kommt durch Ihre Bestellung und unsere Bestätigung zustande. Wir behalten uns vor, Bestellungen abzulehnen, falls technische oder rechtliche Hindernisse bestehen."
           },
           prices: {
             title: "3. Preise und Zahlungsbedingungen",
-            content: "Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer. Die Zahlung erfolgt vor der Produktion. Wir akzeptieren gängige Zahlungsmittel."
+            content:
+              "Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer. Die Zahlung erfolgt vor der Produktion. Wir akzeptieren gängige Zahlungsmittel."
           },
           delivery: {
             title: "4. Lieferung und Produktionszeit",
-            content: "Unsere personalisierten Produkte werden individuell gefertigt. Die Produktionszeit beträgt in der Regel 7-14 Werktage nach Zahlungseingang und finaler Freigabe des Designs."
+            content:
+              "Unsere personalisierten Produkte werden individuell gefertigt. Die Produktionszeit beträgt in der Regel 7–14 Werktage nach Zahlungseingang und finaler Freigabe des Designs."
           },
           rights: {
             title: "5. Urheberrechte und Bildrechte",
-            content: "Sie bestätigen, dass Sie über alle notwendigen Rechte an den von Ihnen bereitgestellten Bildern und Texten verfügen. Sie stellen uns von Ansprüchen Dritter bezüglich Urheberrechts- oder Persönlichkeitsrechtsverletzungen frei."
+            content:
+              "Sie bestätigen, dass Sie über alle notwendigen Rechte an den von Ihnen bereitgestellten Bildern und Texten verfügen. Sie stellen uns von Ansprüchen Dritter bezüglich Urheberrechts- oder Persönlichkeitsrechtsverletzungen frei."
           },
           cancellation: {
             title: "6. Widerrufsrecht",
-            content: "Da es sich um personalisierte Produkte handelt, ist ein Widerruf nach § 312g Abs. 2 Nr. 1 BGB ausgeschlossen, sobald mit der Herstellung begonnen wurde."
+            content:
+              "Da es sich um personalisierte Produkte handelt, ist ein Widerruf nach § 312g Abs. 2 Nr. 1 BGB ausgeschlossen, sobald mit der Herstellung begonnen wurde."
           },
           warranty: {
             title: "7. Gewährleistung",
-            content: "Wir gewährleisten die Qualität unserer Produkte. Bei Mängeln kontaktieren Sie uns bitte innerhalb von 14 Tagen nach Erhalt der Ware."
+            content:
+              "Wir gewährleisten die Qualität unserer Produkte. Bei Mängeln kontaktieren Sie uns bitte innerhalb von 14 Tagen nach Erhalt der Ware."
           },
           contact: {
             title: "8. Kontakt",
-            content: "Bei Fragen zu diesen AGB kontaktieren Sie uns unter:\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
+            content:
+              "Bei Fragen zu diesen AGB kontaktieren Sie uns unter:\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
           }
         }
       },
@@ -155,7 +170,8 @@ export const deContent: ContentData = {
           },
           contact: {
             title: "Kontakt",
-            content: "E-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
+            content:
+              "E-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
           },
           responsible: {
             title: "Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV",
@@ -165,35 +181,55 @@ export const deContent: ContentData = {
             title: "Haftungsausschluss",
             content: {
               title: "Haftung für Inhalte",
-              content: "Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht unter der Verpflichtung, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen."
+              content:
+                "Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen."
             },
             links: {
               title: "Haftung für Links",
-              content: "Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich."
+              content:
+                "Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich."
             },
             copyright: {
               title: "Urheberrecht",
-              content: "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers."
+              content:
+                "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers."
             }
           }
         }
       }
+    },
+
+    // Footer-Texte – gemäß deinem FooterContent-Typ
+    footer: {
+      brand: {
+        name: "Memora Moments",
+        description:
+          "Digitale Gedenkmomente – würdevoll gestaltet, wetterfest und einfach zu teilen."
+      },
+      contactTitle: "Kontakt",
+      linksTitle: "Links",
+      legal: {
+        privacy: "Datenschutz",
+        terms: "AGB",
+        imprint: "Impressum"
+      },
+      copyright: "Alle Rechte vorbehalten."
     }
   },
-
-
 
   // --- HUMAN MODE ---
   human: {
     hero: {
       title: "Erinnerungen, die weiterleben – mit Herz und Klang.",
-      subtitle: "Aus Erinnerungen wird ein stilles Denkmal – Memora Moments öffnet die Tür zu bewegenden Momenten mit Bild und Musik.",
+      subtitle:
+        "Aus Erinnerungen wird ein stilles Denkmal – Memora Moments öffnet die Tür zu bewegenden Momenten mit Bild und Musik.",
       startButton: "Jetzt beginnen",
       learnButton: "Mehr erfahren"
     },
     features: {
       title: "Unvergessliche Momente für die Ewigkeit",
-      subtitle: "Unsere Memora Moments NFC-Platten vereinen moderne Technologie mit würdevoller Erinnerung.",
+      subtitle:
+        "Unsere Memora Moments NFC-Platten vereinen moderne Technologie mit würdevoller Erinnerung.",
       unique: { title: "Einzigartiges Gedenken", desc: "Bewahren Sie besondere Erinnerungen mit Memora Moments." },
       multimedia: { title: "Multimedia Erinnerungen", desc: "Fotos und Videos, die das Leben zeigen." },
       music: { title: "Lieblingslied einbinden", desc: "Fügen Sie bedeutungsvolle Musik hinzu." },
@@ -235,12 +271,10 @@ export const deContent: ContentData = {
       description: "Laden Sie Erinnerungen hoch und wir erstellen ein würdevolles Gedenken."
     },
 
-    /** ---------- Uploader-Overrides (nur was von den Fallbacks abweichen soll) ---------- */
+    // Uploader-Overrides (nur abweichende Texte)
     uploaderCopy: {
       headings: {
-        pageTitleByMode: {
-          human: "Produkt wählen (Menschen)"
-        },
+        pageTitleByMode: { human: "Produkt wählen (Menschen)" },
         step1Subtitle: "Wähle dein Produkt – die Inhalte lädst du im nächsten Schritt hoch.",
         step2ByMode: { human: "Angaben zur Person" },
         step2Subtitle: "Bitte die folgenden Felder ausfüllen. Notizen sind optional.",
@@ -255,10 +289,9 @@ export const deContent: ContentData = {
       products: {
         formatTitle: "Format",
         frameTitle: "Frame gestalten",
-        formatTitleDeluxe: "Deluxe Gestalten",
         roundLabel: "Rund · Ø 3 cm",
         squareLabel: "Quadratisch · 6×6 cm",
-        petOptionsTitle: "Optionen für Haustier–Memora Tag" // bleibt, wird im Human-Modus nicht angezeigt
+        petOptionsTitle: "Optionen für Haustier–Memora Tag"
       },
       editor: {
         image: "Bild",
@@ -280,8 +313,8 @@ export const deContent: ContentData = {
         human_firstName: "Vorname *",
         human_deathDate: "Sterbedatum",
         human_notesPH: "Besondere Wünsche, Zitate, Musik-Hinweise …",
-        pet_name: "Name des Haustiers *",           // irrelevant im Human-Modus
-        pet_deathDate: "Sterbedatum *",             // irrelevant im Human-Modus
+        pet_name: "Name des Haustiers *",
+        pet_deathDate: "Sterbedatum *",
         pet_notesPH: "Besondere Wünsche, Lieblingsgeräusche, Hinweise …",
         surprise_name: "Name (Empfänger) *",
         surprise_notesPH: "Hochzeit, Geburtstag, Jubiläum … besondere Wünsche"
@@ -291,7 +324,12 @@ export const deContent: ContentData = {
         videosLabel: "Videos (mehrfach möglich)",
         remove: "Entfernen"
       },
-      contactFields: { firstName: "Vorname *", lastName: "Nachname *", email: "E-Mail *", phoneOpt: "Telefon (optional)" },
+      contactFields: {
+        firstName: "Vorname *",
+        lastName: "Nachname *",
+        email: "E-Mail *",
+        phoneOpt: "Telefon (optional)"
+      },
       invoiceFields: {
         sameAsContact: "Rechnungsadresse gleich Kontaktadresse",
         companyOpt: "Firma (optional)",
@@ -323,7 +361,8 @@ export const deContent: ContentData = {
   pet: {
     hero: {
       title: "Für unsere treuen Begleiter – Erinnerungen mit Herz und Klang.",
-      subtitle: "Memora Moments für Haustiere – bewahren Sie die schönsten Momente mit Ihrem Vierbeiner.",
+      subtitle:
+        "Memora Moments für Haustiere – bewahren Sie die schönsten Momente mit Ihrem Vierbeiner.",
       startButton: "Jetzt beginnen",
       learnButton: "Mehr erfahren"
     },
@@ -371,7 +410,6 @@ export const deContent: ContentData = {
       description: "Laden Sie Erinnerungen Ihres Lieblings hoch."
     },
 
-    /** ---------- Uploader-Overrides für PET ---------- */
     uploaderCopy: {
       headings: {
         pageTitleByMode: { pet: "Produkt wählen (Haustiere)" },
@@ -397,7 +435,8 @@ export const deContent: ContentData = {
   surprise: {
     hero: {
       title: "Überraschungsmomente, die berühren.",
-      subtitle: "Die Surprise-Kollektion verbindet Design mit einem besonderen Erlebnis.",
+      subtitle:
+        "Die Surprise-Kollektion verbindet Design mit einem besonderen Erlebnis.",
       startButton: "Surprise starten",
       learnButton: "Mehr erfahren"
     },
@@ -445,7 +484,6 @@ export const deContent: ContentData = {
       description: "Laden Sie Inhalte hoch und wir gestalten Ihr Erlebnis."
     },
 
-    /** ---------- Uploader-Overrides für SURPRISE ---------- */
     uploaderCopy: {
       headings: {
         pageTitleByMode: { surprise: "Produkt wählen (Surprise)" },
@@ -454,107 +492,6 @@ export const deContent: ContentData = {
       step2Fields: {
         surprise_name: "Name (Empfänger) *",
         surprise_notesPH: "Anlass, Idee oder besondere Wünsche …"
-      }
-    }
-  },
-  legal: {
-    privacy: {
-      title: "Datenschutzerklärung",
-      sections: {
-        responsible: {
-          title: "1. Verantwortlicher",
-          content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
-        },
-        dataCollection: {
-          title: "2. Datenerhebung und -verwendung",
-          content: "Wir erheben und verarbeiten personenbezogene Daten nur in dem Umfang, wie es für die Bereitstellung unserer Dienstleistungen erforderlich ist. Dies umfasst:",
-          list: [
-            "Kontaktdaten für die Bestellabwicklung",
-            "Rechnungsdaten für die Bezahlung",
-            "Von Ihnen hochgeladene Bilder und Texte für die Produktgestaltung"
-          ]
-        },
-        imageProcessing: {
-          title: "3. Bildverarbeitung",
-          content: "Die von Ihnen hochgeladenen Bilder werden ausschließlich für die Erstellung Ihres personalisierten Produkts verwendet. Ihre Bilder werden sicher gespeichert und nach Abschluss der Bestellung bzw. nach angemessener Zeit gelöscht."
-        },
-        rights: {
-          title: "4. Ihre Rechte",
-          content: "Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten. Kontaktieren Sie uns unter info.memora.moments@gmail.com für Anfragen zu Ihren Daten."
-        },
-        cookies: {
-          title: "5. Cookies",
-          content: "Unsere Website verwendet notwendige Cookies für die Funktionalität. Weitere Tracking-Cookies verwenden wir nur mit Ihrer Einwilligung."
-        }
-      }
-    },
-    terms: {
-      title: "Allgemeine Geschäftsbedingungen",
-      sections: {
-        scope: {
-          title: "1. Geltungsbereich",
-          content: "Diese Allgemeinen Geschäftsbedingungen gelten für alle Bestellungen und Verträge zwischen Memora Moments und unseren Kunden."
-        },
-        contract: {
-          title: "2. Vertragsschluss",
-          content: "Der Vertrag kommt durch Ihre Bestellung und unsere Bestätigung zustande. Wir behalten uns vor, Bestellungen abzulehnen, falls technische oder rechtliche Hindernisse bestehen."
-        },
-        prices: {
-          title: "3. Preise und Zahlungsbedingungen",
-          content: "Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer. Die Zahlung erfolgt vor der Produktion. Wir akzeptieren gängige Zahlungsmittel."
-        },
-        delivery: {
-          title: "4. Lieferung und Produktionszeit",
-          content: "Unsere personalisierten Produkte werden individuell gefertigt. Die Produktionszeit beträgt in der Regel 7-14 Werktage nach Zahlungseingang und finaler Freigabe des Designs."
-        },
-        rights: {
-          title: "5. Urheberrechte und Bildrechte",
-          content: "Sie bestätigen, dass Sie über alle notwendigen Rechte an den von Ihnen bereitgestellten Bildern und Texten verfügen. Sie stellen uns von Ansprüchen Dritter bezüglich Urheberrechts- oder Persönlichkeitsrechtsverletzungen frei."
-        },
-        cancellation: {
-          title: "6. Widerrufsrecht",
-          content: "Da es sich um personalisierte Produkte handelt, ist ein Widerruf nach § 312g Abs. 2 Nr. 1 BGB ausgeschlossen, sobald mit der Herstellung begonnen wurde."
-        },
-        warranty: {
-          title: "7. Gewährleistung",
-          content: "Wir gewährleisten die Qualität unserer Produkte. Bei Mängeln kontaktieren Sie uns bitte innerhalb von 14 Tagen nach Erhalt der Ware."
-        },
-        contact: {
-          title: "8. Kontakt",
-          content: "Bei Fragen zu diesen AGB kontaktieren Sie uns unter:\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
-        }
-      }
-    },
-    imprint: {
-      title: "Impressum",
-      sections: {
-        info: {
-          title: "Angaben gemäß § 5 TMG",
-          content: "Memora Moments\nPersonalisierte Erinnerungsprodukte"
-        },
-        contact: {
-          title: "Kontakt",
-          content: "E-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
-        },
-        responsible: {
-          title: "Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV",
-          content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com"
-        },
-        disclaimer: {
-          title: "Haftungsausschluss",
-          content: {
-            title: "Haftung für Inhalte",
-            content: "Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht unter der Verpflichtung, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen."
-          },
-          links: {
-            title: "Haftung für Links",
-            content: "Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich."
-          },
-          copyright: {
-            title: "Urheberrecht",
-            content: "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers."
-          }
-        }
       }
     }
   }
