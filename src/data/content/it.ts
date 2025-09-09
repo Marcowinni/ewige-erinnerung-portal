@@ -77,6 +77,107 @@ export const itContent: ContentData = {
         p1: 'Materiali di qualità, design resistente agli agenti atmosferici e un focus chiaro sull\'essenziale.',
         p2: 'Creare facilmente, ricevere qualcosa di duraturo e condividere in qualsiasi momento — con un semplice tap.'
       }
+    },
+    legal: {
+      privacy: {
+        title: "Informativa sulla privacy",
+        sections: {
+          responsible: {
+            title: "1. Responsabile",
+            content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com\nTelefono: +41 79 407 56 99"
+          },
+          dataCollection: {
+            title: "2. Raccolta e utilizzo dei dati",
+            content: "Raccogliamo e trattiamo i dati personali solo nella misura necessaria per fornire i nostri servizi. Ciò include:",
+            list: [
+              "Dati di contatto per l'elaborazione degli ordini",
+              "Dati di fatturazione per il pagamento",
+              "Immagini e testi caricati da voi per la personalizzazione del prodotto"
+            ]
+          },
+          imageProcessing: {
+            title: "3. Elaborazione delle immagini",
+            content: "Le immagini che caricate sono utilizzate esclusivamente per creare il vostro prodotto personalizzato. Le vostre immagini sono archiviate in sicurezza e cancellate dopo il completamento dell'ordine o dopo un periodo ragionevole."
+          },
+          rights: {
+            title: "4. I vostri diritti",
+            content: "Avete il diritto di accedere, correggere, cancellare e limitare il trattamento dei vostri dati personali. Contattateci a info.memora.moments@gmail.com per richieste sui vostri dati."
+          },
+          cookies: {
+            title: "5. Cookie",
+            content: "Il nostro sito web utilizza cookie necessari per la funzionalità. Utilizziamo cookie di tracciamento aggiuntivi solo con il vostro consenso."
+          }
+        }
+      },
+      terms: {
+        title: "Termini e condizioni",
+        sections: {
+          scope: {
+            title: "1. Ambito di applicazione",
+            content: "Questi Termini e Condizioni si applicano a tutti gli ordini e contratti tra Memora Moments e i nostri clienti."
+          },
+          contract: {
+            title: "2. Formazione del contratto",
+            content: "Il contratto si forma attraverso il vostro ordine e la nostra conferma. Ci riserviamo il diritto di rifiutare ordini in caso di ostacoli tecnici o legali."
+          },
+          prices: {
+            title: "3. Prezzi e condizioni di pagamento",
+            content: "Tutti i prezzi includono l'IVA applicabile. Il pagamento è dovuto prima della produzione. Accettiamo i comuni metodi di pagamento."
+          },
+          delivery: {
+            title: "4. Consegna e tempo di produzione",
+            content: "I nostri prodotti personalizzati sono fabbricati individualmente. Il tempo di produzione è tipicamente di 7-14 giorni lavorativi dopo il pagamento e l'approvazione finale del design."
+          },
+          rights: {
+            title: "5. Diritti d'autore e diritti d'immagine",
+            content: "Confermate di avere tutti i diritti necessari sulle immagini e testi che fornite. Ci sollevate dalle rivendicazioni di terzi riguardo a violazioni di diritti d'autore o della personalità."
+          },
+          cancellation: {
+            title: "6. Diritto di recesso",
+            content: "Trattandosi di prodotti personalizzati, il recesso è escluso secondo § 312g para. 2 no. 1 BGB una volta iniziata la produzione."
+          },
+          warranty: {
+            title: "7. Garanzia",
+            content: "Garantiamo la qualità dei nostri prodotti. Per difetti, contattateci entro 14 giorni dal ricevimento."
+          },
+          contact: {
+            title: "8. Contatto",
+            content: "Per domande su questi Termini e Condizioni, contattateci a:\nE-Mail: info.memora.moments@gmail.com\nTelefono: +41 79 407 56 99"
+          }
+        }
+      },
+      imprint: {
+        title: "Colophon",
+        sections: {
+          info: {
+            title: "Informazioni secondo § 5 TMG",
+            content: "Memora Moments\nProdotti di memoria personalizzati"
+          },
+          contact: {
+            title: "Contatto",
+            content: "E-Mail: info.memora.moments@gmail.com\nTelefono: +41 79 407 56 99"
+          },
+          responsible: {
+            title: "Responsabile per il contenuto secondo § 55 para. 2 RStV",
+            content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com"
+          },
+          disclaimer: {
+            title: "Esclusione di responsabilità",
+            content: {
+              title: "Responsabilità per il contenuto",
+              content: "Come fornitore di servizi, siamo responsabili del nostro contenuto su queste pagine secondo la legge generale secondo § 7 para. 1 TMG. Tuttavia, secondo §§ 8 a 10 TMG, non siamo obbligati a monitorare le informazioni di terzi trasmesse o archiviate o a indagare su circostanze che indicano attività illegali."
+            },
+            links: {
+              title: "Responsabilità per i collegamenti",
+              content: "Il nostro sito contiene collegamenti a siti web esterni di terzi sul cui contenuto non abbiamo alcuna influenza. Pertanto, non possiamo assumere alcuna responsabilità per questo contenuto esterno. Il rispettivo fornitore o operatore delle pagine collegate è sempre responsabile del loro contenuto."
+            },
+            copyright: {
+              title: "Diritto d'autore",
+              content: "Il contenuto e i lavori creati dagli operatori del sito su queste pagine sono soggetti al diritto d'autore tedesco. La riproduzione, l'editing, la distribuzione e qualsiasi tipo di sfruttamento al di fuori dei limiti del diritto d'autore richiedono il consenso scritto del rispettivo autore o creatore."
+            }
+          }
+        }
+      }
     }
   },
 
@@ -236,6 +337,107 @@ export const itContent: ContentData = {
       title: 'Crea Surprise - Memora Moments',
       heading: 'Il tuo momento Surprise',
       description: 'Carica i contenuti e curiamo l\'esperienza.'
+    }
+  },
+  legal: {
+    privacy: {
+      title: "Informativa sulla privacy",
+      sections: {
+        responsible: {
+          title: "1. Responsabile",
+          content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com\nTelefono: +41 79 407 56 99"
+        },
+        dataCollection: {
+          title: "2. Raccolta e utilizzo dei dati",
+          content: "Raccogliamo e trattiamo i dati personali solo nella misura necessaria per fornire i nostri servizi. Ciò include:",
+          list: [
+            "Dati di contatto per l'elaborazione degli ordini",
+            "Dati di fatturazione per il pagamento",
+            "Immagini e testi caricati da voi per la personalizzazione del prodotto"
+          ]
+        },
+        imageProcessing: {
+          title: "3. Elaborazione delle immagini",
+          content: "Le immagini che caricate sono utilizzate esclusivamente per creare il vostro prodotto personalizzato. Le vostre immagini sono archiviate in sicurezza e cancellate dopo il completamento dell'ordine o dopo un periodo ragionevole."
+        },
+        rights: {
+          title: "4. I vostri diritti",
+          content: "Avete il diritto di accedere, correggere, cancellare e limitare il trattamento dei vostri dati personali. Contattateci a info.memora.moments@gmail.com per richieste sui vostri dati."
+        },
+        cookies: {
+          title: "5. Cookie",
+          content: "Il nostro sito web utilizza cookie necessari per la funzionalità. Utilizziamo cookie di tracciamento aggiuntivi solo con il vostro consenso."
+        }
+      }
+    },
+    terms: {
+      title: "Termini e condizioni",
+      sections: {
+        scope: {
+          title: "1. Ambito di applicazione",
+          content: "Questi Termini e Condizioni si applicano a tutti gli ordini e contratti tra Memora Moments e i nostri clienti."
+        },
+        contract: {
+          title: "2. Formazione del contratto",
+          content: "Il contratto si forma attraverso il vostro ordine e la nostra conferma. Ci riserviamo il diritto di rifiutare ordini in caso di ostacoli tecnici o legali."
+        },
+        prices: {
+          title: "3. Prezzi e condizioni di pagamento",
+          content: "Tutti i prezzi includono l'IVA applicabile. Il pagamento è dovuto prima della produzione. Accettiamo i comuni metodi di pagamento."
+        },
+        delivery: {
+          title: "4. Consegna e tempo di produzione",
+          content: "I nostri prodotti personalizzati sono fabbricati individualmente. Il tempo di produzione è tipicamente di 7-14 giorni lavorativi dopo il pagamento e l'approvazione finale del design."
+        },
+        rights: {
+          title: "5. Diritti d'autore e diritti d'immagine",
+          content: "Confermate di avere tutti i diritti necessari sulle immagini e testi che fornite. Ci sollevate dalle rivendicazioni di terzi riguardo a violazioni di diritti d'autore o della personalità."
+        },
+        cancellation: {
+          title: "6. Diritto di recesso",
+          content: "Trattandosi di prodotti personalizzati, il recesso è escluso secondo § 312g para. 2 no. 1 BGB una volta iniziata la produzione."
+        },
+        warranty: {
+          title: "7. Garanzia",
+          content: "Garantiamo la qualità dei nostri prodotti. Per difetti, contattateci entro 14 giorni dal ricevimento."
+        },
+        contact: {
+          title: "8. Contatto",
+          content: "Per domande su questi Termini e Condizioni, contattateci a:\nE-Mail: info.memora.moments@gmail.com\nTelefono: +41 79 407 56 99"
+        }
+      }
+    },
+    imprint: {
+      title: "Colophon",
+      sections: {
+        info: {
+          title: "Informazioni secondo § 5 TMG",
+          content: "Memora Moments\nProdotti di memoria personalizzati"
+        },
+        contact: {
+          title: "Contatto",
+          content: "E-Mail: info.memora.moments@gmail.com\nTelefono: +41 79 407 56 99"
+        },
+        responsible: {
+          title: "Responsabile per il contenuto secondo § 55 para. 2 RStV",
+          content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com"
+        },
+        disclaimer: {
+          title: "Esclusione di responsabilità",
+          content: {
+            title: "Responsabilità per il contenuto",
+            content: "Come fornitore di servizi, siamo responsabili del nostro contenuto su queste pagine secondo la legge generale secondo § 7 para. 1 TMG. Tuttavia, secondo §§ 8 a 10 TMG, non siamo obbligati a monitorare le informazioni di terzi trasmesse o archiviate o a indagare su circostanze che indicano attività illegali."
+          },
+          links: {
+            title: "Responsabilità per i collegamenti",
+            content: "Il nostro sito contiene collegamenti a siti web esterni di terzi sul cui contenuto non abbiamo alcuna influenza. Pertanto, non possiamo assumere alcuna responsabilità per questo contenuto esterno. Il rispettivo fornitore o operatore delle pagine collegate è sempre responsabile del loro contenuto."
+          },
+          copyright: {
+            title: "Diritto d'autore",
+            content: "Il contenuto e i lavori creati dagli operatori del sito su queste pagine sono soggetti al diritto d'autore tedesco. La riproduzione, l'editing, la distribuzione e qualsiasi tipo di sfruttamento al di fuori dei limiti del diritto d'autore richiedono il consenso scritto del rispettivo autore o creatore."
+          }
+        }
+      }
     }
   }
 };

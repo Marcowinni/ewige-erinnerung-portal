@@ -76,9 +76,110 @@ export const deContent: ContentData = {
           title: "Warum Memora?",
           p1: "Hochwertige Materialien, wetterfestes Design und ein klarer Fokus auf das Wesentliche.",
           p2: "Einfach erstellen, wertig erhalten, jederzeit teilen – mit einem sanften Tap."
-        }
       }
     },
+    legal: {
+      privacy: {
+        title: "Datenschutzerklärung",
+        sections: {
+          responsible: {
+            title: "1. Verantwortlicher",
+            content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
+          },
+          dataCollection: {
+            title: "2. Datenerhebung und -verwendung",
+            content: "Wir erheben und verarbeiten personenbezogene Daten nur in dem Umfang, wie es für die Bereitstellung unserer Dienstleistungen erforderlich ist. Dies umfasst:",
+            list: [
+              "Kontaktdaten für die Bestellabwicklung",
+              "Rechnungsdaten für die Bezahlung",
+              "Von Ihnen hochgeladene Bilder und Texte für die Produktgestaltung"
+            ]
+          },
+          imageProcessing: {
+            title: "3. Bildverarbeitung",
+            content: "Die von Ihnen hochgeladenen Bilder werden ausschließlich für die Erstellung Ihres personalisierten Produkts verwendet. Ihre Bilder werden sicher gespeichert und nach Abschluss der Bestellung bzw. nach angemessener Zeit gelöscht."
+          },
+          rights: {
+            title: "4. Ihre Rechte",
+            content: "Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten. Kontaktieren Sie uns unter info.memora.moments@gmail.com für Anfragen zu Ihren Daten."
+          },
+          cookies: {
+            title: "5. Cookies",
+            content: "Unsere Website verwendet notwendige Cookies für die Funktionalität. Weitere Tracking-Cookies verwenden wir nur mit Ihrer Einwilligung."
+          }
+        }
+      },
+      terms: {
+        title: "Allgemeine Geschäftsbedingungen",
+        sections: {
+          scope: {
+            title: "1. Geltungsbereich",
+            content: "Diese Allgemeinen Geschäftsbedingungen gelten für alle Bestellungen und Verträge zwischen Memora Moments und unseren Kunden."
+          },
+          contract: {
+            title: "2. Vertragsschluss",
+            content: "Der Vertrag kommt durch Ihre Bestellung und unsere Bestätigung zustande. Wir behalten uns vor, Bestellungen abzulehnen, falls technische oder rechtliche Hindernisse bestehen."
+          },
+          prices: {
+            title: "3. Preise und Zahlungsbedingungen",
+            content: "Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer. Die Zahlung erfolgt vor der Produktion. Wir akzeptieren gängige Zahlungsmittel."
+          },
+          delivery: {
+            title: "4. Lieferung und Produktionszeit",
+            content: "Unsere personalisierten Produkte werden individuell gefertigt. Die Produktionszeit beträgt in der Regel 7-14 Werktage nach Zahlungseingang und finaler Freigabe des Designs."
+          },
+          rights: {
+            title: "5. Urheberrechte und Bildrechte",
+            content: "Sie bestätigen, dass Sie über alle notwendigen Rechte an den von Ihnen bereitgestellten Bildern und Texten verfügen. Sie stellen uns von Ansprüchen Dritter bezüglich Urheberrechts- oder Persönlichkeitsrechtsverletzungen frei."
+          },
+          cancellation: {
+            title: "6. Widerrufsrecht",
+            content: "Da es sich um personalisierte Produkte handelt, ist ein Widerruf nach § 312g Abs. 2 Nr. 1 BGB ausgeschlossen, sobald mit der Herstellung begonnen wurde."
+          },
+          warranty: {
+            title: "7. Gewährleistung",
+            content: "Wir gewährleisten die Qualität unserer Produkte. Bei Mängeln kontaktieren Sie uns bitte innerhalb von 14 Tagen nach Erhalt der Ware."
+          },
+          contact: {
+            title: "8. Kontakt",
+            content: "Bei Fragen zu diesen AGB kontaktieren Sie uns unter:\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
+          }
+        }
+      },
+      imprint: {
+        title: "Impressum",
+        sections: {
+          info: {
+            title: "Angaben gemäß § 5 TMG",
+            content: "Memora Moments\nPersonalisierte Erinnerungsprodukte"
+          },
+          contact: {
+            title: "Kontakt",
+            content: "E-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
+          },
+          responsible: {
+            title: "Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV",
+            content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com"
+          },
+          disclaimer: {
+            title: "Haftungsausschluss",
+            content: {
+              title: "Haftung für Inhalte",
+              content: "Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht unter der Verpflichtung, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen."
+            },
+            links: {
+              title: "Haftung für Links",
+              content: "Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich."
+            },
+            copyright: {
+              title: "Urheberrecht",
+              content: "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers."
+            }
+          }
+        }
+      }
+    }
+  },
 
 
 
@@ -353,6 +454,107 @@ export const deContent: ContentData = {
       step2Fields: {
         surprise_name: "Name (Empfänger) *",
         surprise_notesPH: "Anlass, Idee oder besondere Wünsche …"
+      }
+    }
+  },
+  legal: {
+    privacy: {
+      title: "Datenschutzerklärung",
+      sections: {
+        responsible: {
+          title: "1. Verantwortlicher",
+          content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
+        },
+        dataCollection: {
+          title: "2. Datenerhebung und -verwendung",
+          content: "Wir erheben und verarbeiten personenbezogene Daten nur in dem Umfang, wie es für die Bereitstellung unserer Dienstleistungen erforderlich ist. Dies umfasst:",
+          list: [
+            "Kontaktdaten für die Bestellabwicklung",
+            "Rechnungsdaten für die Bezahlung",
+            "Von Ihnen hochgeladene Bilder und Texte für die Produktgestaltung"
+          ]
+        },
+        imageProcessing: {
+          title: "3. Bildverarbeitung",
+          content: "Die von Ihnen hochgeladenen Bilder werden ausschließlich für die Erstellung Ihres personalisierten Produkts verwendet. Ihre Bilder werden sicher gespeichert und nach Abschluss der Bestellung bzw. nach angemessener Zeit gelöscht."
+        },
+        rights: {
+          title: "4. Ihre Rechte",
+          content: "Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten. Kontaktieren Sie uns unter info.memora.moments@gmail.com für Anfragen zu Ihren Daten."
+        },
+        cookies: {
+          title: "5. Cookies",
+          content: "Unsere Website verwendet notwendige Cookies für die Funktionalität. Weitere Tracking-Cookies verwenden wir nur mit Ihrer Einwilligung."
+        }
+      }
+    },
+    terms: {
+      title: "Allgemeine Geschäftsbedingungen",
+      sections: {
+        scope: {
+          title: "1. Geltungsbereich",
+          content: "Diese Allgemeinen Geschäftsbedingungen gelten für alle Bestellungen und Verträge zwischen Memora Moments und unseren Kunden."
+        },
+        contract: {
+          title: "2. Vertragsschluss",
+          content: "Der Vertrag kommt durch Ihre Bestellung und unsere Bestätigung zustande. Wir behalten uns vor, Bestellungen abzulehnen, falls technische oder rechtliche Hindernisse bestehen."
+        },
+        prices: {
+          title: "3. Preise und Zahlungsbedingungen",
+          content: "Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer. Die Zahlung erfolgt vor der Produktion. Wir akzeptieren gängige Zahlungsmittel."
+        },
+        delivery: {
+          title: "4. Lieferung und Produktionszeit",
+          content: "Unsere personalisierten Produkte werden individuell gefertigt. Die Produktionszeit beträgt in der Regel 7-14 Werktage nach Zahlungseingang und finaler Freigabe des Designs."
+        },
+        rights: {
+          title: "5. Urheberrechte und Bildrechte",
+          content: "Sie bestätigen, dass Sie über alle notwendigen Rechte an den von Ihnen bereitgestellten Bildern und Texten verfügen. Sie stellen uns von Ansprüchen Dritter bezüglich Urheberrechts- oder Persönlichkeitsrechtsverletzungen frei."
+        },
+        cancellation: {
+          title: "6. Widerrufsrecht",
+          content: "Da es sich um personalisierte Produkte handelt, ist ein Widerruf nach § 312g Abs. 2 Nr. 1 BGB ausgeschlossen, sobald mit der Herstellung begonnen wurde."
+        },
+        warranty: {
+          title: "7. Gewährleistung",
+          content: "Wir gewährleisten die Qualität unserer Produkte. Bei Mängeln kontaktieren Sie uns bitte innerhalb von 14 Tagen nach Erhalt der Ware."
+        },
+        contact: {
+          title: "8. Kontakt",
+          content: "Bei Fragen zu diesen AGB kontaktieren Sie uns unter:\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
+        }
+      }
+    },
+    imprint: {
+      title: "Impressum",
+      sections: {
+        info: {
+          title: "Angaben gemäß § 5 TMG",
+          content: "Memora Moments\nPersonalisierte Erinnerungsprodukte"
+        },
+        contact: {
+          title: "Kontakt",
+          content: "E-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
+        },
+        responsible: {
+          title: "Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV",
+          content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com"
+        },
+        disclaimer: {
+          title: "Haftungsausschluss",
+          content: {
+            title: "Haftung für Inhalte",
+            content: "Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht unter der Verpflichtung, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen."
+          },
+          links: {
+            title: "Haftung für Links",
+            content: "Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich."
+          },
+          copyright: {
+            title: "Urheberrecht",
+            content: "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers."
+          }
+        }
       }
     }
   }

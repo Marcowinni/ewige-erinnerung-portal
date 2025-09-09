@@ -226,6 +226,46 @@ export interface AboutPageContent {
   };
 }
 
+export interface LegalContent {
+  privacy: {
+    title: string;
+    sections: {
+      responsible: { title: string; content: string };
+      dataCollection: { title: string; content: string; list: string[] };
+      imageProcessing: { title: string; content: string };
+      rights: { title: string; content: string };
+      cookies: { title: string; content: string };
+    };
+  };
+  terms: {
+    title: string;
+    sections: {
+      scope: { title: string; content: string };
+      contract: { title: string; content: string };
+      prices: { title: string; content: string };
+      delivery: { title: string; content: string };
+      rights: { title: string; content: string };
+      cancellation: { title: string; content: string };
+      warranty: { title: string; content: string };
+      contact: { title: string; content: string };
+    };
+  };
+  imprint: {
+    title: string;
+    sections: {
+      info: { title: string; content: string };
+      contact: { title: string; content: string };
+      responsible: { title: string; content: string };
+      disclaimer: {
+        title: string;
+        content: { title: string; content: string };
+        links: { title: string; content: string };
+        copyright: { title: string; content: string };
+      };
+    };
+  };
+}
+
 export interface SharedContent {
   navigation: NavigationContent;
   about: {
@@ -263,6 +303,7 @@ export interface SharedContent {
     };
   };
   aboutPage: AboutPageContent;
+  legal: LegalContent;
 }
 
 /* ==========================================
