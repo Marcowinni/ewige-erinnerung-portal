@@ -25,10 +25,10 @@ const Index = () => {
 
   // Hintergrundbild je Modus
   const heroBg = mode === "pet"
-    ? "url('/lovable-uploads/ec30a21b-4126-4466-9e7a-df8c7027f48d.png')"
+    ? "url('/lovable-uploads/background_pet.png')"
     : mode === "surprise"
-      ? "url('https://images.unsplash.com/photo-1579208575657-c595a05383b7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"
-      : "url('/lovable-uploads/0e24d567-3609-48ba-8ce7-b60cb92a6e22.png')";
+      ? "url('/lovable-uploads/background_surprise.png ')"
+      : "url('/lovable-uploads/background_human.png')";
 
   return (
     <div className="min-h-screen flex flex-col">
