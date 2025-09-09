@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Check } from "lucide-react";
+import PrivacyTermsNotice from "@/components/PrivacyTermsNotice";
 import {
   Carousel,
   CarouselContent,
@@ -1116,6 +1117,7 @@ function Step1View(props: {
                   copy={DEFAULT_COPY.editor}
                 />
               )}
+              <PrivacyTermsNotice />
             </div>
           )}
         </div>
@@ -1163,6 +1165,7 @@ function Step1View(props: {
                 />
               );
             })()}
+            <PrivacyTermsNotice />
           </div>
 
           <p className="text-sm text-muted-foreground">{copy.products.frameTip}</p>
@@ -1188,6 +1191,7 @@ function Step1View(props: {
               onChange={(v) => setForm((s) => ({ ...s, deluxe_custom: v }))}
               copy={DEFAULT_COPY.editor}
             />
+            <PrivacyTermsNotice />
           </div>
 
           <p className="text-sm text-muted-foreground">{copy.products.frameTip}</p>
