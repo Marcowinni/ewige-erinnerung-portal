@@ -51,11 +51,11 @@ type FormState = {
   // Menschen
   human_lastName?: string;
   human_firstName?: string;
-  human_deathDate?: string;
+  human_deathDate?: string; // optional
 
   // Haustiere
   pet_name?: string;
-  pet_deathDate?: string;
+  pet_deathDate?: string; // optional
 
   // Surprise
   surprise_name?: string;
@@ -63,6 +63,8 @@ type FormState = {
   // Uploads (werden NICHT im LocalStorage persistiert)
   images: File[];
   videos: File[];
+  audios: File[]; //Audio/Songs oder andere Audiodateien
+  audioLinks: string[]; // YouTube/Spotify Links
 
   // Kontakt
   contact_firstName?: string;
@@ -168,6 +170,8 @@ type UploaderCopy = {
   step3Fields: {
     imagesLabel: string;
     videosLabel: string;
+    audiosLabel?: string;
+    audiosLinksLabel?: string;
     remove: string;
   };
   contactFields: {
@@ -217,9 +221,9 @@ const DEFAULT_COPY: UploaderCopy = {
       surprise: "Angaben für Surprise",
     },
     step2Subtitle: "Bitte die folgenden Felder ausfüllen. Notizen sind optional.",
-    step3Title: "Bilder & Videos hochladen",
+    step3Title: "Bilder, Videos & Audio hochladen",
     step3Subtitle:
-      "Dateien werden im Formular gespeichert und später mitgesendet (nicht im LocalStorage).",
+      "Dateien werden im Formular gespeichert und später mitgesendet.",
     step4Title: "Kontaktangaben",
     step4Subtitle:
       "Diese Daten verwenden wir für Rückfragen und die Auftragsbestätigung.",
@@ -274,10 +278,10 @@ const DEFAULT_COPY: UploaderCopy = {
   step2Fields: {
     human_lastName: "Nachname *",
     human_firstName: "Vorname *",
-    human_deathDate: "Sterbedatum *",
+    human_deathDate: "Sterbedatum",
     human_notesPH: "Besondere Wünsche, Zitate, Musik-Hinweise …",
     pet_name: "Name des Haustiers *",
-    pet_deathDate: "Sterbedatum *",
+    pet_deathDate: "Sterbedatum",
     pet_notesPH: "Besondere Wünsche, Lieblingsgeräusche, Hinweise …",
     surprise_name: "Name (Empfänger) *",
     surprise_notesPH: "Hochzeit, Geburtstag, Jubiläum … besondere Wünsche",
@@ -285,6 +289,8 @@ const DEFAULT_COPY: UploaderCopy = {
   step3Fields: {
     imagesLabel: "Bilder (mehrfach möglich)",
     videosLabel: "Videos (mehrfach möglich)",
+    audiosLabel: "Audio / Songs (optional)",
+    audiosLinksLabel: "Audio Links (YouTube, Spotify...)",
     remove: "Entfernen",
   },
   contactFields: {
@@ -335,7 +341,7 @@ function mergeCopy<T>(base: T, patch: Partial<T>): T {
 
 // --- LocalStorage Helpers ---
 const STORAGE_KEY = "memora:memoryUploader:v1";
-type PersistedForm = Omit<FormState, "images" | "videos">;
+type PersistedForm = Omit<FormState, "images" | "videos" | "audios">;
 
 function loadPersisted():
   | { step?: number; form?: PersistedForm }
@@ -353,7 +359,7 @@ function loadPersisted():
 function persist(step: number, form: FormState) {
   try {
     if (typeof window === "undefined") return;
-    const { images, videos, ...rest } = form; // Files NICHT speichern
+    const { images, videos, audios, ...rest } = form; // Files NICHT speichern
     const payload = { step, form: rest as PersistedForm };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
   } catch {
@@ -527,7 +533,7 @@ function DesignEditor({
   };
 
   useEffect(() => {
-  onChangeRef.current(local);
+    onChangeRef.current(local);
   }, [local]);
 
   // Bild laden
@@ -591,19 +597,20 @@ function DesignEditor({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    ctx.clearRect(0, 0, W, H);
+    const Wc = W, Hc = H;
+    ctx.clearRect(0, 0, Wc, Hc);
     applyClip(ctx);
 
     if (imgRef.current) {
       const img = imgRef.current;
       const scaledW = img.width * local.scale;
       const scaledH = img.height * local.scale;
-      const x = -scaledW / 2 + W / 2 + local.offsetX;
-      const y = -scaledH / 2 + H / 2 + local.offsetY;
+      const x = -scaledW / 2 + Wc / 2 + local.offsetX;
+      const y = -scaledH / 2 + Hc / 2 + local.offsetY;
       ctx.drawImage(img, x, y, scaledW, scaledH);
     } else {
       ctx.fillStyle = "rgba(148, 163, 184, 0.15)";
-      ctx.fillRect(0, 0, W, H);
+      ctx.fillRect(0, 0, Wc, Hc);
     }
 
     if (renderTexts) {
@@ -612,9 +619,9 @@ function DesignEditor({
         ctx.font = `${t.fontSize || 24}px ${t.fontFamily || "system-ui, Arial"}`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        const tx = t.x * W;
-        const ty = t.y * H;
-        wrapText(ctx, t.text || "", tx, ty, W * 0.9, t.fontSize || 24);
+        const tx = t.x * Wc;
+        const ty = t.y * Hc;
+        wrapText(ctx, t.text || "", tx, ty, Wc * 0.9, t.fontSize || 24);
       }
     }
 
@@ -1193,8 +1200,9 @@ function Step2View(props: {
 }) {
   const { mode, form, setForm, onBack, onNext, copy } = props;
 
-  const humanInvalid = mode === "human" && (!form.human_lastName || !form.human_firstName || !form.human_deathDate);
-  const petInvalid = mode === "pet" && (!form.pet_name || !form.pet_deathDate);
+  // Sterbedatum ist FREIWILLIG – nur Pflichtfelder sind Name(n)
+  const humanInvalid = mode === "human" && (!form.human_lastName || !form.human_firstName);
+  const petInvalid = mode === "pet" && (!form.pet_name);
   const surpriseInvalid = mode === "surprise" && !form.surprise_name;
 
   const title =
@@ -1239,7 +1247,6 @@ function Step2View(props: {
                 type="date"
                 value={form.human_deathDate ?? ""}
                 onChange={(e) => setForm((s) => ({ ...s, human_deathDate: e.target.value }))}
-                required
               />
             </div>
             <div className="md:col-span-2">
@@ -1274,7 +1281,6 @@ function Step2View(props: {
                 type="date"
                 value={form.pet_deathDate ?? ""}
                 onChange={(e) => setForm((s) => ({ ...s, pet_deathDate: e.target.value }))}
-                required
               />
             </div>
             <div className="md:col-span-2">
@@ -1344,8 +1350,25 @@ function Step3View(props: {
   const addVideos = (files: FileList | null) => {
     if (files) setForm((s) => ({ ...s, videos: [...s.videos, ...Array.from(files)] }));
   };
+  const addAudios = (files: FileList | null) => {
+    if (files) setForm((s) => ({ ...s, audios: [...s.audios, ...Array.from(files)] }));
+  };
+  const addAudioLink = (url: string) => {
+  const trimmed = url.trim();
+  if (!trimmed) return;
+  setForm((s) => ({ ...s, audioLinks: [...(s.audioLinks ?? []), trimmed] }));
+  };
   const removeImage = (i: number) => setForm((s) => ({ ...s, images: s.images.filter((_, idx) => idx !== i) }));
   const removeVideo = (i: number) => setForm((s) => ({ ...s, videos: s.videos.filter((_, idx) => idx !== i) }));
+  const removeAudio = (i: number) => setForm((s) => ({ ...s, audios: s.audios.filter((_, idx) => idx !== i) }));
+  const removeAudioLink = (i: number) =>setForm((s) => ({ ...s, audioLinks: (s.audioLinks ?? []).filter((_, idx) => idx !== i) }));
+
+  const hasAnyUpload =
+  form.images.length > 0 ||
+  form.videos.length > 0 ||
+  form.audios.length > 0 ||
+  (form.audioLinks?.length ?? 0) > 0;
+
 
   return (
     <div>
@@ -1402,13 +1425,93 @@ function Step3View(props: {
             </div>
           )}
         </div>
+
+        {/* Audio */}
+        <div className="md:col-span-2">
+          <Label htmlFor="audios">{copy.step3Fields.audiosLabel ?? "Audio / Songs (optional)"}</Label>
+          <Input id="audios" type="file" accept="audio/*" multiple onChange={(e) => addAudios(e.target.files)} />
+          {form.audios.length > 0 && (
+            <div className="space-y-3 mt-4">
+              {form.audios.map((f, idx) => {
+                const url = URL.createObjectURL(f);
+                return (
+                  <div key={idx} className="relative border rounded-md p-2">
+                    <audio src={url} className="w-full" controls />
+                    <div className="flex justify-between items-center mt-2">
+                      <span className="text-sm text-muted-foreground truncate">{f.name}</span>
+                      <Button size="sm" variant="outline" onClick={() => removeAudio(idx)}>
+                        {copy.step3Fields.remove}
+                      </Button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
+
+      {/* Audio-Links */}
+      <div className="md:col-span-2">
+        <Label htmlFor="audioLinkInput">{copy.step3Fields.audiosLinksLabel ?? "Audio-Links (YouTube/Spotify)"}</Label>
+
+        {/* Eingabe + Hinzufügen */}
+        <div className="flex gap-2 mt-2">
+          <Input
+            id="audioLinkInput"
+            type="url"
+            placeholder="https://open.spotify.com/... oder https://youtu.be/..."
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                const target = e.target as HTMLInputElement;
+                addAudioLink(target.value);
+                target.value = "";
+              }
+            }}
+          />
+          <Button
+            type="button"
+            onClick={() => {
+              const input = document.getElementById("audioLinkInput") as HTMLInputElement | null;
+              if (!input) return;
+              addAudioLink(input.value);
+              input.value = "";
+            }}
+          >
+            Hinzufügen
+          </Button>
+        </div>
+
+        {/* Liste der hinzugefügten Links */}
+        {(form.audioLinks?.length ?? 0) > 0 && (
+          <div className="space-y-2 mt-4">
+            {form.audioLinks!.map((url, idx) => (
+              <div key={idx} className="flex items-center justify-between border rounded-md p-2">
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm text-blue-600 hover:underline truncate max-w-[75%]"
+                  title={url}
+                >
+                  {url}
+                </a>
+                <Button size="sm" variant="outline" onClick={() => removeAudioLink(idx)}>
+                  {copy.step3Fields.remove}
+                </Button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
 
       <div className="mt-8 flex justify-between gap-3">
         <Button variant="outline" onClick={onBack}>
           {copy.buttons.back}
         </Button>
-        <Button onClick={onNext} disabled={form.images.length === 0 && form.videos.length === 0}>
+        <Button onClick={onNext} disabled={!hasAnyUpload}>
           {copy.buttons.next}
         </Button>
       </div>
@@ -1711,6 +1814,8 @@ const MemoryUploader = () => {
   const [form, setForm] = useState<FormState>({
     images: [],
     videos: [],
+    audios: [], 
+    audioLinks: [],
     invoice_sameAsContact: true,
     frame_orientation: "portrait", // default Hochformat
     tag_format: "round_3cm", // default Rund Ø 3 cm
@@ -1796,7 +1901,7 @@ const MemoryUploader = () => {
     clearPersisted();
     setStep(1);
     setSelected(null);
-    setForm({ images: [], videos: [], invoice_sameAsContact: true });
+    setForm({ images: [], videos: [], audios: [],audioLinks: [], invoice_sameAsContact: true });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

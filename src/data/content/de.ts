@@ -274,7 +274,7 @@ export const deContent: ContentData = {
     // Uploader-Overrides (nur abweichende Texte)
     uploaderCopy: {
       headings: {
-        pageTitleByMode: { human: "Produkt wählen (Menschen)" },
+        pageTitleByMode: { human: "Produkt wählen:" },
         step1Subtitle: "Wähle dein Produkt – die Inhalte lädst du im nächsten Schritt hoch.",
         step2ByMode: { human: "Angaben zur Person" },
         step2Subtitle: "Bitte die folgenden Felder ausfüllen. Notizen sind optional.",
