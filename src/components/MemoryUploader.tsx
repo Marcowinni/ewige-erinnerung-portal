@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Check } from "lucide-react";
 import {
   Carousel,
@@ -26,20 +25,20 @@ type TagFormat = "round_3cm" | "square_6cm";
 type EditorText = {
   id: string;
   text: string;
-  x: number;
-  y: number;
+  x: number; // 0..1 relativ
+  y: number; // 0..1 relativ
   fontFamily: string;
-  fontSize: number;
+  fontSize: number; // px
   color: string;
 };
 
 type CustomDesign = {
-  bgImageUrl?: string;
-  scale: number;
-  offsetX: number;
-  offsetY: number;
+  bgImageUrl?: string; // ObjectURL für Vorschau
+  scale: number; // Zoom
+  offsetX: number; // px relativ zum Canvas
+  offsetY: number; // px
   texts: EditorText[];
-  previewDataUrl?: string;
+  previewDataUrl?: string; // gerenderte PNG Vorschau
 };
 
 type FormState = {
@@ -82,16 +81,19 @@ type FormState = {
   invoice_sameAsContact?: boolean;
 
   // Tag-Format (gilt für alle Modi beim "basic"-Produkt)
-  tag_format?: TagFormat;
+  tag_format?: TagFormat; // "round_3cm" | "square_6cm"
 
   // Optionen NUR für Haustier–Memora Tag (basic im pet-Modus)
   pet_tag_keychain?: boolean; // +7 CHF (nur bei rund)
   pet_tag_customEnabled?: boolean; // Standard vs. individuell
-  pet_tag_custom?: CustomDesign;
+  pet_tag_custom?: CustomDesign; // Editor-Zustand + Vorschau
 
   // Optionen für Frame-Produkte (premium, in allen Modi)
   frame_orientation?: "portrait" | "landscape";
-  frame_custom?: CustomDesign;
+  frame_custom?: CustomDesign; // Editor-Zustand + Vorschau
+
+  // NEU: Deluxe-Editor (immer 12x12 cm, keine Ausrichtung)
+  deluxe_custom?: CustomDesign;
 };
 
 // --- Copy (Texte zentral) ---
@@ -120,6 +122,7 @@ type UploaderCopy = {
   };
   products: {
     formatTitle: string;
+    formatTitleDeluxe?: string;
     roundLabel: string;
     squareLabel: string;
     petOptionsTitle: string;
@@ -129,6 +132,7 @@ type UploaderCopy = {
     designCustom: string;
     designCustomNote: string;
     frameTitle: string;
+    frameTitleDeluxe: string;
     frameOrientationLabel: string;
     framePortrait: string;
     frameLandscape: string;
@@ -234,6 +238,7 @@ const DEFAULT_COPY: UploaderCopy = {
   },
   products: {
     formatTitle: "Format",
+    formatTitleDeluxe: "Deluxe Gestalten",
     roundLabel: "Rund · Ø 3 cm",
     squareLabel: "Quadratisch · 6×6 cm",
     petOptionsTitle: "Optionen für Haustier–Memora Tag",
@@ -243,6 +248,7 @@ const DEFAULT_COPY: UploaderCopy = {
     designCustom: "Individuell gestaltbar",
     designCustomNote: "Hinweis: Individuelles Design kostet +10 CHF.",
     frameTitle: "Frame gestalten",
+    frameTitleDeluxe: "Deluxe gestalten",
     frameOrientationLabel: "Ausrichtung",
     framePortrait: "Hochformat",
     frameLandscape: "Querformat",
@@ -311,26 +317,20 @@ const DEFAULT_COPY: UploaderCopy = {
     previewTitle: "Individuelle Vorschau",
   },
 };
-// ---- Deep-Merge Helper (direkt unter DEFAULT_COPY einfügen) ----
-function mergeCopy<T>(base: T, patch?: Partial<T>): T {
-  if (!patch) return base;
-  const out: any = Array.isArray(base) ? [...(base as any)] : { ...(base as any) };
-  for (const key in patch) {
-    const pv = (patch as any)[key];
-    if (pv === undefined) continue;
-    const bv = (out as any)[key];
-    if (pv && typeof pv === "object" && !Array.isArray(pv)) {
-      (out as any)[key] = mergeCopy(
-        (bv && typeof bv === "object" && !Array.isArray(bv)) ? bv : {},
-        pv
-      );
-    } else {
-      (out as any)[key] = pv;
+
+// Hilfs-Merger (flach + nested einfach)
+function mergeCopy<T>(base: T, patch: Partial<T>): T {
+  const out: any = { ...base };
+  for (const k in patch) {
+    const v: any = (patch as any)[k];
+    if (v && typeof v === "object" && !Array.isArray(v)) {
+      out[k] = mergeCopy((base as any)[k] ?? {}, v);
+    } else if (v !== undefined) {
+      out[k] = v;
     }
   }
-  return out as T;
+  return out;
 }
-
 
 // --- LocalStorage Helpers ---
 const STORAGE_KEY = "memora:memoryUploader:v1";
@@ -352,17 +352,21 @@ function loadPersisted():
 function persist(step: number, form: FormState) {
   try {
     if (typeof window === "undefined") return;
-    const { images, videos, ...rest } = form;
+    const { images, videos, ...rest } = form; // Files NICHT speichern
     const payload = { step, form: rest as PersistedForm };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-  } catch {}
+  } catch {
+    /* ignore */
+  }
 }
 
 function clearPersisted() {
   try {
     if (typeof window === "undefined") return;
     localStorage.removeItem(STORAGE_KEY);
-  } catch {}
+  } catch {
+    /* ignore */
+  }
 }
 
 /* ==================== Design Editor (parametrisierbar) ==================== */
@@ -374,7 +378,6 @@ function DesignEditor({
   height = 420,
   cornerRadius = 24,
   copy,
-  buttons,
 }: {
   value: CustomDesign | undefined;
   onChange: (v: CustomDesign) => void;
@@ -383,7 +386,6 @@ function DesignEditor({
   height?: number;
   cornerRadius?: number;
   copy: UploaderCopy["editor"];
-  buttons: UploaderCopy["buttons"];
 }) {
   const W = width;
   const H = height;
@@ -391,6 +393,11 @@ function DesignEditor({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
+
+  const onChangeRef = useRef(onChange);
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
 
   const [local, setLocal] = useState<CustomDesign>(() => ({
     scale: value?.scale ?? 1,
@@ -410,7 +417,7 @@ function DesignEditor({
     origY: number;
   } | null>(null);
 
-  // Globales Dragging für Text
+  // Globales Dragging für Text (Pointer Events)
   useEffect(() => {
     const handleMove = (e: PointerEvent | MouseEvent) => {
       if (!dragText) return;
@@ -436,9 +443,9 @@ function DesignEditor({
       window.removeEventListener("pointerup", handleUp);
       window.removeEventListener("pointercancel", handleUp);
     };
-  }, [dragText]);
+  }, [dragText, setLocal]);
 
-  // --- Interaktion: Zoom & Pan ---
+  // --- Interaktion: Zoom & Pan (Maus/Touch) ---
   const ZOOM_MIN = 0.5;
   const ZOOM_MAX = 3;
 
@@ -517,8 +524,8 @@ function DesignEditor({
   };
 
   useEffect(() => {
-    onChange(local);
-  }, [local, onChange]);
+  onChangeRef.current(local);
+  }, [local]);
 
   // Bild laden
   useEffect(() => {
@@ -534,13 +541,11 @@ function DesignEditor({
       draw(false);
     };
     img.src = local.bgImageUrl;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [local.bgImageUrl]);
 
   // neu zeichnen
   useEffect(() => {
     draw(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [local.scale, local.offsetX, local.offsetY, local.texts]);
 
   // Clip-Path
@@ -651,7 +656,8 @@ function DesignEditor({
       text: "Text",
       x: 0.5,
       y: 0.5,
-      fontFamily: "system-ui, Arial",
+      fontFamily:
+        "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Noto Sans', 'Liberation Sans', sans-serif",
       fontSize: 28,
       color: "#ffffff",
     };
@@ -699,6 +705,25 @@ function DesignEditor({
 
   const containerClass =
     shape === "circle" ? "rounded-full overflow-hidden" : "rounded-xl overflow-hidden";
+
+  // erweiterte Schriftarten-Auswahl
+  const FONT_OPTIONS: { label: string; value: string }[] = [
+    { label: "System / Arial", value: "system-ui, Arial, Helvetica, sans-serif" },
+    { label: "Helvetica", value: "Helvetica, Arial, sans-serif" },
+    { label: "Verdana", value: "Verdana, Geneva, Tahoma, sans-serif" },
+    { label: "Tahoma", value: "Tahoma, Geneva, sans-serif" },
+    { label: "Trebuchet", value: "'Trebuchet MS', Helvetica, sans-serif" },
+    { label: "Georgia", value: "Georgia, serif" },
+    { label: "Times New Roman", value: "'Times New Roman', Times, serif" },
+    { label: "Garamond", value: "Garamond, 'Apple Garamond', Baskerville, serif" },
+    { label: "Palatino", value: "'Palatino Linotype', Palatino, serif" },
+    { label: "Courier", value: "'Courier New', Courier, monospace" },
+    { label: "Lucida Sans", value: "'Lucida Sans Unicode', 'Lucida Grande', sans-serif" },
+    { label: "Montserrat (Fallback)", value: "Montserrat, system-ui, Arial, sans-serif" },
+    { label: "Playfair (Fallback)", value: "'Playfair Display', Georgia, serif" },
+    { label: "Lora (Fallback)", value: "Lora, Georgia, serif" },
+    { label: "Merriweather (Fallback)", value: "Merriweather, Georgia, serif" },
+  ];
 
   return (
     <div className="space-y-4">
@@ -788,6 +813,7 @@ function DesignEditor({
             />
           </div>
 
+          {/* Position – Horizontal */}
           <div className="space-y-2">
             <Label>{copy.posX}</Label>
             <div className="flex items-center gap-2">
@@ -817,6 +843,7 @@ function DesignEditor({
             </div>
           </div>
 
+          {/* Position – Vertikal */}
           <div className="space-y-2">
             <Label>{copy.posY}</Label>
             <div className="flex items-center gap-2">
@@ -848,10 +875,10 @@ function DesignEditor({
 
           <div className="flex gap-2">
             <Button onClick={addText} type="button">
-              {buttons.addText}
+              {DEFAULT_COPY.buttons.addText}
             </Button>
             <Button onClick={exportPng} type="button" variant="secondary">
-              {buttons.applyDesign}
+              {DEFAULT_COPY.buttons.applyDesign}
             </Button>
           </div>
 
@@ -861,15 +888,12 @@ function DesignEditor({
               <div className="flex justify-between items-center">
                 <Label className="font-semibold">{copy.selectedText}</Label>
                 <Button size="sm" variant="outline" onClick={removeActiveText}>
-                  {buttons.remove}
+                  {DEFAULT_COPY.buttons.remove}
                 </Button>
               </div>
               <div className="space-y-2">
                 <Label>{copy.content}</Label>
-                <Input
-                  value={activeText.text}
-                  onChange={(e) => updateActiveText({ text: e.target.value })}
-                />
+                <Input value={activeText.text} onChange={(e) => updateActiveText({ text: e.target.value })} />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
@@ -879,11 +903,11 @@ function DesignEditor({
                     value={activeText.fontFamily}
                     onChange={(e) => updateActiveText({ fontFamily: e.target.value })}
                   >
-                    <option value="system-ui, Arial">System / Arial</option>
-                    <option value="Georgia, serif">Georgia</option>
-                    <option value="Times New Roman, serif">Times</option>
-                    <option value="Trebuchet MS, sans-serif">Trebuchet</option>
-                    <option value="Courier New, monospace">Courier</option>
+                    {FONT_OPTIONS.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div>
@@ -899,11 +923,7 @@ function DesignEditor({
               </div>
               <div>
                 <Label>{copy.color}</Label>
-                <input
-                  type="color"
-                  value={activeText.color}
-                  onChange={(e) => updateActiveText({ color: e.target.value })}
-                />
+                <input type="color" value={activeText.color} onChange={(e) => updateActiveText({ color: e.target.value })} />
               </div>
             </div>
           )}
@@ -930,7 +950,13 @@ function Step1View(props: {
   mode: Mode;
   productMap: Record<
     ProductKey,
-    { title: string; desc: string; price: string; images: { src: string; alt: string }[]; features: string[] }
+    {
+      title: string;
+      desc: string;
+      price: string;
+      images: { src: string; alt: string }[];
+      features: string[];
+    }
   >;
   selected: ProductKey | null;
   setSelected: (k: ProductKey) => void;
@@ -943,8 +969,9 @@ function Step1View(props: {
   const { mode, productMap, selected, setSelected, onNext, form, setForm, copy } = props;
 
   const showPetTagOptions = mode === "pet" && selected === "basic";
-  const showFrameOptions = selected === "premium";
-  const showTagFormat = selected === "basic";
+  const showFrameOptions = selected === "premium"; // Frames
+  const showDeluxeEditor = selected === "deluxe"; // NEU: Deluxe
+  const showTagFormat = selected === "basic"; // Format-Auswahl für alle Modi beim basic-Produkt
   const isRound = (form.tag_format ?? "round_3cm") === "round_3cm";
 
   const pageTitle =
@@ -956,7 +983,9 @@ function Step1View(props: {
 
   return (
     <div>
-      <h2 className="text-2xl md:text-3xl font-serif mb-3">{pageTitle}</h2>
+      <h2 className="text-2xl md:text-3xl font-serif mb-3">
+        {pageTitle}
+      </h2>
       <p className="text-muted-foreground mb-8">{copy.headings.step1Subtitle}</p>
 
       <div className="grid gap-6 md:grid-cols-3">
@@ -1074,8 +1103,7 @@ function Step1View(props: {
                   height={420}
                   value={form.pet_tag_custom}
                   onChange={(v) => setForm((s) => ({ ...s, pet_tag_custom: v }))}
-                  copy={copy.editor}
-                  buttons={copy.buttons}
+                  copy={DEFAULT_COPY.editor}
                 />
               ) : (
                 <DesignEditor
@@ -1085,8 +1113,7 @@ function Step1View(props: {
                   cornerRadius={20}
                   value={form.pet_tag_custom}
                   onChange={(v) => setForm((s) => ({ ...s, pet_tag_custom: v }))}
-                  copy={copy.editor}
-                  buttons={copy.buttons}
+                  copy={DEFAULT_COPY.editor}
                 />
               )}
             </div>
@@ -1094,7 +1121,7 @@ function Step1View(props: {
         </div>
       )}
 
-      {/* Frame-Design */}
+      {/* Frame-Design (premium) – mit Ausrichtung */}
       {showFrameOptions && (
         <div className="mt-8 border rounded-lg p-6 space-y-6">
           <h3 className="text-xl font-serif">{copy.products.frameTitle}</h3>
@@ -1132,11 +1159,35 @@ function Step1View(props: {
                   cornerRadius={24}
                   value={form.frame_custom}
                   onChange={(v) => setForm((s) => ({ ...s, frame_custom: v }))}
-                  copy={copy.editor}
-                  buttons={copy.buttons}
+                  copy={DEFAULT_COPY.editor}
                 />
               );
             })()}
+          </div>
+
+          <p className="text-sm text-muted-foreground">{copy.products.frameTip}</p>
+        </div>
+      )}
+
+      {/* NEU: Deluxe-Design (immer quadratisch 12×12 cm, keine Ausrichtung) */}
+      {showDeluxeEditor && (
+        <div className="mt-8 border rounded-lg p-6 space-y-6">
+          <h3 className="text-xl font-serif">
+            {/* wenn du in de.ts products.deluxeTitle ergänzt, wird der hier automatisch genommen */}
+            {(copy.products as any).deluxeTitle ?? copy.products.formatTitleDeluxe}
+          </h3>
+
+          {/* 12×12 cm ≈ 480×480 px Arbeitsfläche */}
+          <div className="pt-2">
+            <DesignEditor
+              shape="roundedRect"
+              width={480}
+              height={480}
+              cornerRadius={24}
+              value={form.deluxe_custom}
+              onChange={(v) => setForm((s) => ({ ...s, deluxe_custom: v }))}
+              copy={DEFAULT_COPY.editor}
+            />
           </div>
 
           <p className="text-sm text-muted-foreground">{copy.products.frameTip}</p>
@@ -1163,8 +1214,8 @@ function Step2View(props: {
 }) {
   const { mode, form, setForm, onBack, onNext, copy } = props;
 
-  const humanInvalid = mode === "human" && (!form.human_lastName || !form.human_firstName);
-  const petInvalid   = mode === "pet"   && (!form.pet_name);
+  const humanInvalid = mode === "human" && (!form.human_lastName || !form.human_firstName || !form.human_deathDate);
+  const petInvalid = mode === "pet" && (!form.pet_name || !form.pet_deathDate);
   const surpriseInvalid = mode === "surprise" && !form.surprise_name;
 
   const title =
@@ -1209,6 +1260,7 @@ function Step2View(props: {
                 type="date"
                 value={form.human_deathDate ?? ""}
                 onChange={(e) => setForm((s) => ({ ...s, human_deathDate: e.target.value }))}
+                required
               />
             </div>
             <div className="md:col-span-2">
@@ -1243,6 +1295,7 @@ function Step2View(props: {
                 type="date"
                 value={form.pet_deathDate ?? ""}
                 onChange={(e) => setForm((s) => ({ ...s, pet_deathDate: e.target.value }))}
+                required
               />
             </div>
             <div className="md:col-span-2">
@@ -1459,12 +1512,11 @@ function Step5InvoiceAndPayView(props: {
   setForm: React.Dispatch<React.SetStateAction<FormState>>;
   productLabel: string;
   onBack: () => void;
-  onPlaceOrder: () => void;
+  onPlaceOrder: () => void; // später Stripe starten
   onReset: () => void;
   copy: UploaderCopy;
-  defaultTagImage?: string;
 }) {
-  const { mode, form, setForm, productLabel, onBack, onPlaceOrder, onReset, copy, defaultTagImage } = props;
+  const { mode, form, setForm, productLabel, onBack, onPlaceOrder, onReset, copy } = props;
 
   const toggleSame = (checked: boolean) => {
     setForm((s) => ({
@@ -1483,25 +1535,21 @@ function Step5InvoiceAndPayView(props: {
     !form.invoice_city ||
     !form.invoice_country;
 
+  // kleine Text-Zusammenfassung inkl. Optionen
   const options: string[] = [];
   if ((form.tag_format ?? "round_3cm") === "round_3cm" && form.pet_tag_keychain) {
     options.push(copy.products.keychainLabel);
   }
   if (form.pet_tag_customEnabled) options.push(copy.products.designCustom + " (+10 CHF)");
-  if (form.product === "premium" && form.frame_orientation) {
-    options.push(
-      `Frame-Ausrichtung: ${
-        form.frame_orientation === "portrait"
-          ? copy.products.framePortrait
-          : copy.products.frameLandscape
-      }`
-    );
-  }
+  if (form.frame_orientation)
+    options.push(`Frame-Ausrichtung: ${form.frame_orientation === "portrait" ? copy.products.framePortrait : copy.products.frameLandscape}`);
 
   return (
     <div>
       <h2 className="text-2xl md:text-3xl font-serif mb-3">{copy.headings.step5Title}</h2>
-      <p className="text-muted-foreground mb-8">{copy.headings.step5Subtitle}</p>
+      <p className="text-muted-foreground mb-8">
+        {copy.headings.step5Subtitle}
+      </p>
 
       <div className="space-y-10">
         {/* Rechnungsadresse */}
@@ -1583,8 +1631,7 @@ function Step5InvoiceAndPayView(props: {
           <h3 className="text-xl font-serif mb-4">{copy.headings.summary}</h3>
           <ul className="space-y-1 text-sm">
             <li>
-              <strong>{copy.summary.mode}:</strong>{" "}
-              {mode === "pet" ? "Haustiere" : mode === "surprise" ? "Surprise" : "Menschen"}
+              <strong>{copy.summary.mode}:</strong> {mode === "pet" ? "Haustiere" : mode === "surprise" ? "Surprise" : "Menschen"}
             </li>
             <li>
               <strong>{copy.summary.product}:</strong> {productLabel || "-"}
@@ -1593,9 +1640,7 @@ function Step5InvoiceAndPayView(props: {
             {form.product === "basic" && (
               <li>
                 <strong>{copy.summary.format}:</strong>{" "}
-                {(form.tag_format ?? "round_3cm") === "square_6cm"
-                  ? copy.summary.formatSquare
-                  : copy.summary.formatRound}
+                {(form.tag_format ?? "round_3cm") === "square_6cm" ? copy.summary.formatSquare : copy.summary.formatRound}
               </li>
             )}
 
@@ -1605,97 +1650,22 @@ function Step5InvoiceAndPayView(props: {
               </li>
             )}
 
-            {/* Vorschau: Tag (basic) oder Frame (premium) */}
-            {(() => {
-              // Tag (basic):
-              if (form.product === "basic") {
-                // Nur im PET-Modus gibt es die individuelle Tag-Gestaltung
-                const customActive =
-                  mode === "pet" &&
-                  !!form.pet_tag_customEnabled &&
-                  !!form.pet_tag_custom?.previewDataUrl;
-
-                const tagImg = customActive
-                  ? form.pet_tag_custom!.previewDataUrl!
-                  : defaultTagImage; // <- fällt auf Standardbild zurück
-
-                if (tagImg) {
-                  const isRound = (form.tag_format ?? "round_3cm") === "round_3cm";
-                  return (
-                    <li className="mt-2">
-                      <strong>{copy.summary.previewTitle}:</strong>
-                      <div className="mt-2 flex items-center gap-4">
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <button
-                              type="button"
-                              aria-label="Tag-Vorschau vergrössern"
-                              className="focus:outline-none"
-                            >
-                              <img
-                                src={tagImg}
-                                alt={customActive ? "Individuelle Tag-Vorschau" : "Standard Tag-Vorschau"}
-                                className={`border ${isRound ? "w-20 h-20 rounded-full" : "w-24 h-24 rounded-xl"} object-cover hover:opacity-90 transition`}
-                              />
-                            </button>
-                          </DialogTrigger>
-                          <DialogContent className="sm:max-w-[720px]">
-                            <div className="w-full flex items-center justify-center">
-                              <img
-                                src={tagImg}
-                                alt={customActive ? "Individuelle Tag-Vorschau (gross)" : "Standard Tag-Vorschau (gross)"}
-                                className={`${isRound ? "rounded-full" : "rounded-xl"} w-full h-auto max-h-[80vh] object-contain`}
-                              />
-                            </div>
-                          </DialogContent>
-                        </Dialog>
-
-                      </div>
-                    </li>
-                  );
-                }
-                return null;
-              }
-
-              // Frame (premium):
-              if (form.product === "premium" && form.frame_custom?.previewDataUrl) {
-                return (
-                  <li className="mt-2">
-                    <strong>{copy.summary.previewTitle}:</strong>
-                    <div className="mt-2 flex items-center gap-4">
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <button
-                            type="button"
-                            aria-label="Frame-Vorschau vergrössern"
-                            className="focus:outline-none"
-                          >
-                            <img
-                              src={form.frame_custom.previewDataUrl}
-                              alt="Frame Vorschau"
-                              className="w-28 h-auto rounded-xl border hover:opacity-90 transition"
-                            />
-                          </button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-[900px]">
-                          <div className="w-full flex items-center justify-center">
-                            <img
-                              src={form.frame_custom.previewDataUrl}
-                              alt="Frame Vorschau (gross)"
-                              className="rounded-xl w-full h-auto max-h-[85vh] object-contain"
-                            />
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-
-                    </div>
-                  </li>
-                );
-              }
-
-              return null;
-            })()}
-
+            {(form.pet_tag_custom?.previewDataUrl || form.frame_custom?.previewDataUrl || form.deluxe_custom?.previewDataUrl) && (
+              <li className="mt-2">
+                <strong>{copy.summary.previewTitle}:</strong>
+                <div className="mt-2 flex items-center gap-4">
+                  {form.pet_tag_custom?.previewDataUrl && (
+                    <img src={form.pet_tag_custom.previewDataUrl} alt="Tag Vorschau" className="w-20 h-20 rounded-full border" />
+                  )}
+                  {form.frame_custom?.previewDataUrl && (
+                    <img src={form.frame_custom.previewDataUrl} alt="Frame Vorschau" className="w-28 h-auto rounded-xl border" />
+                  )}
+                  {form.deluxe_custom?.previewDataUrl && (
+                    <img src={form.deluxe_custom.previewDataUrl} alt="Deluxe Vorschau" className="w-28 h-auto rounded-xl border" />
+                  )}
+                </div>
+              </li>
+            )}
 
             {mode === "human" && (
               <li>
@@ -1705,8 +1675,7 @@ function Step5InvoiceAndPayView(props: {
             )}
             {mode === "pet" && (
               <li>
-                <strong>{copy.summary.pet}:</strong> {form.pet_name}{" "}
-                {form.pet_deathDate ? `(${form.pet_deathDate})` : ""}
+                <strong>{copy.summary.pet}:</strong> {form.pet_name} {form.pet_deathDate ? `(${form.pet_deathDate})` : ""}
               </li>
             )}
             {mode === "surprise" && (
@@ -1743,14 +1712,13 @@ function Step5InvoiceAndPayView(props: {
 
 /* -------------------- Parent: MemoryUploader -------------------- */
 const MemoryUploader = () => {
-  // ⬇️ getUploaderCopy zusätzlich aus dem Context holen
-  const { mode, modeContent, getUploaderCopy } = useContent();
+  const { mode, modeContent } = useContent();
   const media = useMemo(() => getMediaForMode(mode as Mode), [mode]);
   const products = modeContent.products;
 
-  // ⬇️ Copy aus Content (modeContent.uploaderCopy) + Fallbacks (DEFAULT_COPY) mergen
-  //    Kein mergeCopy mehr nötig – zentral über den Context-Helper:
-  const COPY: UploaderCopy = getUploaderCopy<UploaderCopy>(DEFAULT_COPY);
+  // Copy zusammenbauen (Content + Fallbacks)
+  const contentCopy = (modeContent as any)?.uploaderCopy as Partial<UploaderCopy> | undefined;
+  const COPY: UploaderCopy = mergeCopy(DEFAULT_COPY, contentCopy ?? {});
 
   // Persisted Defaults laden
   const persistedInit = loadPersisted();
@@ -1765,7 +1733,8 @@ const MemoryUploader = () => {
     images: [],
     videos: [],
     invoice_sameAsContact: true,
-    tag_format: "round_3cm",
+    frame_orientation: "portrait", // default Hochformat
+    tag_format: "round_3cm", // default Rund Ø 3 cm
     ...(persistedInit?.form ?? {}),
   });
 
@@ -1814,12 +1783,7 @@ const MemoryUploader = () => {
   // Navigation
   const nextFromStep1 = () => {
     if (!selected) return;
-    setForm((s) => ({ ...s, product: selected,
-    // wenn kein premium: Frame-Felder leeren
-    ...(selected !== "premium" ? { frame_orientation: undefined, frame_custom: undefined } : {}),
-    // wenn kein basic: Tag-Custom-Felder leeren
-    ...(selected !== "basic" ? { pet_tag_customEnabled: undefined, pet_tag_custom: undefined } : {}),
-  }));
+    setForm((s) => ({ ...s, product: selected }));
     setStep(2);
     scrollToTop();
   };
@@ -1844,8 +1808,10 @@ const MemoryUploader = () => {
     scrollToTop();
   };
   const goPayment = () => {
+    // Hier später Checkout (Stripe o. ä.) starten
     console.log("CHECKOUT PAYLOAD", { mode, form });
     alert("Daten sind gespeichert. Zahlungsintegration (Stripe) folgt.");
+    // Nach erfolgreicher Zahlung ggf. clearPersisted();
   };
   const resetAll = () => {
     clearPersisted();
@@ -1854,14 +1820,6 @@ const MemoryUploader = () => {
     setForm({ images: [], videos: [], invoice_sameAsContact: true });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  // --- Default-Tag-Preview anhand Modus & Format bestimmen ---
-  const defaultTagImage =
-    form.product === "basic"
-      ? (form.tag_format === "square_6cm"
-          ? media.tagDefaults?.square
-          : media.tagDefaults?.round)
-      : undefined;
 
   return (
     <div id="memory-form-start" className="space-y-10">
@@ -1878,24 +1836,9 @@ const MemoryUploader = () => {
         />
       )}
       {step === 2 && (
-        <Step2View
-          mode={mode as Mode}
-          form={form}
-          setForm={setForm}
-          onBack={backFromStep2}
-          onNext={nextFromStep2}
-          copy={COPY}
-        />
+        <Step2View mode={mode as Mode} form={form} setForm={setForm} onBack={backFromStep2} onNext={nextFromStep2} copy={COPY} />
       )}
-      {step === 3 && (
-        <Step3View
-          form={form}
-          setForm={setForm}
-          onBack={backFromStep3}
-          onNext={nextFromStep3}
-          copy={COPY}
-        />
-      )}
+      {step === 3 && <Step3View form={form} setForm={setForm} onBack={backFromStep3} onNext={nextFromStep3} copy={COPY} />}
       {step === 4 && (
         <Step4ContactView
           form={form}
@@ -1927,12 +1870,10 @@ const MemoryUploader = () => {
           onPlaceOrder={goPayment}
           onReset={resetAll}
           copy={COPY}
-          defaultTagImage={defaultTagImage}
         />
       )}
     </div>
   );
 };
-
 
 export default MemoryUploader;
