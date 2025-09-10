@@ -82,38 +82,87 @@ export const deContent: ContentData = {
     // Rechtstexte (für Datenschutz/AGB/Impressum-Seiten)
     legal: {
       privacy: {
-        title: "Datenschutzerklärung",
-        sections: {
-          responsible: {
-            title: "1. Verantwortlicher",
-            content:
-              "Memora Moments\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
-          },
-          dataCollection: {
-            title: "2. Datenerhebung und -verwendung",
-            content:
-              "Wir erheben und verarbeiten personenbezogene Daten nur in dem Umfang, wie es für die Bereitstellung unserer Dienstleistungen erforderlich ist. Dies umfasst:",
-            list: [
-              "Kontaktdaten für die Bestellabwicklung",
-              "Rechnungsdaten für die Bezahlung",
-              "Von Ihnen hochgeladene Bilder und Texte für die Produktgestaltung"
-            ]
-          },
-          imageProcessing: {
-            title: "3. Bildverarbeitung",
-            content:
-              "Die von Ihnen hochgeladenen Bilder werden ausschließlich für die Erstellung Ihres personalisierten Produkts verwendet. Ihre Bilder werden sicher gespeichert und nach Abschluss der Bestellung bzw. nach angemessener Zeit gelöscht."
-          },
-          rights: {
-            title: "4. Ihre Rechte",
-            content:
-              "Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten. Kontaktieren Sie uns unter info.memora.moments@gmail.com für Anfragen zu Ihren Daten."
-          },
-          cookies: {
-            title: "5. Cookies",
-            content:
-              "Unsere Website verwendet notwendige Cookies für die Funktionalität. Weitere Tracking-Cookies verwenden wir nur mit Ihrer Einwilligung."
-          }
+    title: "Datenschutzerklärung",
+    sections: {
+      responsible: {
+        title: "1. Verantwortliche Stelle",
+        content:
+          "Memora Moments\n[Adresse einfügen]\n[PLZ, Ort]\n[Handelsregister-Nr., falls vorhanden]\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99\n\nWir sind verantwortlich für die Erhebung, Verarbeitung und Nutzung Ihrer personenbezogenen Daten im Sinne des Schweizer Datenschutzgesetzes (revDSG)."
+      },
+
+      dataCollection: {
+        title: "2. Erhebung und Verarbeitung von personenbezogenen Daten",
+        content:
+          "Wir verarbeiten personenbezogene Daten, die Sie uns im Rahmen der Nutzung unserer Dienstleistungen zur Verfügung stellen oder die bei der Nutzung anfallen. Dazu gehören insbesondere:",
+        list: [
+          "Kontaktdaten (Name, Adresse, E-Mail, Telefonnummer)",
+          "Zahlungsinformationen (abhängig von der gewählten Zahlungsart, z. B. Kreditkarte, TWINT, Vorkasse)",
+          "Inhaltsdaten (Fotos, Videos, Texte, Musik/Audio), die Sie für personalisierte Erinnerungs-Videos und NFC-Tags bereitstellen",
+          "Nutzungsdaten (z. B. Zeitpunkt des Abrufs eines Videos via NFC-Tag, technische Metadaten wie Browser/Endgerät)"
+        ]
+      },
+
+      purpose: {
+        title: "3. Zweck der Datenverarbeitung",
+        content:
+          "Ihre Daten werden ausschliesslich zu folgenden Zwecken genutzt:",
+        list: [
+          "Abwicklung von Bestellungen und Vertragserfüllung",
+          "Erstellung, Bearbeitung und Bereitstellung von Erinnerungs-Videos sowie Konfiguration von NFC-Tags",
+          "Abwicklung von Zahlungen und Rechnungsstellung",
+          "Kommunikation mit Ihnen (z. B. Auftragsbestätigung, Rückfragen, Support)",
+          "Betrieb, Sicherheit und Verbesserung unserer Dienstleistungen"
+        ]
+      },
+
+      disclosure: {
+        title: "4. Weitergabe an Dritte",
+        content:
+          "Wir verkaufen Ihre Daten nicht und geben sie nicht zu Werbezwecken an Dritte weiter. Eine Weitergabe erfolgt ausschliesslich, soweit dies für die oben genannten Zwecke erforderlich ist, an sorgfältig ausgewählte Auftragsverarbeiter:",
+        list: [
+          "Zahlungsanbieter (z. B. Stripe, TWINT, Kreditkarteninstitute) zur Zahlungsabwicklung",
+          "IT-, Cloud- und Hosting-Dienstleister (z. B. für Website-Betrieb, Datenspeicherung, Videoerstellung/-auslieferung)",
+          "E-Mail-/Kommunikations-Dienstleister (z. B. Versand von System- und Service-E-Mails)",
+          "Logistik-/Lieferpartner für den Versand physischer Produkte"
+        ]
+      },
+
+      storage: {
+        title: "5. Speicherung und Löschung von Daten",
+        content:
+          "Personalisierte Inhalte (Fotos, Videos, Audio, Texte) werden nur so lange gespeichert, wie dies für die Vertragserfüllung und Servicebereitstellung erforderlich ist. Kundendaten werden im Rahmen gesetzlicher Aufbewahrungspflichten gespeichert. Auf Ihren Wunsch prüfen wir eine vorzeitige Löschung, soweit keine gesetzlichen Pflichten entgegenstehen."
+      },
+
+      security: {
+        title: "6. Datensicherheit",
+        content:
+          "Wir setzen angemessene technische und organisatorische Sicherheitsmassnahmen ein, um Ihre Daten vor Verlust, Manipulation und unbefugtem Zugriff zu schützen. Bitte beachten Sie, dass die Datenübertragung über das Internet (z. B. per E-Mail) Sicherheitslücken aufweisen kann."
+      },
+
+      rights: {
+        title: "7. Rechte der betroffenen Personen",
+        content:
+          "Sie haben im Rahmen des geltenden Datenschutzrechts insbesondere folgende Rechte. Zur Wahrnehmung Ihrer Rechte kontaktieren Sie uns bitte unter der oben genannten Adresse:",
+        list: [
+          "Auskunft: Einsicht in die über Sie gespeicherten Daten",
+          "Berichtigung: Korrektur unrichtiger oder unvollständiger Daten",
+          "Löschung: Entfernung Ihrer Daten, soweit keine Aufbewahrungspflichten bestehen",
+          "Einschränkung/ Widerspruch (soweit anwendbar): Beschränkung gewisser Verarbeitungen",
+          "Datenübertragbarkeit: Herausgabe in einem gängigen elektronischen Format"
+        ]
+      },
+
+      cookies: {
+        title: "8. Cookies und Tracking",
+        content:
+          "Unsere Website verwendet notwendige Cookies, um Grundfunktionen bereitzustellen. Weitere (optionale) Analyse- oder Marketing-Cookies setzen wir nur mit Ihrer Einwilligung ein. Sie können in Ihrem Browser festlegen, ob Cookies akzeptiert, blockiert oder gelöscht werden."
+      },
+
+      changes: {
+        title: "9. Änderungen dieser Datenschutzerklärung",
+        content:
+          "Wir behalten uns vor, diese Datenschutzerklärung jederzeit anzupassen. Es gilt jeweils die aktuelle Version, die auf unserer Website veröffentlicht wird."
+      }
         }
       },
       terms: {
@@ -122,43 +171,68 @@ export const deContent: ContentData = {
           scope: {
             title: "1. Geltungsbereich",
             content:
-              "Diese Allgemeinen Geschäftsbedingungen gelten für alle Bestellungen und Verträge zwischen Memora Moments und unseren Kunden."
+              "Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Bestellungen und Vertragsabschlüsse zwischen Memora Moments (nachfolgend «wir») und Kund:innen (nachfolgend «Sie») im Zusammenhang mit dem Erwerb von NFC-Tags, Erinnerungs-Videos und damit verbundenen digitalen Inhalten."
           },
           contract: {
-            title: "2. Vertragsschluss",
+            title: "2. Vertragsabschluss",
             content:
-              "Der Vertrag kommt durch Ihre Bestellung und unsere Bestätigung zustande. Wir behalten uns vor, Bestellungen abzulehnen, falls technische oder rechtliche Hindernisse bestehen."
+              "Der Vertrag kommt zustande, sobald wir Ihre Bestellung ausdrücklich per E-Mail bestätigen. Wir können Bestellungen aus technischen oder rechtlichen Gründen ablehnen."
+          },
+          services: {
+            title: "3. Leistungen",
+            content:
+              "Unsere Leistungen umfassen: Herstellung und Lieferung von NFC-Tags (physische Produkte); Erstellung und Bereitstellung von personalisierten Erinnerungs-Videos (digitale Inhalte); Zugang zu weiteren digitalen Inhalten im Zusammenhang mit dem Produkt."
           },
           prices: {
-            title: "3. Preise und Zahlungsbedingungen",
+            title: "4. Preise und Zahlungsbedingungen",
             content:
-              "Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer. Die Zahlung erfolgt vor der Produktion. Wir akzeptieren gängige Zahlungsmittel."
+              "Alle Preise verstehen sich in Schweizer Franken (CHF) inkl. gesetzlicher Mehrwertsteuer, sofern anwendbar. Akzeptierte Zahlungsarten: Kreditkarte, TWINT, Vorkasse. Die Zahlung ist vor Lieferung bzw. vor der Erstellung der digitalen Inhalte fällig."
           },
           delivery: {
-            title: "4. Lieferung und Produktionszeit",
+            title: "5. Lieferung und Lieferfristen",
             content:
-              "Unsere personalisierten Produkte werden individuell gefertigt. Die Produktionszeit beträgt in der Regel 7–14 Werktage nach Zahlungseingang und finaler Freigabe des Designs."
-          },
-          rights: {
-            title: "5. Urheberrechte und Bildrechte",
-            content:
-              "Sie bestätigen, dass Sie über alle notwendigen Rechte an den von Ihnen bereitgestellten Bildern und Texten verfügen. Sie stellen uns von Ansprüchen Dritter bezüglich Urheberrechts- oder Persönlichkeitsrechtsverletzungen frei."
+              "Die Lieferung der NFC-Tags erfolgt in der Regel innerhalb von 30 Tagen nach Vertragsabschluss. Bei individuell angefertigten Produkten kann es zu Verzögerungen kommen; wir informieren Sie in einem solchen Fall umgehend."
           },
           cancellation: {
-            title: "6. Widerrufsrecht",
+            title: "6. Widerruf und Rücktrittsrecht",
             content:
-              "Da es sich um personalisierte Produkte handelt, ist ein Widerruf nach § 312g Abs. 2 Nr. 1 BGB ausgeschlossen, sobald mit der Herstellung begonnen wurde."
+              "Für personalisierte Produkte und digitale Inhalte (z. B. individuell erstellte Erinnerungs-Videos) besteht kein Rückgaberecht. Für nicht personalisierte Produkte gelten die gesetzlichen Bestimmungen."
           },
           warranty: {
             title: "7. Gewährleistung",
             content:
-              "Wir gewährleisten die Qualität unserer Produkte. Bei Mängeln kontaktieren Sie uns bitte innerhalb von 14 Tagen nach Erhalt der Ware."
+              "Wir gewährleisten die vertragsgemässe Beschaffenheit unserer Produkte. Allfällige Mängel teilen Sie uns bitte innert 14 Tagen nach Erhalt mit, damit wir eine angemessene Lösung (Nachbesserung, Ersatz oder Rückerstattung) prüfen können."
           },
-          contact: {
-            title: "8. Kontakt",
+          liability: {
+            title: "7a. Haftung",
             content:
-              "Bei Fragen zu diesen AGB kontaktieren Sie uns unter:\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
-          }
+              "Unsere Haftung ist auf Schäden beschränkt, die durch vorsätzliches oder grob fahrlässiges Verhalten verursacht wurden. Für technische Probleme auf Kundenseite (z. B. unzureichende Internetverbindung, inkompatible Endgeräte, Softwareeinstellungen) übernehmen wir keine Verantwortung."
+          },
+          ip: {
+            title: "8. Urheberrechte und Nutzungsrechte",
+            content:
+              "Die von uns erstellten Inhalte (z. B. Erinnerungs-Videos) unterliegen dem Urheberrecht. Sie erhalten ein einfaches, nicht übertragbares Nutzungsrecht zur privaten Nutzung. Eine kommerzielle Nutzung oder Weitergabe an Dritte ist nicht erlaubt, ausser es wurde schriftlich etwas anderes vereinbart. Mit dem Hochladen von Fotos, Videos, Audio oder Texten bestätigen Sie, dass Sie über die notwendigen Rechte verfügen; Sie stellen uns insoweit von Ansprüchen Dritter frei."
+          },
+          privacy: {
+            title: "9. Datenschutz",
+            content:
+              "Wir verarbeiten personenbezogene Daten ausschliesslich gemäss unserer Datenschutzerklärung. Dies umfasst die Speicherung und Verarbeitung Ihrer Daten zur Vertragserfüllung sowie die Weitergabe an notwendige Dritte (z. B. Zahlungsanbieter, Hosting/IT, Versand). Mit Nutzung unserer Dienstleistungen erklären Sie sich mit dieser Verarbeitung einverstanden."
+          },
+          special: {
+            title: "10. Emotionale Produkte & besondere Hinweise",
+            content:
+              "Unsere Produkte haben einen hohen emotionalen Wert. Personalisierte Inhalte können nach der Fertigstellung nicht verändert oder zurückgegeben werden. Bei technischen Problemen unsererseits (z. B. Serverausfall) bemühen wir uns um eine schnellstmögliche Wiederherstellung des Zugangs; eine permanente Verfügbarkeit auf Kundenseite können wir nicht garantieren."
+          },
+          law: {
+            title: "11. Gerichtsstand und anwendbares Recht",
+            content:
+              "Es gilt ausschliesslich schweizerisches Recht. Gerichtsstand ist der Sitz von Memora Moments."
+          },
+          final: {
+            title: "12. Schlussbestimmungen",
+            content:
+              "Sollten einzelne Bestimmungen dieser AGB unwirksam sein, bleibt die Gültigkeit der übrigen Bestimmungen unberührt. Wir behalten uns vor, diese AGB jederzeit anzupassen. Es gilt die jeweils aktuelle Version, die mit Datum und Versionsnummer veröffentlicht wird."
+          },
         }
       },
       imprint: {
@@ -222,41 +296,45 @@ export const deContent: ContentData = {
     hero: {
       title: "Erinnerungen, die weiterleben – mit Herz und Klang.",
       subtitle:
-        "Aus Erinnerungen wird ein stilles Denkmal – Memora Moments öffnet die Tür zu bewegenden Momenten mit Bild und Musik.",
-      startButton: "Jetzt beginnen",
+        "Aus Momenten wird ein stilles Denkmal – Memora Moments öffnet die Tür zu Geschichten, die bleiben. Bilder, Videos und Musik halten die Erinnerung lebendig, genau dort, wo sie hingehört: nah am Herzen",
+      startButton: "Wie funktionierts?",
       learnButton: "Mehr erfahren"
     },
     features: {
       title: "Unvergessliche Momente für die Ewigkeit",
       subtitle:
         "Unsere Memora Moments NFC-Platten vereinen moderne Technologie mit würdevoller Erinnerung.",
-      unique: { title: "Einzigartiges Gedenken", desc: "Bewahren Sie besondere Erinnerungen mit Memora Moments." },
-      multimedia: { title: "Multimedia Erinnerungen", desc: "Fotos und Videos, die das Leben zeigen." },
-      music: { title: "Lieblingslied einbinden", desc: "Fügen Sie bedeutungsvolle Musik hinzu." },
-      quality: { title: "Würdevoll gestaltet", desc: "Hochwertige Glasplatten, wetterfest und elegant." }
+      unique: { title: "Einzigartiges Gedenken", desc: "Würdigen Sie das Leben eines geliebten Menschen mit einer bleibenden Erinnerung." },
+      multimedia: { title: "Multimedia Erinnerungen", desc: "Fotos und Videos machen besondere Augenblicke wieder erlebbar." },
+      music: { title: "Lieblingslied einbinden", desc: "Musik schafft Nähe und lässt Emotionen lebendig werden." },
+      quality: { title: "Würdevoll gestaltet", desc: "Schlichte, hochwertige Materialien, die sich harmonisch in jedes Grab oder Zuhause einfügen." }
     },
     howitworks: {
       title: "So einfach funktioniert es",
       subtitle: "In wenigen Schritten zur persönlichen Gedenkplatte.",
-      step1: { title: "Medien hochladen", desc: "Wählen Sie Fotos und Videos aus." },
-      step2: { title: "Musik auswählen", desc: "Fügen Sie ein Lieblingslied hinzu." },
-      step3: { title: "NFC-Platte erhalten", desc: "Ihre Gedenkplatte kommt zu Ihnen nach Hause." }
+      step1: { title: "Gedenkplatte auswählen", desc: "Wählen Sie Ihre Gedenkplatte." },
+      step2: { title: "Medien und Musik auswählen", desc: "Wählen Sie Ihre Lieblingsbilder und Lieblingsvideos und fügen Sie ein Lieblingslied hinzu." },
+      step3: { title: "Memora erhalten", desc: "Ihre Gedenkplatte kommt zu Ihnen nach Hause." }
     },
     products: {
-      title: "Unsere Produkte",
+      title: "Unsere Gedenkplatten",
       subtitle: "Die klassischen Memora-Produkte.",
-      basic: { title: "Memora Tag", desc: "Schlichte NFC-Platte für digitale Erinnerungen.", price: "ab 60 CHF" },
-      premium: { title: "Memora Frame", desc: "Bilderrahmen mit NFC-Technologie.", price: "ab 120 CHF" },
-      deluxe: { title: "Memora Deluxe", desc: "Exklusive Glasplatte mit Gravur und erweiterten Funktionen.", price: "ab 200 CHF" },
+      basic: { title: "Memora Tag", desc: "Eine schlichte NFC-Platte, die Erinnerungen per Video zum Leben erweckt – dezent und unvergänglich.", price: "49 CHF" },
+      premium: { title: "Memora Frame", desc: "Ein klassischer Bilderrahmen, verbunden mit moderner NFC-Technologie. So wird jedes Foto zum Tor zu bewegenden Erinnerungen.", price: "89 CHF" },
+      deluxe: { title: "Memora Deluxe", desc: "Ein hochwertiges Kunstwerk, das die Vergangenheit lebendig hält und Zukunft berührt.", price: "119 CHF" },
       features: {
-        glass: "6×6 cm NFC-Platte",
-        nfc: "Elegantes Design",
-        format: "Witterungsbeständig",
-        weather: "Für Grabsteine, Urnen, Erinnerungsorte",
-        all: "Bilderrahmen mit NFC",
-        photo: "Persönliches Foto",
-        engraving: "Dezente Gravur optional",
-        premium: "Ideal für Zuhause"
+        tag1: "Format 6×6 cm oder 3 cm ⌀",
+        tag2: "Persönliches Gedenkvideo direkt per Tap abspielen",
+        tag3: "Minimales, zeitloses Design, fügt sich harmonisch ein",
+        tag4: "Für Grabsteine, Urnen, Erinnerungsorte",
+        premium1: "3 cm ⌀ NFC-Tag – verbindet Bild & digitales Gedenken",
+        premium2: "Persönliche Gestaltung mit eigenem Foto",
+        premium3: "Dezente Gravur optional",
+        premium4: "Ideal für Zuhause, Gedenkecken oder als Geschenk",
+        deluxe1: "Hochwertige 12×12 cm Plexiglasplatte mit edlem Finish",
+        deluxe2: "Individuelle Gestaltung mit eigenem Foto & Text",
+        deluxe3: "Integrierter NFC-Tag - verbindet persönliches Gedenkvideo",
+        deluxe4: "Präsentation mit stilvoller Halterung"
       }
     },
     cta: {
@@ -365,8 +443,8 @@ export const deContent: ContentData = {
     hero: {
       title: "Für unsere treuen Begleiter – Erinnerungen mit Herz und Klang.",
       subtitle:
-        "Memora Moments für Haustiere – bewahren Sie die schönsten Momente mit Ihrem Vierbeiner.",
-      startButton: "Jetzt beginnen",
+        "Unsere Haustiere schenken uns Liebe, Treue und Freude. Mit Memora Moments bleibt ihre Erinnerung lebendig – im Herzen und an besonderen Orten.",
+      startButton: "Wie funktionierts?",
       learnButton: "Mehr erfahren"
     },
     features: {
@@ -374,38 +452,42 @@ export const deContent: ContentData = {
       subtitle: "Digitale Erinnerungen für Haustiere.",
       unique: { title: "Liebevolle Erinnerung", desc: "Besondere Momente mit Ihrem Haustier." },
       multimedia: { title: "Tierische Erinnerungen", desc: "Fotos und Videos Ihres Lieblings." },
-      music: { title: "Lieblingsgeräusche", desc: "Musik oder vertraute Geräusche hinzufügen." },
-      quality: { title: "Wetterbeständig", desc: "Robust für drinnen und draussen." }
+      music: { title: "Lieblingsgeräusche", desc: "Das vertraute Bellen, Miauen oder ein Lied, das verbindet." },
+      quality: { title: "Würdevolle Gestaltung", desc: "Schlichte, hochwertige Materialien, die sich harmonisch in jedes Zuhause einfügen, ob drinnen oder draussen." }
     },
     howitworks: {
       title: "So einfach funktioniert es",
-      subtitle: "In drei Schritten zur Haustier-Gedenkplatte.",
-      step1: { title: "Medien hochladen", desc: "Fotos und Videos auswählen." },
-      step2: { title: "Musik/Geräusche auswählen", desc: "Passende Sounds hinzufügen." },
-      step3: { title: "NFC-Platte erhalten", desc: "Die Haustier-Platte wird geliefert." }
+      subtitle: "In drei Schritten zur Erinnerungsplatte.",
+      step1: { title: "Produkt auswählen", desc: "Wählen Sie Ihre Erinnerungsplatte" },
+      step2: { title: "Medien und Musik oder Geräusche auswählen", desc: "Fotos und Videos vom gemeinsamen Alltag und passende Sounds hinzufügen." },
+      step3: { title: "Memora erhalten", desc: "Die Erinnerungsplatte wird geliefert." }
     },
     products: {
       title: "Haustier-Produkte",
       subtitle: "Erinnerungen für treue Begleiter.",
-      basic: { title: "Memora Pet Tag", desc: "Einfache NFC-Platte für Haustiere.", price: "ab 55 CHF" },
-      premium: { title: "Memora Pet Frame", desc: "Rahmen mit NFC für Haustiere.", price: "ab 110 CHF" },
-      deluxe: { title: "Memora Pet Deluxe", desc: "Deluxe-Version mit Gravur und erweiterten Medienoptionen.", price: "ab 180 CHF" },
+      basic: { title: "Memora Pet Tag", desc: "Eine schlichte NFC-Platte, die mit einem Gedenkvideo Erinnerungen an Ihr Haustier zum Leben erweckt", price: "ab 49 CHF" },
+      premium: { title: "Memora Pet Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Gedenkvideo verbindet – ideal für Zuhause.", price: "89 CHF" },
+      deluxe: { title: "Memora Pet Deluxe", desc: "Eine exklusive Plexiglasplatte mit Halterung – für ein bleibendes, würdiges Erinnerungsstück.", price: "119 CHF" },
       features: {
-        glass: "6×6 cm NFC-Platte, wetterfest",
-        nfc: "Liebevolles Design",
-        format: "Haustier-optimierte Formate",
-        weather: "Für drinnen und draussen",
-        all: "Rahmen mit NFC",
-        photo: "Foto im Rahmen",
-        engraving: "Pfoten-/Namensgravur optional",
-        premium: "Ideal für Zuhause"
+        tag1: "6×6 cm oder 3 cm ⌀ - wetterfest und langlebig",
+        tag2: "Persönliches Gedenkvideo mit Fotos, Videos & vertrauten Geräuschen",
+        tag3: "Minimales, zeitloses Design, fügt sich harmonisch ein",
+        tag4: "Option: Standard schlicht, individuell gestaltet oder als Schlüsselanhänger",
+        premium1: "Integrierter NFC-Tag – verbindet Bild & digitales Gedenken",
+        premium2: "Persönliche Gestaltung mit eigenem Foto",
+        premium3: "Dezente Gravur optional",
+        premium4: "Ideal für Zuhause oder als Geschenk",
+        deluxe1: "Hochwertige 12×12 cm Plexiglasplatte mit edlem Finish",
+        deluxe2: "Individuelle Gestaltung mit eigenem Foto & Text",
+        deluxe3: "Integrierter NFC-Tag - verbindet persönliches Gedenkvideo",
+        deluxe4: "Präsentation mit stilvoller Halterung"
       }
     },
     cta: {
       title: "Ehren Sie Ihren Liebling",
-      subtitle: "Schaffen Sie eine liebevolle Erinnerung.",
-      create: "Haustier-Gedenken erstellen",
-      contact: "Beratung für Haustiere"
+      subtitle: "Ein Zuhause im Herzen – bewahren Sie die Erinnerung an Ihren treuen Begleiter.",
+      create: "Erinnerung erstellen",
+      contact: "Kontakt aufnehmen"
     },
     gedenken: {
       title: "Haustier-Gedenken erstellen - Memora Moments",
@@ -415,7 +497,7 @@ export const deContent: ContentData = {
 
     uploaderCopy: {
       headings: {
-        pageTitleByMode: { pet: "Produkt wählen (Haustiere)" },
+        pageTitleByMode: { pet: "Produkt wählen:" },
         step2ByMode: { pet: "Angaben zum Haustier" }
       },
       products: {
@@ -437,49 +519,53 @@ export const deContent: ContentData = {
   // --- SURPRISE MODE ---
   surprise: {
     hero: {
-      title: "Überraschungsmomente, die berühren.",
+      title: "Ein Geschenk, das Herzen berührt – unvergessliche Überraschungen.",
       subtitle:
-        "Die Surprise-Kollektion verbindet Design mit einem besonderen Erlebnis.",
-      startButton: "Surprise starten",
+        "Ob Hochzeit, Geburtstag oder Jubiläum – mit Memora Moments machen Sie Erinnerungen greifbar. Fotos, Videos und Musik werden zu einem einzigartigen Geschenk, das bleibt.",
+      startButton: "Wie funktionierts?",
       learnButton: "Mehr erfahren"
     },
     features: {
       title: "Das gewisse Etwas",
       subtitle: "Kuratiert, dezent und mit einem Hauch Magie.",
-      unique: { title: "Kuratiertes Erlebnis", desc: "Jede Surprise-Platte erzählt eine kleine Geschichte." },
-      multimedia: { title: "Bild • Video • Klang", desc: "Alle Medien auf einer Platte." },
-      music: { title: "Signature-Sound", desc: "Ein Soundteppich für besondere Momente." },
-      quality: { title: "Premium-Materialien", desc: "Langlebig, wetterfest und elegant." }
+      unique: { title: "Einzigartige Überraschung", desc: "Jede Surprise-Platte erzählt eine kleine Geschichte." },
+      multimedia: { title: "Multimedia-Erlebnisse", desc: "Fotos, Videos und Musik machen Ihr Geschenk lebendig und emotional." },
+      music: { title: "Musik & Botschaften", desc: "Fügen Sie ein Lieblingslied oder eine persönliche Sprachnachricht hinzu." },
+      quality: { title: "Edles Design", desc: "Minimalistisch und hochwertig – passend zu jedem Anlass und jeder Feier." }
     },
     howitworks: {
       title: "So funktioniert Surprise",
       subtitle: "Drei Schritte zum Überraschungsmoment.",
-      step1: { title: "Inhalte wählen", desc: "Fotos, Clips und Musik aussuchen." },
-      step2: { title: "Inszenierung festlegen", desc: "Wir gestalten eine Sequenz." },
-      step3: { title: "Surprise erhalten", desc: "Ihre Surprise-Platte erleben." }
+      step1: { title: "Produkt auswählen", desc: "Wählen Sie zwischen Memora Tag, Frame oder Deluxe." },
+      step2: { title: "Medien und Musik auswählen", desc: "Gestalten Sie Ihr Überraschungsvideo mit Fotos, Clips und Lieblingsmusik." },
+      step3: { title: "Surprise erhalten", desc: "Ihre gestaltete Memora-Platte oder Ihr Rahmen wird direkt zu Ihnen geliefert." }
     },
     products: {
       title: "Surprise-Produkte",
       subtitle: "Wählen Sie Ihren Stil.",
-      basic: { title: "Memora Surprise Tag", desc: "Minimalistische NFC-Platte für Überraschungsmomente.", price: "ab 70 CHF" },
-      premium: { title: "Memora Surprise Frame", desc: "Eleganter Rahmen mit Surprise-Inszenierung.", price: "ab 140 CHF" },
-      deluxe: { title: "Memora Surprise Deluxe", desc: "Exklusive Surprise-Inszenierung mit erweiterten Optionen.", price: "ab 220 CHF" },
+      basic: { title: "Memora Surprise Tag", desc: "Eine kleine NFC-Platte, die persönliche Überraschungsvideos zum Leben erweckt – originell und einzigartig.", price: "ab 70 CHF" },
+      premium: { title: "Memora Surprise Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Überraschungsvideo verbindet – ideal als Geschenk.", price: "ab 140 CHF" },
+      deluxe: { title: "Memora Surprise Deluxe", desc: "Eine exklusive Plexiglasplatte mit NFC-Technologie – das elegante Premium-Geschenk für bleibende Erinnerungen.", price: "ab 220 CHF" },
       features: {
-        glass: "Robustes Finish",
-        nfc: "Integrierter NFC-Tag",
-        format: "Optimiert für Multimedia",
-        weather: "Witterungsbeständig",
-        all: "Rahmen mit NFC",
-        photo: "Foto optional",
-        engraving: "Gravur optional",
-        premium: "Hochwertige Materialien"
+        tag1: "Format 6×6 cm oder 3 cm ⌀",
+        tag2: "Persönliches Video direkt per Tap abspielen",
+        tag3: "Minimales, zeitloses Design, fügt sich harmonisch ein",
+        tag4: "Überraschung, die Emotionen weckt und lange in Erinnerung bleibt",
+        premium1: "Integrierter NFC-Tag – verbindet Bild & persönliches Überraschungsvideo",
+        premium2: "Persönliche Gestaltung mit eigenem Foto",
+        premium3: "Individuell gestaltbar – mit Widmung oder Gravur",
+        premium4: "Das perfekte Geschenk für Geburtstage, Hochzeiten oder Jubiläen",
+        deluxe1: "Hochwertige 12×12 cm Plexiglasplatte mit edlem Finish",
+        deluxe2: "Individuelle Gestaltung mit eigenem Foto & Text",
+        deluxe3: "Integrierter NFC-Tag - verbindet persönliches Überraschungsvideo",
+        deluxe4: "Präsentation mit stilvoller Halterung"
       }
     },
     cta: {
       title: "Bereit für Ihren Überraschungsmoment?",
       subtitle: "Surprise schenkt einzigartige Augenblicke.",
-      create: "Surprise erstellen",
-      contact: "Beratung anfragen"
+      create: "Überraschung erstellen",
+      contact: "Kontakt aufnehmen"
     },
     gedenken: {
       title: "Surprise erstellen - Memora Moments",

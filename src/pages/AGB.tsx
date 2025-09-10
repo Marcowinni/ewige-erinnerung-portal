@@ -5,6 +5,7 @@ import DarkModeToggle from "@/components/DarkModeToggle";
 
 const AGB = () => {
   const { sharedContent } = useContent();
+  const { terms } = sharedContent.legal;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -13,78 +14,95 @@ const AGB = () => {
       <main className="flex-1 py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 max-w-4xl">
           <h1 className="text-4xl md:text-5xl font-serif text-center mb-8 text-foreground">
-            Allgemeine Geschäftsbedingungen
+            {terms.title}
           </h1>
 
           <div className="prose prose-lg max-w-none space-y-8 text-foreground">
+            {/* 1. Geltungsbereich */}
             <section>
-              <h2 className="text-2xl font-serif mb-4">1. Geltungsbereich</h2>
-              <p>
-                Diese Allgemeinen Geschäftsbedingungen gelten für alle Bestellungen und 
-                Verträge zwischen Memora Moments und unseren Kunden.
-              </p>
+              <h2 className="text-2xl font-serif mb-4">{terms.sections.scope.title}</h2>
+              <p style={{ whiteSpace: "pre-line" }}>{terms.sections.scope.content}</p>
             </section>
 
+            {/* 2. Vertragsabschluss */}
             <section>
-              <h2 className="text-2xl font-serif mb-4">2. Vertragsschluss</h2>
-              <p>
-                Der Vertrag kommt durch Ihre Bestellung und unsere Bestätigung zustande. 
-                Wir behalten uns vor, Bestellungen abzulehnen, falls technische oder 
-                rechtliche Hindernisse bestehen.
-              </p>
+              <h2 className="text-2xl font-serif mb-4">{terms.sections.contract.title}</h2>
+              <p style={{ whiteSpace: "pre-line" }}>{terms.sections.contract.content}</p>
             </section>
 
+            {/* 3. Leistungen */}
             <section>
-              <h2 className="text-2xl font-serif mb-4">3. Preise und Zahlungsbedingungen</h2>
-              <p>
-                Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer. 
-                Die Zahlung erfolgt vor der Produktion. Wir akzeptieren gängige Zahlungsmittel.
-              </p>
+              <h2 className="text-2xl font-serif mb-4">{terms.sections.services.title}</h2>
+              <p style={{ whiteSpace: "pre-line" }}>{terms.sections.services.content}</p>
             </section>
 
+            {/* 4. Preise und Zahlungsbedingungen */}
             <section>
-              <h2 className="text-2xl font-serif mb-4">4. Lieferung und Produktionszeit</h2>
-              <p>
-                Unsere personalisierten Produkte werden individuell gefertigt. Die 
-                Produktionszeit beträgt in der Regel 7-14 Werktage nach Zahlungseingang 
-                und finaler Freigabe des Designs.
-              </p>
+              <h2 className="text-2xl font-serif mb-4">{terms.sections.prices.title}</h2>
+              <p style={{ whiteSpace: "pre-line" }}>{terms.sections.prices.content}</p>
             </section>
 
+            {/* 5. Lieferung und Lieferfristen */}
             <section>
-              <h2 className="text-2xl font-serif mb-4">5. Urheberrechte und Bildrechte</h2>
-              <p>
-                Sie bestätigen, dass Sie über alle notwendigen Rechte an den von Ihnen 
-                bereitgestellten Bildern und Texten verfügen. Sie stellen uns von 
-                Ansprüchen Dritter bezüglich Urheberrechts- oder Persönlichkeitsrechtsverletzungen frei.
-              </p>
+              <h2 className="text-2xl font-serif mb-4">{terms.sections.delivery.title}</h2>
+              <p style={{ whiteSpace: "pre-line" }}>{terms.sections.delivery.content}</p>
             </section>
 
+            {/* 6. Widerruf und Rücktrittsrecht */}
             <section>
-              <h2 className="text-2xl font-serif mb-4">6. Widerrufsrecht</h2>
-              <p>
-                Da es sich um personalisierte Produkte handelt, ist ein Widerruf nach 
-                § 312g Abs. 2 Nr. 1 BGB ausgeschlossen, sobald mit der Herstellung 
-                begonnen wurde.
-              </p>
+              <h2 className="text-2xl font-serif mb-4">{terms.sections.cancellation.title}</h2>
+              <p style={{ whiteSpace: "pre-line" }}>{terms.sections.cancellation.content}</p>
             </section>
 
+            {/* 7. Gewährleistung */}
             <section>
-              <h2 className="text-2xl font-serif mb-4">7. Gewährleistung</h2>
-              <p>
-                Wir gewährleisten die Qualität unserer Produkte. Bei Mängeln kontaktieren 
-                Sie uns bitte innerhalb von 14 Tagen nach Erhalt der Ware.
-              </p>
+              <h2 className="text-2xl font-serif mb-4">{terms.sections.warranty.title}</h2>
+              <p style={{ whiteSpace: "pre-line" }}>{terms.sections.warranty.content}</p>
             </section>
 
+            {/* 7a. Haftung */}
             <section>
-              <h2 className="text-2xl font-serif mb-4">8. Kontakt</h2>
-              <p>
-                Bei Fragen zu diesen AGB kontaktieren Sie uns unter:<br />
-                E-Mail: info.memora.moments@gmail.com<br />
-                Telefon: +41 79 407 56 99
-              </p>
+              <h2 className="text-2xl font-serif mb-4">{terms.sections.liability.title}</h2>
+              <p style={{ whiteSpace: "pre-line" }}>{terms.sections.liability.content}</p>
             </section>
+
+            {/* 8. Urheberrechte und Nutzungsrechte */}
+            <section>
+              <h2 className="text-2xl font-serif mb-4">{terms.sections.ip.title}</h2>
+              <p style={{ whiteSpace: "pre-line" }}>{terms.sections.ip.content}</p>
+            </section>
+
+            {/* 9. Datenschutz */}
+            <section>
+              <h2 className="text-2xl font-serif mb-4">{terms.sections.privacy.title}</h2>
+              <p style={{ whiteSpace: "pre-line" }}>{terms.sections.privacy.content}</p>
+            </section>
+
+            {/* 10. Emotionale Produkte & Hinweise */}
+            <section>
+              <h2 className="text-2xl font-serif mb-4">{terms.sections.special.title}</h2>
+              <p style={{ whiteSpace: "pre-line" }}>{terms.sections.special.content}</p>
+            </section>
+
+            {/* 11. Gerichtsstand und anwendbares Recht */}
+            <section>
+              <h2 className="text-2xl font-serif mb-4">{terms.sections.law.title}</h2>
+              <p style={{ whiteSpace: "pre-line" }}>{terms.sections.law.content}</p>
+            </section>
+
+            {/* 12. Schlussbestimmungen */}
+            <section>
+              <h2 className="text-2xl font-serif mb-4">{terms.sections.final.title}</h2>
+              <p style={{ whiteSpace: "pre-line" }}>{terms.sections.final.content}</p>
+            </section>
+
+            {/* Optional: Kontaktblock falls vorhanden */}
+            {terms.sections.contact && (
+              <section>
+                <h2 className="text-2xl font-serif mb-4">{terms.sections.contact.title}</h2>
+                <p style={{ whiteSpace: "pre-line" }}>{terms.sections.contact.content}</p>
+              </section>
+            )}
           </div>
         </div>
       </main>
