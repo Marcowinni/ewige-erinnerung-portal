@@ -33,6 +33,9 @@ const Ueber = () => {
                 </h2>
                 <p>{t("aboutPage.story.p1")}</p>
                 <p className="mt-4">{t("aboutPage.story.p2")}</p>
+                <p className="mt-4">{t("aboutPage.story.p3")}</p>
+                <p className="mt-4">{t("aboutPage.story.p4")}</p>
+                <p className="mt-4">{t("aboutPage.story.p5")}</p>
               </div>
 
               {/* Werte */}
