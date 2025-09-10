@@ -55,7 +55,10 @@ export const deContent: ContentData = {
       story: {
         title: "Unsere Geschichte",
         p1: "Memora Moments ist aus dem Wunsch entstanden, Erinnerungen würdevoll zu bewahren.",
-        p2: "Mit NFC und Multimedia schaffen wir eine neue Form des Gedenkens – nahbar und modern."
+        p2: "Manchmal sind es die leisen Augenblicke, die unser Leben für immer verändern. Wir alle haben Menschen oder treue Wegbegleiter verloren, die uns besonders nahe standen – sei es ein geliebtes Familienmitglied oder ein Haustier, das unser Herz geprägt hat.",
+        p3: "In diesen Momenten der Trauer sehnen wir uns nach Nähe, nach einem Ort, an dem Erinnerungen nicht verblassen, sondern weiterleben. Die Idee zu Memora Moments entstand genau aus dieser Erfahrung.",
+        p4: "Aus der Liebe zu unseren engsten Vertrauten und aus dem Wunsch, ihre Geschichten und ihre Einzigartigkeit zu bewahren, ist dieses Projekt geboren. Ein kleines Geschenk, das zunächst nur für unsere Liebsten gedacht war, hat uns gezeigt, wie wertvoll es sein kann, Erinnerungen greifbar und lebendig zu halten – durch Bilder, Videos und Musik, die ein Lächeln zurückbringen können.",
+        p5: "Heute möchten wir diese Möglichkeit mit anderen teilen. Mit unseren Produkten erschaffen wir Brücken zwischen Vergangenheit und Gegenwart – würdevoll, persönlich und nah am Herzen. Wir glauben daran, dass Erinnerungen nicht mit dem Abschied enden müssen. Sie können weiterleuchten, uns trösten und Kraft schenken."
       },
       values: {
         title: "Unsere Werte",
@@ -74,8 +77,8 @@ export const deContent: ContentData = {
       },
       product: {
         title: "Warum Memora?",
-        p1: "Hochwertige Materialien, wetterfestes Design und ein klarer Fokus auf das Wesentliche.",
-        p2: "Einfach erstellen, wertig erhalten, jederzeit teilen – mit einem sanften Tap."
+        p1: "Weil Erinnerungen mehr sind als nur Gedanken – sie verdienen einen würdigen Platz.",
+        p2: "Unsere NFC-Tags und personalisierten Videos verbinden Technik mit Emotion – einfach, schön, nachhaltig."
       }
     },
 
