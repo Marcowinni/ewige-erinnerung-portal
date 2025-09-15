@@ -55,7 +55,10 @@ export const frContent: ContentData = {
       story: {
         title: 'Notre histoire',
         p1: 'Memora Moments est née du désir de préserver les souvenirs avec soin et dignité.',
-        p2: 'Avec la NFC et le multimédia, nous créons une façon moderne et accessible de se souvenir.'
+        p2: 'Avec la NFC et le multimédia, nous créons une façon moderne et accessible de se souvenir.',
+        p3: 'Nous comprenons l\'importance des hommages significatifs.',
+        p4: 'Notre technologie fait le pont entre les souvenirs physiques et numériques.',
+        p5: 'Chaque produit est conçu avec respect et attention aux détails.',
       },
       values: {
         title: 'Nos valeurs',
@@ -97,7 +100,8 @@ export const frContent: ContentData = {
           },
           imageProcessing: {
             title: "3. Traitement des images",
-            content: "Les images que vous téléchargez sont utilisées exclusivement pour créer votre produit personnalisé. Vos images sont stockées en sécurité et supprimées après la finalisation de la commande ou après une période raisonnable."
+            content: "Les images que vous téléchargez sont utilisées exclusivement pour créer votre produit personnalisé. Vos images sont stockées en sécurité et supprimées après la finalisation de la commande ou après une période raisonnable.",
+            list: []
           },
           rights: {
             title: "4. Vos droits",
@@ -128,7 +132,7 @@ export const frContent: ContentData = {
             title: "4. Livraison et temps de production",
             content: "Nos produits personnalisés sont fabriqués individuellement. Le temps de production est généralement de 7-14 jours ouvrables après paiement et approbation finale du design."
           },
-          rights: {
+          services: {
             title: "5. Droits d'auteur et droits d'image",
             content: "Vous confirmez disposer de tous les droits nécessaires sur les images et textes que vous fournissez. Vous nous dégagez des réclamations de tiers concernant les violations de droits d'auteur ou de personnalité."
           },
