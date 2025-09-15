@@ -367,7 +367,7 @@ function loadPersisted():
 function persist(step: number, form: FormState) {
   try {
     if (typeof window === "undefined") return;
-    const { images, videos, audios, ...rest } = form; // Files NICHT speichern
+    const { images, videos, ...rest } = form; // Files NICHT speichern
     const payload = { step, form: rest as PersistedForm };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
   } catch {
@@ -1358,24 +1358,10 @@ function Step3View(props: {
   const addVideos = (files: FileList | null) => {
     if (files) setForm((s) => ({ ...s, videos: [...s.videos, ...Array.from(files)] }));
   };
-  const addAudios = (files: FileList | null) => {
-    if (files) setForm((s) => ({ ...s, audios: [...s.audios, ...Array.from(files)] }));
-  };
-  const addAudioLink = (url: string) => {
-  const trimmed = url.trim();
-  if (!trimmed) return;
-  setForm((s) => ({ ...s, audioLinks: [...(s.audioLinks ?? []), trimmed] }));
-  };
   const removeImage = (i: number) => setForm((s) => ({ ...s, images: s.images.filter((_, idx) => idx !== i) }));
   const removeVideo = (i: number) => setForm((s) => ({ ...s, videos: s.videos.filter((_, idx) => idx !== i) }));
-  const removeAudio = (i: number) => setForm((s) => ({ ...s, audios: s.audios.filter((_, idx) => idx !== i) }));
-  const removeAudioLink = (i: number) =>setForm((s) => ({ ...s, audioLinks: (s.audioLinks ?? []).filter((_, idx) => idx !== i) }));
 
-  const hasAnyUpload =
-  form.images.length > 0 ||
-  form.videos.length > 0 ||
-  form.audios.length > 0 ||
-  (form.audioLinks?.length ?? 0) > 0;
+  const hasAnyUpload = form.images.length > 0 || form.videos.length > 0;
 
 
   return (
@@ -1433,31 +1419,7 @@ function Step3View(props: {
             </div>
           )}
         </div>
-
-        {/* Audio */}
-        <div className="md:col-span-2">
-          <Label htmlFor="audios">{copy.step3Fields.audiosLabel ?? "Audio / Songs (optional)"}</Label>
-          <Input id="audios" type="file" accept="audio/*" multiple onChange={(e) => addAudios(e.target.files)} />
-          {form.audios.length > 0 && (
-            <div className="space-y-3 mt-4">
-              {form.audios.map((f, idx) => {
-                const url = URL.createObjectURL(f);
-                return (
-                  <div key={idx} className="relative border rounded-md p-2">
-                    <audio src={url} className="w-full" controls />
-                    <div className="flex justify-between items-center mt-2">
-                      <span className="text-sm text-muted-foreground truncate">{f.name}</span>
-                      <Button size="sm" variant="outline" onClick={() => removeAudio(idx)}>
-                        {copy.step3Fields.remove}
-                      </Button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-        </div>
+      </div>
 
       <div className="mt-8 flex justify-between gap-3">
         <Button variant="outline" onClick={onBack}>
@@ -1466,61 +1428,6 @@ function Step3View(props: {
         <Button onClick={onNext} disabled={!hasAnyUpload}>
           {copy.buttons.next}
         </Button>
-      </div>
-
-      {/* Audio-Links */}
-      <div className="md:col-span-2">
-        <Label htmlFor="audioLinkInput">{copy.step3Fields.audiosLinksLabel ?? "Audio-Links (YouTube/Spotify)"}</Label>
-
-        {/* Eingabe + Hinzufügen */}
-        <div className="flex gap-2 mt-2">
-          <Input
-            id="audioLinkInput"
-            type="url"
-            placeholder="https://open.spotify.com/... oder https://youtu.be/..."
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                const target = e.target as HTMLInputElement;
-                addAudioLink(target.value);
-                target.value = "";
-              }
-            }}
-          />
-          <Button
-            type="button"
-            onClick={() => {
-              const input = document.getElementById("audioLinkInput") as HTMLInputElement | null;
-              if (!input) return;
-              addAudioLink(input.value);
-              input.value = "";
-            }}
-          >
-            Hinzufügen
-          </Button>
-        </div>
-
-        {/* Liste der hinzugefügten Links */}
-        {(form.audioLinks?.length ?? 0) > 0 && (
-          <div className="space-y-2 mt-4">
-            {form.audioLinks!.map((url, idx) => (
-              <div key={idx} className="flex items-center justify-between border rounded-md p-2">
-                <a
-                  href={url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sm text-blue-600 hover:underline truncate max-w-[75%]"
-                  title={url}
-                >
-                  {url}
-                </a>
-                <Button size="sm" variant="outline" onClick={() => removeAudioLink(idx)}>
-                  {copy.step3Fields.remove}
-                </Button>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );
@@ -1821,8 +1728,6 @@ const MemoryUploader = () => {
   const [form, setForm] = useState<FormState>({
     images: [],
     videos: [],
-    audios: [], 
-    audioLinks: [],
     invoice_sameAsContact: true,
     frame_orientation: "portrait", // default Hochformat
     tag_format: "round_3cm", // default Rund Ø 3 cm
@@ -1908,7 +1813,7 @@ const MemoryUploader = () => {
     clearPersisted();
     setStep(1);
     setSelected(null);
-    setForm({ images: [], videos: [], audios: [],audioLinks: [], invoice_sameAsContact: true });
+    setForm({ images: [], videos: [], invoice_sameAsContact: true });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
