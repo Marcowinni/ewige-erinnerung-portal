@@ -1841,21 +1841,21 @@ const MemoryUploader = () => {
       desc: products.basic.desc,
       price: products.basic.price,
       images: media.basicProduct?.images ?? [],
-      features: [products.features.glass, products.features.nfc, products.features.format, products.features.weather],
+      features: [products.features.tag1, products.features.tag2, products.features.tag3, products.features.tag4],
     },
     premium: {
       title: products.premium.title,
       desc: products.premium.desc,
       price: products.premium.price,
       images: media.premiumProduct?.images ?? [],
-      features: [products.features.all, products.features.photo, products.features.engraving, products.features.premium],
+      features: [products.features.premium1, products.features.premium2, products.features.premium3, products.features.premium4],
     },
     deluxe: {
       title: products.deluxe.title,
       desc: products.deluxe.desc,
       price: products.deluxe.price,
       images: media.deluxeProduct?.images ?? media.premiumProduct?.images ?? [],
-      features: [products.features.all, products.features.photo, products.features.engraving, products.features.premium],
+      features: [products.features.deluxe1, products.features.deluxe2, products.features.deluxe3, products.features.deluxe4],
     },
   };
 
