@@ -55,7 +55,10 @@ export const itContent: ContentData = {
       story: {
         title: 'La nostra storia',
         p1: 'Memora Moments è nata dal desiderio di preservare i ricordi con cura e dignità.',
-        p2: 'Con NFC e multimedia, creiamo un modo moderno e accessibile di ricordare.'
+        p2: 'Con NFC e multimedia, creiamo un modo moderno e accessibile di ricordare.',
+        p3: 'Comprendiamo l\'importanza dei tributi significativi.',
+        p4: 'La nostra tecnologia fa da ponte tra ricordi fisici e digitali.',
+        p5: 'Ogni prodotto è realizzato con rispetto e attenzione ai dettagli.',
       },
       values: {
         title: 'I nostri valori',
@@ -97,7 +100,8 @@ export const itContent: ContentData = {
           },
           imageProcessing: {
             title: "3. Elaborazione delle immagini",
-            content: "Le immagini che caricate sono utilizzate esclusivamente per creare il vostro prodotto personalizzato. Le vostre immagini sono archiviate in sicurezza e cancellate dopo il completamento dell'ordine o dopo un periodo ragionevole."
+            content: "Le immagini che caricate sono utilizzate esclusivamente per creare il vostro prodotto personalizzato. Le vostre immagini sono archiviate in sicurezza e cancellate dopo il completamento dell'ordine o dopo un periodo ragionevole.",
+            list: []
           },
           rights: {
             title: "4. I vostri diritti",
@@ -128,7 +132,7 @@ export const itContent: ContentData = {
             title: "4. Consegna e tempo di produzione",
             content: "I nostri prodotti personalizzati sono fabbricati individualmente. Il tempo di produzione è tipicamente di 7-14 giorni lavorativi dopo il pagamento e l'approvazione finale del design."
           },
-          rights: {
+          services: {
             title: "5. Diritti d'autore e diritti d'immagine",
             content: "Confermate di avere tutti i diritti necessari sulle immagini e testi che fornite. Ci sollevate dalle rivendicazioni di terzi riguardo a violazioni di diritti d'autore o della personalità."
           },

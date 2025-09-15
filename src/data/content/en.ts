@@ -71,11 +71,13 @@ export const enContent: ContentData = {
             title: '3. Image Processing',
             content:
               'Images uploaded by you are used exclusively for creating your personalized product. Your images are stored securely and deleted after order completion or after a reasonable period.',
+            list: []
           },
           rights: {
             title: '4. Your Rights',
             content:
               'You have the right to access, correct, delete and restrict the processing of your personal data. Contact us at info.memora.moments@gmail.com for data inquiries.',
+            list: []
           },
           cookies: {
             title: '5. Cookies',
@@ -97,33 +99,63 @@ export const enContent: ContentData = {
             content:
               'The contract is formed through your order and our confirmation. We reserve the right to decline orders if technical or legal obstacles exist.',
           },
+          services: {
+            title: '3. Services',
+            content:
+              'We provide personalized memorial products using NFC technology and digital content.',
+          },
           prices: {
-            title: '3. Prices and Payment Terms',
+            title: '4. Prices and Payment Terms',
             content:
               'All prices include applicable VAT. Payment is due before production. We accept common payment methods.',
           },
           delivery: {
-            title: '4. Delivery and Production Time',
+            title: '5. Delivery and Production Time',
             content:
               'Our personalized products are individually manufactured. Production time is typically 7–14 business days after payment and final design approval.',
           },
-          rights: {
-            title: '5. Copyright and Image Rights',
+          liability: {
+            title: '6. Liability',
+            content:
+              'Our liability is limited to intent and gross negligence, except for damages from injury to life, body or health.',
+          },
+          ip: {
+            title: '7. Intellectual Property',
             content:
               'You confirm that you have all necessary rights to the images and texts you provide. You indemnify us against third-party claims regarding copyright or personality rights violations.',
           },
+          privacy: {
+            title: '8. Privacy',
+            content:
+              'Data processing is governed by our privacy policy which forms an integral part of these terms.',
+          },
+          special: {
+            title: '9. Emotional Products',
+            content:
+              'We understand the sensitive nature of memorial products and handle all orders with care and respect.',
+          },
+          law: {
+            title: '10. Governing Law',
+            content:
+              'These terms are governed by Swiss law. Place of jurisdiction is the registered office of Memora Moments.',
+          },
+          final: {
+            title: '11. Final Provisions',
+            content:
+              'Should any provision of these terms be invalid, the remaining provisions remain in effect. We reserve the right to modify these terms.',
+          },
           cancellation: {
-            title: '6. Right of Withdrawal',
+            title: '12. Right of Withdrawal',
             content:
               'As these are personalized products, withdrawal is excluded under § 312g para. 2 no. 1 BGB once production has begun.',
           },
           warranty: {
-            title: '7. Warranty',
+            title: '13. Warranty',
             content:
               'We guarantee the quality of our products. For defects, please contact us within 14 days of receipt.',
           },
           contact: {
-            title: '8. Contact',
+            title: '14. Contact',
             content:
               'For questions about these Terms of Service, contact us at:\nE-Mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99',
           },
@@ -192,6 +224,9 @@ export const enContent: ContentData = {
         title: 'Our story',
         p1: 'Memora Moments was born from the wish to preserve memories with care and dignity.',
         p2: 'With NFC and multimedia, we create a modern, approachable way to remember.',
+        p3: 'We understand the importance of meaningful tributes.',
+        p4: 'Our technology bridges the gap between physical and digital memories.',
+        p5: 'Every product is crafted with respect and attention to detail.',
       },
       values: {
         title: 'Our values',
@@ -245,15 +280,19 @@ export const enContent: ContentData = {
       basic: { title: 'Memora Tag', desc: 'Minimal NFC plate for digital memories.', price: 'from 60 CHF' },
       premium: { title: 'Memora Frame', desc: 'Picture frame with integrated NFC.', price: 'from 120 CHF' },
       deluxe: { title: 'Memora Deluxe', desc: 'Exclusive glass plate with engraving and extended features.', price: 'from 200 CHF' },
-      features: {
-        glass: '6×6 cm NFC plate',
-        nfc: 'Elegant design',
-        format: 'Weather-resistant',
-        weather: 'For headstones, urns, memorial spots',
-        all: 'Frame with NFC',
-        photo: 'Personal photo',
-        engraving: 'Optional engraving',
-        premium: 'Ideal for home display'
+        features: {
+        tag1: '6×6 cm NFC plate',
+        tag2: 'Elegant design',
+        tag3: 'Weather-resistant',
+        tag4: 'For headstones, urns, memorial spots',
+        premium1: 'Frame with NFC',
+        premium2: 'Personal photo',
+        premium3: 'Optional engraving',
+        premium4: 'Ideal for home display',
+        deluxe1: 'Premium glass plate',
+        deluxe2: 'Custom engraving',
+        deluxe3: 'Extended media options',
+        deluxe4: 'Luxury presentation'
       }
     },
     cta: {
@@ -299,14 +338,18 @@ export const enContent: ContentData = {
       premium: { title: 'Pet Memora Frame', desc: 'Frame with NFC for pets.', price: 'from 110 CHF' },
       deluxe: { title: 'Pet Memora Deluxe', desc: 'Deluxe version with engraving and extended media options.', price: 'from 180 CHF' },
       features: {
-        glass: '6×6 cm NFC plate, weather-proof',
-        nfc: 'Loving design',
-        format: 'Pet-friendly formats',
-        weather: 'For indoor and outdoor use',
-        all: 'Frame with NFC',
-        photo: 'Photo in frame',
-        engraving: 'Optional paw/name engraving',
-        premium: 'Ideal for home'
+        tag1: '6×6 cm NFC plate, weather-proof',
+        tag2: 'Loving design',
+        tag3: 'Pet-friendly formats',
+        tag4: 'For indoor and outdoor use',
+        premium1: 'Frame with NFC',
+        premium2: 'Photo in frame',
+        premium3: 'Optional paw/name engraving',
+        premium4: 'Ideal for home',
+        deluxe1: 'Premium pet memorial',
+        deluxe2: 'Custom paw engraving',
+        deluxe3: 'Extended pet media',
+        deluxe4: 'Luxury pet tribute'
       }
     },
     cta: {
@@ -352,14 +395,18 @@ export const enContent: ContentData = {
       premium: { title: 'Surprise Frame', desc: 'Elegant frame with integrated experience.', price: 'from 140 CHF' },
       deluxe: { title: 'Surprise Deluxe', desc: 'Exclusive Surprise with extended options.', price: 'from 220 CHF' },
       features: {
-        glass: 'Robust finish',
-        nfc: 'Integrated NFC tag',
-        format: 'Optimized for multimedia',
-        weather: 'Weather-resistant',
-        all: 'Frame with hidden NFC',
-        photo: 'Optional photo',
-        engraving: 'Optional engraving',
-        premium: 'Refined materials'
+        tag1: 'Robust finish',
+        tag2: 'Integrated NFC tag',
+        tag3: 'Optimized for multimedia',
+        tag4: 'Weather-resistant',
+        premium1: 'Frame with hidden NFC',
+        premium2: 'Optional photo',
+        premium3: 'Optional engraving',
+        premium4: 'Refined materials',
+        deluxe1: 'Premium surprise experience',
+        deluxe2: 'Custom engravings',
+        deluxe3: 'Extended multimedia',
+        deluxe4: 'Luxury materials'
       }
     },
     cta: {

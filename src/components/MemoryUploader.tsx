@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Check } from "lucide-react";
 import PrivacyTermsNotice from "@/components/PrivacyTermsNotice";
+import LocalMusicCard from "@/components/LocalMusicCard";
 import {
   Carousel,
   CarouselContent,
@@ -63,8 +64,10 @@ type FormState = {
   // Uploads (werden NICHT im LocalStorage persistiert)
   images: File[];
   videos: File[];
-  audios: File[]; //Audio/Songs oder andere Audiodateien
-  audioLinks: string[]; // YouTube/Spotify Links
+  
+  // NEW: Music selection
+  selectedLocalMusic?: string; // filename from public/music
+  pixabayMusicLink?: string; // URL from Pixabay
 
   // Kontakt
   contact_firstName?: string;
@@ -289,9 +292,14 @@ const DEFAULT_COPY: UploaderCopy = {
   step3Fields: {
     imagesLabel: "Bilder (mehrfach möglich)",
     videosLabel: "Videos (mehrfach möglich)",
-    audiosLabel: "Audio / Songs (optional)",
-    audiosLinksLabel: "Audio Links (YouTube, Spotify...)",
     remove: "Entfernen",
+    musicTitle: "Musik auswählen",
+    localMusicLabel: "Verfügbare Musik",
+    pixabayMusicLabel: "Weitere Musik von Pixabay",
+    pixabayMusicPlaceholder: "Link von pixabay.com/music/ einfügen...",
+    playButton: "Abspielen",
+    selectButton: "Auswählen",
+    selectedLabel: "Ausgewählt",
   },
   contactFields: {
     firstName: "Vorname *",
@@ -1449,6 +1457,15 @@ function Step3View(props: {
             </div>
           )}
         </div>
+        </div>
+
+      <div className="mt-8 flex justify-between gap-3">
+        <Button variant="outline" onClick={onBack}>
+          {copy.buttons.back}
+        </Button>
+        <Button onClick={onNext} disabled={!hasAnyUpload}>
+          {copy.buttons.next}
+        </Button>
       </div>
 
       {/* Audio-Links */}
@@ -1504,16 +1521,6 @@ function Step3View(props: {
             ))}
           </div>
         )}
-      </div>
-
-
-      <div className="mt-8 flex justify-between gap-3">
-        <Button variant="outline" onClick={onBack}>
-          {copy.buttons.back}
-        </Button>
-        <Button onClick={onNext} disabled={!hasAnyUpload}>
-          {copy.buttons.next}
-        </Button>
       </div>
     </div>
   );
