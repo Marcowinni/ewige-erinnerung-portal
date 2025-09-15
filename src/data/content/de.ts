@@ -64,7 +64,7 @@ export const deContent: ContentData = {
         title: "Unsere Werte",
         compassion: {
           title: "Mitgefühl",
-          desc: "Wir arbeiten respektvoll und einfühlsam – für Menschen in besonderen Lebensmomenten."
+          desc: "Wir arbeiten respektvoll und einfühlsam – für Menschen in besonderen Lebenssituationen."
         },
         personality: {
           title: "Persönlichkeit",
@@ -78,7 +78,7 @@ export const deContent: ContentData = {
       product: {
         title: "Warum Memora?",
         p1: "Weil Erinnerungen mehr sind als nur Gedanken – sie verdienen einen würdigen Platz.",
-        p2: "Unsere NFC-Tags und personalisierten Videos verbinden Technik mit Emotion – einfach, schön, nachhaltig."
+        p2: "Unsere Memora Produkte verbinden Technik mit Emotion – einfach, schön, nachhaltig."
       }
     },
 
@@ -100,8 +100,8 @@ export const deContent: ContentData = {
         list: [
           "Kontaktdaten (Name, Adresse, E-Mail, Telefonnummer)",
           "Zahlungsinformationen (abhängig von der gewählten Zahlungsart, z. B. Kreditkarte, TWINT, Vorkasse)",
-          "Inhaltsdaten (Fotos, Videos, Texte, Musik/Audio), die Sie für personalisierte Erinnerungs-Videos und NFC-Tags bereitstellen",
-          "Nutzungsdaten (z. B. Zeitpunkt des Abrufs eines Videos via NFC-Tag, technische Metadaten wie Browser/Endgerät)"
+          "Inhaltsdaten (Fotos, Videos, Texte, Musik/Audio), die Sie für personalisierte Erinnerungs-Videos und Memoras bereitstellen",
+          "Nutzungsdaten (z. B. Zeitpunkt des Abrufs eines Videos via Memora, technische Metadaten wie Browser/Endgerät)"
         ]
       },
 
@@ -194,7 +194,7 @@ export const deContent: ContentData = {
           delivery: {
             title: "5. Lieferung und Lieferfristen",
             content:
-              "Die Lieferung der NFC-Tags erfolgt in der Regel innerhalb von 30 Tagen nach Vertragsabschluss. Bei individuell angefertigten Produkten kann es zu Verzögerungen kommen; wir informieren Sie in einem solchen Fall umgehend."
+              "Die Lieferung der Produkte erfolgt in der Regel innerhalb von 30 Tagen nach Vertragsabschluss. Bei individuell angefertigten Produkten kann es zu Verzögerungen kommen; wir informieren Sie in einem solchen Fall umgehend."
           },
           cancellation: {
             title: "6. Widerruf und Rücktrittsrecht",
@@ -306,7 +306,7 @@ export const deContent: ContentData = {
     features: {
       title: "Unvergessliche Momente für die Ewigkeit",
       subtitle:
-        "Unsere Memora Moments NFC-Platten vereinen moderne Technologie mit würdevoller Erinnerung.",
+        "Unsere Memora Moments vereinen moderne Technologie mit würdevoller Erinnerung.",
       unique: { title: "Einzigartiges Gedenken", desc: "Würdigen Sie das Leben eines geliebten Menschen mit einer bleibenden Erinnerung." },
       multimedia: { title: "Multimedia Erinnerungen", desc: "Fotos und Videos machen besondere Augenblicke wieder erlebbar." },
       music: { title: "Lieblingslied einbinden", desc: "Musik schafft Nähe und lässt Emotionen lebendig werden." },
@@ -314,34 +314,34 @@ export const deContent: ContentData = {
     },
     howitworks: {
       title: "So einfach funktioniert es",
-      subtitle: "In wenigen Schritten zur persönlichen Gedenkplatte.",
-      step1: { title: "Gedenkplatte auswählen", desc: "Wählen Sie Ihre Gedenkplatte." },
-      step2: { title: "Medien und Musik auswählen", desc: "Wählen Sie Ihre Lieblingsbilder und Lieblingsvideos und fügen Sie ein Lieblingslied hinzu." },
-      step3: { title: "Memora erhalten", desc: "Ihre Gedenkplatte kommt zu Ihnen nach Hause." }
+      subtitle: "In wenigen Schritten zur persönlichen Memora.",
+      step1: { title: "Produkt auswählen", desc: "Wählen Sie zwischen Memora Tag, Frame oder Deluxe." },
+      step2: { title: "Medien und Musik auswählen", desc: "Wählen Sie Ihre Lieblingsbilder und Lieblingsvideos oder auch Sprachnachrichten und fügen Sie passende Hintergrundmusik hinzu." },
+      step3: { title: "Memora erhalten", desc: "Ihre Memora kommt zu Ihnen nach Hause." }
     },
     products: {
-      title: "Unsere Gedenkplatten",
+      title: "Unsere Memoras:",
       subtitle: "Die klassischen Memora-Produkte.",
-      basic: { title: "Memora Tag", desc: "Eine schlichte NFC-Platte, die Erinnerungen per Video zum Leben erweckt – dezent und unvergänglich.", price: "49 CHF" },
-      premium: { title: "Memora Frame", desc: "Ein klassischer Bilderrahmen, verbunden mit moderner NFC-Technologie. So wird jedes Foto zum Tor zu bewegenden Erinnerungen.", price: "89 CHF" },
-      deluxe: { title: "Memora Deluxe", desc: "Ein hochwertiges Kunstwerk, das die Vergangenheit lebendig hält und Zukunft berührt.", price: "119 CHF" },
+      basic: { title: "Memora Tag", desc: "Eine schlichte Plexiglasplatte, die Erinnerungen per Video zum Leben erweckt – dezent und unvergänglich.", price: "49 CHF" },
+      premium: { title: "Memora Frame", desc: "Ein klassischer Bilderrahmen, verbunden mit moderner Technologie. So wird jedes Foto zum Tor zu bewegenden Erinnerungen.", price: "79 CHF" },
+      deluxe: { title: "Memora Deluxe", desc: "Ein hochwertiges Kunstwerk, das die Vergangenheit lebendig hält und Zukunft berührt.", price: "129 CHF" },
       features: {
-        tag1: "Format 6×6 cm oder 3 cm ⌀",
+        tag1: "6×6 cm oder 3 cm ⌀ Plexiglasplatte",
         tag2: "Persönliches Gedenkvideo direkt per Tap abspielen",
         tag3: "Minimales, zeitloses Design, fügt sich harmonisch ein",
         tag4: "Für Grabsteine, Urnen, Erinnerungsorte",
-        premium1: "3 cm ⌀ NFC-Tag – verbindet Bild & digitales Gedenken",
-        premium2: "Persönliche Gestaltung mit eigenem Foto",
-        premium3: "Dezente Gravur optional",
+        premium1: "3 cm ⌀ Plexiglasplatte – verbindet Bild & digitales Gedenken",
+        premium2: "Persönliches Video direkt per Tap abspielen",
+        premium3: "Persönliche Gestaltung mit eigenem Foto",
         premium4: "Ideal für Zuhause, Gedenkecken oder als Geschenk",
         deluxe1: "Hochwertige 12×12 cm Plexiglasplatte mit edlem Finish",
         deluxe2: "Individuelle Gestaltung mit eigenem Foto & Text",
-        deluxe3: "Integrierter NFC-Tag - verbindet persönliches Gedenkvideo",
+        deluxe3: "Persönliches Video direkt per Tap abspielen",
         deluxe4: "Präsentation mit stilvoller Halterung"
       }
     },
     cta: {
-      title: "Beginnen Sie Ihre Erinnerungsreise",
+      title: "Ehren Sie Ihre Liebsten",
       subtitle: "Erstellen Sie Ihr Gedenken und bewahren Sie Erinnerungen.",
       create: "Gedenken erstellen",
       contact: "Kontakt aufnehmen"
@@ -454,35 +454,35 @@ export const deContent: ContentData = {
       title: "Unvergessliche Momente mit Ihrem Liebling",
       subtitle: "Digitale Erinnerungen für Haustiere.",
       unique: { title: "Liebevolle Erinnerung", desc: "Besondere Momente mit Ihrem Haustier." },
-      multimedia: { title: "Tierische Erinnerungen", desc: "Fotos und Videos Ihres Lieblings." },
+      multimedia: { title: "Multimedia Erlebnisse", desc: "Fotos und Videos Ihres Lieblings." },
       music: { title: "Lieblingsgeräusche", desc: "Das vertraute Bellen, Miauen oder ein Lied, das verbindet." },
       quality: { title: "Würdevolle Gestaltung", desc: "Schlichte, hochwertige Materialien, die sich harmonisch in jedes Zuhause einfügen, ob drinnen oder draussen." }
     },
     howitworks: {
       title: "So einfach funktioniert es",
-      subtitle: "In drei Schritten zur Erinnerungsplatte.",
-      step1: { title: "Produkt auswählen", desc: "Wählen Sie Ihre Erinnerungsplatte" },
-      step2: { title: "Medien und Musik oder Geräusche auswählen", desc: "Fotos und Videos vom gemeinsamen Alltag und passende Sounds hinzufügen." },
-      step3: { title: "Memora erhalten", desc: "Die Erinnerungsplatte wird geliefert." }
+      subtitle: "In drei Schritten zur Memora.",
+      step1: { title: "Produkt auswählen", desc: "Wählen Sie zwischen Memora Tag, Frame oder Deluxe." },
+      step2: { title: "Medien und Musik oder Geräusche auswählen", desc: "Wählen Sie Ihre Lieblingsbilder und Lieblingsvideos oder auch Sprachnachrichten und fügen Sie passende Hintergrundmusik hinzu." },
+      step3: { title: "Memora erhalten", desc: "Ihre Memora wird geliefert." }
     },
     products: {
       title: "Haustier-Produkte",
       subtitle: "Erinnerungen für treue Begleiter.",
-      basic: { title: "Memora Pet Tag", desc: "Eine schlichte NFC-Platte, die mit einem Gedenkvideo Erinnerungen an Ihr Haustier zum Leben erweckt", price: "ab 49 CHF" },
+      basic: { title: "Memora Pet Tag", desc: "Eine schlichte Plexiglasplatte, die mit einem Gedenkvideo Erinnerungen an Ihr Haustier zum Leben erweckt", price: "ab 49 CHF" },
       premium: { title: "Memora Pet Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Gedenkvideo verbindet – ideal für Zuhause.", price: "89 CHF" },
-      deluxe: { title: "Memora Pet Deluxe", desc: "Eine exklusive Plexiglasplatte mit Halterung – für ein bleibendes, würdiges Erinnerungsstück.", price: "119 CHF" },
+      deluxe: { title: "Memora Pet Deluxe", desc: "Eine exklusive Plexiglasplatte mit Halterung – für ein bleibendes, würdiges Erinnerungsstück.", price: "129 CHF" },
       features: {
-        tag1: "6×6 cm oder 3 cm ⌀ - wetterfest und langlebig",
-        tag2: "Persönliches Gedenkvideo mit Fotos, Videos & vertrauten Geräuschen",
+        tag1: "6×6 cm oder 3 cm ⌀ Plexiglasplatte",
+        tag2: "Persönliches Video direkt per Tap abspielen",
         tag3: "Minimales, zeitloses Design, fügt sich harmonisch ein",
         tag4: "Option: Standard schlicht, individuell gestaltet oder als Schlüsselanhänger",
-        premium1: "Integrierter NFC-Tag – verbindet Bild & digitales Gedenken",
-        premium2: "Persönliche Gestaltung mit eigenem Foto",
-        premium3: "Dezente Gravur optional",
+        premium1: "3 cm ⌀ Plexiglasplatte – verbindet Bild & digitales Gedenken",
+        premium2: "Persönliches Video direkt per Tap abspielen",
+        premium3: "Persönliche Gestaltung mit eigenem Foto",
         premium4: "Ideal für Zuhause oder als Geschenk",
         deluxe1: "Hochwertige 12×12 cm Plexiglasplatte mit edlem Finish",
         deluxe2: "Individuelle Gestaltung mit eigenem Foto & Text",
-        deluxe3: "Integrierter NFC-Tag - verbindet persönliches Gedenkvideo",
+        deluxe3: "Persönliches Video direkt per Tap abspielen",
         deluxe4: "Präsentation mit stilvoller Halterung"
       }
     },
@@ -530,8 +530,8 @@ export const deContent: ContentData = {
     },
     features: {
       title: "Das gewisse Etwas",
-      subtitle: "Kuratiert, dezent und mit einem Hauch Magie.",
-      unique: { title: "Einzigartige Überraschung", desc: "Jede Surprise-Platte erzählt eine kleine Geschichte." },
+      subtitle: "Schlicht, würdevoll und voller Bedeutung.",
+      unique: { title: "Einzigartige Überraschung", desc: "Jede Surprise erzählt eine kleine Geschichte." },
       multimedia: { title: "Multimedia-Erlebnisse", desc: "Fotos, Videos und Musik machen Ihr Geschenk lebendig und emotional." },
       music: { title: "Musik & Botschaften", desc: "Fügen Sie ein Lieblingslied oder eine persönliche Sprachnachricht hinzu." },
       quality: { title: "Edles Design", desc: "Minimalistisch und hochwertig – passend zu jedem Anlass und jeder Feier." }
@@ -540,27 +540,27 @@ export const deContent: ContentData = {
       title: "So funktioniert Surprise",
       subtitle: "Drei Schritte zum Überraschungsmoment.",
       step1: { title: "Produkt auswählen", desc: "Wählen Sie zwischen Memora Tag, Frame oder Deluxe." },
-      step2: { title: "Medien und Musik auswählen", desc: "Gestalten Sie Ihr Überraschungsvideo mit Fotos, Clips und Lieblingsmusik." },
-      step3: { title: "Surprise erhalten", desc: "Ihre gestaltete Memora-Platte oder Ihr Rahmen wird direkt zu Ihnen geliefert." }
+      step2: { title: "Medien und Musik auswählen", desc: "Wählen Sie Ihre Lieblingsbilder und Lieblingsvideos oder auch Sprachnachrichten und fügen Sie passende Hintergrundmusik hinzu." },
+      step3: { title: "Surprise erhalten", desc: "Ihre Memora oder wird direkt zu Ihnen geliefert." }
     },
     products: {
       title: "Surprise-Produkte",
       subtitle: "Wählen Sie Ihren Stil.",
-      basic: { title: "Memora Surprise Tag", desc: "Eine kleine NFC-Platte, die persönliche Überraschungsvideos zum Leben erweckt – originell und einzigartig.", price: "ab 70 CHF" },
-      premium: { title: "Memora Surprise Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Überraschungsvideo verbindet – ideal als Geschenk.", price: "ab 140 CHF" },
-      deluxe: { title: "Memora Surprise Deluxe", desc: "Eine exklusive Plexiglasplatte mit NFC-Technologie – das elegante Premium-Geschenk für bleibende Erinnerungen.", price: "ab 220 CHF" },
+      basic: { title: "Memora Surprise Tag", desc: "Eine kleine Plexiglasplatte, die persönliche Überraschungsvideos zum Leben erweckt – originell und einzigartig.", price: "49 CHF" },
+      premium: { title: "Memora Surprise Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Überraschungsvideo verbindet – ideal als Geschenk.", price: "79 CHF" },
+      deluxe: { title: "Memora Surprise Deluxe", desc: "Eine exklusive Plexiglasplatte mit integrierter Technologie – das elegante Premium-Geschenk für bleibende Erinnerungen.", price: "129 CHF" },
       features: {
-        tag1: "Format 6×6 cm oder 3 cm ⌀",
+        tag1: "6×6 cm oder 3 cm ⌀ Plexiglasplatte",
         tag2: "Persönliches Video direkt per Tap abspielen",
         tag3: "Minimales, zeitloses Design, fügt sich harmonisch ein",
         tag4: "Überraschung, die Emotionen weckt und lange in Erinnerung bleibt",
-        premium1: "Integrierter NFC-Tag – verbindet Bild & persönliches Überraschungsvideo",
-        premium2: "Persönliche Gestaltung mit eigenem Foto",
-        premium3: "Individuell gestaltbar – mit Widmung oder Gravur",
+        premium1: "3 cm ⌀ Plexiglasplatte – verbindet Bild & digitales Gedenken",
+        premium2: "Persönliches Video direkt per Tap abspielen",
+        premium3: "Persönliche Gestaltung mit eigenem Foto",
         premium4: "Das perfekte Geschenk für Geburtstage, Hochzeiten oder Jubiläen",
         deluxe1: "Hochwertige 12×12 cm Plexiglasplatte mit edlem Finish",
         deluxe2: "Individuelle Gestaltung mit eigenem Foto & Text",
-        deluxe3: "Integrierter NFC-Tag - verbindet persönliches Überraschungsvideo",
+        deluxe3: "Persönliches Video direkt per Tap abspielen",
         deluxe4: "Präsentation mit stilvoller Halterung"
       }
     },
