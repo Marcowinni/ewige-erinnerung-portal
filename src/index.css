@@ -127,3 +127,9 @@
     @apply absolute bottom-14 left-1/2 w-2 h-2 bg-primary rounded-full -translate-x-1/2 animate-bounce;
   }
 }
+
+/* Custom Styles für den Audio Player im Dark Mode */
+.custom-audio-player {
+  filter: invert(0.85) sepia(1) hue-rotate(180deg) saturate(3);
+  border-radius: 999px;
+}

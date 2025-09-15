@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Check } from "lucide-react";
+import { Check, Music4 } from "lucide-react";
 import PrivacyTermsNotice from "@/components/PrivacyTermsNotice";
 import {
   Carousel,
@@ -290,7 +290,7 @@ const DEFAULT_COPY: UploaderCopy = {
   },
   step3Fields: {
     imagesLabel: "Bilder (mehrfach möglich)",
-    videosLabel: "Videos (mehrfach möglich)", 
+    videosLabel: "Videos (mehrfach möglich)",  
     remove: "Entfernen"
   },
   contactFields: {
@@ -1418,57 +1418,71 @@ function Step3View(props: {
           
           {/* Local Music Selection */}
           <div className="mb-6">
-            <h4 className="text-md font-medium mb-3">Verfügbare Musik</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <h4 className="text-md font-medium text-muted-foreground mb-3">Verfügbare Musik</h4>
+            <div className="grid grid-cols-1 gap-4">
+
               {/* Ambient Piano Music */}
-              <Card className={`cursor-pointer transition-all ${form.selectedLocalMusic === "ambient-piano-music.mp3" ? "ring-2 ring-primary" : ""}`}>
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h5 className="font-medium">Ambient Piano Music</h5>
-                      <audio controls className="mt-2 w-full">
-                        <source src="/music/ambient-piano-music.mp3" type="audio/mpeg" />
-                      </audio>
-                    </div>
-                  </div>
-                  <Button
-                    size="sm"
-                    onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "ambient-piano-music.mp3" }))}
-                    variant={form.selectedLocalMusic === "ambient-piano-music.mp3" ? "default" : "outline"}
-                    className="w-full mt-3"
+              <div
+                className={`transition-all border rounded-lg p-4 flex items-center gap-4 ${
+                  form.selectedLocalMusic === "ambient-piano-music.mp3"
+                    ? "border-primary bg-primary/10"
+                    : "border-slate-700 bg-slate-800/50"
+                }`}
+              >
+                <Music4 className="w-6 h-6 text-slate-400" />
+                <div className="flex-grow">
+                   <h5 className="font-medium text-slate-100">Ambient Piano Music</h5>
+                   <audio
+                    controls
+                    controlsList="nodownload nofullscreen noplaybackrate"
+                    className="mt-2 w-full custom-audio-player"
                   >
-                    {form.selectedLocalMusic === "ambient-piano-music.mp3" ? "Ausgewählt" : "Auswählen"}
-                  </Button>
-                </CardContent>
-              </Card>
+                    <source src="/music/ambient-piano-music.mp3" type="audio/mpeg" />
+                  </audio>
+                </div>
+                <Button
+                  size="sm"
+                  onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "ambient-piano-music.mp3" }))}
+                  variant={form.selectedLocalMusic === "ambient-piano-music.mp3" ? "default" : "outline"}
+                >
+                  {form.selectedLocalMusic === "ambient-piano-music.mp3" ? "Ausgewählt" : "Auswählen"}
+                </Button>
+              </div>
 
               {/* Inspiring Piano Music */}
-              <Card className={`cursor-pointer transition-all ${form.selectedLocalMusic === "inspiring-emotional-uplifting-piano.mp3" ? "ring-2 ring-primary" : ""}`}>
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h5 className="font-medium">Inspiring Piano Music</h5>
-                      <audio controls className="mt-2 w-full">
-                        <source src="/music/inspiring-emotional-uplifting-piano.mp3" type="audio/mpeg" />
-                      </audio>
-                    </div>
-                  </div>
-                  <Button
-                    size="sm"
-                    onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "inspiring-emotional-uplifting-piano.mp3" }))}
-                    variant={form.selectedLocalMusic === "inspiring-emotional-uplifting-piano.mp3" ? "default" : "outline"}
-                    className="w-full mt-3"
+              <div
+                className={`transition-all border rounded-lg p-4 flex items-center gap-4 ${
+                  form.selectedLocalMusic === "inspiring-emotional-uplifting-piano.mp3"
+                    ? "border-primary bg-primary/10"
+                    : "border-slate-700 bg-slate-800/50"
+                }`}
+              >
+                 <Music4 className="w-6 h-6 text-slate-400" />
+                 <div className="flex-grow">
+                   <h5 className="font-medium text-slate-100">Inspiring Piano Music</h5>
+                   <audio
+                    controls
+                    controlsList="nodownload nofullscreen noplaybackrate"
+                    className="mt-2 w-full custom-audio-player"
                   >
-                    {form.selectedLocalMusic === "inspiring-emotional-uplifting-piano.mp3" ? "Ausgewählt" : "Auswählen"}
-                  </Button>
-                </CardContent>
-              </Card>
+                     <source src="/music/inspiring-emotional-uplifting-piano.mp3" type="audio/mpeg" />
+                   </audio>
+                 </div>
+                <Button
+                  size="sm"
+                  onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "inspiring-emotional-uplifting-piano.mp3" }))}
+                  variant={form.selectedLocalMusic === "inspiring-emotional-uplifting-piano.mp3" ? "default" : "outline"}
+                >
+                  {form.selectedLocalMusic === "inspiring-emotional-uplifting-piano.mp3" ? "Ausgewählt" : "Auswählen"}
+                </Button>
+              </div>
+
             </div>
           </div>
 
           {/* Pixabay Music Link */}
           <div>
-            <h4 className="text-md font-medium mb-3">Weitere Musik von Pixabay</h4>
+            <h4 className="text-md font-medium text-muted-foreground mb-3">Weitere Musik von Pixabay</h4>
             <div className="flex gap-2">
               <Input
                 type="url"
@@ -1499,6 +1513,7 @@ function Step3View(props: {
     </div>
   );
 }
+
 
 /* -------------------- Step 4 (Kontakt) -------------------- */
 function Step4ContactView(props: {
