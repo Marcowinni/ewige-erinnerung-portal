@@ -75,13 +75,6 @@ export interface UploaderCopy {
     imagesLabel: string;
     videosLabel: string;
     remove: string;
-    musicTitle: string;
-    localMusicLabel: string;
-    pixabayMusicLabel: string;
-    pixabayMusicPlaceholder: string;
-    playButton: string;
-    selectButton: string;
-    selectedLabel: string;
   };
   contactFields: {
     firstName: string;
