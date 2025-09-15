@@ -235,37 +235,37 @@ export interface AboutPageContent {
 
 export interface LegalContent {
   privacy: {
-  title: string;
-  sections: {
-    responsible: { title: string; content: string };
-    dataCollection: { title: string; content: string; list: string[] };
-    purpose: { title: string; content: string; list: string[] };
-    disclosure: { title: string; content: string; list: string[] };
-    storage: { title: string; content: string };
-    security: { title: string; content: string };
-    rights: { title: string; content: string; list: string[] };
-    cookies: { title: string; content: string };
-    changes: { title: string; content: string };
+    title: string;
+    sections: {
+      responsible: { title: string; content: string };
+      dataCollection: { title: string; content: string; list: string[] };
+      purpose: { title: string; content: string; list: string[] };
+      disclosure: { title: string; content: string; list: string[] };
+      storage: { title: string; content: string };
+      security: { title: string; content: string };
+      rights: { title: string; content: string; list: string[] };
+      cookies: { title: string; content: string };
+      changes: { title: string; content: string };
+      // HINWEIS: imageProcessing wurde aus den Typen entfernt, da es in de.ts nicht mehr vorhanden ist.
+    };
   };
-};
-
   terms: {
     title: string;
     sections: {
-      scope: { title: string; content: string };          // 1. Geltungsbereich
-      contract: { title: string; content: string };       // 2. Vertragsabschluss
-      services: { title: string; content: string };       // 3. Leistungen
-      prices: { title: string; content: string };         // 4. Preise und Zahlungsbedingungen
-      delivery: { title: string; content: string };       // 5. Lieferung und Lieferfristen
-      cancellation: { title: string; content: string };   // 6. Widerruf und Rücktrittsrecht
-      warranty: { title: string; content: string };       // 7. Gewährleistung
-      liability: { title: string; content: string };      // 7a. Haftung (separat geführt, klarer)
-      ip: { title: string; content: string };             // 8. Urheberrechte und Nutzungsrechte
-      privacy: { title: string; content: string };        // 9. Datenschutz
-      special: { title: string; content: string };        // 10. Emotionale Produkte & Hinweise
-      law: { title: string; content: string };            // 11. Gerichtsstand und anwendbares Recht
-      final: { title: string; content: string };          // 12. Schlussbestimmungen
-      contact?: { title: string; content: string };       // Optional: Kontaktblock, falls gewünscht
+      scope: { title: string; content: string };
+      contract: { title: string; content: string };
+      services: { title: string; content: string };
+      prices: { title: string; content: string };
+      delivery: { title: string; content: string };
+      cancellation: { title: string; content: string };
+      warranty: { title: string; content: string };
+      liability: { title: string; content: string };
+      ip: { title: string; content: string };
+      privacy: { title: string; content: string };
+      special: { title: string; content: string };
+      law: { title: string; content: string };
+      final: { title: string; content: string };
+      contact?: { title: string; content: string };
     };
   };
   imprint: {
@@ -289,14 +289,14 @@ export interface FooterContent {
     name: string;
     description: string;
   };
-  contactTitle: string;     // Überschrift "Kontakt"
-  linksTitle: string;       // Überschrift "Links" o.ä.
-  legal: {                  // Linktexte für Rechtliches
-    privacy: string;        // Datenschutz
-    terms: string;          // AGB
-    imprint: string;        // Impressum
+  contactTitle: string;
+  linksTitle: string;
+  legal: {
+    privacy: string;
+    terms: string;
+    imprint: string;
   };
-  copyright: string;        // z.B. "Alle Rechte vorbehalten."
+  copyright: string;
 }
 
 export interface SharedContent {
