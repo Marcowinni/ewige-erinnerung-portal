@@ -1539,6 +1539,34 @@ function Step3View(props: {
                 </Button>
               </div>
 
+              {/* Happy Music */}
+              <div
+                className={`transition-all border rounded-lg p-4 flex items-center gap-4 ${
+                  form.selectedLocalMusic === "happy-music.mp3"
+                    ? "border-primary bg-primary/10"
+                    : "border-slate-700 bg-slate-800/50"
+                }`}
+              >
+                 <Music4 className="w-6 h-6 text-slate-400" />
+                 <div className="flex-grow">
+                   <h5 className="font-medium text-slate-100">Happy Music</h5>
+                   <audio
+                    controls
+                    controlsList="nodownload nofullscreen noplaybackrate"
+                    className="mt-2 w-full custom-audio-player"
+                  >
+                     <source src="/music/happy-music.mp3" type="audio/mpeg" />
+                   </audio>
+                 </div>
+                <Button
+                  size="sm"
+                  onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "happy-music.mp3" }))}
+                  variant={form.selectedLocalMusic === "happy-music.mp3" ? "default" : "outline"}
+                >
+                  {form.selectedLocalMusic === "happy-music.mp3" ? "Ausgewählt" : "Auswählen"}
+                </Button>
+              </div>
+
             </div>
           </div>
 
