@@ -309,7 +309,7 @@ export const deContent: ContentData = {
         "Unsere Memora Moments vereinen moderne Technologie mit würdevoller Erinnerung.",
       unique: { title: "Einzigartiges Gedenken", desc: "Würdigen Sie das Leben eines geliebten Menschen mit einer bleibenden Erinnerung." },
       multimedia: { title: "Multimedia Erinnerungen", desc: "Fotos und Videos machen besondere Augenblicke wieder erlebbar." },
-      music: { title: "Lieblingslied einbinden", desc: "Musik schafft Nähe und lässt Emotionen lebendig werden." },
+      music: { title: "Hintergrundmusik einbinden", desc: "Musik schafft Nähe und lässt Emotionen lebendig werden." },
       quality: { title: "Würdevoll gestaltet", desc: "Schlichte, hochwertige Materialien, die sich harmonisch in jedes Grab oder Zuhause einfügen." }
     },
     howitworks: {
@@ -322,21 +322,21 @@ export const deContent: ContentData = {
     products: {
       title: "Unsere Memoras:",
       subtitle: "Die klassischen Memora-Produkte.",
-      basic: { title: "Memora Tag", desc: "Eine schlichte Plexiglasplatte, die Erinnerungen per Video zum Leben erweckt – dezent und unvergänglich.", price: "49 CHF" },
+      basic: { title: "Memora Tag", desc: "Eine schlichte Plexiglasplatte, die Erinnerungen per digitalem Fotoalbum zum Leben erweckt – dezent und unvergänglich.", price: "49 CHF" },
       premium: { title: "Memora Frame", desc: "Ein klassischer Bilderrahmen, verbunden mit moderner Technologie. So wird jedes Foto zum Tor zu bewegenden Erinnerungen.", price: "79 CHF" },
       deluxe: { title: "Memora Deluxe", desc: "Ein hochwertiges Kunstwerk, das die Vergangenheit lebendig hält und Zukunft berührt.", price: "129 CHF" },
       features: {
         tag1: "6×6 cm oder 3 cm ⌀ Plexiglasplatte",
-        tag2: "Persönliches Gedenkvideo direkt per Tap abspielen",
+        tag2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         tag3: "Minimales, zeitloses Design, fügt sich harmonisch ein",
         tag4: "Für Grabsteine, Urnen, Erinnerungsorte",
         premium1: "3 cm ⌀ Plexiglasplatte – verbindet Bild & digitales Gedenken",
-        premium2: "Persönliches Video direkt per Tap abspielen",
+        premium2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         premium3: "Persönliche Gestaltung mit eigenem Foto",
         premium4: "Ideal für Zuhause, Gedenkecken oder als Geschenk",
         deluxe1: "Hochwertige 12×12 cm Plexiglasplatte mit edlem Finish",
         deluxe2: "Individuelle Gestaltung mit eigenem Foto & Text",
-        deluxe3: "Persönliches Video direkt per Tap abspielen",
+        deluxe3: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         deluxe4: "Präsentation mit stilvoller Halterung"
       }
     },
@@ -360,7 +360,7 @@ export const deContent: ContentData = {
         step2ByMode: { human: "Angaben zur Person" },
         step2Subtitle: "Bitte die folgenden Felder ausfüllen. Notizen sind optional.",
         step3Title: "Bilder & Videos hochladen",
-        step3Subtitle: "Dateien werden im Formular gespeichert und später mitgesendet (nicht im LocalStorage).",
+        step3Subtitle: "Dateien werden im Formular gespeichert und später mitgesendet.",
         step4Title: "Kontaktangaben",
         step4Subtitle: "Diese Daten verwenden wir für Rückfragen und die Auftragsbestätigung.",
         step5Title: "Rechnungsangaben & Übersicht",
@@ -406,7 +406,10 @@ export const deContent: ContentData = {
       step3Fields: {
         imagesLabel: "Bilder (mehrfach möglich)",
         videosLabel: "Videos (mehrfach möglich)",
-        remove: "Entfernen"
+        remove: "Entfernen",
+        // Texte für die Beschreibungsfelder
+        imageCaptionPlaceholder: "Kurztext zum Bild (optional)",
+        videoCaptionPlaceholder: "Kurztext zum Video (optional)",
       },
       contactFields: {
         firstName: "Vorname *",
@@ -468,21 +471,21 @@ export const deContent: ContentData = {
     products: {
       title: "Haustier-Produkte",
       subtitle: "Erinnerungen für treue Begleiter.",
-      basic: { title: "Memora Pet Tag", desc: "Eine schlichte Plexiglasplatte, die mit einem Gedenkvideo Erinnerungen an Ihr Haustier zum Leben erweckt", price: "ab 49 CHF" },
-      premium: { title: "Memora Pet Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Gedenkvideo verbindet – ideal für Zuhause.", price: "89 CHF" },
+      basic: { title: "Memora Pet Tag", desc: "Eine schlichte Plexiglasplatte, die mit einem digitalen Fotoalbum Erinnerungen an Ihr Haustier zum Leben erweckt", price: "ab 49 CHF" },
+      premium: { title: "Memora Pet Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Fotoalbum verbindet – ideal für Zuhause.", price: "89 CHF" },
       deluxe: { title: "Memora Pet Deluxe", desc: "Eine exklusive Plexiglasplatte mit Halterung – für ein bleibendes, würdiges Erinnerungsstück.", price: "129 CHF" },
       features: {
         tag1: "6×6 cm oder 3 cm ⌀ Plexiglasplatte",
-        tag2: "Persönliches Video direkt per Tap abspielen",
+        tag2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         tag3: "Minimales, zeitloses Design, fügt sich harmonisch ein",
         tag4: "Option: Standard schlicht, individuell gestaltet oder als Schlüsselanhänger",
         premium1: "3 cm ⌀ Plexiglasplatte – verbindet Bild & digitales Gedenken",
-        premium2: "Persönliches Video direkt per Tap abspielen",
+        premium2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         premium3: "Persönliche Gestaltung mit eigenem Foto",
         premium4: "Ideal für Zuhause oder als Geschenk",
         deluxe1: "Hochwertige 12×12 cm Plexiglasplatte mit edlem Finish",
         deluxe2: "Individuelle Gestaltung mit eigenem Foto & Text",
-        deluxe3: "Persönliches Video direkt per Tap abspielen",
+        deluxe3: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         deluxe4: "Präsentation mit stilvoller Halterung"
       }
     },
@@ -533,7 +536,7 @@ export const deContent: ContentData = {
       subtitle: "Schlicht, würdevoll und voller Bedeutung.",
       unique: { title: "Einzigartige Überraschung", desc: "Jede Surprise erzählt eine kleine Geschichte." },
       multimedia: { title: "Multimedia-Erlebnisse", desc: "Fotos, Videos und Musik machen Ihr Geschenk lebendig und emotional." },
-      music: { title: "Musik & Botschaften", desc: "Fügen Sie ein Lieblingslied oder eine persönliche Sprachnachricht hinzu." },
+      music: { title: "Musik & Botschaften", desc: "Fügen Sie Hintergrundmusik oder eine persönliche Sprachnachricht hinzu." },
       quality: { title: "Edles Design", desc: "Minimalistisch und hochwertig – passend zu jedem Anlass und jeder Feier." }
     },
     howitworks: {
@@ -546,21 +549,21 @@ export const deContent: ContentData = {
     products: {
       title: "Surprise-Produkte",
       subtitle: "Wählen Sie Ihren Stil.",
-      basic: { title: "Memora Surprise Tag", desc: "Eine kleine Plexiglasplatte, die persönliche Überraschungsvideos zum Leben erweckt – originell und einzigartig.", price: "49 CHF" },
-      premium: { title: "Memora Surprise Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Überraschungsvideo verbindet – ideal als Geschenk.", price: "79 CHF" },
+      basic: { title: "Memora Surprise Tag", desc: "Eine kleine Plexiglasplatte, die ein digitales Fotoalbum verbindet – originell und einzigartig.", price: "49 CHF" },
+      premium: { title: "Memora Surprise Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Fotoalbum verbindet – ideal als Geschenk.", price: "79 CHF" },
       deluxe: { title: "Memora Surprise Deluxe", desc: "Eine exklusive Plexiglasplatte mit integrierter Technologie – das elegante Premium-Geschenk für bleibende Erinnerungen.", price: "129 CHF" },
       features: {
         tag1: "6×6 cm oder 3 cm ⌀ Plexiglasplatte",
-        tag2: "Persönliches Video direkt per Tap abspielen",
+        tag2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         tag3: "Minimales, zeitloses Design, fügt sich harmonisch ein",
         tag4: "Überraschung, die Emotionen weckt und lange in Erinnerung bleibt",
         premium1: "3 cm ⌀ Plexiglasplatte – verbindet Bild & digitales Gedenken",
-        premium2: "Persönliches Video direkt per Tap abspielen",
+        premium2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         premium3: "Persönliche Gestaltung mit eigenem Foto",
         premium4: "Das perfekte Geschenk für Geburtstage, Hochzeiten oder Jubiläen",
         deluxe1: "Hochwertige 12×12 cm Plexiglasplatte mit edlem Finish",
         deluxe2: "Individuelle Gestaltung mit eigenem Foto & Text",
-        deluxe3: "Persönliches Video direkt per Tap abspielen",
+        deluxe3: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         deluxe4: "Präsentation mit stilvoller Halterung"
       }
     },

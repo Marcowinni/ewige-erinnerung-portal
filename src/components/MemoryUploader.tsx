@@ -23,6 +23,13 @@ type ProductKey = "basic" | "premium" | "deluxe";
 const productKeyOrder: ProductKey[] = ["basic", "premium", "deluxe"];
 type TagFormat = "round_3cm" | "square_6cm";
 
+// NEU: MediaFile Typ, um Datei und optionale Beschreibung zu bündeln
+type MediaFile = {
+  file: File;
+  caption?: string;
+  id: string; // Eindeutige ID für die Bearbeitung und als React-Key
+};
+
 type EditorText = {
   id: string;
   text: string;
@@ -61,9 +68,10 @@ type FormState = {
   surprise_name?: string;
 
   // Uploads (werden NICHT im LocalStorage persistiert)
-  images: File[];
-  videos: File[];
-  
+  // GEÄNDERT: von File[] zu MediaFile[]
+  images: MediaFile[];
+  videos: MediaFile[];
+
   // NEW: Music selection
   selectedLocalMusic?: string; // filename from public/music
   pixabayMusicLink?: string; // URL from Pixabay
@@ -175,6 +183,9 @@ type UploaderCopy = {
     audiosLabel?: string;
     audiosLinksLabel?: string;
     remove: string;
+    // NEU: Platzhalter für Beschreibungen
+    imageCaptionPlaceholder: string;
+    videoCaptionPlaceholder: string;
   };
   contactFields: {
     firstName: string;
@@ -290,8 +301,11 @@ const DEFAULT_COPY: UploaderCopy = {
   },
   step3Fields: {
     imagesLabel: "Bilder (mehrfach möglich)",
-    videosLabel: "Videos (mehrfach möglich)",  
-    remove: "Entfernen"
+    videosLabel: "Videos (mehrfach möglich)",
+    remove: "Entfernen",
+    // Texte für die Beschreibungsfelder
+    imageCaptionPlaceholder: "Beschreibung für digitales Album (optional)",
+    videoCaptionPlaceholder: "Beschreibung für digitales Album (optional)",
   },
   contactFields: {
     firstName: "Vorname *",
@@ -1345,16 +1359,43 @@ function Step3View(props: {
   const { form, setForm, onBack, onNext, copy } = props;
 
   const addImages = (files: FileList | null) => {
-    if (files) setForm((s) => ({ ...s, images: [...s.images, ...Array.from(files)] }));
+    if (files) {
+      const newMediaFiles: MediaFile[] = Array.from(files).map(f => ({
+        file: f,
+        caption: "",
+        id: crypto.randomUUID(),
+      }));
+      setForm((s) => ({ ...s, images: [...s.images, ...newMediaFiles] }));
+    }
   };
   const addVideos = (files: FileList | null) => {
-    if (files) setForm((s) => ({ ...s, videos: [...s.videos, ...Array.from(files)] }));
+    if (files) {
+      const newMediaFiles: MediaFile[] = Array.from(files).map(f => ({
+        file: f,
+        caption: "",
+        id: crypto.randomUUID(),
+      }));
+      setForm((s) => ({ ...s, videos: [...s.videos, ...newMediaFiles] }));
+    }
   };
-  const removeImage = (i: number) => setForm((s) => ({ ...s, images: s.images.filter((_, idx) => idx !== i) }));
-  const removeVideo = (i: number) => setForm((s) => ({ ...s, videos: s.videos.filter((_, idx) => idx !== i) }));
+  const removeImage = (id: string) => setForm((s) => ({ ...s, images: s.images.filter(img => img.id !== id) }));
+  const removeVideo = (id: string) => setForm((s) => ({ ...s, videos: s.videos.filter(vid => vid.id !== id) }));
+
+  const handleImageCaptionChange = (id: string, text: string) => {
+    setForm(s => ({
+      ...s,
+      images: s.images.map(img => img.id === id ? { ...img, caption: text } : img),
+    }));
+  };
+
+  const handleVideoCaptionChange = (id: string, text: string) => {
+    setForm(s => ({
+      ...s,
+      videos: s.videos.map(vid => vid.id === id ? { ...vid, caption: text } : vid),
+    }));
+  };
 
   const hasAnyUpload = form.images.length > 0 || form.videos.length > 0;
-
 
   return (
     <div>
@@ -1367,20 +1408,27 @@ function Step3View(props: {
           <Label htmlFor="images">{copy.step3Fields.imagesLabel}</Label>
           <Input id="images" type="file" accept="image/*" multiple onChange={(e) => addImages(e.target.files)} />
           {form.images.length > 0 && (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
-              {form.images.map((f, idx) => {
-                const url = URL.createObjectURL(f);
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+              {form.images.map((mediaFile) => {
+                const url = URL.createObjectURL(mediaFile.file);
                 return (
-                  <div key={idx} className="relative">
-                    <img src={url} alt={f.name} className="w-full h-32 object-cover rounded-md border" />
+                  <div key={mediaFile.id} className="relative space-y-2">
+                    <img src={url} alt={mediaFile.file.name} className="w-full h-32 object-cover rounded-md border" />
                     <Button
                       size="sm"
-                      variant="outline"
-                      className="absolute top-2 right-2"
-                      onClick={() => removeImage(idx)}
+                      variant="destructive"
+                      className="absolute top-2 right-2 h-7 w-auto px-2 py-1 text-xs"
+                      onClick={() => removeImage(mediaFile.id)}
                     >
                       {copy.step3Fields.remove}
                     </Button>
+                    <Input
+                      type="text"
+                      placeholder={copy.step3Fields.imageCaptionPlaceholder}
+                      value={mediaFile.caption ?? ""}
+                      onChange={(e) => handleImageCaptionChange(mediaFile.id, e.target.value)}
+                      className="h-9 text-xs"
+                    />
                   </div>
                 );
               })}
@@ -1393,18 +1441,32 @@ function Step3View(props: {
           <Label htmlFor="videos">{copy.step3Fields.videosLabel}</Label>
           <Input id="videos" type="file" accept="video/*" multiple onChange={(e) => addVideos(e.target.files)} />
           {form.videos.length > 0 && (
-            <div className="space-y-3 mt-4">
-              {form.videos.map((f, idx) => {
-                const url = URL.createObjectURL(f);
+            <div className="space-y-4 mt-4">
+              {form.videos.map((mediaFile) => {
+                const url = URL.createObjectURL(mediaFile.file);
                 return (
-                  <div key={idx} className="relative border rounded-md p-2">
-                    <video src={url} className="w-full rounded" controls />
-                    <div className="flex justify-between items-center mt-2">
-                      <span className="text-sm text-muted-foreground truncate">{f.name}</span>
-                      <Button size="sm" variant="outline" onClick={() => removeVideo(idx)}>
+                  <div key={mediaFile.id} className="relative border rounded-md p-3 space-y-2">
+                    <div className="relative">
+                      <video src={url} className="w-full rounded" controls />
+                       <Button
+                        size="sm"
+                        variant="destructive"
+                        className="absolute top-2 right-2 h-7 w-auto px-2 py-1 text-xs"
+                        onClick={() => removeVideo(mediaFile.id)}
+                      >
                         {copy.step3Fields.remove}
                       </Button>
                     </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground truncate flex-1">{mediaFile.file.name}</span>
+                    </div>
+                    <Input
+                      type="text"
+                      placeholder={copy.step3Fields.videoCaptionPlaceholder}
+                      value={mediaFile.caption ?? ""}
+                      onChange={(e) => handleVideoCaptionChange(mediaFile.id, e.target.value)}
+                      className="h-9 text-xs"
+                    />
                   </div>
                 );
               })}
@@ -1895,7 +1957,7 @@ const MemoryUploader = () => {
     clearPersisted();
     setStep(1);
     setSelected(null);
-    setForm({ images: [], videos: [], invoice_sameAsContact: true });
+    setForm({ images: [], videos: [], invoice_sameAsContact: true, frame_orientation: 'portrait', tag_format: 'round_3cm' });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -1921,7 +1983,7 @@ const MemoryUploader = () => {
         <Step4ContactView
           form={form}
           setForm={setForm}
-          onBack={backFromStep3}
+          onBack={backFromStep4} // Korrigiert
           onNext={() => {
             setForm((s) =>
               s.invoice_sameAsContact
