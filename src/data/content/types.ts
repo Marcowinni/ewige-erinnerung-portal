@@ -75,6 +75,8 @@ export interface UploaderCopy {
     imagesLabel: string;
     videosLabel: string;
     remove: string;
+    imageCaptionPlaceholder: string;
+    videoCaptionPlaceholder: string;
   };
   contactFields: {
     firstName: string;
