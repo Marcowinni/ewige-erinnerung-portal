@@ -13,7 +13,6 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
 
-  // Holt die Texte aus den Sprachdateien (shared Bereich)
   const { sharedContent } = useContent();
   const nav = sharedContent.navigation;
 
@@ -23,7 +22,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Body-Scroll sperren, wenn das Overlay offen ist
   useEffect(() => {
     if (isMenuOpen) {
       const prev = document.body.style.overflow;
@@ -34,7 +32,6 @@ const Navbar = () => {
     }
   }, [isMenuOpen]);
 
-  // Schließen per Escape
   const onKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape") setIsMenuOpen(false);
   }, []);
@@ -54,15 +51,15 @@ const Navbar = () => {
       role="navigation"
       aria-label="Hauptnavigation"
     >
-      <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
+      <div className="container mx-auto px-4 md:px-6 flex items-center justify-between gap-2">
         <Link
           to="/"
-          className="flex items-center gap-2 text-primary hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 text-primary hover:opacity-90 transition-opacity flex-shrink-0"
           onClick={closeMenu}
         >
           <MemoraLogo className="w-8 h-8 flex-shrink-0 align-middle" />
           <span
-            className="font-serif text-xl font-medium leading-none align-middle relative"
+            className="font-serif text-lg sm:text-xl font-medium leading-none align-middle relative"
             style={{ top: "2px" }}
           >
             {nav.home}
@@ -71,9 +68,8 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-4">
-          <PetModeToggle />
+          <PetModeToggle size="sm" />
           <LanguageSwitcher />
-
           <Link to="/gedenken" className="text-foreground hover:text-primary transition-colors">
             {nav.gedenken}
           </Link>
@@ -83,7 +79,6 @@ const Navbar = () => {
           <Link to="/kontakt" className="text-foreground hover:text-primary transition-colors">
             {nav.contact}
           </Link>
-
           <Button
             variant="outline"
             size="icon"
@@ -93,19 +88,19 @@ const Navbar = () => {
           >
             {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
-
           <Button asChild className="bg-primary text-primary-foreground">
             <Link to="/gedenken?product=premium">{nav.start}</Link>
           </Button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="flex items-center md:hidden space-x-2">
-          <PetModeToggle />
+        {/* Mobile Right-Side Controls */}
+        <div className="flex items-center md:hidden space-x-1.5">
+          <PetModeToggle size="icon" />
           <LanguageSwitcher />
           <Button
             variant="outline"
             size="icon"
+            className="h-9 w-9"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             aria-label="Theme"
             title="Theme"
@@ -115,6 +110,7 @@ const Navbar = () => {
           <Button
             variant="ghost"
             size="icon"
+            className="h-9 w-9"
             onClick={() => setIsMenuOpen((v) => !v)}
             aria-label="Menu"
             aria-expanded={isMenuOpen}
@@ -125,7 +121,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu – FIX: als FULLSCREEN OVERLAY, nicht als absolute Box unter dem Header */}
+      {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div
           id="mobile-menu"
@@ -133,13 +129,11 @@ const Navbar = () => {
           role="dialog"
           aria-modal="true"
         >
-          {/* Dimmer */}
           <div
             className="absolute inset-0 bg-black/50"
             onClick={closeMenu}
             aria-hidden
           />
-          {/* Panel */}
           <div className="absolute left-0 top-0 h-full w-80 max-w-[85vw] bg-background/95 backdrop-blur-md shadow-xl border-r">
             <div className="p-4 flex items-center justify-between border-b">
               <span className="font-serif text-lg">{nav.home}</span>
@@ -147,7 +141,6 @@ const Navbar = () => {
                 <X className="h-6 w-6" />
               </Button>
             </div>
-
             <nav className="p-4 flex flex-col space-y-2">
               <Link
                 to="/"
@@ -177,7 +170,6 @@ const Navbar = () => {
               >
                 {nav.contact}
               </Link>
-
               <Button asChild className="bg-primary text-primary-foreground w-full mt-4" onClick={closeMenu}>
                 <Link to="/gedenken?product=premium">{nav.start}</Link>
               </Button>

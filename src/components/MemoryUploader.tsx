@@ -1567,6 +1567,90 @@ function Step3View(props: {
                 </Button>
               </div>
 
+              {/* Modern Classical Music */}
+              <div
+                className={`transition-all border rounded-lg p-4 flex items-center gap-4 ${
+                  form.selectedLocalMusic === "calm-classical-piano.mp3"
+                    ? "border-primary bg-primary/10"
+                    : "border-slate-700 bg-slate-800/50"
+                }`}
+              >
+                 <Music4 className="w-6 h-6 text-slate-400" />
+                 <div className="flex-grow">
+                   <h5 className="font-medium text-slate-100">Modern Classical Music</h5>
+                   <audio
+                    controls
+                    controlsList="nodownload nofullscreen noplaybackrate"
+                    className="mt-2 w-full custom-audio-player"
+                  >
+                     <source src="/music/calm-classical-piano.mp3" type="audio/mpeg" />
+                   </audio>
+                 </div>
+                <Button
+                  size="sm"
+                  onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "calm-classical-piano.mp3" }))}
+                  variant={form.selectedLocalMusic === "calm-classical-piano.mp3" ? "default" : "outline"}
+                >
+                  {form.selectedLocalMusic === "calm-classical-piano.mp3" ? "Ausgewählt" : "Auswählen"}
+                </Button>
+              </div>
+
+              {/* Relaxed Music */}
+              <div
+                className={`transition-all border rounded-lg p-4 flex items-center gap-4 ${
+                  form.selectedLocalMusic === "relaxed-music.mp3"
+                    ? "border-primary bg-primary/10"
+                    : "border-slate-700 bg-slate-800/50"
+                }`}
+              >
+                 <Music4 className="w-6 h-6 text-slate-400" />
+                 <div className="flex-grow">
+                   <h5 className="font-medium text-slate-100">Relaxed Music</h5>
+                   <audio
+                    controls
+                    controlsList="nodownload nofullscreen noplaybackrate"
+                    className="mt-2 w-full custom-audio-player"
+                  >
+                     <source src="/music/relaxed-music.mp3" type="audio/mpeg" />
+                   </audio>
+                 </div>
+                <Button
+                  size="sm"
+                  onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "relaxed-music.mp3" }))}
+                  variant={form.selectedLocalMusic === "relaxed-music.mp3" ? "default" : "outline"}
+                >
+                  {form.selectedLocalMusic === "relaxed-music.mp3" ? "Ausgewählt" : "Auswählen"}
+                </Button>
+              </div>
+
+              {/* Soft Calm Music */}
+              <div
+                className={`transition-all border rounded-lg p-4 flex items-center gap-4 ${
+                  form.selectedLocalMusic === "soft-calm-music.mp3"
+                    ? "border-primary bg-primary/10"
+                    : "border-slate-700 bg-slate-800/50"
+                }`}
+              >
+                 <Music4 className="w-6 h-6 text-slate-400" />
+                 <div className="flex-grow">
+                   <h5 className="font-medium text-slate-100">Soft Calm Music</h5>
+                   <audio
+                    controls
+                    controlsList="nodownload nofullscreen noplaybackrate"
+                    className="mt-2 w-full custom-audio-player"
+                  >
+                     <source src="/music/soft-calm-music.mp3" type="audio/mpeg" />
+                   </audio>
+                 </div>
+                <Button
+                  size="sm"
+                  onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "soft-calm-music.mp3" }))}
+                  variant={form.selectedLocalMusic === "soft-calm-music.mp3" ? "default" : "outline"}
+                >
+                  {form.selectedLocalMusic === "soft-calm-music.mp3" ? "Ausgewählt" : "Auswählen"}
+                </Button>
+              </div>
+
             </div>
           </div>
 
