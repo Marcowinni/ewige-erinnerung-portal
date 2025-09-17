@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
+import { Button, type ButtonProps } from "@/components/ui/button";
 import { useContent } from "@/contexts/ContentContext";
 import { Heart, PawPrint, Sparkles } from "lucide-react";
 
-const PetModeToggle = () => {
+const PetModeToggle = ({ size = "sm" }: { size?: ButtonProps["size"] }) => {
   const { mode, setMode, sharedContent } = useContent();
 
   const cycleMode = () => {
@@ -40,7 +40,7 @@ const PetModeToggle = () => {
     <Button
       onClick={cycleMode}
       variant="outline"
-      size="sm"
+      size={size}
       className="gap-2"
       aria-label="Modus wechseln"
       title="Modus wechseln"

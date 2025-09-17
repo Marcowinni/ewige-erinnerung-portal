@@ -1,6 +1,12 @@
 import { useContent } from '@/contexts/ContentContext';
 import { Language } from '@/data/content';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const LanguageSwitcher = () => {
   const { language, setLanguage } = useContent();
@@ -12,21 +18,29 @@ const LanguageSwitcher = () => {
     { code: 'it' as Language, flag: '🇮🇹', name: 'Italiano' },
   ];
 
+  const currentLang = languages.find((lang) => lang.code === language) || languages[0];
+
   return (
-    <div className="flex gap-1">
-      {languages.map((lang) => (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
         <Button
-          key={lang.code}
-          variant={language === lang.code ? "default" : "ghost"}
-          size="sm"
-          onClick={() => setLanguage(lang.code)}
-          className="text-xs px-2 py-1 h-8"
-          title={lang.name}
+          variant="outline"
+          className="h-9 w-9 p-0"
+          aria-label="Sprache auswählen"
+          title={`Sprache: ${currentLang.name}`}
         >
-          <span className="text-sm">{lang.flag}</span>
+          <span className="font-semibold uppercase text-xs">{currentLang.code}</span>
         </Button>
-      ))}
-    </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="min-w-0">
+        {languages.map((lang) => (
+          <DropdownMenuItem key={lang.code} onSelect={() => setLanguage(lang.code)} className="gap-2">
+            <span className="text-base">{lang.flag}</span>
+            <span>{lang.name}</span>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
