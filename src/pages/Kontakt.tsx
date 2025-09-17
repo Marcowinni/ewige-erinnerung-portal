@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from '@emailjs/browser';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DarkModeToggle from "@/components/DarkModeToggle";
@@ -6,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Send, Mail, Phone } from "lucide-react";
+import { Send, Mail, Phone, Loader2 } from "lucide-react";
 import { useContent } from "@/contexts/ContentContext";
 
 const Kontakt = () => {
@@ -18,6 +19,8 @@ const Kontakt = () => {
     subject: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -28,9 +31,26 @@ const Kontakt = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    setFormData({ name: "", email: "", subject: "", message: "" });
-    alert(t("contact.form.success"));
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    // DEINE EMAILJS DATEN SIND HIER EINGETRAGEN
+    const serviceId = "service_ayz3kyy";
+    const templateId = "template_d1val3k";
+    const userId = "TnMHahiII8VciyTUd";
+
+    emailjs.send(serviceId, templateId, formData, userId)
+      .then((response) => {
+        console.log("SUCCESS!", response.status, response.text);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setSubmitStatus('success');
+      }, (err) => {
+        console.error("FAILED...", err);
+        setSubmitStatus('error');
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -58,8 +78,6 @@ const Kontakt = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-lg">{t("contact.email")}</h3>
-                      {/* Falls du Adresse auch im Content pflegen willst:
-                          Füge z.B. contact.emailAddress in den Content ein und nutze ihn hier */}
                       <p className="text-muted-foreground">
                         info.memora.moments@gmail.com
                       </p>
@@ -72,7 +90,6 @@ const Kontakt = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-lg">{t("contact.phone")}</h3>
-                      {/* Ebenso optional contact.phoneNumber in den Content legen */}
                       <p className="text-muted-foreground">+41 79 407 56 99</p>
                     </div>
                   </div>
@@ -143,9 +160,16 @@ const Kontakt = () => {
                     />
                   </div>
 
-                  <Button type="submit" className="w-full">
-                    <Send className="mr-2 h-4 w-4" /> {t("contact.form.submit")}
+                  <Button type="submit" className="w-full" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <Send className="mr-2 h-4 w-4" />
+                    )}
+                    {t("contact.form.submit")}
                   </Button>
+                   {submitStatus === 'success' && <p className="text-sm text-green-600">{t("contact.form.success")}</p>}
+                   {submitStatus === 'error' && <p className="text-sm text-red-600">Fehler beim Senden. Bitte versuchen Sie es später erneut.</p>}
                 </form>
               </div>
             </div>
