@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Check, Music4 } from "lucide-react";
+import { Check, Music4, Play, Pause } from "lucide-react";
 import PrivacyTermsNotice from "@/components/PrivacyTermsNotice";
 import {
   Carousel,
@@ -416,6 +416,7 @@ function DesignEditor({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
+  const editorContainerRef = useRef<HTMLDivElement>(null);
 
   const onChangeRef = useRef(onChange);
   useEffect(() => {
@@ -440,12 +441,11 @@ function DesignEditor({
     origY: number;
   } | null>(null);
 
-  // Globales Dragging für Text (Pointer Events)
   useEffect(() => {
     const handleMove = (e: PointerEvent | MouseEvent) => {
       if (!dragText) return;
       const rect = overlayRef.current?.getBoundingClientRect();
-      if (!rect) return;
+      if (!rect || rect.width === 0) return;
       const dx = (e.clientX - dragText.startX) / rect.width;
       const dy = (e.clientY - dragText.startY) / rect.height;
       const nx = Math.min(0.98, Math.max(0.02, dragText.origX + dx));
@@ -455,9 +455,7 @@ function DesignEditor({
         texts: s.texts.map((t) => (t.id === dragText.id ? { ...t, x: nx, y: ny } : t)),
       }));
     };
-
     const handleUp = () => setDragText(null);
-
     window.addEventListener("pointermove", handleMove);
     window.addEventListener("pointerup", handleUp);
     window.addEventListener("pointercancel", handleUp);
@@ -466,9 +464,8 @@ function DesignEditor({
       window.removeEventListener("pointerup", handleUp);
       window.removeEventListener("pointercancel", handleUp);
     };
-  }, [dragText, setLocal]);
+  }, [dragText]);
 
-  // --- Interaktion: Zoom & Pan (Maus/Touch) ---
   const ZOOM_MIN = 0.5;
   const ZOOM_MAX = 3;
 
@@ -485,42 +482,51 @@ function DesignEditor({
       const oldScale = s.scale;
       const newScale = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, oldScale * scaleFactor));
       const k = newScale / oldScale - 1;
+      const canvasW = rect.width;
+      const canvasH = rect.height;
       return {
         ...s,
         scale: newScale,
-        offsetX: s.offsetX - (cx - W / 2) * k,
-        offsetY: s.offsetY - (cy - H / 2) * k,
+        offsetX: s.offsetX - (cx - canvasW / 2) * k,
+        offsetY: s.offsetY - (cy - canvasH / 2) * k,
       };
     });
   };
 
-  const onWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
-    e.preventDefault();
-    const factor = e.deltaY < 0 ? 1.08 : 1 / 1.08;
-    zoomAt(e.clientX, e.clientY, factor);
-  };
 
-  // Pointer/Touch: Pan + Pinch
+  useEffect(() => {
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault(); // Das ist jetzt erlaubt
+      const factor = e.deltaY < 0 ? 1.08 : 1 / 1.08;
+      zoomAt(e.clientX, e.clientY, factor);
+    };
+
+    const editorDiv = editorContainerRef.current;
+    // Hier sagen wir dem Browser, dass der Listener NICHT passiv ist
+    editorDiv?.addEventListener('wheel', onWheel, { passive: false });
+
+    return () => {
+      editorDiv?.removeEventListener('wheel', onWheel);
+    };
+  }, []); // Leeres Array, da die Funktion nur einmal registriert werden muss
+
   const pointers = useRef<Map<number, { x: number; y: number }>>(new Map());
   const lastPinch = useRef<{ dist: number; midX: number; midY: number } | null>(null);
 
-  const onPointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-
     if (pointers.current.size === 1) {
       setDragImg({ x: e.clientX, y: e.clientY });
     } else if (pointers.current.size === 2) {
       const [a, b] = Array.from(pointers.current.values());
-      const dx = a.x - b.x,
-        dy = a.y - b.y;
+      const dx = a.x - b.x, dy = a.y - b.y;
       lastPinch.current = { dist: Math.hypot(dx, dy), midX: (a.x + b.x) / 2, midY: (a.y + b.y) / 2 };
     }
   };
-
-  const onPointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!pointers.current.has(e.pointerId)) return;
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-
     if (pointers.current.size === 1 && dragImg) {
       const p = pointers.current.get(e.pointerId)!;
       const dx = p.x - dragImg.x;
@@ -529,28 +535,52 @@ function DesignEditor({
       setLocal((s) => ({ ...s, offsetX: s.offsetX + dx, offsetY: s.offsetY + dy }));
     } else if (pointers.current.size === 2 && lastPinch.current) {
       const [a, b] = Array.from(pointers.current.values());
-      const dx = a.x - b.x,
-        dy = a.y - b.y;
+      const dx = a.x - b.x, dy = a.y - b.y;
       const dist = Math.hypot(dx, dy);
       const factor = dist / lastPinch.current.dist;
       zoomAt(lastPinch.current.midX, lastPinch.current.midY, factor);
-      const midX = (a.x + b.x) / 2,
-        midY = (a.y + b.y) / 2;
+      const midX = (a.x + b.x) / 2, midY = (a.y + b.y) / 2;
       lastPinch.current = { dist, midX, midY };
     }
   };
-
-  const onPointerUpOrCancel = (e: React.PointerEvent<HTMLCanvasElement>) => {
+  const onPointerUpOrCancel = (e: React.PointerEvent<HTMLDivElement>) => {
     pointers.current.delete(e.pointerId);
     setDragImg(null);
     if (pointers.current.size < 2) lastPinch.current = null;
   };
 
-  useEffect(() => {
-    onChangeRef.current(local);
-  }, [local]);
+  useEffect(() => { onChangeRef.current(local); }, [local]);
+  
+  const draw = (renderTexts: boolean) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.clearRect(0, 0, W, H);
+    applyClip(ctx, W, H);
+    if (imgRef.current) {
+      const img = imgRef.current;
+      const scaledW = img.width * local.scale;
+      const scaledH = img.height * local.scale;
+      const x = -scaledW / 2 + W / 2 + local.offsetX;
+      const y = -scaledH / 2 + H / 2 + local.offsetY;
+      ctx.drawImage(img, x, y, scaledW, scaledH);
+    } else {
+      ctx.fillStyle = "rgba(148, 163, 184, 0.15)";
+      ctx.fillRect(0, 0, W, H);
+    }
+    if (renderTexts) {
+      local.texts.forEach(t => {
+        ctx.fillStyle = t.color || "#ffffff";
+        ctx.font = `${t.fontSize || 24}px ${t.fontFamily || "system-ui, Arial"}`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        wrapText(ctx, t.text || "", t.x * W, t.y * H, W * 0.9, t.fontSize || 24);
+      });
+    }
+    ctx.restore();
+  };
 
-  // Bild laden
   useEffect(() => {
     if (!local.bgImageUrl) {
       imgRef.current = null;
@@ -559,378 +589,194 @@ function DesignEditor({
     }
     const img = new Image();
     img.crossOrigin = "anonymous";
-    img.onload = () => {
-      imgRef.current = img;
-      draw(false);
-    };
+    img.onload = () => { imgRef.current = img; draw(false); };
     img.src = local.bgImageUrl;
+    return () => { if(local.bgImageUrl?.startsWith("blob:")) URL.revokeObjectURL(local.bgImageUrl); };
   }, [local.bgImageUrl]);
 
-  // neu zeichnen
-  useEffect(() => {
-    draw(false);
-  }, [local.scale, local.offsetX, local.offsetY, local.texts]);
+  useEffect(() => { draw(false); }, [local.scale, local.offsetX, local.offsetY, local.texts]);
 
-  // Clip-Path
-  const applyClip = (ctx: CanvasRenderingContext2D) => {
+  const applyClip = (ctx: CanvasRenderingContext2D, w: number, h: number) => {
     ctx.save();
     if (shape === "circle") {
-      const r = Math.min(W, H) / 2 - 2;
+      const r = Math.min(w, h) / 2 - 1; // 1px border
       ctx.beginPath();
-      ctx.arc(W / 2, H / 2, r, 0, Math.PI * 2);
+      ctx.arc(w / 2, h / 2, r, 0, Math.PI * 2);
       ctx.clip();
     } else {
-      const r = cornerRadius;
+      const r = cornerRadius * (w / W);
       ctx.beginPath();
-      roundedRectPath(ctx, 1, 1, W - 2, H - 2, r);
+      const rr = Math.min(r, w / 2, h / 2);
+      ctx.moveTo(rr, 0);
+      ctx.arcTo(w, 0, w, h, rr);
+      ctx.arcTo(w, h, 0, h, rr);
+      ctx.arcTo(0, h, 0, 0, rr);
+      ctx.arcTo(0, 0, w, 0, rr);
+      ctx.closePath();
       ctx.clip();
     }
   };
 
-  function roundedRectPath(
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    w: number,
-    h: number,
-    r: number
-  ) {
-    const rr = Math.min(r, w / 2, h / 2);
-    ctx.moveTo(x + rr, y);
-    ctx.arcTo(x + w, y, x + w, y + h, rr);
-    ctx.arcTo(x + w, y + h, x, y + h, rr);
-    ctx.arcTo(x, y + h, x, y, rr);
-    ctx.arcTo(x, y, x + w, y, rr);
-    ctx.closePath();
-  }
-
-  // Zeichnen
-  const draw = (renderTexts: boolean = false) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const Wc = W, Hc = H;
-    ctx.clearRect(0, 0, Wc, Hc);
-    applyClip(ctx);
-
-    if (imgRef.current) {
-      const img = imgRef.current;
-      const scaledW = img.width * local.scale;
-      const scaledH = img.height * local.scale;
-      const x = -scaledW / 2 + Wc / 2 + local.offsetX;
-      const y = -scaledH / 2 + Hc / 2 + local.offsetY;
-      ctx.drawImage(img, x, y, scaledW, scaledH);
-    } else {
-      ctx.fillStyle = "rgba(148, 163, 184, 0.15)";
-      ctx.fillRect(0, 0, Wc, Hc);
-    }
-
-    if (renderTexts) {
-      for (const t of local.texts) {
-        ctx.fillStyle = t.color || "#ffffff";
-        ctx.font = `${t.fontSize || 24}px ${t.fontFamily || "system-ui, Arial"}`;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        const tx = t.x * Wc;
-        const ty = t.y * Hc;
-        wrapText(ctx, t.text || "", tx, ty, Wc * 0.9, t.fontSize || 24);
-      }
-    }
-
-    ctx.restore();
-  };
-
-  function wrapText(
-    ctx: CanvasRenderingContext2D,
-    text: string,
-    x: number,
-    y: number,
-    maxWidth: number,
-    lineHeight: number
-  ) {
+  const wrapText = (ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number) => {
     const words = text.split(" ");
-    const lines: string[] = [];
-    let cur = "";
-    for (const w of words) {
-      const test = cur ? cur + " " + w : w;
-      if (ctx.measureText(test).width < maxWidth) cur = test;
-      else {
-        lines.push(cur);
-        cur = w;
-      }
+    let lines: string[] = [];
+    let currentLine = words[0] || '';
+    for (let i = 1; i < words.length; i++) {
+        let word = words[i];
+        let width = ctx.measureText(currentLine + " " + word).width;
+        if (width < maxWidth) {
+            currentLine += " " + word;
+        } else {
+            lines.push(currentLine);
+            currentLine = word;
+        }
     }
-    if (cur) lines.push(cur);
+    lines.push(currentLine);
     const startY = y - ((lines.length - 1) * lineHeight) / 2;
-    lines.forEach((ln, i) => ctx.fillText(ln, x, startY + i * lineHeight));
-  }
+    lines.forEach((line, i) => ctx.fillText(line, x, startY + i * lineHeight));
+  };
 
   const onUpload = (files: FileList | null) => {
-    if (!files || !files[0]) return;
-    const url = URL.createObjectURL(files[0]);
-    setLocal((s) => ({ ...s, bgImageUrl: url }));
+    if (files && files[0]) {
+      if (local.bgImageUrl && local.bgImageUrl.startsWith("blob:")) URL.revokeObjectURL(local.bgImageUrl);
+      const url = URL.createObjectURL(files[0]);
+      setLocal((s) => ({ ...s, bgImageUrl: url }));
+    }
   };
 
-  // Texte
   const addText = () => {
     const id = crypto.randomUUID();
     const t: EditorText = {
-      id,
-      text: "Text",
-      x: 0.5,
-      y: 0.5,
-      fontFamily:
-        "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Noto Sans', 'Liberation Sans', sans-serif",
-      fontSize: 28,
-      color: "#ffffff",
+      id, text: "Neuer Text", x: 0.5, y: 0.5,
+      fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Noto Sans', 'Liberation Sans', sans-serif",
+      fontSize: 28, color: "#ffffff",
     };
     setLocal((s) => ({ ...s, texts: [...s.texts, t] }));
     setActiveTextId(id);
   };
   const selectText = (id: string) => setActiveTextId(id);
-  const updateActiveText = (patch: Partial<EditorText>) => {
-    setLocal((s) => ({
-      ...s,
-      texts: s.texts.map((t) => (t.id === activeTextId ? { ...t, ...patch } : t)),
-    }));
-  };
+  const updateActiveText = (patch: Partial<EditorText>) => setLocal((s) => ({
+    ...s,
+    texts: s.texts.map((t) => (t.id === activeTextId ? { ...t, ...patch } : t)),
+  }));
   const removeActiveText = () => {
-    if (!activeTextId) return;
-    setLocal((s) => ({ ...s, texts: s.texts.filter((t) => t.id !== activeTextId) }));
-    setActiveTextId(null);
+    if (activeTextId) {
+      setLocal((s) => ({ ...s, texts: s.texts.filter((t) => t.id !== activeTextId) }));
+      setActiveTextId(null);
+    }
   };
 
-  const onMouseDownText = (e: React.MouseEvent<HTMLDivElement>, id: string) => {
+  const onMouseDownText = (e: React.PointerEvent<HTMLDivElement>, id: string) => {
     e.stopPropagation();
     const rect = overlayRef.current?.getBoundingClientRect();
     if (!rect) return;
     const t = local.texts.find((x) => x.id === id)!;
-    setDragText({
-      id,
-      startX: e.clientX,
-      startY: e.clientY,
-      origX: t.x,
-      origY: t.y,
-    });
+    setDragText({ id, startX: e.clientX, startY: e.clientY, origX: t.x, origY: t.y });
     setActiveTextId(id);
   };
 
   const exportPng = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const canvas = document.createElement('canvas');
+    canvas.width = W;
+    canvas.height = H;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
     draw(true);
-    const png = canvas.toDataURL("image/png", 1.0);
+    const png = canvasRef.current?.toDataURL("image/png", 1.0);
     draw(false);
     setLocal((s) => ({ ...s, previewDataUrl: png }));
   };
 
   const activeText = local.texts.find((t) => t.id === activeTextId) || null;
-
-  const containerClass =
-    shape === "circle" ? "rounded-full overflow-hidden" : "rounded-xl overflow-hidden";
-
-  // erweiterte Schriftarten-Auswahl
-  const FONT_OPTIONS: { label: string; value: string }[] = [
+  const FONT_OPTIONS = [
     { label: "System / Arial", value: "system-ui, Arial, Helvetica, sans-serif" },
-    { label: "Helvetica", value: "Helvetica, Arial, sans-serif" },
-    { label: "Verdana", value: "Verdana, Geneva, Tahoma, sans-serif" },
-    { label: "Tahoma", value: "Tahoma, Geneva, sans-serif" },
-    { label: "Trebuchet", value: "'Trebuchet MS', Helvetica, sans-serif" },
-    { label: "Georgia", value: "Georgia, serif" },
     { label: "Times New Roman", value: "'Times New Roman', Times, serif" },
-    { label: "Garamond", value: "Garamond, 'Apple Garamond', Baskerville, serif" },
-    { label: "Palatino", value: "'Palatino Linotype', Palatino, serif" },
-    { label: "Courier", value: "'Courier New', Courier, monospace" },
-    { label: "Lucida Sans", value: "'Lucida Sans Unicode', 'Lucida Grande', sans-serif" },
-    { label: "Montserrat (Fallback)", value: "Montserrat, system-ui, Arial, sans-serif" },
-    { label: "Playfair (Fallback)", value: "'Playfair Display', Georgia, serif" },
-    { label: "Lora (Fallback)", value: "Lora, Georgia, serif" },
-    { label: "Merriweather (Fallback)", value: "Merriweather, Georgia, serif" },
+    { label: "Georgia", value: "Georgia, serif" },
+    { label: "Playfair Display", value: "'Playfair Display', serif" },
+    { label: "Lora", value: "Lora, serif" },
+    { label: "Courier New", value: "'Courier New', Courier, monospace" },
   ];
 
   return (
     <div className="space-y-4">
       <div className="flex flex-col md:flex-row gap-6">
-        {/* Linke Spalte: Tipp + Canvas */}
-        <div className="relative">
-          {/* NEU: Tipp direkt über dem Bild */}
-          {tip && <p className="text-xs text-muted-foreground mb-2">{tip}</p>}
-
-          {(() => {
-            const isEmpty = !local.bgImageUrl;
-            const wrapperClasses =
-              `${containerClass} relative shadow-sm ` +
-              (isEmpty
-                ? "bg-muted/20 border-2 border-dashed border-muted-foreground/30"
-                : "bg-transparent border border-border");
-
-            return (
-              <div className={wrapperClasses} style={{ width: W, height: H }}>
-                <canvas
-                  ref={canvasRef}
-                  width={W}
-                  height={H}
-                  onPointerDown={onPointerDown}
-                  onPointerMove={onPointerMove}
-                  onPointerUp={onPointerUpOrCancel}
-                  onPointerCancel={onPointerUpOrCancel}
-                  onWheel={onWheel}
-                  className="w-full h-full touch-none"
-                  style={{ touchAction: "none", cursor: dragImg ? "grabbing" : "grab" }}
-                />
-
-                {isEmpty && (
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-                    <div className="text-center text-muted-foreground">
-                      <div className="text-sm font-medium mb-1">{copy.emptyTitle}</div>
-                      <div className="text-xs opacity-80">{copy.emptySub}</div>
-                    </div>
-                  </div>
-                )}
-
-                {/* WICHTIG: Overlay INS Wrapper, damit es exakt über dem Canvas liegt */}
-                <div ref={overlayRef} className="absolute inset-0 pointer-events-none">
-                  {local.texts.map((t) => (
-                    <div
-                      key={t.id}
-                      onMouseDown={(e) => onMouseDownText(e as any, t.id)}
-                      onClick={() => selectText(t.id)}
-                      className="absolute cursor-move select-none hover:ring-2 hover:ring-primary/40 hover:rounded pointer-events-auto"
-                      style={{
-                        left: t.x * W - 2,
-                        top: t.y * H - t.fontSize / 2 - 2,
-                        transform: "translate(-50%, 0)",
-                        padding: "2px 4px",
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontFamily: t.fontFamily,
-                          fontSize: t.fontSize,
-                          color: t.color,
-                        }}
-                      >
-                        {t.text}
-                      </span>
-                    </div>
-                  ))}
+        <div className="w-full md:flex-shrink-0 md:w-80 lg:w-96">
+          {tip && <p className="text-xs text-muted-foreground mb-2 text-center md:text-left">{tip}</p>}
+          <div
+            ref={editorContainerRef}
+            className="relative w-full mx-auto touch-none select-none bg-muted/20 border-dashed border-muted-foreground/30"
+            style={{ 
+              aspectRatio: `${W} / ${H}`,
+              borderRadius: shape === 'circle' ? '50%' : `${cornerRadius}px`
+            }}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUpOrCancel}
+            onPointerCancel={onPointerUpOrCancel}
+          >
+            <canvas ref={canvasRef} width={W} height={H} className="absolute inset-0 w-full h-full" />
+            {!local.bgImageUrl && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="text-center text-muted-foreground">
+                  <p className="text-sm font-medium">{copy.emptyTitle}</p>
+                  <p className="text-xs">{copy.emptySub}</p>
                 </div>
               </div>
-            );
-          })()}
+            )}
+            <div ref={overlayRef} className="absolute inset-0">
+              {local.texts.map(t => {
+                const rect = overlayRef.current?.getBoundingClientRect();
+                const scaleFactor = rect ? rect.width / W : 1;
+                return (
+                  <div
+                    key={t.id}
+                    onPointerDown={e => onMouseDownText(e as any, t.id)}
+                    onClick={() => selectText(t.id)}
+                    className="absolute cursor-move whitespace-pre-wrap text-center"
+                    style={{
+                      left: `${t.x * 100}%`, top: `${t.y * 100}%`,
+                      transform: 'translate(-50%, -50%)',
+                      fontSize: (t.fontSize || 24) * scaleFactor,
+                      fontFamily: t.fontFamily, color: t.color,
+                      border: activeTextId === t.id ? '1px dashed currentColor' : 'none',
+                      padding: '2px 4px',
+                    }}
+                  >
+                    {t.text}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
-
-        {/* Rechte Spalte: Controls */}
         <div className="flex-1 space-y-4">
           <div className="space-y-2">
             <Label>{copy.image}</Label>
             <Input type="file" accept="image/*" onChange={(e) => onUpload(e.target.files)} />
           </div>
-
           <div className="space-y-2">
-            <Label>{copy.zoom}</Label>
-            <input
-              type="range"
-              min={0.5}
-              max={2}
-              step={0.01}
-              value={local.scale}
-              onChange={(e) => setLocal((s) => ({ ...s, scale: Number(e.target.value) }))}
-              className="w-full"
-            />
+            <Label>{copy.zoom} ({local.scale.toFixed(2)})</Label>
+            <Input type="range" min={ZOOM_MIN} max={ZOOM_MAX} step={0.01} value={local.scale} onChange={(e) => setLocal(s => ({ ...s, scale: Number(e.target.value) }))} />
           </div>
-
-          {/* Position – Horizontal */}
-          <div className="space-y-2">
-            <Label>{copy.posX}</Label>
-            <div className="flex items-center gap-2">
-              <Button type="button" variant="outline" onClick={() => setLocal((s) => ({ ...s, offsetX: s.offsetX - 10 }))}>←</Button>
-              <input
-                type="range"
-                min={-Math.max(W, H) / 2}
-                max={Math.max(W, H) / 2}
-                step={1}
-                value={local.offsetX}
-                onChange={(e) => setLocal((s) => ({ ...s, offsetX: Number(e.target.value) }))}
-                className="flex-1"
-              />
-              <Button type="button" variant="outline" onClick={() => setLocal((s) => ({ ...s, offsetX: s.offsetX + 10 }))}>→</Button>
-            </div>
-          </div>
-
-          {/* Position – Vertikal */}
-          <div className="space-y-2">
-            <Label>{copy.posY}</Label>
-            <div className="flex items-center gap-2">
-              <Button type="button" variant="outline" onClick={() => setLocal((s) => ({ ...s, offsetY: s.offsetY - 10 }))}>↑</Button>
-              <input
-                type="range"
-                min={-Math.max(W, H) / 2}
-                max={Math.max(W, H) / 2}
-                step={1}
-                value={local.offsetY}
-                onChange={(e) => setLocal((s) => ({ ...s, offsetY: Number(e.target.value) }))}
-                className="flex-1"
-              />
-              <Button type="button" variant="outline" onClick={() => setLocal((s) => ({ ...s, offsetY: s.offsetY + 10 }))}>↓</Button>
-            </div>
-          </div>
-
           <div className="flex gap-2">
             <Button onClick={addText} type="button">{DEFAULT_COPY.buttons.addText}</Button>
             <Button onClick={exportPng} type="button" variant="secondary">{DEFAULT_COPY.buttons.applyDesign}</Button>
           </div>
-
           {activeText && (
             <div className="space-y-3 border rounded-md p-3">
-              <div className="flex justify-between items-center">
-                <Label className="font-semibold">{copy.selectedText}</Label>
-                <Button size="sm" variant="outline" onClick={removeActiveText}>{DEFAULT_COPY.buttons.remove}</Button>
-              </div>
-              <div className="space-y-2">
-                <Label>{copy.content}</Label>
-                <Input value={activeText.text} onChange={(e) => updateActiveText({ text: e.target.value })} />
-              </div>
+              <div className="flex justify-between items-center"><Label className="font-semibold">{copy.selectedText}</Label><Button size="sm" variant="outline" onClick={removeActiveText}>{DEFAULT_COPY.buttons.remove}</Button></div>
+              <div className="space-y-2"><Label>{copy.content}</Label><Textarea value={activeText.text} onChange={e => updateActiveText({ text: e.target.value })} /></div>
               <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <Label>{copy.font}</Label>
-                  <select
-                    className="w-full border rounded-md h-10 px-2 bg-background"
-                    value={activeText.fontFamily}
-                    onChange={(e) => updateActiveText({ fontFamily: e.target.value })}
-                  >
-                    {FONT_OPTIONS.map((opt) => (
-                      <option key={opt.value} value={opt.value}>{opt.label}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <Label>{copy.size}</Label>
-                  <Input
-                    type="number"
-                    min={10}
-                    max={96}
-                    value={activeText.fontSize}
-                    onChange={(e) => updateActiveText({ fontSize: Number(e.target.value) })}
-                  />
-                </div>
+                <div><Label>{copy.font}</Label><select className="w-full border rounded-md h-10 px-2 bg-background" value={activeText.fontFamily} onChange={e => updateActiveText({ fontFamily: e.target.value })}>{FONT_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}</select></div>
+                <div><Label>{copy.size}</Label><Input type="number" min={10} max={96} value={activeText.fontSize} onChange={e => updateActiveText({ fontSize: Number(e.target.value) })} /></div>
               </div>
-              <div>
-                <Label>{copy.color}</Label>
-                <input type="color" value={activeText.color} onChange={(e) => updateActiveText({ color: e.target.value })} />
-              </div>
+              <div><Label>{copy.color}</Label><input type="color" value={activeText.color} onChange={e => updateActiveText({ color: e.target.value })} /></div>
             </div>
           )}
-
           {local.previewDataUrl && (
             <div className="space-y-2">
               <Label>{copy.previewLabel}</Label>
-              <img
-                src={local.previewDataUrl}
-                alt="Vorschau"
-                className={`border w-48 h-auto ${shape === "circle" ? "rounded-full" : "rounded-xl"}`}
-              />
+              <img src={local.previewDataUrl} alt="Vorschau" className={`border w-48 h-auto ${shape === "circle" ? "rounded-full" : "rounded-xl"}`} />
               <p className="text-xs text-muted-foreground">{copy.previewNote}</p>
             </div>
           )}
@@ -938,7 +784,6 @@ function DesignEditor({
       </div>
     </div>
   );
-
 }
 
 /* -------------------- Step 1 (Produktwahl + Optionen) -------------------- */
@@ -1095,8 +940,8 @@ function Step1View(props: {
               {(form.tag_format ?? "round_3cm") === "round_3cm" ? (
                 <DesignEditor
                   shape="circle"
-                  width={420}
-                  height={420}
+                  width={300}
+                  height={300}
                   value={form.pet_tag_custom}
                   onChange={(v) => setForm((s) => ({ ...s, pet_tag_custom: v }))}
                   copy={DEFAULT_COPY.editor}
@@ -1105,8 +950,8 @@ function Step1View(props: {
               ) : (
                 <DesignEditor
                   shape="roundedRect"
-                  width={420}
-                  height={420}
+                  width={300}
+                  height={300}
                   cornerRadius={20}
                   value={form.pet_tag_custom}
                   onChange={(v) => setForm((s) => ({ ...s, pet_tag_custom: v }))}
@@ -1148,8 +993,8 @@ function Step1View(props: {
           <div className="pt-2">
             {(() => {
               const isPortrait = (form.frame_orientation ?? "landscape") === "portrait";
-              const W = isPortrait ? 360 : 520;
-              const H = isPortrait ? 520 : 360;
+              const W = isPortrait ? 300 : 420;
+              const H = isPortrait ? 420 : 300;
               return (
                 <DesignEditor
                   shape="roundedRect"
@@ -1176,12 +1021,12 @@ function Step1View(props: {
             {(copy.products as any).deluxeTitle ?? copy.products.formatTitleDeluxe}
           </h3>
 
-          {/* 12×12 cm ≈ 480×480 px Arbeitsfläche */}
+          {/* 12×12 cm ≈ 300x300 px Arbeitsfläche */}
           <div className="pt-2">
             <DesignEditor
               shape="roundedRect"
-              width={480}
-              height={480}
+              width={300}
+              height={300}
               cornerRadius={24}
               value={form.deluxe_custom}
               onChange={(v) => setForm((s) => ({ ...s, deluxe_custom: v }))}
@@ -1358,23 +1203,30 @@ function Step3View(props: {
 }) {
   const { form, setForm, onBack, onNext, copy } = props;
 
+  // State für den neuen Audio-Player
+  const [nowPlaying, setNowPlaying] = useState<string | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Liste der verfügbaren Musikstücke
+  const musicTracks = [
+    { src: "/music/ambient-piano-music.mp3", title: "Ambient Piano Music", id: "ambient-piano-music.mp3" },
+    { src: "/music/inspiring-emotional-uplifting-piano.mp3", title: "Inspiring Piano Music", id: "inspiring-emotional-uplifting-piano.mp3" },
+    { src: "/music/happy-music.mp3", title: "Happy Music", id: "happy-music.mp3" },
+    { src: "/music/calm-classical-piano.mp3", title: "Modern Classical Music", id: "calm-classical-piano.mp3" },
+    { src: "/music/relaxed-music.mp3", title: "Relaxed Music", id: "relaxed-music.mp3" },
+    { src: "/music/soft-calm-music.mp3", title: "Soft Calm Music", id: "soft-calm-music.mp3" },
+  ];
+
   const addImages = (files: FileList | null) => {
     if (files) {
-      const newMediaFiles: MediaFile[] = Array.from(files).map(f => ({
-        file: f,
-        caption: "",
-        id: crypto.randomUUID(),
-      }));
+      const newMediaFiles: MediaFile[] = Array.from(files).map(f => ({ file: f, caption: "", id: crypto.randomUUID() }));
       setForm((s) => ({ ...s, images: [...s.images, ...newMediaFiles] }));
     }
   };
   const addVideos = (files: FileList | null) => {
     if (files) {
-      const newMediaFiles: MediaFile[] = Array.from(files).map(f => ({
-        file: f,
-        caption: "",
-        id: crypto.randomUUID(),
-      }));
+      const newMediaFiles: MediaFile[] = Array.from(files).map(f => ({ file: f, caption: "", id: crypto.randomUUID() }));
       setForm((s) => ({ ...s, videos: [...s.videos, ...newMediaFiles] }));
     }
   };
@@ -1382,23 +1234,47 @@ function Step3View(props: {
   const removeVideo = (id: string) => setForm((s) => ({ ...s, videos: s.videos.filter(vid => vid.id !== id) }));
 
   const handleImageCaptionChange = (id: string, text: string) => {
-    setForm(s => ({
-      ...s,
-      images: s.images.map(img => img.id === id ? { ...img, caption: text } : img),
-    }));
+    setForm(s => ({ ...s, images: s.images.map(img => img.id === id ? { ...img, caption: text } : img) }));
+  };
+  const handleVideoCaptionChange = (id: string, text: string) => {
+    setForm(s => ({ ...s, videos: s.videos.map(vid => vid.id === id ? { ...vid, caption: text } : vid) }));
   };
 
-  const handleVideoCaptionChange = (id: string, text: string) => {
-    setForm(s => ({
-      ...s,
-      videos: s.videos.map(vid => vid.id === id ? { ...vid, caption: text } : vid),
-    }));
+  const handlePlayToggle = (trackSrc: string) => {
+    const audioEl = audioRef.current;
+    if (!audioEl) return;
+
+    if (nowPlaying !== trackSrc) {
+      setNowPlaying(trackSrc);
+      audioEl.src = trackSrc;
+      audioEl.play();
+      setIsPlaying(true);
+    } else {
+      if (isPlaying) {
+        audioEl.pause();
+        setIsPlaying(false);
+      } else {
+        audioEl.play();
+        setIsPlaying(true);
+      }
+    }
   };
+
+  useEffect(() => {
+    const audioEl = audioRef.current;
+    const handleEnd = () => setIsPlaying(false);
+    audioEl?.addEventListener('ended', handleEnd);
+    return () => {
+      audioEl?.removeEventListener('ended', handleEnd);
+      audioEl?.pause();
+    };
+  }, []);
 
   const hasAnyUpload = form.images.length > 0 || form.videos.length > 0;
 
   return (
     <div>
+      <audio ref={audioRef} />
       <h2 className="text-2xl md:text-3xl font-serif mb-3">{copy.headings.step3Title}</h2>
       <p className="text-muted-foreground mb-8">{copy.headings.step3Subtitle}</p>
 
@@ -1414,21 +1290,10 @@ function Step3View(props: {
                 return (
                   <div key={mediaFile.id} className="relative space-y-2">
                     <img src={url} alt={mediaFile.file.name} className="w-full h-32 object-cover rounded-md border" />
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      className="absolute top-2 right-2 h-7 w-auto px-2 py-1 text-xs"
-                      onClick={() => removeImage(mediaFile.id)}
-                    >
+                    <Button size="sm" variant="destructive" className="absolute top-2 right-2 h-7 w-auto px-2 py-1 text-xs" onClick={() => removeImage(mediaFile.id)}>
                       {copy.step3Fields.remove}
                     </Button>
-                    <Input
-                      type="text"
-                      placeholder={copy.step3Fields.imageCaptionPlaceholder}
-                      value={mediaFile.caption ?? ""}
-                      onChange={(e) => handleImageCaptionChange(mediaFile.id, e.target.value)}
-                      className="h-9 text-xs"
-                    />
+                    <Input type="text" placeholder={copy.step3Fields.imageCaptionPlaceholder} value={mediaFile.caption ?? ""} onChange={(e) => handleImageCaptionChange(mediaFile.id, e.target.value)} className="h-9 text-xs" />
                   </div>
                 );
               })}
@@ -1448,25 +1313,14 @@ function Step3View(props: {
                   <div key={mediaFile.id} className="relative border rounded-md p-3 space-y-2">
                     <div className="relative">
                       <video src={url} className="w-full rounded" controls />
-                       <Button
-                        size="sm"
-                        variant="destructive"
-                        className="absolute top-2 right-2 h-7 w-auto px-2 py-1 text-xs"
-                        onClick={() => removeVideo(mediaFile.id)}
-                      >
+                      <Button size="sm" variant="destructive" className="absolute top-2 right-2 h-7 w-auto px-2 py-1 text-xs" onClick={() => removeVideo(mediaFile.id)}>
                         {copy.step3Fields.remove}
                       </Button>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-muted-foreground truncate flex-1">{mediaFile.file.name}</span>
                     </div>
-                    <Input
-                      type="text"
-                      placeholder={copy.step3Fields.videoCaptionPlaceholder}
-                      value={mediaFile.caption ?? ""}
-                      onChange={(e) => handleVideoCaptionChange(mediaFile.id, e.target.value)}
-                      className="h-9 text-xs"
-                    />
+                    <Input type="text" placeholder={copy.step3Fields.videoCaptionPlaceholder} value={mediaFile.caption ?? ""} onChange={(e) => handleVideoCaptionChange(mediaFile.id, e.target.value)} className="h-9 text-xs" />
                   </div>
                 );
               })}
@@ -1477,180 +1331,31 @@ function Step3View(props: {
         {/* Music Selection */}
         <div className="md:col-span-2">
           <h3 className="text-lg font-medium mb-4">Musik auswählen</h3>
-          
-          {/* Local Music Selection */}
           <div className="mb-6">
             <h4 className="text-md font-medium text-muted-foreground mb-3">Verfügbare Musik</h4>
-            <div className="grid grid-cols-1 gap-4">
-
-              {/* Ambient Piano Music */}
-              <div
-                className={`transition-all border rounded-lg p-4 flex items-center gap-4 ${
-                  form.selectedLocalMusic === "ambient-piano-music.mp3"
-                    ? "border-primary bg-primary/10"
-                    : "border-slate-700 bg-slate-800/50"
-                }`}
-              >
-                <Music4 className="w-6 h-6 text-slate-400" />
-                <div className="flex-grow">
-                   <h5 className="font-medium text-slate-100">Ambient Piano Music</h5>
-                   <audio
-                    controls
-                    controlsList="nodownload nofullscreen noplaybackrate"
-                    className="mt-2 w-full custom-audio-player"
+            <div className="space-y-2">
+              {musicTracks.map((track) => {
+                const isCurrentlyPlaying = nowPlaying === track.src && isPlaying;
+                const isSelected = form.selectedLocalMusic === track.id;
+                return (
+                  <div
+                    key={track.id}
+                    className={`transition-all border rounded-lg p-2.5 flex items-center gap-3 ${
+                      isSelected ? "border-primary bg-primary/10" : "border-border"
+                    }`}
                   >
-                    <source src="/music/ambient-piano-music.mp3" type="audio/mpeg" />
-                  </audio>
-                </div>
-                <Button
-                  size="sm"
-                  onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "ambient-piano-music.mp3" }))}
-                  variant={form.selectedLocalMusic === "ambient-piano-music.mp3" ? "default" : "outline"}
-                >
-                  {form.selectedLocalMusic === "ambient-piano-music.mp3" ? "Ausgewählt" : "Auswählen"}
-                </Button>
-              </div>
-
-              {/* Inspiring Piano Music */}
-              <div
-                className={`transition-all border rounded-lg p-4 flex items-center gap-4 ${
-                  form.selectedLocalMusic === "inspiring-emotional-uplifting-piano.mp3"
-                    ? "border-primary bg-primary/10"
-                    : "border-slate-700 bg-slate-800/50"
-                }`}
-              >
-                 <Music4 className="w-6 h-6 text-slate-400" />
-                 <div className="flex-grow">
-                   <h5 className="font-medium text-slate-100">Inspiring Piano Music</h5>
-                   <audio
-                    controls
-                    controlsList="nodownload nofullscreen noplaybackrate"
-                    className="mt-2 w-full custom-audio-player"
-                  >
-                     <source src="/music/inspiring-emotional-uplifting-piano.mp3" type="audio/mpeg" />
-                   </audio>
-                 </div>
-                <Button
-                  size="sm"
-                  onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "inspiring-emotional-uplifting-piano.mp3" }))}
-                  variant={form.selectedLocalMusic === "inspiring-emotional-uplifting-piano.mp3" ? "default" : "outline"}
-                >
-                  {form.selectedLocalMusic === "inspiring-emotional-uplifting-piano.mp3" ? "Ausgewählt" : "Auswählen"}
-                </Button>
-              </div>
-
-              {/* Happy Music */}
-              <div
-                className={`transition-all border rounded-lg p-4 flex items-center gap-4 ${
-                  form.selectedLocalMusic === "happy-music.mp3"
-                    ? "border-primary bg-primary/10"
-                    : "border-slate-700 bg-slate-800/50"
-                }`}
-              >
-                 <Music4 className="w-6 h-6 text-slate-400" />
-                 <div className="flex-grow">
-                   <h5 className="font-medium text-slate-100">Happy Music</h5>
-                   <audio
-                    controls
-                    controlsList="nodownload nofullscreen noplaybackrate"
-                    className="mt-2 w-full custom-audio-player"
-                  >
-                     <source src="/music/happy-music.mp3" type="audio/mpeg" />
-                   </audio>
-                 </div>
-                <Button
-                  size="sm"
-                  onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "happy-music.mp3" }))}
-                  variant={form.selectedLocalMusic === "happy-music.mp3" ? "default" : "outline"}
-                >
-                  {form.selectedLocalMusic === "happy-music.mp3" ? "Ausgewählt" : "Auswählen"}
-                </Button>
-              </div>
-
-              {/* Modern Classical Music */}
-              <div
-                className={`transition-all border rounded-lg p-4 flex items-center gap-4 ${
-                  form.selectedLocalMusic === "calm-classical-piano.mp3"
-                    ? "border-primary bg-primary/10"
-                    : "border-slate-700 bg-slate-800/50"
-                }`}
-              >
-                 <Music4 className="w-6 h-6 text-slate-400" />
-                 <div className="flex-grow">
-                   <h5 className="font-medium text-slate-100">Modern Classical Music</h5>
-                   <audio
-                    controls
-                    controlsList="nodownload nofullscreen noplaybackrate"
-                    className="mt-2 w-full custom-audio-player"
-                  >
-                     <source src="/music/calm-classical-piano.mp3" type="audio/mpeg" />
-                   </audio>
-                 </div>
-                <Button
-                  size="sm"
-                  onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "calm-classical-piano.mp3" }))}
-                  variant={form.selectedLocalMusic === "calm-classical-piano.mp3" ? "default" : "outline"}
-                >
-                  {form.selectedLocalMusic === "calm-classical-piano.mp3" ? "Ausgewählt" : "Auswählen"}
-                </Button>
-              </div>
-
-              {/* Relaxed Music */}
-              <div
-                className={`transition-all border rounded-lg p-4 flex items-center gap-4 ${
-                  form.selectedLocalMusic === "relaxed-music.mp3"
-                    ? "border-primary bg-primary/10"
-                    : "border-slate-700 bg-slate-800/50"
-                }`}
-              >
-                 <Music4 className="w-6 h-6 text-slate-400" />
-                 <div className="flex-grow">
-                   <h5 className="font-medium text-slate-100">Relaxed Music</h5>
-                   <audio
-                    controls
-                    controlsList="nodownload nofullscreen noplaybackrate"
-                    className="mt-2 w-full custom-audio-player"
-                  >
-                     <source src="/music/relaxed-music.mp3" type="audio/mpeg" />
-                   </audio>
-                 </div>
-                <Button
-                  size="sm"
-                  onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "relaxed-music.mp3" }))}
-                  variant={form.selectedLocalMusic === "relaxed-music.mp3" ? "default" : "outline"}
-                >
-                  {form.selectedLocalMusic === "relaxed-music.mp3" ? "Ausgewählt" : "Auswählen"}
-                </Button>
-              </div>
-
-              {/* Soft Calm Music */}
-              <div
-                className={`transition-all border rounded-lg p-4 flex items-center gap-4 ${
-                  form.selectedLocalMusic === "soft-calm-music.mp3"
-                    ? "border-primary bg-primary/10"
-                    : "border-slate-700 bg-slate-800/50"
-                }`}
-              >
-                 <Music4 className="w-6 h-6 text-slate-400" />
-                 <div className="flex-grow">
-                   <h5 className="font-medium text-slate-100">Soft Calm Music</h5>
-                   <audio
-                    controls
-                    controlsList="nodownload nofullscreen noplaybackrate"
-                    className="mt-2 w-full custom-audio-player"
-                  >
-                     <source src="/music/soft-calm-music.mp3" type="audio/mpeg" />
-                   </audio>
-                 </div>
-                <Button
-                  size="sm"
-                  onClick={() => setForm(s => ({ ...s, selectedLocalMusic: "soft-calm-music.mp3" }))}
-                  variant={form.selectedLocalMusic === "soft-calm-music.mp3" ? "default" : "outline"}
-                >
-                  {form.selectedLocalMusic === "soft-calm-music.mp3" ? "Ausgewählt" : "Auswählen"}
-                </Button>
-              </div>
-
+                    <Button variant="ghost" size="icon" className="h-9 w-9 flex-shrink-0" onClick={() => handlePlayToggle(track.src)}>
+                      {isCurrentlyPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                    </Button>
+                    <div className="flex-grow min-w-0">
+                      <p className="font-medium truncate">{track.title}</p>
+                    </div>
+                    <Button size="sm" onClick={() => setForm(s => ({ ...s, selectedLocalMusic: track.id }))} variant={isSelected ? "default" : "outline"} className="flex-shrink-0">
+                      {isSelected ? "Ausgewählt" : "Auswählen"}
+                    </Button>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -1658,17 +1363,8 @@ function Step3View(props: {
           <div>
             <h4 className="text-md font-medium text-muted-foreground mb-3">Weitere Musik von Pixabay</h4>
             <div className="flex gap-2">
-              <Input
-                type="url"
-                placeholder="Link von pixabay.com/music/ einfügen..."
-                value={form.pixabayMusicLink || ""}
-                onChange={(e) => setForm(s => ({ ...s, pixabayMusicLink: e.target.value }))}
-                className="flex-1"
-              />
-              <Button
-                onClick={() => window.open("https://pixabay.com/music/", "_blank")}
-                variant="outline"
-              >
+              <Input type="url" placeholder="Link von pixabay.com/music/ einfügen..." value={form.pixabayMusicLink || ""} onChange={(e) => setForm(s => ({ ...s, pixabayMusicLink: e.target.value }))} className="flex-1" />
+              <Button onClick={() => window.open("https://pixabay.com/music/", "_blank")} variant="outline">
                 Pixabay Music
               </Button>
             </div>
@@ -1792,7 +1488,7 @@ function Step5InvoiceAndPayView(props: {
   if ((form.tag_format ?? "round_3cm") === "round_3cm" && form.pet_tag_keychain) {
     options.push(copy.products.keychainLabel);
   }
-  if (form.pet_tag_customEnabled) options.push(copy.products.designCustom + " (+10 CHF)");
+  if (form.pet_tag_customEnabled) options.push(copy.products.designCustom + " Design");
   if (form.frame_orientation)
     options.push(`Frame-Ausrichtung: ${form.frame_orientation === "portrait" ? copy.products.framePortrait : copy.products.frameLandscape}`);
 
