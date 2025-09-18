@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Check, Music4, Play, Pause } from "lucide-react";
+import { Toggle } from "@/components/ui/toggle";
+import { Check, Music4, Play, Pause, Bold, Italic } from "lucide-react";
 import PrivacyTermsNotice from "@/components/PrivacyTermsNotice";
 import {
   Carousel,
@@ -68,6 +69,9 @@ type EditorText = {
   fontFamily: string;
   fontSize: number; // px
   color: string;
+  fontWeight?: "normal" | "bold";
+  fontStyle?: "normal" | "italic";
+  width?: number; 
 };
 
 type CustomDesign = {
@@ -499,7 +503,7 @@ function DesignEditor({
     };
   }, [dragText]);
 
-  const ZOOM_MIN = 0.5;
+  const ZOOM_MIN = 0.1;
   const ZOOM_MAX = 3;
 
   const zoomAt = (clientX: number, clientY: number, scaleFactor: number) => {
@@ -605,11 +609,9 @@ function DesignEditor({
     if (renderTexts) {
       local.texts.forEach(t => {
         ctx.fillStyle = t.color || "#ffffff";
-        ctx.font = `${t.fontSize || 24}px ${t.fontFamily || "system-ui, Arial"}`;
-        ctx.textAlign = "center";
+        ctx.font = `${t.fontStyle} ${t.fontWeight} ${t.fontSize || 24}px ${t.fontFamily || "system-ui, Arial"}`;        ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        wrapText(ctx, t.text || "", t.x * W, t.y * H, W * 0.9, t.fontSize || 24);
-      });
+        wrapText(ctx, t.text || "", t.x * W, t.y * H, t.width * W, t.fontSize || 24);      });
     }
     ctx.restore();
   };
@@ -686,11 +688,13 @@ function DesignEditor({
 
   const addText = () => {
     const id = crypto.randomUUID();
-    const t: EditorText = {
-      id, text: "Neuer Text", x: 0.5, y: 0.5,
-      fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Noto Sans', 'Liberation Sans', sans-serif",
-      fontSize: 28, color: "#ffffff",
-    };
+    const t: EditorText = { 
+      id, text: "Neuer Text", x: 0.5, y: 0.5, 
+      fontFamily: "system-ui, sans-serif", 
+      fontSize: 28, color: "#ffffff", 
+      fontWeight: "normal", 
+      fontStyle: "normal", 
+      width: 0.8 };
     setLocal((s) => ({ ...s, texts: [...s.texts, t] }));
     setActiveTextId(id);
   };
@@ -729,18 +733,25 @@ function DesignEditor({
 
   const activeText = local.texts.find((t) => t.id === activeTextId) || null;
   const FONT_OPTIONS = [
-    { label: "System / Arial", value: "system-ui, Arial, Helvetica, sans-serif" },
+    { label: "System / Arial", value: "system-ui, Arial, sans-serif" },
     { label: "Times New Roman", value: "'Times New Roman', Times, serif" },
     { label: "Georgia", value: "Georgia, serif" },
-    { label: "Playfair Display", value: "'Playfair Display', serif" },
-    { label: "Lora", value: "Lora, serif" },
     { label: "Courier New", value: "'Courier New', Courier, monospace" },
+    // Elegante Serif-Schriftarten
+    { label: "Playfair Display", value: "'Playfair Display', serif" },
+    { label: "Lora", value: "'Lora', serif" },
+    // Moderne Sans-Serif-Schriftarten
+    { label: "Montserrat", value: "'Montserrat', sans-serif" },
+    { label: "Lato", value: "'Lato', sans-serif" },
+    // Schreibschriften
+    { label: "Dancing Script", value: "'Dancing Script', cursive" },
+    { label: "Great Vibes", value: "'Great Vibes', cursive" },
   ];
 
   return (
     <div className="space-y-4">
       <div className="flex flex-col md:flex-row gap-6">
-        <div className="w-full md:flex-shrink-0 md:w-80 lg:w-96">
+        <div className="w-full md:w-2/5">
           {tip && <p className="text-xs text-muted-foreground mb-2 text-center md:text-left">{tip}</p>}
           <div
             ref={editorContainerRef}
@@ -777,8 +788,12 @@ function DesignEditor({
                     style={{
                       left: `${t.x * 100}%`, top: `${t.y * 100}%`,
                       transform: 'translate(-50%, -50%)',
+                      width: `${t.width * 100}%`,
                       fontSize: (t.fontSize || 24) * scaleFactor,
                       fontFamily: t.fontFamily, color: t.color,
+                      fontWeight: t.fontWeight,
+                      fontStyle: t.fontStyle,
+                      maxWidth: `${90 * scaleFactor}%`,
                       border: activeTextId === t.id ? '1px dashed currentColor' : 'none',
                       padding: '2px 4px',
                     }}
@@ -790,7 +805,7 @@ function DesignEditor({
             </div>
           </div>
         </div>
-        <div className="flex-1 space-y-4">
+        <div className="w-full md:w-3/5 space-y-4">
           <div className="space-y-2">
             <Label>{copy.image}</Label>
             <Input ref={fileInputRef} type="file" accept="image/*" onChange={(e) => onUpload(e.target.files)} />
@@ -812,7 +827,40 @@ function DesignEditor({
                 <div><Label>{copy.size}</Label><Input type="number" min={10} max={96} value={activeText.fontSize} onChange={e => updateActiveText({ fontSize: Number(e.target.value) })} /></div>
               </div>
               <div><Label>{copy.color}</Label><input type="color" value={activeText.color} onChange={e => updateActiveText({ color: e.target.value })} /></div>
+              
+              {/* NEU: Slider für die Textbox-Breite */}
+              <div className="space-y-2">
+                <Label>Textbox Breite ({Math.round(activeText.width * 100)}%)</Label>
+                <Input
+                  type="range"
+                  min={0.2}
+                  max={1}
+                  step={0.01}
+                  value={activeText.width}
+                  onChange={(e) => updateActiveText({ width: Number(e.target.value) })}
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Toggle
+                  size="sm"
+                  pressed={activeText.fontWeight === 'bold'}
+                  onPressedChange={(pressed) => updateActiveText({ fontWeight: pressed ? 'bold' : 'normal' })}
+                  aria-label="Toggle bold"
+                >
+                  <Bold className="h-4 w-4" />
+                </Toggle>
+                <Toggle
+                  size="sm"
+                  pressed={activeText.fontStyle === 'italic'}
+                  onPressedChange={(pressed) => updateActiveText({ fontStyle: pressed ? 'italic' : 'normal' })}
+                  aria-label="Toggle italic"
+                >
+                  <Italic className="h-4 w-4" />
+                </Toggle>
+              </div>
             </div>
+              
           )}
           {local.previewDataUrl && (
             <div className="space-y-2">
@@ -1042,8 +1090,8 @@ function Step1View(props: {
           <div className="pt-2">
             {(() => {
               const isPortrait = (form.frame_orientation ?? "landscape") === "portrait";
-              const W = isPortrait ? 300 : 420;
-              const H = isPortrait ? 420 : 300;
+              const W = isPortrait ? 300 : 380;
+              const H = isPortrait ? 380 : 300;
               return (
                 <DesignEditor
                   shape="roundedRect"
