@@ -18,6 +18,36 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+// Preiskalkulation
+function calculatePrice(form: FormState, mode: Mode): number {
+  if (!form.product) return 0;
+
+  let price = 0;
+
+  switch (form.product) {
+    case "basic":
+      price = 49;
+      if (mode === 'pet') {
+        if (form.pet_tag_keychain) {
+          price += 7; // Aufpreis Schlüsselanhänger
+        }
+        if (form.pet_tag_customEnabled) {
+          price += 10; // Aufpreis individuelles Design
+        }
+      }
+      break;
+    case "premium":
+      price = 79;
+      break;
+    case "deluxe":
+      price = 129;
+      break;
+    default:
+      price = 0;
+  }
+  return price;
+}
+
 /* -------------------- Types & Helpers -------------------- */
 type ProductKey = "basic" | "premium" | "deluxe";
 const productKeyOrder: ProductKey[] = ["basic", "premium", "deluxe"];
@@ -216,6 +246,7 @@ type UploaderCopy = {
     notes: string;
     counts: (imgs: number, vids: number) => string;
     previewTitle: string;
+    total: string;
   };
 };
 
@@ -263,7 +294,7 @@ const DEFAULT_COPY: UploaderCopy = {
     keychainLabel: "mit Schlüsselanhänger (+7 CHF)",
     designLabel: "Design",
     designStandard: "Standard",
-    designCustom: "Individuell gestaltbar",
+    designCustom: "Individuell gestaltbar (+10 CHF)",
     designCustomNote: "Hinweis: Individuelles Design kostet +10 CHF.",
     frameTitle: "Frame gestalten",
     frameTitleDeluxe: "Deluxe gestalten",
@@ -336,6 +367,7 @@ const DEFAULT_COPY: UploaderCopy = {
     notes: "Notizen",
     counts: (imgs, vids) => `Bilder: ${imgs} • Videos: ${vids}`,
     previewTitle: "Individuelle Vorschau",
+    total: "Gesamtpreis:",
   },
 };
 
@@ -417,6 +449,7 @@ function DesignEditor({
   const overlayRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const editorContainerRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const onChangeRef = useRef(onChange);
   useEffect(() => {
@@ -644,6 +677,13 @@ function DesignEditor({
     }
   };
 
+  const handleCanvasClick = () => {
+    // Löst nur aus, wenn noch kein Bild ausgewählt wurde
+    if (!local.bgImageUrl) {
+      fileInputRef.current?.click();
+    }
+  };
+
   const addText = () => {
     const id = crypto.randomUUID();
     const t: EditorText = {
@@ -704,7 +744,7 @@ function DesignEditor({
           {tip && <p className="text-xs text-muted-foreground mb-2 text-center md:text-left">{tip}</p>}
           <div
             ref={editorContainerRef}
-            className="relative w-full mx-auto touch-none select-none bg-muted/20 border-dashed border-muted-foreground/30"
+            className={`relative w-full mx-auto touch-none select-none bg-muted/20 ${!local.bgImageUrl ? 'cursor-pointer' : ''}`}
             style={{ 
               aspectRatio: `${W} / ${H}`,
               borderRadius: shape === 'circle' ? '50%' : `${cornerRadius}px`
@@ -713,6 +753,7 @@ function DesignEditor({
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUpOrCancel}
             onPointerCancel={onPointerUpOrCancel}
+            onClick={handleCanvasClick}
           >
             <canvas ref={canvasRef} width={W} height={H} className="absolute inset-0 w-full h-full" />
             {!local.bgImageUrl && (
@@ -752,7 +793,7 @@ function DesignEditor({
         <div className="flex-1 space-y-4">
           <div className="space-y-2">
             <Label>{copy.image}</Label>
-            <Input type="file" accept="image/*" onChange={(e) => onUpload(e.target.files)} />
+            <Input ref={fileInputRef} type="file" accept="image/*" onChange={(e) => onUpload(e.target.files)} />
           </div>
           <div className="space-y-2">
             <Label>{copy.zoom} ({local.scale.toFixed(2)})</Label>
@@ -814,6 +855,14 @@ function Step1View(props: {
   const showDeluxeEditor = selected === "deluxe"; // NEU: Deluxe
   const showTagFormat = selected === "basic"; // Format-Auswahl für alle Modi beim basic-Produkt
   const isRound = (form.tag_format ?? "round_3cm") === "round_3cm";
+
+  // NEU: Validierungslogik für den "Weiter"-Button
+  const isImageUploadRequired =
+    (selected === "premium" && !form.frame_custom?.bgImageUrl) ||
+    (selected === "deluxe" && !form.deluxe_custom?.bgImageUrl) ||
+    (selected === "basic" && mode === "pet" && form.pet_tag_customEnabled && !form.pet_tag_custom?.bgImageUrl);
+
+  const isNextButtonDisabled = !selected || isImageUploadRequired;
 
   const pageTitle =
     mode === "pet"
@@ -1039,10 +1088,11 @@ function Step1View(props: {
         </div>
       )}
 
-      <div className="mt-8 flex justify-center gap-3">
-        <Button size="lg" disabled={!selected} onClick={onNext}>
+      <div className="mt-8 text-center">
+        <Button size="lg" disabled={isNextButtonDisabled} onClick={onNext}>
           {copy.buttons.next} {selected ? `– ${productMap[selected].title}` : ""}
         </Button>
+        {isImageUploadRequired}
       </div>
     </div>
   );
@@ -1460,11 +1510,14 @@ function Step5InvoiceAndPayView(props: {
   setForm: React.Dispatch<React.SetStateAction<FormState>>;
   productLabel: string;
   onBack: () => void;
-  onPlaceOrder: () => void; // später Stripe starten
+  onPlaceOrder: () => void;
   onReset: () => void;
   copy: UploaderCopy;
 }) {
   const { mode, form, setForm, productLabel, onBack, onPlaceOrder, onReset, copy } = props;
+
+  // Preisberechnung aufrufen
+  const totalPrice = calculatePrice(form, mode as Mode);
 
   const toggleSame = (checked: boolean) => {
     setForm((s) => ({
@@ -1483,14 +1536,13 @@ function Step5InvoiceAndPayView(props: {
     !form.invoice_city ||
     !form.invoice_country;
 
-  // kleine Text-Zusammenfassung inkl. Optionen
   const options: string[] = [];
   if ((form.tag_format ?? "round_3cm") === "round_3cm" && form.pet_tag_keychain) {
     options.push(copy.products.keychainLabel);
   }
-  if (form.pet_tag_customEnabled) options.push(copy.products.designCustom + " Design");
+  if (form.pet_tag_customEnabled) options.push(copy.products.designCustom);
   if (form.frame_orientation)
-    options.push(`Frame-Ausrichtung: ${form.frame_orientation === "portrait" ? copy.products.framePortrait : copy.products.frameLandscape}`);
+    options.push(`Ausrichtung: ${form.frame_orientation === "portrait" ? copy.products.framePortrait : copy.products.frameLandscape}`);
 
   return (
     <div>
@@ -1510,66 +1562,31 @@ function Step5InvoiceAndPayView(props: {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="md:col-span-2">
               <Label htmlFor="invoice_company">{copy.invoiceFields.companyOpt}</Label>
-              <Input
-                id="invoice_company"
-                value={form.invoice_company ?? ""}
-                onChange={(e) => setForm((s) => ({ ...s, invoice_company: e.target.value }))}
-              />
+              <Input id="invoice_company" value={form.invoice_company ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_company: e.target.value }))} />
             </div>
             <div>
               <Label htmlFor="invoice_firstName">{copy.invoiceFields.firstName}</Label>
-              <Input
-                id="invoice_firstName"
-                value={form.invoice_firstName ?? ""}
-                onChange={(e) => setForm((s) => ({ ...s, invoice_firstName: e.target.value }))}
-                required
-              />
+              <Input id="invoice_firstName" value={form.invoice_firstName ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_firstName: e.target.value }))} required />
             </div>
             <div>
               <Label htmlFor="invoice_lastName">{copy.invoiceFields.lastName}</Label>
-              <Input
-                id="invoice_lastName"
-                value={form.invoice_lastName ?? ""}
-                onChange={(e) => setForm((s) => ({ ...s, invoice_lastName: e.target.value }))}
-                required
-              />
+              <Input id="invoice_lastName" value={form.invoice_lastName ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_lastName: e.target.value }))} required />
             </div>
             <div className="md:col-span-2">
               <Label htmlFor="invoice_street">{copy.invoiceFields.street}</Label>
-              <Input
-                id="invoice_street"
-                value={form.invoice_street ?? ""}
-                onChange={(e) => setForm((s) => ({ ...s, invoice_street: e.target.value }))}
-                required
-              />
+              <Input id="invoice_street" value={form.invoice_street ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_street: e.target.value }))} required />
             </div>
             <div>
               <Label htmlFor="invoice_zip">{copy.invoiceFields.zip}</Label>
-              <Input
-                id="invoice_zip"
-                value={form.invoice_zip ?? ""}
-                onChange={(e) => setForm((s) => ({ ...s, invoice_zip: e.target.value }))}
-                required
-              />
+              <Input id="invoice_zip" value={form.invoice_zip ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_zip: e.target.value }))} required />
             </div>
             <div>
               <Label htmlFor="invoice_city">{copy.invoiceFields.city}</Label>
-              <Input
-                id="invoice_city"
-                value={form.invoice_city ?? ""}
-                onChange={(e) => setForm((s) => ({ ...s, invoice_city: e.target.value }))}
-                required
-              />
+              <Input id="invoice_city" value={form.invoice_city ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_city: e.target.value }))} required />
             </div>
             <div className="md:col-span-2">
               <Label htmlFor="invoice_country">{copy.invoiceFields.country}</Label>
-              <Input
-                id="invoice_country"
-                value={form.invoice_country ?? ""}
-                onChange={(e) => setForm((s) => ({ ...s, invoice_country: e.target.value }))}
-                placeholder="Schweiz"
-                required
-              />
+              <Input id="invoice_country" value={form.invoice_country ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_country: e.target.value }))} placeholder="Schweiz" required />
             </div>
           </div>
         </div>
@@ -1577,80 +1594,42 @@ function Step5InvoiceAndPayView(props: {
         {/* Zusammenfassung */}
         <div className="border rounded-lg p-6">
           <h3 className="text-xl font-serif mb-4">{copy.headings.summary}</h3>
-          <ul className="space-y-1 text-sm">
-            <li>
-              <strong>{copy.summary.mode}:</strong> {mode === "pet" ? "Haustiere" : mode === "surprise" ? "Surprise" : "Menschen"}
-            </li>
-            <li>
-              <strong>{copy.summary.product}:</strong> {productLabel || "-"}
-            </li>
-
-            {form.product === "basic" && (
-              <li>
-                <strong>{copy.summary.format}:</strong>{" "}
-                {(form.tag_format ?? "round_3cm") === "square_6cm" ? copy.summary.formatSquare : copy.summary.formatRound}
-              </li>
-            )}
-
-            {options.length > 0 && (
-              <li>
-                <strong>{copy.summary.options}:</strong> {options.join(", ")}
-              </li>
-            )}
-
+          <ul className="space-y-1 text-sm text-muted-foreground">
+            <li><strong>{copy.summary.mode}:</strong> <span className="text-foreground">{mode === "pet" ? "Haustiere" : mode === "surprise" ? "Surprise" : "Menschen"}</span></li>
+            <li><strong>{copy.summary.product}:</strong> <span className="text-foreground">{productLabel || "-"}</span></li>
+            {form.product === "basic" && (<li><strong>{copy.summary.format}:</strong> <span className="text-foreground">{(form.tag_format ?? "round_3cm") === "square_6cm" ? copy.summary.formatSquare : copy.summary.formatRound}</span></li>)}
+            {options.length > 0 && (<li><strong>{copy.summary.options}:</strong> <span className="text-foreground">{options.join(", ")}</span></li>)}
             {(form.pet_tag_custom?.previewDataUrl || form.frame_custom?.previewDataUrl || form.deluxe_custom?.previewDataUrl) && (
               <li className="mt-2">
                 <strong>{copy.summary.previewTitle}:</strong>
                 <div className="mt-2 flex items-center gap-4">
-                  {form.pet_tag_custom?.previewDataUrl && (
-                    <img src={form.pet_tag_custom.previewDataUrl} alt="Tag Vorschau" className="w-20 h-20 rounded-full border" />
-                  )}
-                  {form.frame_custom?.previewDataUrl && (
-                    <img src={form.frame_custom.previewDataUrl} alt="Frame Vorschau" className="w-28 h-auto rounded-xl border" />
-                  )}
-                  {form.deluxe_custom?.previewDataUrl && (
-                    <img src={form.deluxe_custom.previewDataUrl} alt="Deluxe Vorschau" className="w-28 h-auto rounded-xl border" />
-                  )}
+                  {form.pet_tag_custom?.previewDataUrl && (<img src={form.pet_tag_custom.previewDataUrl} alt="Tag Vorschau" className="w-20 h-20 rounded-full border" />)}
+                  {form.frame_custom?.previewDataUrl && (<img src={form.frame_custom.previewDataUrl} alt="Frame Vorschau" className="w-28 h-auto rounded-xl border" />)}
+                  {form.deluxe_custom?.previewDataUrl && (<img src={form.deluxe_custom.previewDataUrl} alt="Deluxe Vorschau" className="w-28 h-auto rounded-xl border" />)}
                 </div>
               </li>
             )}
-
-            {mode === "human" && (
-              <li>
-                <strong>{copy.summary.person}:</strong> {form.human_firstName} {form.human_lastName}{" "}
-                {form.human_deathDate ? `(${form.human_deathDate})` : ""}
-              </li>
-            )}
-            {mode === "pet" && (
-              <li>
-                <strong>{copy.summary.pet}:</strong> {form.pet_name} {form.pet_deathDate ? `(${form.pet_deathDate})` : ""}
-              </li>
-            )}
-            {mode === "surprise" && (
-              <li>
-                <strong>{copy.summary.recipient}:</strong> {form.surprise_name}
-              </li>
-            )}
-            {form.notes && (
-              <li>
-                <strong>{copy.summary.notes}:</strong> {form.notes}
-              </li>
-            )}
-            <li>{copy.summary.counts(form.images.length, form.videos.length)}</li>
+            {mode === "human" && (<li><strong>{copy.summary.person}:</strong> <span className="text-foreground">{form.human_firstName} {form.human_lastName}{" "}{form.human_deathDate ? `(${form.human_deathDate})` : ""}</span></li>)}
+            {mode === "pet" && (<li><strong>{copy.summary.pet}:</strong> <span className="text-foreground">{form.pet_name} {form.pet_deathDate ? `(${form.pet_deathDate})` : ""}</span></li>)}
+            {mode === "surprise" && (<li><strong>{copy.summary.recipient}:</strong> <span className="text-foreground">{form.surprise_name}</span></li>)}
+            {form.notes && (<li><strong>{copy.summary.notes}:</strong> <span className="text-foreground">{form.notes}</span></li>)}
+            <li><strong>{copy.summary.counts(form.images.length, form.videos.length)}</strong></li>
+            <li className="font-bold text-lg pt-2 mt-2 border-t">
+              <div className="flex justify-between items-center text-foreground">
+                <span>{copy.summary.total}:</span>
+                <span>CHF {totalPrice.toFixed(2)}</span>
+              </div>
+            </li>
           </ul>
         </div>
 
         <div className="mt-2 flex flex-wrap justify-between gap-3">
           <div className="flex gap-3">
-            <Button variant="outline" onClick={onBack}>
-              {copy.buttons.back}
-            </Button>
-            <Button variant="ghost" onClick={onReset}>
-              {copy.buttons.reset}
-            </Button>
+            <Button variant="outline" onClick={onBack}>{copy.buttons.back}</Button>
+            <Button variant="ghost" onClick={onReset}>{copy.buttons.reset}</Button>
           </div>
-          <Button onClick={onPlaceOrder} disabled={invalid}>
-            {copy.buttons.toPay}
+          <Button size="lg" onClick={onPlaceOrder} disabled={invalid}>
+            {`${copy.buttons.toPay} (CHF ${totalPrice.toFixed(2)})`}
           </Button>
         </div>
       </div>
