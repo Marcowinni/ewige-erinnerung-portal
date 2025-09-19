@@ -204,6 +204,7 @@ type UploaderCopy = {
     human_lastName: string;
     human_firstName: string;
     human_deathDate: string;
+    notes_human: string;
     human_notesPH: string;
     pet_name: string;
     pet_deathDate: string;
@@ -220,6 +221,15 @@ type UploaderCopy = {
     // NEU: Platzhalter für Beschreibungen
     imageCaptionPlaceholder: string;
     videoCaptionPlaceholder: string;
+    musicSelection?: {
+      title: string;
+      availableMusic: string;
+      selected: string;
+      select: string;
+      moreMusic: string;
+      pixabayPlaceholder: string;
+      pixabayButton: string;
+    };
   };
   contactFields: {
     firstName: string;
@@ -251,6 +261,12 @@ type UploaderCopy = {
     counts: (imgs: number, vids: number) => string;
     previewTitle: string;
     total: string;
+    optionOrientation: string;
+    optionPortrait: string;
+    optionLandscape: string;
+    modeHuman: string;
+    modePet: string;
+    modeSurprise: string;
   };
 };
 
@@ -327,6 +343,7 @@ const DEFAULT_COPY: UploaderCopy = {
     human_lastName: "Nachname *",
     human_firstName: "Vorname *",
     human_deathDate: "Sterbedatum",
+    notes_human: "Notizen (optional)",
     human_notesPH: "Besondere Wünsche, Zitate, Musik-Hinweise …",
     pet_name: "Name des Haustiers *",
     pet_deathDate: "Sterbedatum",
@@ -341,6 +358,16 @@ const DEFAULT_COPY: UploaderCopy = {
     // Texte für die Beschreibungsfelder
     imageCaptionPlaceholder: "Beschreibung für digitales Album (optional)",
     videoCaptionPlaceholder: "Beschreibung für digitales Album (optional)",
+    // Musik-Auswahl
+    musicSelection: {
+      title: "Musik auswählen",
+      availableMusic: "Verfügbare Musik",
+      selected: "Ausgewählt",
+      select: "Auswählen",
+      moreMusic: "Weitere Musik von Pixabay",
+      pixabayPlaceholder: "Link von pixabay.com/music/ einfügen...",
+      pixabayButton: "Pixabay Music",
+    },
   },
   contactFields: {
     firstName: "Vorname *",
@@ -372,6 +399,12 @@ const DEFAULT_COPY: UploaderCopy = {
     counts: (imgs, vids) => `Bilder: ${imgs} • Videos: ${vids}`,
     previewTitle: "Individuelle Vorschau",
     total: "Gesamtpreis:",
+    optionOrientation: "Ausrichtung",
+    optionPortrait: "Hochformat",
+    optionLandscape: "Querformat",
+    modeHuman: "Human",
+    modePet: "Pet",
+    modeSurprise: "Surprise"
   },
 };
 
@@ -1207,15 +1240,15 @@ function Step2View(props: {
               />
             </div>
             <div className="md:col-span-2">
-              <Label htmlFor="notes_human">Weitere Notizen</Label>
-              <Textarea
-                id="notes_human"
-                rows={4}
-                placeholder={copy.step2Fields.human_notesPH}
-                value={form.notes ?? ""}
-                onChange={(e) => setForm((s) => ({ ...s, notes: e.target.value }))}
-              />
-            </div>
+            <Label htmlFor="notes_human">{copy.step2Fields.notes_human}</Label>
+            <Textarea
+              id="notes_human"
+              rows={4}
+              placeholder={copy.step2Fields.human_notesPH}
+              value={form.notes ?? ""}
+              onChange={(e) => setForm((s) => ({ ...s, notes: e.target.value }))}
+            />
+          </div>
           </>
         )}
 
@@ -1428,9 +1461,9 @@ function Step3View(props: {
 
         {/* Music Selection */}
         <div className="md:col-span-2">
-          <h3 className="text-lg font-medium mb-4">Musik auswählen</h3>
+          <h3 className="text-lg font-medium mb-4">{copy.step3Fields.musicSelection?.title}</h3>
           <div className="mb-6">
-            <h4 className="text-md font-medium text-muted-foreground mb-3">Verfügbare Musik</h4>
+            <h4 className="text-md font-medium text-muted-foreground mb-3">{copy.step3Fields.musicSelection?.availableMusic}</h4>
             <div className="space-y-2">
               {musicTracks.map((track) => {
                 const isCurrentlyPlaying = nowPlaying === track.src && isPlaying;
@@ -1449,7 +1482,7 @@ function Step3View(props: {
                       <p className="font-medium truncate">{track.title}</p>
                     </div>
                     <Button size="sm" onClick={() => setForm(s => ({ ...s, selectedLocalMusic: track.id }))} variant={isSelected ? "default" : "outline"} className="flex-shrink-0">
-                      {isSelected ? "Ausgewählt" : "Auswählen"}
+                      {isSelected ? copy.step3Fields.musicSelection?.selected : copy.step3Fields.musicSelection?.select}
                     </Button>
                   </div>
                 );
@@ -1459,11 +1492,11 @@ function Step3View(props: {
 
           {/* Pixabay Music Link */}
           <div>
-            <h4 className="text-md font-medium text-muted-foreground mb-3">Weitere Musik von Pixabay</h4>
+            <h4 className="text-md font-medium text-muted-foreground mb-3">{copy.step3Fields.musicSelection?.moreMusic}</h4>
             <div className="flex gap-2">
-              <Input type="url" placeholder="Link von pixabay.com/music/ einfügen..." value={form.pixabayMusicLink || ""} onChange={(e) => setForm(s => ({ ...s, pixabayMusicLink: e.target.value }))} className="flex-1" />
+              <Input type="url" placeholder={copy.step3Fields.musicSelection?.pixabayPlaceholder} value={form.pixabayMusicLink || ""} onChange={(e) => setForm(s => ({ ...s, pixabayMusicLink: e.target.value }))} className="flex-1" />
               <Button onClick={() => window.open("https://pixabay.com/music/", "_blank")} variant="outline">
-                Pixabay Music
+                {copy.step3Fields.musicSelection?.pixabayButton}
               </Button>
             </div>
           </div>
@@ -1584,14 +1617,19 @@ function Step5InvoiceAndPayView(props: {
     !form.invoice_city ||
     !form.invoice_country;
 
+  // Options-Logik mit Übersetzungen
   const options: string[] = [];
-  if ((form.tag_format ?? "round_3cm") === "round_3cm" && form.pet_tag_keychain) {
+  if (form.product === 'basic' && mode === 'pet' && (form.tag_format ?? "round_3cm") === "round_3cm" && form.pet_tag_keychain) {
     options.push(copy.products.keychainLabel);
   }
-  if (form.pet_tag_customEnabled) options.push(copy.products.designCustom);
-  if (form.frame_orientation)
-    options.push(`Ausrichtung: ${form.frame_orientation === "portrait" ? copy.products.framePortrait : copy.products.frameLandscape}`);
-
+  if (form.product === 'basic' && mode === 'pet' && form.pet_tag_customEnabled) {
+    options.push(copy.products.designCustom);
+  }
+  // Stellt sicher, dass die Ausrichtung NUR beim Frame (premium) angezeigt wird
+  if (form.product === 'premium' && form.frame_orientation) {
+    const orientationLabel = form.frame_orientation === "portrait" ? copy.summary.optionPortrait : copy.summary.optionLandscape;
+    options.push(`${copy.summary.optionOrientation}: ${orientationLabel}`);
+  }
   return (
     <div>
       <h2 className="text-2xl md:text-3xl font-serif mb-3">{copy.headings.step5Title}</h2>
@@ -1643,7 +1681,7 @@ function Step5InvoiceAndPayView(props: {
         <div className="border rounded-lg p-6">
           <h3 className="text-xl font-serif mb-4">{copy.headings.summary}</h3>
           <ul className="space-y-1 text-sm text-muted-foreground">
-            <li><strong>{copy.summary.mode}:</strong> <span className="text-foreground">{mode === "pet" ? "Haustiere" : mode === "surprise" ? "Surprise" : "Menschen"}</span></li>
+            <li><strong>{copy.summary.mode}:</strong> <span className="text-foreground">{mode === "pet" ? "Pet" : mode === "surprise" ? "Surprise" : "Human"}</span></li>
             <li><strong>{copy.summary.product}:</strong> <span className="text-foreground">{productLabel || "-"}</span></li>
             {form.product === "basic" && (<li><strong>{copy.summary.format}:</strong> <span className="text-foreground">{(form.tag_format ?? "round_3cm") === "square_6cm" ? copy.summary.formatSquare : copy.summary.formatRound}</span></li>)}
             {options.length > 0 && (<li><strong>{copy.summary.options}:</strong> <span className="text-foreground">{options.join(", ")}</span></li>)}

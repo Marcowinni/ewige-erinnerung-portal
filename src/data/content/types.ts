@@ -64,6 +64,7 @@ export interface UploaderCopy {
     human_lastName: string;
     human_firstName: string;
     human_deathDate: string;
+    notes_human: string;
     human_notesPH: string;
     pet_name: string;
     pet_deathDate: string;
@@ -77,6 +78,16 @@ export interface UploaderCopy {
     remove: string;
     imageCaptionPlaceholder: string;
     videoCaptionPlaceholder: string;
+    //music selection part
+    musicSelection?: {
+      title: string;
+      availableMusic: string;
+      selected: string;
+      select: string;
+      moreMusic: string;
+      pixabayPlaceholder: string;
+      pixabayButton: string;
+    };
   };
   contactFields: {
     firstName: string;
@@ -107,6 +118,14 @@ export interface UploaderCopy {
     notes: string;
     counts: (imgs: number, vids: number) => string;
     previewTitle: string;
+    total: string;
+    optionOrientation: string;
+    optionPortrait: string;
+    optionLandscape: string;
+    modeHuman: string;
+    modePet: string;
+    modeSurprise: string;
+    
   };
 }
 

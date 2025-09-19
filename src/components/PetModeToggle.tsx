@@ -42,8 +42,8 @@ const PetModeToggle = ({ size = "sm" }: { size?: ButtonProps["size"] }) => {
       variant="outline"
       size={size}
       className="gap-2"
-      aria-label="Modus wechseln"
-      title="Modus wechseln"
+      aria-label="Change mode"
+      title="Change mode"
     >
       {iconAndLabel()}
     </Button>
