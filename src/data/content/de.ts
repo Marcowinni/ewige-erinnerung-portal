@@ -367,6 +367,16 @@ export const deContent: ContentData = {
         step5Subtitle: "Bitte prüfe die Adresse und die Zusammenfassung. Mit Weiter zur Zahlung! geht es später in den Checkout.",
         summary: "Zusammenfassung"
       },
+      buttons: {
+        back: "Zurück",
+        next: "Weiter",
+        reset: "Zurücksetzen",
+        toPay: "Weiter zur Zahlung",
+        addText: "Text hinzufügen",
+        applyDesign: "Design übernehmen",
+        remove: "Entfernen",
+      },
+
       products: {
         formatTitle: "Format",
         frameTitle: "Frame gestalten",
@@ -397,11 +407,7 @@ export const deContent: ContentData = {
         human_firstName: "Vorname *",
         human_deathDate: "Sterbedatum",
         human_notesPH: "Besondere Wünsche, Zitate, Musik-Hinweise …",
-        pet_name: "Name des Haustiers *",
-        pet_deathDate: "Sterbedatum *",
-        pet_notesPH: "Besondere Wünsche, Lieblingsgeräusche, Hinweise …",
-        surprise_name: "Name (Empfänger) *",
-        surprise_notesPH: "Hochzeit, Geburtstag, Jubiläum … besondere Wünsche"
+
       },
       step3Fields: {
         imagesLabel: "Bilder (mehrfach möglich)",
@@ -410,6 +416,16 @@ export const deContent: ContentData = {
         // Texte für die Beschreibungsfelder
         imageCaptionPlaceholder: "Kurztext zum Bild (optional)",
         videoCaptionPlaceholder: "Kurztext zum Video (optional)",
+        // Musik-Auswahl
+        musicSelection: {
+          title: "Musik auswählen",
+          availableMusic: "Verfügbare Musik",
+          selected: "Ausgewählt",
+          select: "Auswählen",
+          moreMusic: "Weitere Musik von Pixabay",
+          pixabayPlaceholder: "Link von pixabay.com/music/ einfügen...",
+          pixabayButton: "Pixabay Music",
+        },
       },
       contactFields: {
         firstName: "Vorname *",
@@ -439,7 +455,13 @@ export const deContent: ContentData = {
         recipient: "Empfänger",
         notes: "Notizen",
         counts: (imgs, vids) => `Bilder: ${imgs} • Videos: ${vids}`,
-        previewTitle: "Individuelle Vorschau"
+        previewTitle: "Individuelle Vorschau",
+        optionOrientation: "Ausrichtung",
+        optionPortrait: "Hochformat",
+        optionLandscape: "Querformat",
+        modeHuman: "Human",
+        modePet: "Pet",
+        modeSurprise: "Surprise"
       }
     }
   },

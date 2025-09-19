@@ -3,151 +3,205 @@ import { ContentData } from './types';
 export const frContent: ContentData = {
   shared: {
     navigation: {
-      home: 'Accueil',
-      gedenken: 'Créer un hommage',
-      about: 'À propos',
-      contact: 'Contact',
-      start: 'Commencer le mémorial',
-      mode: {
-        human: 'Humains',
-        pet: 'Animaux',
-        surprise: 'Surprise'
-      }
+      home: "Memora Moments",
+      gedenken: "Créer un mémorial",
+      about: "À propos de nous",
+      contact: "Contact",
+      start: "Commencer le mémorial",
+      mode: { human: "Personnes", pet: "Animaux", surprise: "Surprise" }
     },
+
     about: {
-      title: 'À propos - Memora Moments',
-      heading: 'À propos de Memora Moments',
-      description: 'Découvrez notre mission : créer des souvenirs dignes.'
+      title: "À propos de nous - Memora Moments",
+      heading: "À propos de Memora Moments",
+      description: "Apprenez-en plus sur notre mission de créer des souvenirs dignes."
     },
+
     contact: {
-      title: 'Contact - Memora Moments',
-      heading: 'Nous contacter',
-      description: 'Des questions ? Nous sommes là pour vous aider.',
-      email: 'E-mail',
-      phone: 'Téléphone',
+      title: "Contact - Memora Moments",
+      heading: "Nous contacter",
+      description: "Avez-vous des questions? Nous sommes là pour vous aider.",
+      email: "E-mail",
+      phone: "Téléphone",
       form: {
-        title: 'Envoyer un message',
-        submit: 'Envoyer le message',
-        success: 'Merci ! Votre message a été envoyé avec succès.',
+        title: "Envoyer un message",
+        submit: "Envoyer",
+        success: "Merci ! Nous vous répondrons dès que possible.",
         name: {
-          label: 'Nom',
-          placeholder: 'Votre nom'
+          label: "Nom",
+          placeholder: "Prénom et nom"
         },
         email: {
-          label: 'E-mail',
-          placeholder: 'votre.email@exemple.fr'
+          label: "E-mail",
+          placeholder: "votre@exemple.fr"
         },
         subject: {
-          label: 'Sujet',
-          placeholder: 'De quoi s\'agit-il ?'
+          label: "Sujet",
+          placeholder: "De quoi s'agit-il ?"
         },
         message: {
-          label: 'Message',
-          placeholder: 'Dites-nous comment nous pouvons vous aider...'
+          label: "Message",
+          placeholder: "Votre message pour nous…"
         }
       }
     },
-    
-    // Content rendered on the About page
+
     aboutPage: {
-      title: 'À propos de nous',
-      lead: 'Nous connectons les souvenirs à la technologie – avec compassion, personnalisation et accessibilité.',
+      title: "À propos de nous",
+      lead: "Nous connectons les souvenirs à la technologie – avec empathie, personnalité et accessibilité.",
       story: {
-        title: 'Notre histoire',
-        p1: 'Memora Moments est née du désir de préserver les souvenirs avec soin et dignité.',
-        p2: 'Avec la NFC et le multimédia, nous créons une façon moderne et accessible de se souvenir.',
-        p3: 'Nous comprenons l\'importance des hommages significatifs.',
-        p4: 'Notre technologie fait le pont entre les souvenirs physiques et numériques.',
-        p5: 'Chaque produit est conçu avec respect et attention aux détails.',
+        title: "Notre histoire",
+        p1: "Memora Moments est né du désir de préserver les souvenirs avec dignité.",
+        p2: "Parfois, ce sont les moments silencieux qui changent nos vies pour toujours. Nous avons tous perdu des personnes ou des compagnons fidèles qui nous étaient particulièrement chers – que ce soit un membre de la famille bien-aimé ou un animal de compagnie qui a marqué notre cœur.",
+        p3: "Dans ces moments de deuil, nous aspirons à la proximité, à un lieu où les souvenirs ne s'effacent pas mais continuent de vivre. L'idée de Memora Moments est née précisément de cette expérience.",
+        p4: "Ce projet est né de l'amour pour nos proches et du désir de préserver leurs histoires et leur unicité. Un petit cadeau, initialement destiné uniquement à nos proches, nous a montré à quel point il peut être précieux de garder les souvenirs tangibles et vivants – à travers des images, des vidéos et de la musique qui peuvent ramener un sourire.",
+        p5: "Aujourd'hui, nous souhaitons partager cette opportunité avec d'autres. Avec nos produits, nous créons des ponts entre le passé et le présent – dignes, personnels et proches du cœur. Nous croyons que les souvenirs ne doivent pas se terminer avec l'adieu. Ils peuvent continuer à briller, nous réconforter et nous donner de la force."
       },
       values: {
-        title: 'Nos valeurs',
+        title: "Nos valeurs",
         compassion: {
-          title: 'Compassion',
-          desc: 'Nous travaillons respectueusement et avec empathie — pour les personnes dans des moments de vie significatifs.'
+          title: "Compassion",
+          desc: "Nous travaillons avec respect et empathie – pour les personnes dans des situations de vie particulières."
         },
         personality: {
-          title: 'Personnalité',
-          desc: 'Chaque hommage est individuel — nous concevons autant que nécessaire, aussi peu que possible.'
+          title: "Personnalité",
+          desc: "Chaque mémorial est individuel – nous concevons autant que nécessaire, et le moins possible."
         },
         connection: {
-          title: 'Connexion',
-          desc: 'Images, vidéos et son créent la proximité — à tout moment, sur le lieu du souvenir ou à la maison.'
+          title: "Connexion",
+          desc: "Les images, les vidéos et le son créent une proximité – à tout moment, sur le lieu du souvenir ou à la maison."
         }
       },
       product: {
-        title: 'Pourquoi Memora ?',
-        p1: 'Matériaux de qualité, design résistant aux intempéries et un focus clair sur l\'essentiel.',
-        p2: 'Créer facilement, recevoir quelque chose de durable, et partager à tout moment — avec un simple tap.'
+        title: "Pourquoi Memora ?",
+        p1: "Parce que les souvenirs sont plus que de simples pensées – ils méritent une place digne.",
+        p2: "Nos produits Memora allient technologie et émotion – simples, beaux, durables."
       }
     },
+
     legal: {
       privacy: {
-        title: "Politique de confidentialité",
+        title: "Déclaration de confidentialité",
         sections: {
           responsible: {
-            title: "1. Responsable",
-            content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com\nTéléphone: +41 79 407 56 99"
+            title: "1. Organisme responsable",
+            content: "Memora Moments\n[Insérer l'adresse]\n[Code postal, Ville]\n[N° de registre du commerce, si applicable]\nE-mail : info.memora.moments@gmail.com\nTéléphone : +41 79 407 56 99\n\nNous sommes responsables de la collecte, du traitement et de l'utilisation de vos données personnelles conformément à la loi suisse sur la protection des données (nLPD)."
           },
           dataCollection: {
-            title: "2. Collecte et utilisation des données",
-            content: "Nous collectons et traitons les données personnelles uniquement dans la mesure nécessaire pour fournir nos services. Cela comprend:",
+            title: "2. Collecte et traitement des données personnelles",
+            content: "Nous traitons les données personnelles que vous nous fournissez dans le cadre de l'utilisation de nos services ou qui sont générées lors de leur utilisation. Celles-ci comprennent notamment :",
             list: [
-              "Données de contact pour le traitement des commandes",
-              "Données de facturation pour le paiement",
-              "Images et textes téléchargés par vous pour la personnalisation du produit"
+              "Coordonnées (nom, adresse, e-mail, numéro de téléphone)",
+              "Informations de paiement (selon le mode de paiement choisi, par ex. carte de crédit, TWINT, paiement anticipé)",
+              "Données de contenu (photos, vidéos, textes, musique/audio) que vous fournissez pour des vidéos commémoratives personnalisées et des Memoras",
+              "Données d'utilisation (par ex. heure de consultation d'une vidéo via Memora, métadonnées techniques telles que navigateur/appareil)"
             ]
           },
-          imageProcessing: {
-            title: "3. Traitement des images",
-            content: "Les images que vous téléchargez sont utilisées exclusivement pour créer votre produit personnalisé. Vos images sont stockées en sécurité et supprimées après la finalisation de la commande ou après une période raisonnable.",
-            list: []
+          purpose: {
+            title: "3. Finalité du traitement des données",
+            content: "Vos données sont utilisées exclusivement aux fins suivantes :",
+            list: [
+              "Traitement des commandes et exécution du contrat",
+              "Création, édition et mise à disposition de vidéos commémoratives ainsi que configuration des balises NFC",
+              "Traitement des paiements et facturation",
+              "Communication avec vous (par ex. confirmation de commande, questions, support)",
+              "Exploitation, sécurité et amélioration de nos services"
+            ]
+          },
+          disclosure: {
+            title: "4. Transmission à des tiers",
+            content: "Nous ne vendons pas vos données et ne les transmettons pas à des tiers à des fins publicitaires. Une transmission n'a lieu que si cela est nécessaire aux fins susmentionnées, à des sous-traitants soigneusement sélectionnés :",
+            list: [
+              "Prestataires de services de paiement (par ex. Stripe, TWINT, instituts de cartes de crédit) pour le traitement des paiements",
+              "Prestataires de services informatiques, cloud et d'hébergement (par ex. pour l'exploitation du site web, le stockage de données, la création/diffusion de vidéos)",
+              "Prestataires de services de messagerie/communication (par ex. envoi d'e-mails système et de service)",
+              "Partenaires logistiques/de livraison pour l'expédition de produits physiques"
+            ]
+          },
+          storage: {
+            title: "5. Stockage et suppression des données",
+            content: "Les contenus personnalisés (photos, vidéos, audio, textes) ne sont conservés que le temps nécessaire à l'exécution du contrat et à la fourniture du service. Les données des clients sont conservées conformément aux obligations légales de conservation. Sur votre demande, nous examinerons une suppression anticipée, dans la mesure où aucune obligation légale ne s'y oppose."
+          },
+          security: {
+            title: "6. Sécurité des données",
+            content: "Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos données contre la perte, la manipulation et l'accès non autorisé. Veuillez noter que la transmission de données sur Internet (par ex. par e-mail) peut présenter des failles de sécurité."
           },
           rights: {
-            title: "4. Vos droits",
-            content: "Vous avez le droit d'accéder, de corriger, de supprimer et de limiter le traitement de vos données personnelles. Contactez-nous à info.memora.moments@gmail.com pour les demandes concernant vos données."
+            title: "7. Droits des personnes concernées",
+            content: "Dans le cadre du droit de la protection des données applicable, vous disposez notamment des droits suivants. Pour exercer vos droits, veuillez nous contacter à l'adresse mentionnée ci-dessus :",
+            list: [
+              "Information : Consultation des données stockées vous concernant",
+              "Rectification : Correction des données inexactes ou incomplètes",
+              "Suppression : Suppression de vos données, dans la mesure où il n'existe aucune obligation de conservation",
+              "Limitation/Opposition (le cas échéant) : Limitation de certains traitements",
+              "Portabilité des données : Remise de vos données dans un format électronique courant"
+            ]
           },
           cookies: {
-            title: "5. Cookies",
-            content: "Notre site web utilise des cookies nécessaires pour la fonctionnalité. Nous n'utilisons des cookies de suivi supplémentaires qu'avec votre consentement."
+            title: "8. Cookies et suivi",
+            content: "Notre site web utilise des cookies nécessaires pour fournir des fonctions de base. Nous n'utilisons d'autres cookies d'analyse ou de marketing (facultatifs) qu'avec votre consentement. Vous pouvez définir dans votre navigateur si les cookies doivent être acceptés, bloqués ou supprimés."
+          },
+          changes: {
+            title: "9. Modifications de cette déclaration de confidentialité",
+            content: "Nous nous réservons le droit d'adapter cette déclaration de confidentialité à tout moment. La version actuelle publiée sur notre site web fait foi."
           }
         }
       },
       terms: {
-        title: "Conditions générales",
+        title: "Conditions générales de vente",
         sections: {
           scope: {
             title: "1. Champ d'application",
-            content: "Ces conditions générales s'appliquent à toutes les commandes et contrats entre Memora Moments et nos clients."
+            content: "Les présentes conditions générales de vente (CGV) s'appliquent à toutes les commandes et à tous les contrats conclus entre Memora Moments (ci-après « nous ») et les clients (ci-après « vous ») dans le cadre de l'achat de balises NFC, de vidéos commémoratives et de contenus numériques associés."
           },
           contract: {
-            title: "2. Formation du contrat",
-            content: "Le contrat est formé par votre commande et notre confirmation. Nous nous réservons le droit de refuser les commandes en cas d'obstacles techniques ou juridiques."
-          },
-          prices: {
-            title: "3. Prix et conditions de paiement",
-            content: "Tous les prix incluent la TVA applicable. Le paiement est dû avant la production. Nous acceptons les moyens de paiement courants."
-          },
-          delivery: {
-            title: "4. Livraison et temps de production",
-            content: "Nos produits personnalisés sont fabriqués individuellement. Le temps de production est généralement de 7-14 jours ouvrables après paiement et approbation finale du design."
+            title: "2. Conclusion du contrat",
+            content: "Le contrat est conclu dès que nous confirmons expressément votre commande par e-mail. Nous pouvons refuser des commandes pour des raisons techniques ou juridiques."
           },
           services: {
-            title: "5. Droits d'auteur et droits d'image",
-            content: "Vous confirmez disposer de tous les droits nécessaires sur les images et textes que vous fournissez. Vous nous dégagez des réclamations de tiers concernant les violations de droits d'auteur ou de personnalité."
+            title: "3. Prestations",
+            content: "Nos prestations comprennent : la fabrication et la livraison de balises NFC (produits physiques) ; la création et la mise à disposition de vidéos commémoratives personnalisées (contenus numériques) ; l'accès à d'autres contenus numériques liés au produit."
+          },
+          prices: {
+            title: "4. Prix et conditions de paiement",
+            content: "Tous les prix s'entendent en francs suisses (CHF), TVA légale incluse, le cas échéant. Modes de paiement acceptés : carte de crédit, TWINT, paiement anticipé. Le paiement est dû avant la livraison ou avant la création des contenus numériques."
+          },
+          delivery: {
+            title: "5. Livraison et délais de livraison",
+            content: "La livraison des produits a lieu généralement dans les 30 jours suivant la conclusion du contrat. Pour les produits fabriqués sur mesure, des retards peuvent survenir ; nous vous en informerons immédiatement dans un tel cas."
           },
           cancellation: {
-            title: "6. Droit de rétractation",
-            content: "S'agissant de produits personnalisés, la rétractation est exclue selon § 312g para. 2 no. 1 BGB une fois la production commencée."
+            title: "6. Droit de rétractation et de résiliation",
+            content: "Pour les produits personnalisés et les contenus numériques (par ex. vidéos commémoratives créées individuellement), il n'y a pas de droit de retour. Pour les produits non personnalisés, les dispositions légales s'appliquent."
           },
           warranty: {
             title: "7. Garantie",
-            content: "Nous garantissons la qualité de nos produits. Pour les défauts, veuillez nous contacter dans les 14 jours suivant la réception."
+            content: "Nous garantissons la conformité de nos produits au contrat. Veuillez nous signaler tout défaut dans les 14 jours suivant la réception afin que nous puissions examiner une solution appropriée (réparation, remplacement ou remboursement)."
           },
-          contact: {
-            title: "8. Contact",
-            content: "Pour les questions sur ces conditions générales, contactez-nous à:\nE-Mail: info.memora.moments@gmail.com\nTéléphone: +41 79 407 56 99"
-          }
+          liability: {
+            title: "7a. Responsabilité",
+            content: "Notre responsabilité est limitée aux dommages causés par un comportement intentionnel ou une négligence grave. Nous n'assumons aucune responsabilité pour les problèmes techniques du côté du client (par ex. connexion Internet insuffisante, appareils incompatibles, paramètres logiciels)."
+          },
+          ip: {
+            title: "8. Droits d'auteur et droits d'utilisation",
+            content: "Les contenus que nous créons (par ex. les vidéos commémoratives) sont protégés par le droit d'auteur. Vous recevez un droit d'utilisation simple et non transférable pour un usage privé. Une utilisation commerciale ou une transmission à des tiers n'est pas autorisée, sauf accord écrit contraire. En téléchargeant des photos, des vidéos, de l'audio ou des textes, vous confirmez que vous disposez des droits nécessaires ; vous nous garantissez contre toute réclamation de tiers à cet égard."
+          },
+          privacy: {
+            title: "9. Protection des données",
+            content: "Nous traitons les données personnelles exclusivement conformément à notre déclaration de confidentialité. Cela comprend le stockage et le traitement de vos données pour l'exécution du contrat ainsi que la transmission aux tiers nécessaires (par ex. prestataires de services de paiement, hébergement/informatique, expédition). En utilisant nos services, vous consentez à ce traitement."
+          },
+          special: {
+            title: "10. Produits émotionnels et remarques particulières",
+            content: "Nos produits ont une grande valeur émotionnelle. Les contenus personnalisés ne peuvent être ni modifiés ni retournés après leur finalisation. En cas de problèmes techniques de notre part (par ex. panne de serveur), nous nous efforçons de rétablir l'accès le plus rapidement possible ; nous ne pouvons garantir une disponibilité permanente du côté du client."
+          },
+          law: {
+            title: "11. For et droit applicable",
+            content: "Le droit suisse est exclusivement applicable. Le for est le siège de Memora Moments."
+          },
+          final: {
+            title: "12. Dispositions finales",
+            content: "Si certaines dispositions de ces CGV s'avéraient nulles, la validité des autres dispositions n'en serait pas affectée. Nous nous réservons le droit d'adapter ces CGV à tout moment. La version en vigueur, publiée avec la date et le numéro de version, fait foi."
+          },
         }
       },
       imprint: {
@@ -155,292 +209,333 @@ export const frContent: ContentData = {
         sections: {
           info: {
             title: "Informations selon § 5 TMG",
-            content: "Memora Moments\nProduits de mémoire personnalisés"
+            content: "Memora Moments\nProduits commémoratifs personnalisés"
           },
           contact: {
             title: "Contact",
-            content: "E-Mail: info.memora.moments@gmail.com\nTéléphone: +41 79 407 56 99"
+            content: "E-mail : info.memora.moments@gmail.com\nTéléphone : +41 79 407 56 99"
           },
           responsible: {
-            title: "Responsable du contenu selon § 55 para. 2 RStV",
-            content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com"
+            title: "Responsable du contenu selon § 55 Abs. 2 RStV",
+            content: "Memora Moments\nE-mail : info.memora.moments@gmail.com"
           },
           disclaimer: {
-            title: "Clause de non-responsabilité",
+            title: "Exclusion de responsabilité",
             content: {
               title: "Responsabilité pour le contenu",
-              content: "En tant que prestataire de services, nous sommes responsables de notre propre contenu sur ces pages selon la loi générale selon § 7 para. 1 TMG. Cependant, selon §§ 8 à 10 TMG, nous ne sommes pas obligés de surveiller les informations tierces transmises ou stockées ou d'enquêter sur les circonstances indiquant une activité illégale."
+              content: "En tant que prestataire de services, nous sommes responsables de nos propres contenus sur ces pages conformément aux lois générales selon le § 7 al. 1 TMG. Selon les §§ 8 à 10 TMG, nous ne sommes cependant pas tenus, en tant que prestataire de services, de surveiller les informations tierces transmises ou stockées ou de rechercher des circonstances indiquant une activité illégale."
             },
             links: {
               title: "Responsabilité pour les liens",
-              content: "Notre site contient des liens vers des sites Web externes de tiers sur le contenu desquels nous n'avons aucune influence. Par conséquent, nous ne pouvons assumer aucune responsabilité pour ce contenu externe. Le fournisseur ou l'opérateur respectif des pages liées est toujours responsable de leur contenu."
+              content: "Notre offre contient des liens vers des sites web externes de tiers, sur le contenu desquels nous n'avons aucune influence. C'est pourquoi nous ne pouvons assumer aucune garantie pour ces contenus externes. Le fournisseur ou l'exploitant respectif des pages est toujours responsable du contenu des pages liées."
             },
             copyright: {
               title: "Droit d'auteur",
-              content: "Le contenu et les œuvres créés par les opérateurs du site sur ces pages sont soumis au droit d'auteur allemand. La reproduction, l'édition, la distribution et tout type d'exploitation en dehors des limites du droit d'auteur nécessitent le consentement écrit de l'auteur ou créateur respectif."
+              content: "Les contenus et œuvres créés par les exploitants de ces pages sont soumis au droit d'auteur allemand. La reproduction, le traitement, la diffusion et toute forme d'exploitation en dehors des limites du droit d'auteur nécessitent l'accord écrit de l'auteur ou du créateur respectif."
             }
           }
         }
       }
+    },
+
+    footer: {
+      brand: {
+        name: "Memora Moments",
+        description: "Moments commémoratifs numériques – conçus avec dignité, résistants aux intempéries et faciles à partager."
+      },
+      contactTitle: "Contact",
+      linksTitle: "Liens",
+      legal: {
+        privacy: "Confidentialité",
+        terms: "CGV",
+        imprint: "Mentions légales"
+      },
+      copyright: "Tous droits réservés."
     }
   },
 
-  // --- HUMAN MODE ---
   human: {
     hero: {
-      title: 'Des souvenirs qui perdurent — avec cœur et musique.',
-      subtitle: 'Memora Moments transforme les souvenirs en un hommage discret, en image et en musique.',
-      startButton: 'Commencer',
-      learnButton: 'En savoir plus'
+      title: "Des souvenirs qui perdurent – avec cœur et son.",
+      subtitle: "De moments naît un mémorial silencieux – Memora Moments ouvre la porte à des histoires qui restent. Images, vidéos et musique maintiennent le souvenir vivant, là où il doit être : près du cœur.",
+      startButton: "Comment ça marche ?",
+      learnButton: "En savoir plus"
     },
     features: {
-      title: 'Des instants inoubliables pour l\'éternité',
-      subtitle: 'Nos plaques NFC allient technologie et dignité.',
-      unique: { title: 'Hommage unique', desc: 'Préservez vos plus beaux souvenirs.' },
-      multimedia: { title: 'Souvenirs multimédias', desc: 'Des photos et des vidéos qui racontent une vie.' },
-      music: { title: 'Ajouter une chanson', desc: 'Enrichissez l\'instant avec une musique signifiante.' },
-      quality: { title: 'Design digne', desc: 'Matériaux de qualité, résistants aux intempéries.' }
+      title: "Des moments inoubliables pour l'éternité",
+      subtitle: "Nos Memora Moments allient technologie moderne et souvenir digne.",
+      unique: { title: "Mémorial unique", desc: "Rendez hommage à la vie d'un être cher avec un souvenir impérissable." },
+      multimedia: { title: "Souvenirs multimédias", desc: "Les photos et les vidéos permettent de revivre des moments spéciaux." },
+      music: { title: "Intégrer une musique de fond", desc: "La musique crée une proximité et fait vivre les émotions." },
+      quality: { title: "Conception digne", desc: "Des matériaux simples et de haute qualité qui s'intègrent harmonieusement dans n'importe quelle tombe ou maison." }
     },
     howitworks: {
-      title: 'Comment ça marche',
-      subtitle: 'Votre hommage en quelques étapes.',
-      step1: { title: 'Télécharger des médias', desc: 'Choisissez photos et vidéos.' },
-      step2: { title: 'Choisir une musique', desc: 'Ajoutez une chanson significative.' },
-      step3: { title: 'Recevoir la plaque NFC', desc: 'Votre hommage est livré chez vous.' }
+      title: "C'est aussi simple que ça",
+      subtitle: "Votre Memora personnel en quelques étapes.",
+      step1: { title: "Choisir le produit", desc: "Choisissez entre Memora Tag, Frame ou Deluxe." },
+      step2: { title: "Choisir les médias et la musique", desc: "Choisissez vos photos et vidéos préférées ou même des messages vocaux et ajoutez une musique de fond appropriée." },
+      step3: { title: "Recevoir le Memora", desc: "Votre Memora vous est livré à domicile." }
     },
     products: {
-      title: 'Nos produits',
-      subtitle: 'La gamme classique Memora.',
-      basic: { title: 'Memora Tag', desc: 'Plaque NFC minimaliste pour souvenirs numériques.', price: 'dès 60 CHF' },
-      premium: { title: 'Memora Frame', desc: 'Cadre photo avec NFC intégré.', price: 'dès 120 CHF' },
-      deluxe: { title: 'Memora Deluxe', desc: 'Plaque en verre exclusive avec gravure et options avancées.', price: 'dès 200 CHF' },
+      title: "Nos Memoras :",
+      subtitle: "Les produits Memora classiques.",
+      basic: { title: "Memora Tag", desc: "Une simple plaque en plexiglas qui donne vie aux souvenirs via un album photo numérique – discret et impérissable.", price: "49 CHF" },
+      premium: { title: "Memora Frame", desc: "Un cadre photo classique, associé à la technologie moderne. Ainsi, chaque photo devient une porte vers des souvenirs émouvants.", price: "79 CHF" },
+      deluxe: { title: "Memora Deluxe", desc: "Une œuvre d'art de haute qualité qui maintient le passé en vie et touche l'avenir.", price: "129 CHF" },
       features: {
-        glass: 'Plaque NFC 6×6 cm',
-        nfc: 'Design élégant',
-        format: 'Résistant aux intempéries',
-        weather: 'Pour pierres tombales, urnes et lieux de mémoire',
-        all: 'Cadre avec NFC',
-        photo: 'Photo personnelle',
-        engraving: 'Gravure en option',
-        premium: 'Idéal pour la maison'
+        tag1: "Plaque en plexiglas de 6×6 cm ou 3 cm ⌀",
+        tag2: "Parcourez l'album photo numérique personnel directement d'un simple toucher",
+        tag3: "Design minimaliste et intemporel, s'intègre harmonieusement",
+        tag4: "Pour les pierres tombales, les urnes, les lieux de mémoire",
+        premium1: "Plaque en plexiglas de 3 cm ⌀ – relie l'image et le mémorial numérique",
+        premium2: "Parcourez l'album photo numérique personnel directement d'un simple toucher",
+        premium3: "Personnalisation avec votre propre photo",
+        premium4: "Idéal pour la maison, les coins commémoratifs ou comme cadeau",
+        deluxe1: "Plaque en plexiglas de haute qualité de 12×12 cm avec une finition noble",
+        deluxe2: "Conception individuelle avec votre propre photo et texte",
+        deluxe3: "Parcourez l'album photo numérique personnel directement d'un simple toucher",
+        deluxe4: "Présentation avec un support élégant"
       }
     },
     cta: {
-      title: 'Commencez votre hommage',
-      subtitle: 'Créez votre hommage et préservez l\'essentiel.',
-      create: 'Créer un hommage',
-      contact: 'Nous contacter'
+      title: "Honorez vos proches",
+      subtitle: "Créez votre mémorial et préservez les souvenirs.",
+      create: "Créer un mémorial",
+      contact: "Nous contacter"
     },
     gedenken: {
-      title: 'Créer un hommage - Memora Moments',
-      heading: 'Créer votre hommage',
-      description: 'Téléchargez vos souvenirs — nous réalisons un hommage digne.'
+      title: "Créer un mémorial - Memora Moments",
+      heading: "Créez votre mémorial !",
+      description: "Téléchargez des souvenirs et nous créerons un mémorial digne."
+    },
+
+    uploaderCopy: {
+      headings: {
+        pageTitleByMode: { human: "Choisir le produit :" },
+        step1Subtitle: "Choisissez votre produit – vous téléchargerez les contenus à l'étape suivante.",
+        step2ByMode: { human: "Informations sur la personne" },
+        step2Subtitle: "Veuillez remplir les champs suivants. Les notes sont facultatives.",
+        step3Title: "Télécharger des images et des vidéos",
+        step3Subtitle: "Les fichiers sont enregistrés dans le formulaire et envoyés ultérieurement.",
+        step4Title: "Coordonnées",
+        step4Subtitle: "Nous utilisons ces données pour les questions et la confirmation de commande.",
+        step5Title: "Informations de facturation et aperçu",
+        step5Subtitle: "Veuillez vérifier l'adresse et le résumé. Avec 'Passer au paiement !', vous accéderez plus tard au paiement.",
+        summary: "Résumé"
+      },
+      products: {
+        formatTitle: "Format",
+        frameTitle: "Concevoir le cadre",
+        formatTitleDeluxe: "Concevoir le Deluxe",
+        roundLabel: "Rond · Ø 3 cm",
+        squareLabel: "Carré · 6×6 cm",
+        petOptionsTitle: "Options pour le Memora Tag pour animaux",
+        frameTip:"Astuce : Déplacez l'image avec la souris/le toucher et ajoutez et positionnez librement les textes.",
+      },
+      editor: {
+        image: "Image",
+        zoom: "Zoom",
+        posX: "Position horizontale",
+        posY: "Position verticale",
+        emptyTitle: "Aucune image sélectionnée",
+        emptySub: "Veuillez sélectionner une image ci-dessus",
+        selectedText: "Texte sélectionné",
+        content: "Contenu",
+        font: "Police",
+        size: "Taille",
+        color: "Couleur",
+        previewLabel: "Aperçu adopté",
+        previewNote: "Cet aperçu sera enregistré avec la commande."
+      },
+      step2Fields: {
+        human_lastName: "Nom de famille *",
+        human_firstName: "Prénom *",
+        human_deathDate: "Date de décès",
+        human_notesPH: "Souhaits particuliers, citations, notes de musique…",
+        pet_name: "Nom de l'animal *",
+        pet_deathDate: "Date de décès *",
+        pet_notesPH: "Souhaits particuliers, bruits préférés, notes…",
+        surprise_name: "Nom (destinataire) *",
+        surprise_notesPH: "Mariage, anniversaire, jubilé… souhaits particuliers"
+      },
+      step3Fields: {
+        imagesLabel: "Images (plusieurs possibles)",
+        videosLabel: "Vidéos (plusieurs possibles)",
+        remove: "Supprimer",
+        imageCaptionPlaceholder: "Court texte pour l'image (facultatif)",
+        videoCaptionPlaceholder: "Court texte pour la vidéo (facultatif)",
+      },
+      contactFields: {
+        firstName: "Prénom *",
+        lastName: "Nom de famille *",
+        email: "E-mail *",
+        phoneOpt: "Téléphone (facultatif)"
+      },
+      invoiceFields: {
+        sameAsContact: "Adresse de facturation identique à l'adresse de contact",
+        companyOpt: "Entreprise (facultatif)",
+        firstName: "Prénom *",
+        lastName: "Nom de famille *",
+        street: "Rue et n° *",
+        zip: "Code postal *",
+        city: "Ville *",
+        country: "Pays *"
+      },
+      summary: {
+        mode: "Mode",
+        product: "Produit",
+        format: "Format",
+        formatRound: "Rond Ø 3 cm",
+        formatSquare: "Carré 6×6 cm",
+        options: "Options",
+        person: "Personne",
+        pet: "Animal",
+        recipient: "Destinataire",
+        notes: "Notes",
+        counts: (imgs, vids) => `Images : ${imgs} • Vidéos : ${vids}`,
+        previewTitle: "Aperçu personnalisé"
+      }
     }
   },
 
-  // --- PET MODE ---
   pet: {
     hero: {
-      title: 'Pour nos fidèles compagnons — des souvenirs avec cœur et musique.',
-      subtitle: 'Memora Moments pour animaux — préservez vos plus beaux moments partagés.',
-      startButton: 'Commencer',
-      learnButton: 'En savoir plus'
+      title: "Pour nos fidèles compagnons – des souvenirs avec cœur et son.",
+      subtitle: "Nos animaux de compagnie nous donnent de l'amour, de la fidélité et de la joie. Avec Memora Moments, leur souvenir reste vivant – dans le cœur et dans des lieux spéciaux.",
+      startButton: "Comment ça marche ?",
+      learnButton: "En savoir plus"
     },
     features: {
-      title: 'Instants inoubliables avec votre compagnon',
-      subtitle: 'Hommages numériques pour animaux.',
-      unique: { title: 'Souvenir affectueux', desc: 'Célébrez votre lien avec votre animal.' },
-      multimedia: { title: 'Souvenirs pour animaux', desc: 'Photos et vidéos de votre compagnon.' },
-      music: { title: 'Sons favoris', desc: 'Ajoutez des sons familiers ou de la musique.' },
-      quality: { title: 'Résistant', desc: 'Robuste pour l\'intérieur et l\'extérieur.' }
+      title: "Des moments inoubliables avec votre chéri",
+      subtitle: "Souvenirs numériques pour animaux de compagnie.",
+      unique: { title: "Souvenir affectueux", desc: "Moments spéciaux avec votre animal de compagnie." },
+      multimedia: { title: "Expériences multimédias", desc: "Photos et vidéos de votre chéri." },
+      music: { title: "Sons préférés", desc: "L'aboiement familier, le miaulement ou une chanson qui relie." },
+      quality: { title: "Conception digne", desc: "Des matériaux simples et de haute qualité qui s'intègrent harmonieusement dans n'importe quelle maison, que ce soit à l'intérieur ou à l'extérieur." }
     },
     howitworks: {
-      title: 'Comment ça marche',
-      subtitle: 'Trois étapes pour l\'hommage.',
-      step1: { title: 'Télécharger des médias', desc: 'Choisissez photos et vidéos.' },
-      step2: { title: 'Ajouter sons/musique', desc: 'Incluez un audio significatif.' },
-      step3: { title: 'Recevoir la plaque NFC', desc: 'Votre plaque est livrée.' }
+      title: "C'est aussi simple que ça",
+      subtitle: "Votre Memora en trois étapes.",
+      step1: { title: "Choisir le produit", desc: "Choisissez entre Memora Tag, Frame ou Deluxe." },
+      step2: { title: "Choisir les médias et la musique ou les sons", desc: "Choisissez vos photos et vidéos préférées ou même des messages vocaux et ajoutez une musique de fond appropriée." },
+      step3: { title: "Recevoir le Memora", desc: "Votre Memora est livré." }
     },
     products: {
-      title: 'Produits animaux',
-      subtitle: 'Souvenirs pour fidèles compagnons.',
-      basic: { title: 'Pet Memora Tag', desc: 'Plaque NFC simple pour animaux.', price: 'dès 55 CHF' },
-      premium: { title: 'Pet Memora Frame', desc: 'Cadre avec NFC pour animaux.', price: 'dès 110 CHF' },
-      deluxe: { title: 'Pet Memora Deluxe', desc: 'Version Deluxe avec gravure et options média étendues.', price: 'dès 180 CHF' },
+      title: "Produits pour animaux de compagnie",
+      subtitle: "Souvenirs pour de fidèles compagnons.",
+      basic: { title: "Memora Pet Tag", desc: "Une simple plaque en plexiglas qui donne vie aux souvenirs de votre animal de compagnie avec un album photo numérique", price: "dès 49 CHF" },
+      premium: { title: "Memora Pet Frame", desc: "Un cadre photo élégant qui relie votre photo préférée à un album photo numérique – idéal pour la maison.", price: "89 CHF" },
+      deluxe: { title: "Memora Pet Deluxe", desc: "Une plaque en plexiglas exclusive avec support – pour un souvenir durable et digne.", price: "129 CHF" },
       features: {
-        glass: 'Plaque NFC 6×6 cm, résistante',
-        nfc: 'Design affectueux',
-        format: 'Formats adaptés aux animaux',
-        weather: 'Pour intérieur et extérieur',
-        all: 'Cadre avec NFC',
-        photo: 'Photo dans le cadre',
-        engraving: 'Gravure patte/nom en option',
-        premium: 'Idéal pour la maison'
+        tag1: "Plaque en plexiglas de 6×6 cm ou 3 cm ⌀",
+        tag2: "Parcourez l'album photo numérique personnel directement d'un simple toucher",
+        tag3: "Design minimaliste et intemporel, s'intègre harmonieusement",
+        tag4: "Option : standard simple, conçu individuellement ou en porte-clés",
+        premium1: "Plaque en plexiglas de 3 cm ⌀ – relie l'image et le mémorial numérique",
+        premium2: "Parcourez l'album photo numérique personnel directement d'un simple toucher",
+        premium3: "Personnalisation avec votre propre photo",
+        premium4: "Idéal pour la maison ou comme cadeau",
+        deluxe1: "Plaque en plexiglas de haute qualité de 12×12 cm avec une finition noble",
+        deluxe2: "Conception individuelle avec votre propre photo et texte",
+        deluxe3: "Parcourez l'album photo numérique personnel directement d'un simple toucher",
+        deluxe4: "Présentation avec un support élégant"
       }
     },
     cta: {
-      title: 'Honorez votre compagnon',
-      subtitle: 'Créez un souvenir affectueux.',
-      create: 'Créer un hommage animal',
-      contact: 'Conseil animaux'
+      title: "Honorez votre chéri",
+      subtitle: "Une maison dans le cœur – préservez le souvenir de votre fidèle compagnon.",
+      create: "Créer un souvenir",
+      contact: "Nous contacter"
     },
     gedenken: {
-      title: 'Créer un hommage animal - Memora Moments',
-      heading: 'Créer votre hommage animal',
-      description: 'Téléchargez les souvenirs de votre compagnon.'
+      title: "Créer un mémorial pour animaux de compagnie - Memora Moments",
+      heading: "Mémorial pour votre animal de compagnie",
+      description: "Téléchargez les souvenirs de votre chéri."
+    },
+    uploaderCopy: {
+      headings: {
+        pageTitleByMode: { pet: "Choisir le produit :" },
+        step2ByMode: { pet: "Informations sur l'animal de compagnie" }
+      },
+      products: {
+        petOptionsTitle: "Options pour le Memora Tag pour animaux",
+        keychainLabel: "avec porte-clés (+7 CHF)",
+        designLabel: "Design",
+        designStandard: "Standard",
+        designCustom: "Personnalisable individuellement",
+        designCustomNote: "Remarque : le design personnalisé coûte +10 CHF."
+      },
+      step2Fields: {
+        pet_name: "Nom de l'animal *",
+        pet_deathDate: "Date de décès",
+        pet_notesPH: "Souhaits particuliers, bruits préférés, notes…"
+      }
     }
   },
 
-  // --- SURPRISE MODE ---
   surprise: {
     hero: {
-      title: 'Des instants de surprise qui touchent.',
-      subtitle: 'La collection Surprise allie design et expérience scénarisée.',
-      startButton: 'Lancer Surprise',
-      learnButton: 'En savoir plus'
+      title: "Un cadeau qui touche les cœurs – des surprises inoubliables.",
+      subtitle: "Que ce soit pour un mariage, un anniversaire ou un jubilé – avec Memora Moments, vous rendez les souvenirs tangibles. Photos, vidéos et musique deviennent un cadeau unique qui reste.",
+      startButton: "Comment ça marche ?",
+      learnButton: "En savoir plus"
     },
     features: {
-      title: 'Ce petit quelque chose',
-      subtitle: 'Ciselé, subtil et un peu magique.',
-      unique: { title: 'Expérience curatoriale', desc: 'Chaque plaque Surprise raconte une petite histoire.' },
-      multimedia: { title: 'Image • Vidéo • Son', desc: 'Tous les médias sur une même plaque.' },
-      music: { title: 'Signature sonore', desc: 'Une ambiance sonore de bon goût.' },
-      quality: { title: 'Matériaux premium', desc: 'Durables, résistants et élégants.' }
+      title: "Ce petit quelque chose en plus",
+      subtitle: "Simple, digne et plein de sens.",
+      unique: { title: "Surprise unique", desc: "Chaque Surprise raconte une petite histoire." },
+      multimedia: { title: "Expériences multimédias", desc: "Photos, vidéos et musique rendent votre cadeau vivant et émotionnel." },
+      music: { title: "Musique et messages", desc: "Ajoutez une musique de fond ou un message vocal personnel." },
+      quality: { title: "Design élégant", desc: "Minimaliste et de haute qualité – adapté à chaque occasion et à chaque célébration." }
     },
     howitworks: {
-      title: 'Fonctionnement',
-      subtitle: 'Trois étapes pour l\'instant.',
-      step1: { title: 'Choisir le contenu', desc: 'Photos, clips et musique.' },
-      step2: { title: 'Mettre en scène', desc: 'Nous créons une séquence élégante.' },
-      step3: { title: 'Recevoir Surprise', desc: 'Touchez et profitez de l\'expérience.' }
+      title: "Comment fonctionne Surprise",
+      subtitle: "Trois étapes pour le moment de surprise.",
+      step1: { title: "Choisir le produit", desc: "Choisissez entre Memora Tag, Frame ou Deluxe." },
+      step2: { title: "Choisir les médias et la musique", desc: "Choisissez vos photos et vidéos préférées ou même des messages vocaux et ajoutez une musique de fond appropriée." },
+      step3: { title: "Recevoir la Surprise", desc: "Votre Memora est livré directement chez vous." }
     },
     products: {
-      title: 'Produits Surprise',
-      subtitle: 'Choisissez votre style.',
-      basic: { title: 'Surprise Tag', desc: 'Plaque NFC minimaliste pour instants surprise.', price: 'dès 70 CHF' },
-      premium: { title: 'Surprise Frame', desc: 'Cadre élégant avec expérience intégrée.', price: 'dès 140 CHF' },
-      deluxe: { title: 'Surprise Deluxe', desc: 'Version exclusive avec options étendues.', price: 'dès 220 CHF' },
+      title: "Produits Surprise",
+      subtitle: "Choisissez votre style.",
+      basic: { title: "Memora Surprise Tag", desc: "Une petite plaque en plexiglas qui relie un album photo numérique – original et unique.", price: "49 CHF" },
+      premium: { title: "Memora Surprise Frame", desc: "Un cadre photo élégant qui relie votre photo préférée à un album photo numérique – idéal comme cadeau.", price: "79 CHF" },
+      deluxe: { title: "Memora Surprise Deluxe", desc: "Une plaque en plexiglas exclusive avec technologie intégrée – le cadeau premium élégant pour des souvenirs durables.", price: "129 CHF" },
       features: {
-        glass: 'Finition robuste',
-        nfc: 'Tag NFC intégré',
-        format: 'Optimisé pour le multimédia',
-        weather: 'Résistant aux intempéries',
-        all: 'Cadre avec NFC caché',
-        photo: 'Photo en option',
-        engraving: 'Gravure en option',
-        premium: 'Matériaux raffinés'
+        tag1: "Plaque en plexiglas de 6×6 cm ou 3 cm ⌀",
+        tag2: "Parcourez l'album photo numérique personnel directement d'un simple toucher",
+        tag3: "Design minimaliste et intemporel, s'intègre harmonieusement",
+        tag4: "Une surprise qui suscite des émotions et reste longtemps en mémoire",
+        premium1: "Plaque en plexiglas de 3 cm ⌀ – relie l'image et le mémorial numérique",
+        premium2: "Parcourez l'album photo numérique personnel directement d'un simple toucher",
+        premium3: "Personnalisation avec votre propre photo",
+        premium4: "Le cadeau parfait pour les anniversaires, les mariages ou les jubilés",
+        deluxe1: "Plaque en plexiglas de haute qualité de 12×12 cm avec une finition noble",
+        deluxe2: "Conception individuelle avec votre propre photo et texte",
+        deluxe3: "Parcourez l'album photo numérique personnel directement d'un simple toucher",
+        deluxe4: "Présentation avec un support élégant"
       }
     },
     cta: {
-      title: 'Prêt pour la surprise ?',
-      subtitle: 'Offrez des instants uniques qui durent.',
-      create: 'Créer Surprise',
-      contact: 'Demander conseil'
+      title: "Prêt pour votre moment de surprise ?",
+      subtitle: "Surprise offre des moments uniques.",
+      create: "Créer une surprise",
+      contact: "Nous contacter"
     },
     gedenken: {
-      title: 'Créer Surprise - Memora Moments',
-      heading: 'Votre moment Surprise',
-      description: 'Téléchargez votre contenu, nous concevons l\'expérience.'
-    }
-  },
-  legal: {
-    privacy: {
-      title: "Politique de confidentialité",
-      sections: {
-        responsible: {
-          title: "1. Responsable",
-          content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com\nTéléphone: +41 79 407 56 99"
-        },
-        dataCollection: {
-          title: "2. Collecte et utilisation des données",
-          content: "Nous collectons et traitons les données personnelles uniquement dans la mesure nécessaire pour fournir nos services. Cela comprend:",
-          list: [
-            "Données de contact pour le traitement des commandes",
-            "Données de facturation pour le paiement",
-            "Images et textes téléchargés par vous pour la personnalisation du produit"
-          ]
-        },
-        imageProcessing: {
-          title: "3. Traitement des images",
-          content: "Les images que vous téléchargez sont utilisées exclusivement pour créer votre produit personnalisé. Vos images sont stockées en sécurité et supprimées après la finalisation de la commande ou après une période raisonnable."
-        },
-        rights: {
-          title: "4. Vos droits",
-          content: "Vous avez le droit d'accéder, de corriger, de supprimer et de limiter le traitement de vos données personnelles. Contactez-nous à info.memora.moments@gmail.com pour les demandes concernant vos données."
-        },
-        cookies: {
-          title: "5. Cookies",
-          content: "Notre site web utilise des cookies nécessaires pour la fonctionnalité. Nous n'utilisons des cookies de suivi supplémentaires qu'avec votre consentement."
-        }
-      }
+      title: "Créer une surprise - Memora Moments",
+      heading: "Votre moment Surprise",
+      description: "Téléchargez du contenu et nous concevrons votre expérience."
     },
-    terms: {
-      title: "Conditions générales",
-      sections: {
-        scope: {
-          title: "1. Champ d'application",
-          content: "Ces conditions générales s'appliquent à toutes les commandes et contrats entre Memora Moments et nos clients."
-        },
-        contract: {
-          title: "2. Formation du contrat",
-          content: "Le contrat est formé par votre commande et notre confirmation. Nous nous réservons le droit de refuser les commandes en cas d'obstacles techniques ou juridiques."
-        },
-        prices: {
-          title: "3. Prix et conditions de paiement",
-          content: "Tous les prix incluent la TVA applicable. Le paiement est dû avant la production. Nous acceptons les moyens de paiement courants."
-        },
-        delivery: {
-          title: "4. Livraison et temps de production",
-          content: "Nos produits personnalisés sont fabriqués individuellement. Le temps de production est généralement de 7-14 jours ouvrables après paiement et approbation finale du design."
-        },
-        rights: {
-          title: "5. Droits d'auteur et droits d'image",
-          content: "Vous confirmez disposer de tous les droits nécessaires sur les images et textes que vous fournissez. Vous nous dégagez des réclamations de tiers concernant les violations de droits d'auteur ou de personnalité."
-        },
-        cancellation: {
-          title: "6. Droit de rétractation",
-          content: "S'agissant de produits personnalisés, la rétractation est exclue selon § 312g para. 2 no. 1 BGB une fois la production commencée."
-        },
-        warranty: {
-          title: "7. Garantie",
-          content: "Nous garantissons la qualité de nos produits. Pour les défauts, veuillez nous contacter dans les 14 jours suivant la réception."
-        },
-        contact: {
-          title: "8. Contact",
-          content: "Pour les questions sur ces conditions générales, contactez-nous à:\nE-Mail: info.memora.moments@gmail.com\nTéléphone: +41 79 407 56 99"
-        }
-      }
-    },
-    imprint: {
-      title: "Mentions légales",
-      sections: {
-        info: {
-          title: "Informations selon § 5 TMG",
-          content: "Memora Moments\nProduits de mémoire personnalisés"
-        },
-        contact: {
-          title: "Contact",
-          content: "E-Mail: info.memora.moments@gmail.com\nTéléphone: +41 79 407 56 99"
-        },
-        responsible: {
-          title: "Responsable du contenu selon § 55 para. 2 RStV",
-          content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com"
-        },
-        disclaimer: {
-          title: "Clause de non-responsabilité",
-          content: {
-            title: "Responsabilité pour le contenu",
-            content: "En tant que prestataire de services, nous sommes responsables de notre propre contenu sur ces pages selon la loi générale selon § 7 para. 1 TMG. Cependant, selon §§ 8 à 10 TMG, nous ne sommes pas obligés de surveiller les informations tierces transmises ou stockées ou d'enquêter sur les circonstances indiquant une activité illégale."
-          },
-          links: {
-            title: "Responsabilité pour les liens",
-            content: "Notre site contient des liens vers des sites Web externes de tiers sur le contenu desquels nous n'avons aucune influence. Par conséquent, nous ne pouvons assumer aucune responsabilité pour ce contenu externe. Le fournisseur ou l'opérateur respectif des pages liées est toujours responsable de leur contenu."
-          },
-          copyright: {
-            title: "Droit d'auteur",
-            content: "Le contenu et les œuvres créés par les opérateurs du site sur ces pages sont soumis au droit d'auteur allemand. La reproduction, l'édition, la distribution et tout type d'exploitation en dehors des limites du droit d'auteur nécessitent le consentement écrit de l'auteur ou créateur respectif."
-          }
-        }
+
+    uploaderCopy: {
+      headings: {
+        pageTitleByMode: { surprise: "Choisir le produit (Surprise)" },
+        step2ByMode: { surprise: "Informations pour la Surprise" }
+      },
+      step2Fields: {
+        surprise_name: "Nom (destinataire) *",
+        surprise_notesPH: "Occasion, idée ou souhaits particuliers…"
       }
     }
   }
