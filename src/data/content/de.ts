@@ -461,9 +461,17 @@ export const deContent: ContentData = {
         optionLandscape: "Querformat",
         modeHuman: "Human",
         modePet: "Pet",
-        modeSurprise: "Surprise"
-      }
-    }
+        modeSurprise: "Surprise",
+      },
+     privacyNotice: {
+        text: "Mit dem Hochladen von Bildern erklären Sie sich mit unseren",
+        privacyLink: "Datenschutzrichtlinien",
+        and: "und",
+        termsLink: "Nutzungsbedingungen",
+        agreed: "einverstanden.",
+      } 
+  },
+
   },
 
   // --- PET MODE ---
