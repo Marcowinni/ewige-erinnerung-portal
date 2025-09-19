@@ -459,7 +459,7 @@ function clearPersisted() {
   }
 }
 
-/* ==================== Design Editor (parametrisierbar) ==================== */
+/* ==================== Design Editor (Final, Corrected Version) ==================== */
 function DesignEditor({
   value,
   onChange,
@@ -467,7 +467,7 @@ function DesignEditor({
   width = 420,
   height = 420,
   cornerRadius = 24,
-  copy,
+  copy, // Nimmt jetzt das ganze `UploaderCopy` Objekt an
   tip,
 }: {
   value: CustomDesign | undefined;
@@ -476,7 +476,7 @@ function DesignEditor({
   width?: number;
   height?: number;
   cornerRadius?: number;
-  copy: UploaderCopy["editor"];
+  copy: UploaderCopy; // Geändert von UploaderCopy["editor"] zu UploaderCopy
   tip?: string;
 }) {
   const W = width;
@@ -488,6 +488,7 @@ function DesignEditor({
   const editorContainerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // ... (Die restliche Logik der Funktion bleibt unverändert)
   const onChangeRef = useRef(onChange);
   useEffect(() => {
     onChangeRef.current = onChange;
@@ -566,34 +567,33 @@ function DesignEditor({
 
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
-      e.preventDefault(); // Das ist jetzt erlaubt
+      e.preventDefault();
       const factor = e.deltaY < 0 ? 1.08 : 1 / 1.08;
       zoomAt(e.clientX, e.clientY, factor);
     };
 
     const editorDiv = editorContainerRef.current;
-    // Hier sagen wir dem Browser, dass der Listener NICHT passiv ist
     editorDiv?.addEventListener('wheel', onWheel, { passive: false });
 
     return () => {
       editorDiv?.removeEventListener('wheel', onWheel);
     };
-  }, []); // Leeres Array, da die Funktion nur einmal registriert werden muss
+  }, []);
 
   const pointers = useRef<Map<number, { x: number; y: number }>>(new Map());
   const lastPinch = useRef<{ dist: number; midX: number; midY: number } | null>(null);
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!local.bgImageUrl || (e.target as HTMLElement).closest('[data-text-id]')) return;
     (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    if (pointers.current.size === 1) {
-      setDragImg({ x: e.clientX, y: e.clientY });
-    } else if (pointers.current.size === 2) {
+    if (pointers.current.size === 1) setDragImg({ x: e.clientX, y: e.clientY });
+    else if (pointers.current.size === 2) {
       const [a, b] = Array.from(pointers.current.values());
-      const dx = a.x - b.x, dy = a.y - b.y;
-      lastPinch.current = { dist: Math.hypot(dx, dy), midX: (a.x + b.x) / 2, midY: (a.y + b.y) / 2 };
+      lastPinch.current = { dist: Math.hypot(a.x - b.x, a.y - b.y), midX: (a.x + b.x) / 2, midY: (a.y + b.y) / 2 };
     }
   };
+
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!pointers.current.has(e.pointerId)) return;
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
@@ -605,12 +605,10 @@ function DesignEditor({
       setLocal((s) => ({ ...s, offsetX: s.offsetX + dx, offsetY: s.offsetY + dy }));
     } else if (pointers.current.size === 2 && lastPinch.current) {
       const [a, b] = Array.from(pointers.current.values());
-      const dx = a.x - b.x, dy = a.y - b.y;
-      const dist = Math.hypot(dx, dy);
+      const dist = Math.hypot(a.x - b.x, a.y - b.y);
       const factor = dist / lastPinch.current.dist;
       zoomAt(lastPinch.current.midX, lastPinch.current.midY, factor);
-      const midX = (a.x + b.x) / 2, midY = (a.y + b.y) / 2;
-      lastPinch.current = { dist, midX, midY };
+      lastPinch.current = { ...lastPinch.current, dist };
     }
   };
   const onPointerUpOrCancel = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -642,9 +640,11 @@ function DesignEditor({
     if (renderTexts) {
       local.texts.forEach(t => {
         ctx.fillStyle = t.color || "#ffffff";
-        ctx.font = `${t.fontStyle} ${t.fontWeight} ${t.fontSize || 24}px ${t.fontFamily || "system-ui, Arial"}`;        ctx.textAlign = "center";
+        ctx.font = `${t.fontStyle || 'normal'} ${t.fontWeight || 'normal'} ${t.fontSize || 24}px ${t.fontFamily || "system-ui, Arial"}`;
+        ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        wrapText(ctx, t.text || "", t.x * W, t.y * H, t.width * W, t.fontSize || 24);      });
+        wrapText(ctx, t.text || "", t.x * W, t.y * H, (t.width || 0.8) * W, t.fontSize || 24);
+      });
     }
     ctx.restore();
   };
@@ -659,7 +659,7 @@ function DesignEditor({
     img.crossOrigin = "anonymous";
     img.onload = () => { imgRef.current = img; draw(false); };
     img.src = local.bgImageUrl;
-    return () => { if(local.bgImageUrl?.startsWith("blob:")) URL.revokeObjectURL(local.bgImageUrl); };
+    return () => { if (local.bgImageUrl?.startsWith("blob:")) URL.revokeObjectURL(local.bgImageUrl); };
   }, [local.bgImageUrl]);
 
   useEffect(() => { draw(false); }, [local.scale, local.offsetX, local.offsetY, local.texts]);
@@ -667,75 +667,44 @@ function DesignEditor({
   const applyClip = (ctx: CanvasRenderingContext2D, w: number, h: number) => {
     ctx.save();
     if (shape === "circle") {
-      const r = Math.min(w, h) / 2 - 1; // 1px border
-      ctx.beginPath();
-      ctx.arc(w / 2, h / 2, r, 0, Math.PI * 2);
-      ctx.clip();
+      const r = Math.min(w, h) / 2 - 1;
+      ctx.beginPath(); ctx.arc(w / 2, h / 2, r, 0, Math.PI * 2); ctx.clip();
     } else {
       const r = cornerRadius * (w / W);
-      ctx.beginPath();
       const rr = Math.min(r, w / 2, h / 2);
-      ctx.moveTo(rr, 0);
-      ctx.arcTo(w, 0, w, h, rr);
-      ctx.arcTo(w, h, 0, h, rr);
-      ctx.arcTo(0, h, 0, 0, rr);
-      ctx.arcTo(0, 0, w, 0, rr);
-      ctx.closePath();
-      ctx.clip();
+      ctx.beginPath(); ctx.moveTo(rr, 0); ctx.arcTo(w, 0, w, h, rr); ctx.arcTo(w, h, 0, h, rr); ctx.arcTo(0, h, 0, 0, rr); ctx.arcTo(0, 0, w, 0, rr); ctx.closePath(); ctx.clip();
     }
   };
 
   const wrapText = (ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number) => {
-    const words = text.split(" ");
-    let lines: string[] = [];
-    let currentLine = words[0] || '';
+    const words = text.split(" "); let lines: string[] = []; let currentLine = words[0] || '';
     for (let i = 1; i < words.length; i++) {
-        let word = words[i];
-        let width = ctx.measureText(currentLine + " " + word).width;
-        if (width < maxWidth) {
-            currentLine += " " + word;
-        } else {
-            lines.push(currentLine);
-            currentLine = word;
-        }
+      let word = words[i]; let width = ctx.measureText(currentLine + " " + word).width;
+      if (width < maxWidth) { currentLine += " " + word; } else { lines.push(currentLine); currentLine = word; }
     }
-    lines.push(currentLine);
-    const startY = y - ((lines.length - 1) * lineHeight) / 2;
+    lines.push(currentLine); const startY = y - ((lines.length - 1) * lineHeight) / 2;
     lines.forEach((line, i) => ctx.fillText(line, x, startY + i * lineHeight));
   };
-
+  
   const onUpload = (files: FileList | null) => {
     if (files && files[0]) {
       if (local.bgImageUrl && local.bgImageUrl.startsWith("blob:")) URL.revokeObjectURL(local.bgImageUrl);
       const url = URL.createObjectURL(files[0]);
-      setLocal((s) => ({ ...s, bgImageUrl: url }));
+      setLocal((s) => ({ ...s, bgImageUrl: url, scale: 1, offsetX: 0, offsetY: 0 }));
     }
   };
 
-  const handleCanvasClick = () => {
-    // Löst nur aus, wenn noch kein Bild ausgewählt wurde
-    if (!local.bgImageUrl) {
-      fileInputRef.current?.click();
-    }
+  const handleTriggerUpload = () => {
+    fileInputRef.current?.click();
   };
 
   const addText = () => {
     const id = crypto.randomUUID();
-    const t: EditorText = { 
-      id, text: "Neuer Text", x: 0.5, y: 0.5, 
-      fontFamily: "system-ui, sans-serif", 
-      fontSize: 28, color: "#ffffff", 
-      fontWeight: "normal", 
-      fontStyle: "normal", 
-      width: 0.8 };
-    setLocal((s) => ({ ...s, texts: [...s.texts, t] }));
+    setLocal((s) => ({ ...s, texts: [...s.texts, { id, text: "Neuer Text", x: 0.5, y: 0.5, fontFamily: "system-ui, sans-serif", fontSize: 28, color: "#ffffff", fontWeight: "normal", fontStyle: "normal", width: 0.8 }] }));
     setActiveTextId(id);
   };
   const selectText = (id: string) => setActiveTextId(id);
-  const updateActiveText = (patch: Partial<EditorText>) => setLocal((s) => ({
-    ...s,
-    texts: s.texts.map((t) => (t.id === activeTextId ? { ...t, ...patch } : t)),
-  }));
+  const updateActiveText = (patch: Partial<EditorText>) => setLocal((s) => ({ ...s, texts: s.texts.map((t) => (t.id === activeTextId ? { ...t, ...patch } : t)) }));
   const removeActiveText = () => {
     if (activeTextId) {
       setLocal((s) => ({ ...s, texts: s.texts.filter((t) => t.id !== activeTextId) }));
@@ -745,38 +714,22 @@ function DesignEditor({
 
   const onMouseDownText = (e: React.PointerEvent<HTMLDivElement>, id: string) => {
     e.stopPropagation();
-    const rect = overlayRef.current?.getBoundingClientRect();
-    if (!rect) return;
     const t = local.texts.find((x) => x.id === id)!;
     setDragText({ id, startX: e.clientX, startY: e.clientY, origX: t.x, origY: t.y });
     setActiveTextId(id);
   };
 
-  const exportPng = () => {
-    const canvas = document.createElement('canvas');
-    canvas.width = W;
-    canvas.height = H;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    draw(true);
-    const png = canvasRef.current?.toDataURL("image/png", 1.0);
-    draw(false);
-    setLocal((s) => ({ ...s, previewDataUrl: png }));
-  };
-
+  const exportPng = () => { draw(true); const png = canvasRef.current?.toDataURL("image/png", 1.0); draw(false); setLocal((s) => ({ ...s, previewDataUrl: png })); };
   const activeText = local.texts.find((t) => t.id === activeTextId) || null;
   const FONT_OPTIONS = [
     { label: "System / Arial", value: "system-ui, Arial, sans-serif" },
     { label: "Times New Roman", value: "'Times New Roman', Times, serif" },
     { label: "Georgia", value: "Georgia, serif" },
     { label: "Courier New", value: "'Courier New', Courier, monospace" },
-    // Elegante Serif-Schriftarten
     { label: "Playfair Display", value: "'Playfair Display', serif" },
     { label: "Lora", value: "'Lora', serif" },
-    // Moderne Sans-Serif-Schriftarten
     { label: "Montserrat", value: "'Montserrat', sans-serif" },
     { label: "Lato", value: "'Lato', sans-serif" },
-    // Schreibschriften
     { label: "Dancing Script", value: "'Dancing Script', cursive" },
     { label: "Great Vibes", value: "'Great Vibes', cursive" },
   ];
@@ -784,122 +737,109 @@ function DesignEditor({
   return (
     <div className="space-y-4">
       <div className="flex flex-col md:flex-row gap-6">
-        <div className="w-full md:w-2/5">
+        <div className="w-full md:w-3/5">
           {tip && <p className="text-xs text-muted-foreground mb-2 text-center md:text-left">{tip}</p>}
-          <div
-            ref={editorContainerRef}
-            className={`relative w-full mx-auto touch-none select-none bg-muted/20 ${!local.bgImageUrl ? 'cursor-pointer' : ''}`}
+          <label
+            htmlFor="file-upload-input"
+            className={`relative block w-full mx-auto touch-none select-none bg-muted/20 ${!local.bgImageUrl ? 'cursor-pointer' : 'cursor-grab'}`}
             style={{ 
               aspectRatio: `${W} / ${H}`,
               borderRadius: shape === 'circle' ? '50%' : `${cornerRadius}px`
             }}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUpOrCancel}
-            onPointerCancel={onPointerUpOrCancel}
-            onClick={handleCanvasClick}
           >
-            <canvas ref={canvasRef} width={W} height={H} className="absolute inset-0 w-full h-full" />
-            {!local.bgImageUrl && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="text-center text-muted-foreground">
-                  <p className="text-sm font-medium">{copy.emptyTitle}</p>
-                  <p className="text-xs">{copy.emptySub}</p>
-                </div>
-              </div>
-            )}
-            <div ref={overlayRef} className="absolute inset-0">
-              {local.texts.map(t => {
-                const rect = overlayRef.current?.getBoundingClientRect();
-                const scaleFactor = rect ? rect.width / W : 1;
-                return (
-                  <div
-                    key={t.id}
-                    onPointerDown={e => onMouseDownText(e as any, t.id)}
-                    onClick={() => selectText(t.id)}
-                    className="absolute cursor-move whitespace-pre-wrap text-center"
-                    style={{
-                      left: `${t.x * 100}%`, top: `${t.y * 100}%`,
-                      transform: 'translate(-50%, -50%)',
-                      width: `${t.width * 100}%`,
-                      fontSize: (t.fontSize || 24) * scaleFactor,
-                      fontFamily: t.fontFamily, color: t.color,
-                      fontWeight: t.fontWeight,
-                      fontStyle: t.fontStyle,
-                      maxWidth: `${90 * scaleFactor}%`,
-                      border: activeTextId === t.id ? '1px dashed currentColor' : 'none',
-                      padding: '2px 4px',
-                    }}
-                  >
-                    {t.text}
+            <div
+              ref={editorContainerRef}
+              className="absolute inset-0"
+              onPointerDown={onPointerDown}
+              onPointerMove={onPointerMove}
+              onPointerUp={onPointerUpOrCancel}
+              onPointerCancel={onPointerUpOrCancel}
+            >
+              <canvas ref={canvasRef} width={W} height={H} className="w-full h-full" />
+              {!local.bgImageUrl && (
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none border-dashed border-muted-foreground/30 border-2" style={{ borderRadius: 'inherit' }}>
+                  <div className="text-center text-muted-foreground">
+                    <p className="text-sm font-medium">{copy.editor.emptyTitle}</p>
+                    <p className="text-xs">{copy.editor.emptySub}</p>
                   </div>
-                );
-              })}
+                </div>
+              )}
+              <div ref={overlayRef} className="absolute inset-0">
+                {local.texts.map(t => {
+                  const rect = overlayRef.current?.getBoundingClientRect();
+                  const scaleFactor = rect ? rect.width / W : 1;
+                  return (
+                    <div key={t.id} data-text-id={t.id} onPointerDown={e => onMouseDownText(e as any, t.id)} onClick={(e) => { e.preventDefault(); selectText(t.id); }}
+                      className="absolute cursor-move whitespace-pre-wrap text-center"
+                      style={{
+                        left: `${t.x * 100}%`, top: `${t.y * 100}%`, transform: 'translate(-50%, -50%)',
+                        width: `${(t.width || 0.8) * 100}%`,
+                        fontSize: (t.fontSize || 24) * scaleFactor, fontFamily: t.fontFamily, color: t.color,
+                        fontWeight: t.fontWeight, fontStyle: t.fontStyle,
+                        border: activeTextId === t.id ? '1px dashed currentColor' : 'none', padding: '2px 4px',
+                      }}>
+                      {t.text}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </label>
+        </div>
+        <div className="w-full md:w-2/5 space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="file-upload-input">{copy.editor.image}</Label>
+            <div className="flex items-center gap-2">
+                <Input
+                    id="file-upload-input"
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => onUpload(e.target.files)}
+                    className="hidden"
+                />
+                <Button type="button" variant="outline" onClick={() => fileInputRef.current?.click()}>
+                    Datei auswählen
+                </Button>
+                <span className="text-sm text-muted-foreground truncate">
+                    {local.bgImageUrl && fileInputRef.current?.files?.[0] ? fileInputRef.current.files[0].name : "Keine ausgewählt"}
+                </span>
             </div>
           </div>
-        </div>
-        <div className="w-full md:w-3/5 space-y-4">
           <div className="space-y-2">
-            <Label>{copy.image}</Label>
-            <Input ref={fileInputRef} type="file" accept="image/*" onChange={(e) => onUpload(e.target.files)} />
-          </div>
-          <div className="space-y-2">
-            <Label>{copy.zoom} ({local.scale.toFixed(2)})</Label>
+            <Label>{copy.editor.zoom} ({local.scale.toFixed(2)})</Label>
             <Input type="range" min={ZOOM_MIN} max={ZOOM_MAX} step={0.01} value={local.scale} onChange={(e) => setLocal(s => ({ ...s, scale: Number(e.target.value) }))} />
           </div>
           <div className="flex gap-2">
-            <Button onClick={addText} type="button">{DEFAULT_COPY.buttons.addText}</Button>
-            <Button onClick={exportPng} type="button" variant="secondary">{DEFAULT_COPY.buttons.applyDesign}</Button>
+            <Button onClick={addText} type="button">{copy.buttons.addText}</Button>
+            <Button onClick={exportPng} type="button" variant="secondary">{copy.buttons.applyDesign}</Button>
           </div>
           {activeText && (
             <div className="space-y-3 border rounded-md p-3">
-              <div className="flex justify-between items-center"><Label className="font-semibold">{copy.selectedText}</Label><Button size="sm" variant="outline" onClick={removeActiveText}>{DEFAULT_COPY.buttons.remove}</Button></div>
-              <div className="space-y-2"><Label>{copy.content}</Label><Textarea value={activeText.text} onChange={e => updateActiveText({ text: e.target.value })} /></div>
-              <div className="grid grid-cols-2 gap-3">
-                <div><Label>{copy.font}</Label><select className="w-full border rounded-md h-10 px-2 bg-background" value={activeText.fontFamily} onChange={e => updateActiveText({ fontFamily: e.target.value })}>{FONT_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}</select></div>
-                <div><Label>{copy.size}</Label><Input type="number" min={10} max={96} value={activeText.fontSize} onChange={e => updateActiveText({ fontSize: Number(e.target.value) })} /></div>
-              </div>
-              <div><Label>{copy.color}</Label><input type="color" value={activeText.color} onChange={e => updateActiveText({ color: e.target.value })} /></div>
-              
-              {/* NEU: Slider für die Textbox-Breite */}
+              <div className="flex justify-between items-center"><Label className="font-semibold">{copy.editor.selectedText}</Label><Button size="sm" variant="outline" onClick={removeActiveText}>{copy.buttons.remove}</Button></div>
+              <div className="space-y-2"><Label>{copy.editor.content}</Label><Textarea value={activeText.text} onChange={e => updateActiveText({ text: e.target.value })} /></div>
               <div className="space-y-2">
-                <Label>Textbox Breite ({Math.round(activeText.width * 100)}%)</Label>
-                <Input
-                  type="range"
-                  min={0.2}
-                  max={1}
-                  step={0.01}
-                  value={activeText.width}
-                  onChange={(e) => updateActiveText({ width: Number(e.target.value) })}
-                />
+                <Label>Textbox Breite ({Math.round((activeText.width || 0.8) * 100)}%)</Label>
+                <Input type="range" min={0.2} max={1} step={0.01} value={activeText.width} onChange={(e) => updateActiveText({ width: Number(e.target.value) })} />
               </div>
-
-              <div className="flex items-center gap-2">
-                <Toggle
-                  size="sm"
-                  pressed={activeText.fontWeight === 'bold'}
-                  onPressedChange={(pressed) => updateActiveText({ fontWeight: pressed ? 'bold' : 'normal' })}
-                  aria-label="Toggle bold"
-                >
-                  <Bold className="h-4 w-4" />
-                </Toggle>
-                <Toggle
-                  size="sm"
-                  pressed={activeText.fontStyle === 'italic'}
-                  onPressedChange={(pressed) => updateActiveText({ fontStyle: pressed ? 'italic' : 'normal' })}
-                  aria-label="Toggle italic"
-                >
-                  <Italic className="h-4 w-4" />
-                </Toggle>
+              <div className="grid grid-cols-2 gap-3">
+                <div><Label>{copy.editor.font}</Label><select className="w-full border rounded-md h-10 px-2 bg-background" value={activeText.fontFamily} onChange={e => updateActiveText({ fontFamily: e.target.value })}>{FONT_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}</select></div>
+                <div><Label>{copy.editor.size}</Label><Input type="number" min={10} max={96} value={activeText.fontSize} onChange={e => updateActiveText({ fontSize: Number(e.target.value) })} /></div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                    <Toggle size="sm" pressed={activeText.fontWeight === 'bold'} onPressedChange={(pressed) => updateActiveText({ fontWeight: pressed ? 'bold' : 'normal' })} aria-label="Toggle bold"><Bold className="h-4 w-4" /></Toggle>
+                    <Toggle size="sm" pressed={activeText.fontStyle === 'italic'} onPressedChange={(pressed) => updateActiveText({ fontStyle: pressed ? 'italic' : 'normal' })} aria-label="Toggle italic"><Italic className="h-4 w-4" /></Toggle>
+                </div>
+                <div><Label className="sr-only">{copy.editor.color}</Label><input type="color" value={activeText.color} onChange={e => updateActiveText({ color: e.target.value })} className="w-8 h-8"/></div>
               </div>
             </div>
-              
           )}
           {local.previewDataUrl && (
             <div className="space-y-2">
-              <Label>{copy.previewLabel}</Label>
+              <Label>{copy.editor.previewLabel}</Label>
               <img src={local.previewDataUrl} alt="Vorschau" className={`border w-48 h-auto ${shape === "circle" ? "rounded-full" : "rounded-xl"}`} />
-              <p className="text-xs text-muted-foreground">{copy.previewNote}</p>
+              <p className="text-xs text-muted-foreground">{copy.editor.previewNote}</p>
             </div>
           )}
         </div>
@@ -1074,7 +1014,7 @@ function Step1View(props: {
                   height={300}
                   value={form.pet_tag_custom}
                   onChange={(v) => setForm((s) => ({ ...s, pet_tag_custom: v }))}
-                  copy={DEFAULT_COPY.editor}
+                  copy={copy}
                   tip={copy.products.frameTip}
                 />
               ) : (
@@ -1085,7 +1025,7 @@ function Step1View(props: {
                   cornerRadius={20}
                   value={form.pet_tag_custom}
                   onChange={(v) => setForm((s) => ({ ...s, pet_tag_custom: v }))}
-                  copy={DEFAULT_COPY.editor}
+                  copy={copy}
                   tip={copy.products.frameTip}
                 />
               )}
@@ -1133,7 +1073,7 @@ function Step1View(props: {
                   cornerRadius={24}
                   value={form.frame_custom}
                   onChange={(v) => setForm((s) => ({ ...s, frame_custom: v }))}
-                  copy={DEFAULT_COPY.editor}
+                  copy={copy}
                   tip={copy.products.frameTip}
                 />
               );
@@ -1160,7 +1100,7 @@ function Step1View(props: {
               cornerRadius={24}
               value={form.deluxe_custom}
               onChange={(v) => setForm((s) => ({ ...s, deluxe_custom: v }))}
-              copy={DEFAULT_COPY.editor}
+              copy={copy}
               tip={copy.products.frameTip}
             />
             <PrivacyTermsNotice />

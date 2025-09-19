@@ -125,8 +125,14 @@ export interface UploaderCopy {
     modeHuman: string;
     modePet: string;
     modeSurprise: string;
-    
   };
+  privacyNotice: {
+    text: string;
+    privacyLink: string;
+    and: string;
+    termsLink: string;
+    agreed: string;
+  }
 }
 
 /* =========================================================
