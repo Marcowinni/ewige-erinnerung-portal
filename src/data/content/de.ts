@@ -352,7 +352,7 @@ export const deContent: ContentData = {
       description: "Laden Sie Erinnerungen hoch und wir erstellen ein würdevolles Gedenken."
     },
 
-    // Uploader-Overrides (nur abweichende Texte)
+    // Uploader-Overrides
     uploaderCopy: {
       headings: {
         pageTitleByMode: { human: "Produkt wählen:" },

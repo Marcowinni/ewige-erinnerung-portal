@@ -4,32 +4,30 @@ export const frContent: ContentData = {
   shared: {
     navigation: {
       home: "Memora Moments",
-      gedenken: "Créer un mémorial",
-      about: "À propos de nous",
+      gedenken: "Créer un Mémorial",
+      about: "À Propos",
       contact: "Contact",
-      start: "Commencer le mémorial",
+      start: "Commencer un Mémorial",
       mode: { human: "Personnes", pet: "Animaux", surprise: "Surprise" }
     },
-
     about: {
-      title: "À propos de nous - Memora Moments",
+      title: "À propos de Nous - Memora Moments",
       heading: "À propos de Memora Moments",
       description: "Apprenez-en plus sur notre mission de créer des souvenirs dignes."
     },
-
     contact: {
       title: "Contact - Memora Moments",
-      heading: "Nous contacter",
-      description: "Avez-vous des questions? Nous sommes là pour vous aider.",
+      heading: "Nous Contacter",
+      description: "Avez-vous des questions ? Nous sommes là pour vous aider.",
       email: "E-mail",
       phone: "Téléphone",
       form: {
-        title: "Envoyer un message",
+        title: "Envoyer un Message",
         submit: "Envoyer",
         success: "Merci ! Nous vous répondrons dès que possible.",
         name: {
           label: "Nom",
-          placeholder: "Prénom et nom"
+          placeholder: "Prénom et nom de famille"
         },
         email: {
           label: "E-mail",
@@ -37,7 +35,7 @@ export const frContent: ContentData = {
         },
         subject: {
           label: "Sujet",
-          placeholder: "De quoi s'agit-il ?"
+          placeholder: "Quel est l'objet de votre message ?"
         },
         message: {
           label: "Message",
@@ -45,27 +43,26 @@ export const frContent: ContentData = {
         }
       }
     },
-
     aboutPage: {
-      title: "À propos de nous",
-      lead: "Nous connectons les souvenirs à la technologie – avec empathie, personnalité et accessibilité.",
+      title: "À Propos de Nous",
+      lead: "Nous lions les souvenirs à la technologie – avec empathie, personnalité et accessibilité.",
       story: {
-        title: "Notre histoire",
+        title: "Notre Histoire",
         p1: "Memora Moments est né du désir de préserver les souvenirs avec dignité.",
-        p2: "Parfois, ce sont les moments silencieux qui changent nos vies pour toujours. Nous avons tous perdu des personnes ou des compagnons fidèles qui nous étaient particulièrement chers – que ce soit un membre de la famille bien-aimé ou un animal de compagnie qui a marqué notre cœur.",
-        p3: "Dans ces moments de deuil, nous aspirons à la proximité, à un lieu où les souvenirs ne s'effacent pas mais continuent de vivre. L'idée de Memora Moments est née précisément de cette expérience.",
-        p4: "Ce projet est né de l'amour pour nos proches et du désir de préserver leurs histoires et leur unicité. Un petit cadeau, initialement destiné uniquement à nos proches, nous a montré à quel point il peut être précieux de garder les souvenirs tangibles et vivants – à travers des images, des vidéos et de la musique qui peuvent ramener un sourire.",
-        p5: "Aujourd'hui, nous souhaitons partager cette opportunité avec d'autres. Avec nos produits, nous créons des ponts entre le passé et le présent – dignes, personnels et proches du cœur. Nous croyons que les souvenirs ne doivent pas se terminer avec l'adieu. Ils peuvent continuer à briller, nous réconforter et nous donner de la force."
+        p2: "Parfois, ce sont les moments les plus calmes qui changent nos vies pour toujours. Nous avons tous perdu des êtres chers ou des compagnons fidèles qui nous étaient proches – que ce soit un membre de la famille aimé ou un animal de compagnie qui a marqué notre cœur.",
+        p3: "Dans ces moments de deuil, nous aspirons à la proximité, à un lieu où les souvenirs ne s'estompent pas mais continuent de vivre. L'idée de Memora Moments est née de cette expérience.",
+        p4: "Ce projet est né de l'amour pour nos proches et du désir de préserver leurs histoires et leur singularité. Un petit cadeau, d'abord destiné à nos proches, nous a montré à quel point il est précieux de garder des souvenirs tangibles et vivants – à travers des images, des vidéos et de la musique qui peuvent ramener un sourire.",
+        p5: "Aujourd'hui, nous souhaitons partager cette possibilité. Avec nos produits, nous créons des ponts entre le passé et le présent – avec dignité, personnalité et près du cœur. Nous croyons que les souvenirs ne doivent pas se terminer avec un adieu. Ils peuvent continuer à briller, nous consoler et nous donner de la force."
       },
       values: {
-        title: "Nos valeurs",
+        title: "Nos Valeurs",
         compassion: {
           title: "Compassion",
           desc: "Nous travaillons avec respect et empathie – pour les personnes dans des situations de vie particulières."
         },
         personality: {
           title: "Personnalité",
-          desc: "Chaque mémorial est individuel – nous concevons autant que nécessaire, et le moins possible."
+          desc: "Chaque mémorial est unique – nous concevons le nécessaire, et le moins possible."
         },
         connection: {
           title: "Connexion",
@@ -78,138 +75,115 @@ export const frContent: ContentData = {
         p2: "Nos produits Memora allient technologie et émotion – simples, beaux, durables."
       }
     },
-
     legal: {
       privacy: {
-        title: "Déclaration de confidentialité",
+        title: "Politique de Confidentialité",
         sections: {
           responsible: {
-            title: "1. Organisme responsable",
-            content: "Memora Moments\n[Insérer l'adresse]\n[Code postal, Ville]\n[N° de registre du commerce, si applicable]\nE-mail : info.memora.moments@gmail.com\nTéléphone : +41 79 407 56 99\n\nNous sommes responsables de la collecte, du traitement et de l'utilisation de vos données personnelles conformément à la loi suisse sur la protection des données (nLPD)."
+            title: "1. Organisme Responsable",
+            content: "Memora Moments\n[Insérer l'adresse]\n[Code Postal, Ville]\n[N° du registre du commerce, si disponible]\nE-mail : info.memora.moments@gmail.com\nTéléphone : +41 79 407 56 99\n\nNous sommes responsables de la collecte, du traitement et de l'utilisation de vos données personnelles conformément à la loi suisse sur la protection des données (nLPD)."
           },
           dataCollection: {
-            title: "2. Collecte et traitement des données personnelles",
-            content: "Nous traitons les données personnelles que vous nous fournissez dans le cadre de l'utilisation de nos services ou qui sont générées lors de leur utilisation. Celles-ci comprennent notamment :",
-            list: [
-              "Coordonnées (nom, adresse, e-mail, numéro de téléphone)",
-              "Informations de paiement (selon le mode de paiement choisi, par ex. carte de crédit, TWINT, paiement anticipé)",
-              "Données de contenu (photos, vidéos, textes, musique/audio) que vous fournissez pour des vidéos commémoratives personnalisées et des Memoras",
-              "Données d'utilisation (par ex. heure de consultation d'une vidéo via Memora, métadonnées techniques telles que navigateur/appareil)"
-            ]
+            title: "2. Collecte et Traitement des Données Personnelles",
+            content: "Nous traitons les données personnelles que vous nous fournissez lors de l'utilisation de nos services ou qui sont générées lors de cette utilisation. Cela inclut notamment :",
+            list: ["Coordonnées (nom, adresse, e-mail, numéro de téléphone)", "Informations de paiement (selon le mode de paiement choisi, par ex. carte de crédit, TWINT, prépaiement)", "Données de contenu (photos, vidéos, textes, musique/audio) que vous fournissez pour les mémoriaux vidéo personnalisés et les Memoras", "Données d'utilisation (par ex. heure de consultation d'une vidéo via Memora, métadonnées techniques telles que le navigateur/appareil)"]
           },
           purpose: {
-            title: "3. Finalité du traitement des données",
+            title: "3. Finalité du Traitement des Données",
             content: "Vos données sont utilisées exclusivement aux fins suivantes :",
-            list: [
-              "Traitement des commandes et exécution du contrat",
-              "Création, édition et mise à disposition de vidéos commémoratives ainsi que configuration des balises NFC",
-              "Traitement des paiements et facturation",
-              "Communication avec vous (par ex. confirmation de commande, questions, support)",
-              "Exploitation, sécurité et amélioration de nos services"
-            ]
+            list: ["Traitement des commandes et exécution des contrats", "Création, édition et mise à disposition de vidéos commémoratives ainsi que la configuration des tags NFC", "Traitement des paiements et facturation", "Communication avec vous (par ex. confirmation de commande, questions, support)", "Fonctionnement, sécurité et amélioration de nos services"]
           },
           disclosure: {
-            title: "4. Transmission à des tiers",
-            content: "Nous ne vendons pas vos données et ne les transmettons pas à des tiers à des fins publicitaires. Une transmission n'a lieu que si cela est nécessaire aux fins susmentionnées, à des sous-traitants soigneusement sélectionnés :",
-            list: [
-              "Prestataires de services de paiement (par ex. Stripe, TWINT, instituts de cartes de crédit) pour le traitement des paiements",
-              "Prestataires de services informatiques, cloud et d'hébergement (par ex. pour l'exploitation du site web, le stockage de données, la création/diffusion de vidéos)",
-              "Prestataires de services de messagerie/communication (par ex. envoi d'e-mails système et de service)",
-              "Partenaires logistiques/de livraison pour l'expédition de produits physiques"
-            ]
+            title: "4. Divulgation à des Tiers",
+            content: "Nous ne vendons pas vos données et ne les transmettons pas à des tiers à des fins publicitaires. La divulgation se fait exclusivement dans la mesure nécessaire aux fins mentionnées ci-dessus, à des sous-traitants soigneusement sélectionnés :",
+            list: ["Fournisseurs de services de paiement (par ex. Stripe, TWINT, institutions de cartes de crédit) pour le traitement des paiements", "Fournisseurs de services informatiques, cloud et d'hébergement (par ex. pour l'exploitation du site web, le stockage de données, la création/diffusion de vidéos)", "Fournisseurs de services de messagerie/communication (par ex. pour l'envoi d'e-mails système et de service)", "Partenaires logistiques/de livraison pour l'expédition de produits physiques"]
           },
           storage: {
-            title: "5. Stockage et suppression des données",
-            content: "Les contenus personnalisés (photos, vidéos, audio, textes) ne sont conservés que le temps nécessaire à l'exécution du contrat et à la fourniture du service. Les données des clients sont conservées conformément aux obligations légales de conservation. Sur votre demande, nous examinerons une suppression anticipée, dans la mesure où aucune obligation légale ne s'y oppose."
+            title: "5. Stockage et Suppression des Données",
+            content: "Les contenus personnalisés (photos, vidéos, audio, textes) ne sont stockés que le temps nécessaire à l'exécution du contrat et à la fourniture des services. Les données des clients sont stockées conformément aux obligations légales de conservation. Sur demande, nous examinerons une suppression anticipée, à condition qu'aucune obligation légale ne s'y oppose."
           },
           security: {
-            title: "6. Sécurité des données",
-            content: "Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos données contre la perte, la manipulation et l'accès non autorisé. Veuillez noter que la transmission de données sur Internet (par ex. par e-mail) peut présenter des failles de sécurité."
+            title: "6. Sécurité des Données",
+            content: "Nous utilisons des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos données contre la perte, la manipulation et l'accès non autorisé. Veuillez noter que la transmission de données sur Internet (par ex. par e-mail) peut présenter des failles de sécurité."
           },
           rights: {
-            title: "7. Droits des personnes concernées",
-            content: "Dans le cadre du droit de la protection des données applicable, vous disposez notamment des droits suivants. Pour exercer vos droits, veuillez nous contacter à l'adresse mentionnée ci-dessus :",
-            list: [
-              "Information : Consultation des données stockées vous concernant",
-              "Rectification : Correction des données inexactes ou incomplètes",
-              "Suppression : Suppression de vos données, dans la mesure où il n'existe aucune obligation de conservation",
-              "Limitation/Opposition (le cas échéant) : Limitation de certains traitements",
-              "Portabilité des données : Remise de vos données dans un format électronique courant"
-            ]
+            title: "7. Droits des Personnes Concernées",
+            content: "Dans le cadre de la législation applicable sur la protection des données, vous disposez notamment des droits suivants. Pour exercer vos droits, veuillez nous contacter à l'adresse mentionnée ci-dessus :",
+            list: ["Accès : Consultation des données stockées vous concernant", "Rectification : Correction des données inexactes ou incomplètes", "Suppression : Effacement de vos données, sauf obligation de conservation", "Limitation/Opposition (le cas échéant) : Limitation de certains traitements", "Portabilité des données : Fourniture de vos données dans un format électronique courant"]
           },
           cookies: {
-            title: "8. Cookies et suivi",
-            content: "Notre site web utilise des cookies nécessaires pour fournir des fonctions de base. Nous n'utilisons d'autres cookies d'analyse ou de marketing (facultatifs) qu'avec votre consentement. Vous pouvez définir dans votre navigateur si les cookies doivent être acceptés, bloqués ou supprimés."
+            title: "8. Cookies et Suivi",
+            content: "Notre site web utilise des cookies nécessaires pour fournir des fonctions de base. Nous n'utilisons d'autres cookies d'analyse ou de marketing (facultatifs) qu'avec votre consentement. Vous pouvez configurer votre navigateur pour accepter, bloquer ou supprimer les cookies."
           },
           changes: {
-            title: "9. Modifications de cette déclaration de confidentialité",
-            content: "Nous nous réservons le droit d'adapter cette déclaration de confidentialité à tout moment. La version actuelle publiée sur notre site web fait foi."
+            title: "9. Modifications de cette Politique de Confidentialité",
+            content: "Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. La version actuelle publiée sur notre site web fait foi."
           }
         }
       },
       terms: {
-        title: "Conditions générales de vente",
+        title: "Conditions Générales de Vente",
         sections: {
           scope: {
-            title: "1. Champ d'application",
-            content: "Les présentes conditions générales de vente (CGV) s'appliquent à toutes les commandes et à tous les contrats conclus entre Memora Moments (ci-après « nous ») et les clients (ci-après « vous ») dans le cadre de l'achat de balises NFC, de vidéos commémoratives et de contenus numériques associés."
+            title: "1. Champ d'Application",
+            content: "Les présentes Conditions Générales de Vente (CGV) s'appliquent à toutes les commandes et contrats conclus entre Memora Moments (ci-après « nous ») et les clients (ci-après « vous ») concernant l'achat de tags NFC, de vidéos commémoratives et de contenus numériques associés."
           },
           contract: {
-            title: "2. Conclusion du contrat",
+            title: "2. Conclusion du Contrat",
             content: "Le contrat est conclu dès que nous confirmons expressément votre commande par e-mail. Nous pouvons refuser des commandes pour des raisons techniques ou juridiques."
           },
           services: {
             title: "3. Prestations",
-            content: "Nos prestations comprennent : la fabrication et la livraison de balises NFC (produits physiques) ; la création et la mise à disposition de vidéos commémoratives personnalisées (contenus numériques) ; l'accès à d'autres contenus numériques liés au produit."
+            content: "Nos prestations comprennent : la production et la livraison de tags NFC (produits physiques) ; la création et la mise à disposition de vidéos commémoratives personnalisées (contenus numériques) ; l'accès à d'autres contenus numériques liés au produit."
           },
           prices: {
-            title: "4. Prix et conditions de paiement",
-            content: "Tous les prix s'entendent en francs suisses (CHF), TVA légale incluse, le cas échéant. Modes de paiement acceptés : carte de crédit, TWINT, paiement anticipé. Le paiement est dû avant la livraison ou avant la création des contenus numériques."
+            title: "4. Prix et Conditions de Paiement",
+            content: "Tous les prix sont en Francs Suisses (CHF), TVA légale incluse, le cas échéant. Moyens de paiement acceptés : carte de crédit, TWINT, paiement anticipé. Le paiement est dû avant la livraison ou la création des contenus numériques."
           },
           delivery: {
-            title: "5. Livraison et délais de livraison",
-            content: "La livraison des produits a lieu généralement dans les 30 jours suivant la conclusion du contrat. Pour les produits fabriqués sur mesure, des retards peuvent survenir ; nous vous en informerons immédiatement dans un tel cas."
+            title: "5. Livraison et Délais de Livraison",
+            content: "La livraison des produits a lieu généralement dans les 30 jours suivant la conclusion du contrat. Pour les produits personnalisés, des retards peuvent survenir ; nous vous en informerons immédiatement le cas échéant."
           },
           cancellation: {
-            title: "6. Droit de rétractation et de résiliation",
-            content: "Pour les produits personnalisés et les contenus numériques (par ex. vidéos commémoratives créées individuellement), il n'y a pas de droit de retour. Pour les produits non personnalisés, les dispositions légales s'appliquent."
+            title: "6. Droit de Rétractation et d'Annulation",
+            content: "Pour les produits personnalisés et les contenus numériques (par ex. vidéos commémoratives créées individuellement), il n'y a pas de droit de retour. Les dispositions légales s'appliquent aux produits non personnalisés."
           },
           warranty: {
             title: "7. Garantie",
-            content: "Nous garantissons la conformité de nos produits au contrat. Veuillez nous signaler tout défaut dans les 14 jours suivant la réception afin que nous puissions examiner une solution appropriée (réparation, remplacement ou remboursement)."
+            content: "Nous garantissons que nos produits sont conformes au contrat. Veuillez nous informer de tout défaut dans les 14 jours suivant la réception afin que nous puissions examiner une solution appropriée (réparation, remplacement ou remboursement)."
           },
           liability: {
             title: "7a. Responsabilité",
-            content: "Notre responsabilité est limitée aux dommages causés par un comportement intentionnel ou une négligence grave. Nous n'assumons aucune responsabilité pour les problèmes techniques du côté du client (par ex. connexion Internet insuffisante, appareils incompatibles, paramètres logiciels)."
+            content: "Notre responsabilité est limitée aux dommages causés par une faute intentionnelle ou une négligence grave. Nous déclinons toute responsabilité pour les problèmes techniques du côté du client (par ex. connexion Internet insuffisante, appareils incompatibles, paramètres logiciels)."
           },
           ip: {
-            title: "8. Droits d'auteur et droits d'utilisation",
-            content: "Les contenus que nous créons (par ex. les vidéos commémoratives) sont protégés par le droit d'auteur. Vous recevez un droit d'utilisation simple et non transférable pour un usage privé. Une utilisation commerciale ou une transmission à des tiers n'est pas autorisée, sauf accord écrit contraire. En téléchargeant des photos, des vidéos, de l'audio ou des textes, vous confirmez que vous disposez des droits nécessaires ; vous nous garantissez contre toute réclamation de tiers à cet égard."
+            title: "8. Droits d'Auteur et Droits d'Utilisation",
+            content: "Les contenus que nous créons (par ex. vidéos commémoratives) sont protégés par le droit d'auteur. Vous recevez un droit d'utilisation simple et non transférable pour un usage privé. Toute utilisation commerciale ou divulgation à des tiers est interdite, sauf accord écrit contraire. En téléchargeant des photos, vidéos, audio ou textes, vous confirmez détenir les droits nécessaires ; vous nous garantissez contre toute réclamation de tiers à cet égard."
           },
           privacy: {
-            title: "9. Protection des données",
-            content: "Nous traitons les données personnelles exclusivement conformément à notre déclaration de confidentialité. Cela comprend le stockage et le traitement de vos données pour l'exécution du contrat ainsi que la transmission aux tiers nécessaires (par ex. prestataires de services de paiement, hébergement/informatique, expédition). En utilisant nos services, vous consentez à ce traitement."
+            title: "9. Protection des Données",
+            content: "Nous traitons les données personnelles exclusivement conformément à notre politique de confidentialité. Cela inclut le stockage et le traitement de vos données pour l'exécution du contrat ainsi que leur transmission à des tiers nécessaires (par ex. prestataires de paiement, hébergement/informatique, expédition). En utilisant nos services, vous acceptez ce traitement."
           },
           special: {
-            title: "10. Produits émotionnels et remarques particulières",
-            content: "Nos produits ont une grande valeur émotionnelle. Les contenus personnalisés ne peuvent être ni modifiés ni retournés après leur finalisation. En cas de problèmes techniques de notre part (par ex. panne de serveur), nous nous efforçons de rétablir l'accès le plus rapidement possible ; nous ne pouvons garantir une disponibilité permanente du côté du client."
+            title: "10. Produits Émotionnels & Notes Spéciales",
+            content: "Nos produits ont une grande valeur émotionnelle. Les contenus personnalisés ne peuvent être ni modifiés ni retournés après leur finalisation. En cas de problèmes techniques de notre part (par ex. panne de serveur), nous nous efforcerons de rétablir l'accès le plus rapidement possible ; nous ne pouvons garantir une disponibilité permanente du côté du client."
           },
           law: {
-            title: "11. For et droit applicable",
-            content: "Le droit suisse est exclusivement applicable. Le for est le siège de Memora Moments."
+            title: "11. For Juridique et Droit Applicable",
+            content: "Le droit suisse est exclusivement applicable. Le for juridique est le siège de Memora Moments."
           },
           final: {
-            title: "12. Dispositions finales",
-            content: "Si certaines dispositions de ces CGV s'avéraient nulles, la validité des autres dispositions n'en serait pas affectée. Nous nous réservons le droit d'adapter ces CGV à tout moment. La version en vigueur, publiée avec la date et le numéro de version, fait foi."
+            title: "12. Dispositions Finales",
+            content: "Si certaines dispositions de ces CGV s'avéraient nulles, la validité des autres dispositions n'en serait pas affectée. Nous nous réservons le droit de modifier ces CGV à tout moment. La version en vigueur, publiée avec la date et le numéro de version, fait foi."
           },
         }
       },
       imprint: {
-        title: "Mentions légales",
+        title: "Mentions Légales",
         sections: {
           info: {
             title: "Informations selon § 5 TMG",
-            content: "Memora Moments\nProduits commémoratifs personnalisés"
+            content: "Memora Moments\nProduits de souvenirs personnalisés"
           },
           contact: {
             title: "Contact",
@@ -220,24 +194,23 @@ export const frContent: ContentData = {
             content: "Memora Moments\nE-mail : info.memora.moments@gmail.com"
           },
           disclaimer: {
-            title: "Exclusion de responsabilité",
+            title: "Clause de non-responsabilité",
             content: {
-              title: "Responsabilité pour le contenu",
-              content: "En tant que prestataire de services, nous sommes responsables de nos propres contenus sur ces pages conformément aux lois générales selon le § 7 al. 1 TMG. Selon les §§ 8 à 10 TMG, nous ne sommes cependant pas tenus, en tant que prestataire de services, de surveiller les informations tierces transmises ou stockées ou de rechercher des circonstances indiquant une activité illégale."
+                title: "Responsabilité pour le contenu",
+                content: "En tant que prestataire de services, nous sommes responsables de notre propre contenu sur ces pages conformément aux lois générales selon le § 7 al. 1 TMG. Selon les §§ 8 à 10 TMG, nous ne sommes cependant pas tenus, en tant que prestataire de services, de surveiller les informations tierces transmises ou stockées ou de rechercher des circonstances indiquant une activité illégale."
             },
             links: {
-              title: "Responsabilité pour les liens",
-              content: "Notre offre contient des liens vers des sites web externes de tiers, sur le contenu desquels nous n'avons aucune influence. C'est pourquoi nous ne pouvons assumer aucune garantie pour ces contenus externes. Le fournisseur ou l'exploitant respectif des pages est toujours responsable du contenu des pages liées."
+                title: "Responsabilité pour les liens",
+                content: "Notre offre contient des liens vers des sites web externes de tiers, sur le contenu desquels nous n'avons aucune influence. C'est pourquoi nous ne pouvons assumer aucune garantie pour ces contenus externes. Le fournisseur ou l'exploitant respectif des pages est toujours responsable du contenu des pages liées."
             },
             copyright: {
-              title: "Droit d'auteur",
-              content: "Les contenus et œuvres créés par les exploitants de ces pages sont soumis au droit d'auteur allemand. La reproduction, le traitement, la diffusion et toute forme d'exploitation en dehors des limites du droit d'auteur nécessitent l'accord écrit de l'auteur ou du créateur respectif."
+                title: "Droit d'auteur",
+                content: "Les contenus et œuvres créés par les exploitants de ces pages sont soumis au droit d'auteur allemand. La reproduction, le traitement, la diffusion et toute forme d'exploitation en dehors des limites du droit d'auteur nécessitent l'accord écrit de l'auteur ou du créateur respectif."
             }
           }
         }
       }
     },
-
     footer: {
       brand: {
         name: "Memora Moments",
@@ -253,10 +226,9 @@ export const frContent: ContentData = {
       copyright: "Tous droits réservés."
     }
   },
-
   human: {
     hero: {
-      title: "Des souvenirs qui perdurent – avec cœur et son.",
+      title: "Des souvenirs qui perdurent – avec cœur et musique.",
       subtitle: "De moments naît un mémorial silencieux – Memora Moments ouvre la porte à des histoires qui restent. Images, vidéos et musique maintiennent le souvenir vivant, là où il doit être : près du cœur.",
       startButton: "Comment ça marche ?",
       learnButton: "En savoir plus"
@@ -308,12 +280,11 @@ export const frContent: ContentData = {
       heading: "Créez votre mémorial !",
       description: "Téléchargez des souvenirs et nous créerons un mémorial digne."
     },
-
     uploaderCopy: {
       headings: {
-        pageTitleByMode: { human: "Choisir le produit :" },
+        pageTitleByMode: { human: "Choisir le produit:", pet: "Choisir le produit:", surprise: "Choisir le produit (Surprise)" },
         step1Subtitle: "Choisissez votre produit – vous téléchargerez les contenus à l'étape suivante.",
-        step2ByMode: { human: "Informations sur la personne" },
+        step2ByMode: { human: "Informations sur la personne", pet: "Informations sur l'animal", surprise: "Informations pour la Surprise" },
         step2Subtitle: "Veuillez remplir les champs suivants. Les notes sont facultatives.",
         step3Title: "Télécharger des images et des vidéos",
         step3Subtitle: "Les fichiers sont enregistrés dans le formulaire et envoyés ultérieurement.",
@@ -323,6 +294,15 @@ export const frContent: ContentData = {
         step5Subtitle: "Veuillez vérifier l'adresse et le résumé. Avec 'Passer au paiement !', vous accéderez plus tard au paiement.",
         summary: "Résumé"
       },
+      buttons: {
+        back: "Retour",
+        next: "Suivant",
+        reset: "Réinitialiser",
+        toPay: "Passer au paiement",
+        addText: "Ajouter du texte",
+        applyDesign: "Appliquer le design",
+        remove: "Supprimer",
+      },
       products: {
         formatTitle: "Format",
         frameTitle: "Concevoir le cadre",
@@ -330,7 +310,15 @@ export const frContent: ContentData = {
         roundLabel: "Rond · Ø 3 cm",
         squareLabel: "Carré · 6×6 cm",
         petOptionsTitle: "Options pour le Memora Tag pour animaux",
+        keychainLabel: "avec porte-clés (+7 CHF)",
+        designLabel: "Design",
+        designStandard: "Standard",
+        designCustom: "Personnalisable (+10 CHF)",
+        designCustomNote: "Remarque : le design personnalisé coûte +10 CHF supplémentaires.",
         frameTip:"Astuce : Déplacez l'image avec la souris/le toucher et ajoutez et positionnez librement les textes.",
+        frameOrientationLabel: "Orientation",
+        framePortrait: "Portrait",
+        frameLandscape: "Paysage",
       },
       editor: {
         image: "Image",
@@ -351,6 +339,7 @@ export const frContent: ContentData = {
         human_lastName: "Nom de famille *",
         human_firstName: "Prénom *",
         human_deathDate: "Date de décès",
+        notes_human: "Notes (facultatif)",
         human_notesPH: "Souhaits particuliers, citations, notes de musique…",
         pet_name: "Nom de l'animal *",
         pet_deathDate: "Date de décès *",
@@ -364,6 +353,15 @@ export const frContent: ContentData = {
         remove: "Supprimer",
         imageCaptionPlaceholder: "Court texte pour l'image (facultatif)",
         videoCaptionPlaceholder: "Court texte pour la vidéo (facultatif)",
+        musicSelection: {
+          title: "Choisir la musique",
+          availableMusic: "Musique disponible",
+          selected: "Sélectionné",
+          select: "Sélectionner",
+          moreMusic: "Plus de musique de Pixabay",
+          pixabayPlaceholder: "Coller le lien de pixabay.com/music/...",
+          pixabayButton: "Pixabay Music",
+        },
       },
       contactFields: {
         firstName: "Prénom *",
@@ -393,11 +391,24 @@ export const frContent: ContentData = {
         recipient: "Destinataire",
         notes: "Notes",
         counts: (imgs, vids) => `Images : ${imgs} • Vidéos : ${vids}`,
-        previewTitle: "Aperçu personnalisé"
+        previewTitle: "Aperçu personnalisé",
+        total: "Total :",
+        optionOrientation: "Orientation",
+        optionPortrait: "Portrait",
+        optionLandscape: "Paysage",
+        modeHuman: "Personnes",
+        modePet: "Animaux",
+        modeSurprise: "Surprise",
+      },
+      privacyNotice: {
+        text: "En téléchargeant des images, vous acceptez notre",
+        privacyLink: "Politique de confidentialité",
+        and: "et nos",
+        termsLink: "Conditions d'utilisation",
+        agreed: ".",
       }
     }
   },
-
   pet: {
     hero: {
       title: "Pour nos fidèles compagnons – des souvenirs avec cœur et son.",
@@ -455,24 +466,126 @@ export const frContent: ContentData = {
     uploaderCopy: {
       headings: {
         pageTitleByMode: { pet: "Choisir le produit :" },
-        step2ByMode: { pet: "Informations sur l'animal de compagnie" }
+        step1Subtitle: "Choisissez votre produit – vous téléchargerez les contenus à l'étape suivante.",
+        step2ByMode: { pet: "Informations sur l'animal"},
+        step2Subtitle: "Veuillez remplir les champs suivants. Les notes sont facultatives.",
+        step3Title: "Télécharger des images et des vidéos",
+        step3Subtitle: "Les fichiers sont enregistrés dans le formulaire et envoyés ultérieurement.",
+        step4Title: "Coordonnées",
+        step4Subtitle: "Nous utilisons ces données pour les questions et la confirmation de commande.",
+        step5Title: "Informations de facturation et aperçu",
+        step5Subtitle: "Veuillez vérifier l'adresse et le résumé. Avec 'Passer au paiement !', vous accéderez plus tard au paiement.",
+        summary: "Résumé"
+      },
+      buttons: {
+        back: "Retour",
+        next: "Suivant",
+        reset: "Réinitialiser",
+        toPay: "Passer au paiement",
+        addText: "Ajouter du texte",
+        applyDesign: "Appliquer le design",
+        remove: "Supprimer",
       },
       products: {
+        formatTitle: "Format",
+        frameTitle: "Concevoir le cadre",
+        formatTitleDeluxe: "Concevoir le Deluxe",
+        roundLabel: "Rond · Ø 3 cm",
+        squareLabel: "Carré · 6×6 cm",
         petOptionsTitle: "Options pour le Memora Tag pour animaux",
         keychainLabel: "avec porte-clés (+7 CHF)",
         designLabel: "Design",
         designStandard: "Standard",
-        designCustom: "Personnalisable individuellement",
-        designCustomNote: "Remarque : le design personnalisé coûte +10 CHF."
+        designCustom: "Personnalisable (+10 CHF)",
+        designCustomNote: "Remarque : le design personnalisé coûte +10 CHF supplémentaires.",
+        frameTip:"Astuce : Déplacez l'image avec la souris/le toucher et ajoutez et positionnez librement les textes.",
+        frameOrientationLabel: "Orientation",
+        framePortrait: "Portrait",
+        frameLandscape: "Paysage",
+      },
+      editor: {
+        image: "Image",
+        zoom: "Zoom",
+        posX: "Position horizontale",
+        posY: "Position verticale",
+        emptyTitle: "Aucune image sélectionnée",
+        emptySub: "Veuillez sélectionner une image ci-dessus",
+        selectedText: "Texte sélectionné",
+        content: "Contenu",
+        font: "Police",
+        size: "Taille",
+        color: "Couleur",
+        previewLabel: "Aperçu adopté",
+        previewNote: "Cet aperçu sera enregistré avec la commande."
       },
       step2Fields: {
         pet_name: "Nom de l'animal *",
         pet_deathDate: "Date de décès",
-        pet_notesPH: "Souhaits particuliers, bruits préférés, notes…"
+        notes_human: "Notes supplémentaires",
+        pet_notesPH: "Souhaits particuliers, bruits préférés, notes…",
+      },
+      step3Fields: {
+        imagesLabel: "Images (plusieurs possibles)",
+        videosLabel: "Vidéos (plusieurs possibles)",
+        remove: "Supprimer",
+        imageCaptionPlaceholder: "Court texte pour l'image (facultatif)",
+        videoCaptionPlaceholder: "Court texte pour la vidéo (facultatif)",
+        musicSelection: {
+          title: "Choisir la musique",
+          availableMusic: "Musique disponible",
+          selected: "Sélectionné",
+          select: "Sélectionner",
+          moreMusic: "Plus de musique de Pixabay",
+          pixabayPlaceholder: "Coller le lien de pixabay.com/music/...",
+          pixabayButton: "Pixabay Music",
+        },
+      },
+      contactFields: {
+        firstName: "Prénom *",
+        lastName: "Nom de famille *",
+        email: "E-mail *",
+        phoneOpt: "Téléphone (facultatif)"
+      },
+      invoiceFields: {
+        sameAsContact: "Adresse de facturation identique à l'adresse de contact",
+        companyOpt: "Entreprise (facultatif)",
+        firstName: "Prénom *",
+        lastName: "Nom de famille *",
+        street: "Rue et n° *",
+        zip: "Code postal *",
+        city: "Ville *",
+        country: "Pays *"
+      },
+      summary: {
+        mode: "Mode",
+        product: "Produit",
+        format: "Format",
+        formatRound: "Rond Ø 3 cm",
+        formatSquare: "Carré 6×6 cm",
+        options: "Options",
+        person: "Personne",
+        pet: "Animal",
+        recipient: "Destinataire",
+        notes: "Notes",
+        counts: (imgs, vids) => `Images : ${imgs} • Vidéos : ${vids}`,
+        previewTitle: "Aperçu personnalisé",
+        total: "Total :",
+        optionOrientation: "Orientation",
+        optionPortrait: "Portrait",
+        optionLandscape: "Paysage",
+        modeHuman: "Personnes",
+        modePet: "Animaux",
+        modeSurprise: "Surprise",
+      },
+      privacyNotice: {
+        text: "En téléchargeant des images, vous acceptez notre",
+        privacyLink: "Politique de confidentialité",
+        and: "et nos",
+        termsLink: "Conditions d'utilisation",
+        agreed: ".",
       }
     }
   },
-
   surprise: {
     hero: {
       title: "Un cadeau qui touche les cœurs – des surprises inoubliables.",
@@ -527,15 +640,120 @@ export const frContent: ContentData = {
       heading: "Votre moment Surprise",
       description: "Téléchargez du contenu et nous concevrons votre expérience."
     },
-
     uploaderCopy: {
       headings: {
         pageTitleByMode: { surprise: "Choisir le produit (Surprise)" },
-        step2ByMode: { surprise: "Informations pour la Surprise" }
+        step1Subtitle: "Choisissez votre produit – vous téléchargerez les contenus à l'étape suivante.",
+        step2ByMode: { surprise: "Informations pour la Surprise" },
+        step2Subtitle: "Veuillez remplir les champs suivants. Les notes sont facultatives.",
+        step3Title: "Télécharger des images et des vidéos",
+        step3Subtitle: "Les fichiers sont enregistrés dans le formulaire et envoyés ultérieurement.",
+        step4Title: "Coordonnées",
+        step4Subtitle: "Nous utilisons ces données pour les questions et la confirmation de commande.",
+        step5Title: "Informations de facturation et aperçu",
+        step5Subtitle: "Veuillez vérifier l'adresse et le résumé. Avec 'Passer au paiement !', vous accéderez plus tard au paiement.",
+        summary: "Résumé"
+      },
+      buttons: {
+        back: "Retour",
+        next: "Suivant",
+        reset: "Réinitialiser",
+        toPay: "Passer au paiement",
+        addText: "Ajouter du texte",
+        applyDesign: "Appliquer le design",
+        remove: "Supprimer",
+      },
+      products: {
+        formatTitle: "Format",
+        frameTitle: "Concevoir le cadre",
+        formatTitleDeluxe: "Concevoir le Deluxe",
+        roundLabel: "Rond · Ø 3 cm",
+        squareLabel: "Carré · 6×6 cm",
+        petOptionsTitle: "Options pour le Memora Tag pour animaux",
+        frameTip:"Astuce : Déplacez l'image avec la souris/le toucher et ajoutez et positionnez librement les textes.",
+        frameOrientationLabel: "Orientation",
+        framePortrait: "Portrait",
+        frameLandscape: "Paysage",
+      },
+      editor: {
+        image: "Image",
+        zoom: "Zoom",
+        posX: "Position horizontale",
+        posY: "Position verticale",
+        emptyTitle: "Aucune image sélectionnée",
+        emptySub: "Veuillez sélectionner une image ci-dessus",
+        selectedText: "Texte sélectionné",
+        content: "Contenu",
+        font: "Police",
+        size: "Taille",
+        color: "Couleur",
+        previewLabel: "Aperçu adopté",
+        previewNote: "Cet aperçu sera enregistré avec la commande."
       },
       step2Fields: {
         surprise_name: "Nom (destinataire) *",
-        surprise_notesPH: "Occasion, idée ou souhaits particuliers…"
+        notes_human: "Occasion / Notes",
+        surprise_notesPH: "Mariage, anniversaire, jubilé… souhaits particuliers…"
+      },
+      step3Fields: {
+        imagesLabel: "Images (plusieurs possibles)",
+        videosLabel: "Vidéos (plusieurs possibles)",
+        remove: "Supprimer",
+        imageCaptionPlaceholder: "Court texte pour l'image (facultatif)",
+        videoCaptionPlaceholder: "Court texte pour la vidéo (facultatif)",
+        musicSelection: {
+          title: "Choisir la musique",
+          availableMusic: "Musique disponible",
+          selected: "Sélectionné",
+          select: "Sélectionner",
+          moreMusic: "Plus de musique de Pixabay",
+          pixabayPlaceholder: "Coller le lien de pixabay.com/music/...",
+          pixabayButton: "Pixabay Music",
+        },
+      },
+      contactFields: {
+        firstName: "Prénom *",
+        lastName: "Nom de famille *",
+        email: "E-mail *",
+        phoneOpt: "Téléphone (facultatif)"
+      },
+      invoiceFields: {
+        sameAsContact: "Adresse de facturation identique à l'adresse de contact",
+        companyOpt: "Entreprise (facultatif)",
+        firstName: "Prénom *",
+        lastName: "Nom de famille *",
+        street: "Rue et n° *",
+        zip: "Code postal *",
+        city: "Ville *",
+        country: "Pays *"
+      },
+      summary: {
+        mode: "Mode",
+        product: "Produit",
+        format: "Format",
+        formatRound: "Rond Ø 3 cm",
+        formatSquare: "Carré 6×6 cm",
+        options: "Options",
+        person: "Personne",
+        pet: "Animal",
+        recipient: "Destinataire",
+        notes: "Notes",
+        counts: (imgs, vids) => `Images : ${imgs} • Vidéos : ${vids}`,
+        previewTitle: "Aperçu personnalisé",
+        total: "Total :",
+        optionOrientation: "Orientation",
+        optionPortrait: "Portrait",
+        optionLandscape: "Paysage",
+        modeHuman: "Personnes",
+        modePet: "Animaux",
+        modeSurprise: "Surprise",
+      },
+      privacyNotice: {
+        text: "En téléchargeant des images, vous acceptez notre",
+        privacyLink: "Politique de confidentialité",
+        and: "et nos",
+        termsLink: "Conditions d'utilisation",
+        agreed: ".",
       }
     }
   }

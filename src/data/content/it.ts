@@ -4,36 +4,38 @@ export const itContent: ContentData = {
   shared: {
     navigation: {
       home: "Memora Moments",
-      gedenken: "Crea memoriale",
-      about: "Chi siamo",
-      contact: "Contatti",
-      start: "Inizia memoriale",
-      mode: { human: "Persone", pet: "Animali", surprise: "Sorpresa" }
+      gedenken: "Crea Memoriale",
+      about: "Chi Siamo",
+      contact: "Contatto",
+      start: "Inizia Memoriale",
+      mode: { human: "Persona", pet: "Animali", surprise: "Sorpresa" }
     },
 
+    // SEO/Meta per la pagina Chi Siamo
     about: {
-      title: "Chi siamo - Memora Moments",
-      heading: "Informazioni su Memora Moments",
+      title: "Chi Siamo - Memora Moments",
+      heading: "Chi è Memora Moments",
       description: "Scopri di più sulla nostra missione di creare ricordi dignitosi."
     },
 
+    // Pagina Contatto (completa, senza fallback)
     contact: {
-      title: "Contatti - Memora Moments",
-      heading: "Contattaci",
+      title: "Contatto - Memora Moments",
+      heading: "Mettiti in contatto",
       description: "Hai domande? Siamo qui per aiutarti.",
-      email: "E-mail",
+      email: "E-Mail",
       phone: "Telefono",
       form: {
         title: "Invia un messaggio",
         submit: "Invia",
-        success: "Grazie! Ti risponderemo il prima possibile.",
+        success: "Grazie! Ti ricontatteremo il prima possibile.",
         name: {
           label: "Nome",
           placeholder: "Nome e cognome"
         },
         email: {
-          label: "E-mail",
-          placeholder: "tuo@esempio.it"
+          label: "E-Mail",
+          placeholder: "tuo@example.com"
         },
         subject: {
           label: "Oggetto",
@@ -46,192 +48,220 @@ export const itContent: ContentData = {
       }
     },
 
+    // Contenuto della pagina Chi Siamo
     aboutPage: {
-      title: "Chi siamo",
-      lead: "Connettiamo i ricordi con la tecnologia – in modo empatico, personale, accessibile.",
+      title: "Chi Siamo",
+      lead: "Connettiamo i ricordi con la tecnologia – empatici, personali, accessibili.",
       story: {
-        title: "La nostra storia",
-        p1: "Memora Moments è nato dal desiderio di conservare i ricordi con dignità.",
-        p2: "A volte sono i momenti silenziosi a cambiare la nostra vita per sempre. Tutti noi abbiamo perso persone o compagni fedeli che ci erano particolarmente cari, che si trattasse di un amato membro della famiglia o di un animale domestico che ha segnato il nostro cuore.",
-        p3: "In questi momenti di lutto, desideriamo la vicinanza, un luogo dove i ricordi non svaniscono ma continuano a vivere. L'idea di Memora Moments è nata proprio da questa esperienza.",
-        p4: "Questo progetto è nato dall'amore per i nostri confidenti più stretti e dal desiderio di preservare le loro storie e la loro unicità. Un piccolo regalo, inizialmente destinato solo ai nostri cari, ci ha mostrato quanto possa essere prezioso mantenere i ricordi tangibili e vivi – attraverso immagini, video e musica che possono riportare un sorriso.",
-        p5: "Oggi vogliamo condividere questa opportunità con altri. Con i nostri prodotti, creiamo ponti tra passato e presente – dignitosi, personali e vicini al cuore. Crediamo che i ricordi non debbano finire con l'addio. Possono continuare a brillare, confortarci e darci forza."
+        title: "La Nostra Storia",
+        p1: "Memora Moments è nata dal desiderio di preservare i ricordi con dignità.",
+        p2: "A volte sono i momenti più silenziosi a cambiare la nostra vita per sempre. Tutti noi abbiamo perso persone o compagni fedeli particolarmente cari – che si tratti di un familiare amato o di un animale che ha lasciato un segno nei nostri cuori.",
+        p3: "In questi momenti di dolore, desideriamo vicinanza, un luogo dove i ricordi non svaniscano ma vivano. L’idea di Memora Moments nasce proprio da questa esperienza.",
+        p4: "Questo progetto è nato dall’amore per i nostri confidenti più cari e dal desiderio di conservare le loro storie e unicità. Un piccolo dono, inizialmente pensato solo per i nostri cari, ci ha mostrato quanto possa essere prezioso mantenere i ricordi tangibili e vivi – attraverso immagini, video e musica che possono riportare un sorriso.",
+        p5: "Oggi vogliamo condividere questa possibilità con gli altri. Con i nostri prodotti creiamo ponti tra passato e presente – dignitosi, personali e vicini al cuore. Crediamo che i ricordi non debbano finire con l’addio. Possono continuare a brillare, consolarci e darci forza."
       },
       values: {
-        title: "I nostri valori",
+        title: "I Nostri Valori",
         compassion: {
           title: "Compassione",
-          desc: "Lavoriamo con rispetto ed empatia – per le persone in situazioni di vita speciali."
+          desc: "Lavoriamo con rispetto ed empatia – per persone in situazioni di vita particolari."
         },
         personality: {
           title: "Personalità",
-          desc: "Ogni memoriale è individuale – progettiamo quanto necessario e il meno possibile."
+          desc: "Ogni memoriale è individuale – progettiamo quanto necessario, e il minimo indispensabile."
         },
         connection: {
           title: "Connessione",
-          desc: "Immagini, video e suoni creano vicinanza – in qualsiasi momento, nel luogo della memoria o a casa."
+          desc: "Immagini, video e suoni creano vicinanza – in qualsiasi momento, sul luogo del memoriale o a casa."
         }
       },
       product: {
         title: "Perché Memora?",
-        p1: "Perché i ricordi sono più di semplici pensieri – meritano un posto degno.",
+        p1: "Perché i ricordi sono più che semplici pensieri – meritano un luogo dignitoso.",
         p2: "I nostri prodotti Memora combinano tecnologia ed emozione – semplici, belli, sostenibili."
       }
     },
 
+    // Testi legali (per Privacy/Termini/Impressum)
     legal: {
       privacy: {
-        title: "Informativa sulla privacy",
+        title: "Informativa sulla Privacy",
         sections: {
           responsible: {
             title: "1. Titolare del trattamento",
-            content: "Memora Moments\n[Inserire indirizzo]\n[CAP, Città]\n[N. registro di commercio, se disponibile]\nE-mail: info.memora.moments@gmail.com\nTelefono: +41 79 407 56 99\n\nSiamo responsabili della raccolta, del trattamento e dell'uso dei vostri dati personali ai sensi della legge svizzera sulla protezione dei dati (nLPD)."
+            content:
+              "Memora Moments\n[Inserisci indirizzo]\n[CAP, Città]\n[Numero Registro Commerciale, se disponibile]\nE-Mail: info.memora.moments@gmail.com\nTelefono: +41 79 407 56 99\n\nSiamo responsabili della raccolta, elaborazione e utilizzo dei tuoi dati personali secondo la Legge Svizzera sulla Protezione dei Dati (revDSG)."
           },
           dataCollection: {
-            title: "2. Raccolta e trattamento dei dati personali",
-            content: "Trattiamo i dati personali che ci fornite nell'ambito dell'utilizzo dei nostri servizi o che vengono generati durante l'utilizzo. Questi includono in particolare:",
+            title: "2. Raccolta ed elaborazione dei dati personali",
+            content:
+              "Trattiamo i dati personali che ci fornisci durante l’uso dei nostri servizi o che sorgono durante l’utilizzo. Ciò include in particolare:",
             list: [
               "Dati di contatto (nome, indirizzo, e-mail, numero di telefono)",
-              "Informazioni di pagamento (a seconda del metodo di pagamento scelto, ad es. carta di credito, TWINT, pagamento anticipato)",
-              "Dati di contenuto (foto, video, testi, musica/audio) forniti per video commemorativi personalizzati e Memoras",
-              "Dati di utilizzo (ad es. ora di accesso a un video tramite Memora, metadati tecnici come browser/dispositivo)"
+              "Informazioni di pagamento (a seconda del metodo scelto, ad es. carta di credito, TWINT, pagamento anticipato)",
+              "Dati di contenuto (foto, video, testi, musica/audio) che fornisci per i video commemorativi personalizzati e le Memora",
+              "Dati di utilizzo (ad es. orario di accesso al video tramite Memora, metadati tecnici come browser/dispositivo)"
             ]
           },
           purpose: {
-            title: "3. Finalità del trattamento dei dati",
-            content: "I vostri dati vengono utilizzati esclusivamente per le seguenti finalità:",
+            title: "3. Finalità del trattamento",
+            content:
+              "I tuoi dati vengono utilizzati esclusivamente per le seguenti finalità:",
             list: [
-              "Evasione degli ordini ed esecuzione del contratto",
-              "Creazione, modifica e fornitura di video commemorativi e configurazione di tag NFC",
-              "Gestione dei pagamenti e fatturazione",
-              "Comunicazione con voi (ad es. conferma d'ordine, richieste, supporto)",
-              "Funzionamento, sicurezza e miglioramento dei nostri servizi"
+              "Elaborazione degli ordini e adempimento dei contratti",
+              "Creazione, modifica e fornitura di video commemorativi nonché configurazione di tag NFC",
+              "Elaborazione dei pagamenti e fatturazione",
+              "Comunicazione con te (ad es. conferma ordine, richieste, supporto)",
+              "Gestione, sicurezza e miglioramento dei nostri servizi"
             ]
           },
           disclosure: {
             title: "4. Comunicazione a terzi",
-            content: "Non vendiamo i vostri dati né li comunichiamo a terzi per scopi pubblicitari. La comunicazione avviene esclusivamente nella misura necessaria per le finalità sopra menzionate, a responsabili del trattamento accuratamente selezionati:",
+            content:
+              "Non vendiamo i tuoi dati né li cediamo a terzi per scopi pubblicitari. La comunicazione avviene esclusivamente nella misura necessaria per le finalità sopra indicate, a responsabili accuratamente selezionati:",
             list: [
-              "Fornitori di servizi di pagamento (ad es. Stripe, TWINT, istituti di carte di credito) per l'elaborazione dei pagamenti",
-              "Fornitori di servizi IT, cloud e hosting (ad es. per il funzionamento del sito web, l'archiviazione dei dati, la creazione/distribuzione di video)",
-              "Fornitori di servizi di e-mail/comunicazione (ad es. per l'invio di e-mail di sistema e di servizio)",
-              "Partner logistici/di consegna per la spedizione di prodotti fisici"
+              "Fornitori di pagamento (ad es. Stripe, TWINT, istituti di carte di credito) per l’elaborazione dei pagamenti",
+              "Fornitori di servizi IT, cloud e hosting (ad es. per la gestione del sito, l’archiviazione dei dati, la creazione/consegna dei video)",
+              "Fornitori di servizi e-mail/comunicazione (ad es. per l’invio di e-mail di sistema e di servizio)",
+              "Partner di logistica/consegna per la spedizione di prodotti fisici"
             ]
           },
           storage: {
             title: "5. Conservazione e cancellazione dei dati",
-            content: "I contenuti personalizzati (foto, video, audio, testi) vengono conservati solo per il tempo necessario all'esecuzione del contratto e alla fornitura del servizio. I dati dei clienti vengono conservati nel rispetto degli obblighi di legge. Su vostra richiesta, verificheremo la possibilità di una cancellazione anticipata, a condizione che non vi siano obblighi di legge contrari."
+            content:
+              "I contenuti personalizzati (foto, video, audio, testi) vengono conservati solo per il tempo necessario all’adempimento del contratto e alla fornitura del servizio. I dati dei clienti vengono conservati secondo gli obblighi legali di conservazione. Su tua richiesta, valuteremo una cancellazione anticipata, a condizione che non vi siano obblighi legali contrari."
           },
           security: {
             title: "6. Sicurezza dei dati",
-            content: "Adottiamo misure di sicurezza tecniche e organizzative adeguate per proteggere i vostri dati da perdita, manipolazione e accesso non autorizzato. Si prega di notare che la trasmissione di dati su Internet (ad es. via e-mail) può presentare lacune di sicurezza."
+            content:
+              "Utilizziamo misure tecniche e organizzative adeguate per proteggere i tuoi dati da perdita, manipolazione e accessi non autorizzati. Si prega di notare che la trasmissione dei dati tramite Internet (ad es. e-mail) può presentare lacune di sicurezza."
           },
           rights: {
-            title: "7. Diritti degli interessati",
-            content: "Nell'ambito della normativa vigente sulla protezione dei dati, avete in particolare i seguenti diritti. Per esercitare i vostri diritti, vi preghiamo di contattarci all'indirizzo sopra indicato:",
+            title: "7. Diritti dell’interessato",
+            content:
+              "Ai sensi della legge sulla protezione dei dati applicabile, hai in particolare i seguenti diritti. Per esercitare i tuoi diritti, contattaci all’indirizzo sopra indicato:",
             list: [
-              "Informazione: Accesso ai dati memorizzati che vi riguardano",
-              "Rettifica: Correzione di dati inesatti o incompleti",
-              "Cancellazione: Rimozione dei vostri dati, a condizione che non sussistano obblighi di conservazione",
-              "Limitazione/Opposizione (se applicabile): Limitazione di determinati trattamenti",
-              "Portabilità dei dati: Consegna dei vostri dati in un formato elettronico comune"
+              "Informazione: accesso ai dati memorizzati su di te",
+              "Rettifica: correzione di dati inesatti o incompleti",
+              "Cancellazione: rimozione dei tuoi dati, salvo obblighi di conservazione",
+              "Limitazione/Opposizione (ove applicabile): limitazione di determinati trattamenti",
+              "Portabilità dei dati: fornitura dei tuoi dati in formato elettronico comune"
             ]
           },
           cookies: {
             title: "8. Cookie e tracciamento",
-            content: "Il nostro sito web utilizza i cookie necessari per fornire le funzioni di base. Utilizziamo altri cookie (facoltativi) di analisi o di marketing solo con il vostro consenso. Potete impostare nel vostro browser se i cookie devono essere accettati, bloccati o cancellati."
+            content:
+              "Il nostro sito utilizza cookie necessari per fornire funzioni di base. Utilizziamo altri cookie (facoltativi) di analisi o marketing solo con il tuo consenso. Puoi impostare nel tuo browser se i cookie vengono accettati, bloccati o cancellati."
           },
           changes: {
-            title: "9. Modifiche alla presente informativa sulla privacy",
-            content: "Ci riserviamo il diritto di modificare la presente informativa sulla privacy in qualsiasi momento. Si applica la versione attuale pubblicata sul nostro sito web."
+            title: "9. Modifiche a questa informativa",
+            content:
+              "Ci riserviamo il diritto di adattare questa informativa in qualsiasi momento. Si applica la versione attuale pubblicata sul nostro sito."
           }
         }
       },
       terms: {
-        title: "Termini e condizioni generali",
+        title: "Condizioni Generali di Contratto",
         sections: {
           scope: {
             title: "1. Ambito di applicazione",
-            content: "Le presenti Condizioni Generali di Contratto (CGC) si applicano a tutti gli ordini e i contratti conclusi tra Memora Moments (di seguito «noi») e i clienti (di seguito «voi») in relazione all'acquisto di tag NFC, video commemorativi e contenuti digitali correlati."
+            content:
+              "Le presenti Condizioni Generali (CG) si applicano a tutti gli ordini e contratti tra Memora Moments (di seguito 'noi') e i clienti (di seguito 'tu') in relazione all’acquisto di tag NFC, video commemorativi e contenuti digitali correlati."
           },
           contract: {
             title: "2. Conclusione del contratto",
-            content: "Il contratto si considera concluso non appena confermiamo espressamente il vostro ordine via e-mail. Possiamo rifiutare ordini per motivi tecnici o legali."
+            content:
+              "Il contratto si conclude non appena confermiamo espressamente il tuo ordine tramite e-mail. Possiamo rifiutare ordini per motivi tecnici o legali."
           },
           services: {
-            title: "3. Prestazioni",
-            content: "Le nostre prestazioni comprendono: produzione e consegna di tag NFC (prodotti fisici); creazione e fornitura di video commemorativi personalizzati (contenuti digitali); accesso ad altri contenuti digitali relativi al prodotto."
+            title: "3. Servizi",
+            content:
+              "I nostri servizi comprendono: produzione e consegna di tag NFC (prodotti fisici); creazione e fornitura di video commemorativi personalizzati (contenuti digitali); accesso ad altri contenuti digitali correlati al prodotto."
           },
           prices: {
             title: "4. Prezzi e condizioni di pagamento",
-            content: "Tutti i prezzi sono espressi in franchi svizzeri (CHF), IVA inclusa, se applicabile. Metodi di pagamento accettati: carta di credito, TWINT, pagamento anticipato. Il pagamento è dovuto prima della consegna o della creazione dei contenuti digitali."
+            content:
+              "Tutti i prezzi sono in Franchi Svizzeri (CHF) inclusa IVA ove applicabile. Metodi di pagamento accettati: carta di credito, TWINT, pagamento anticipato. Il pagamento è dovuto prima della consegna o della creazione del contenuto digitale."
           },
           delivery: {
             title: "5. Consegna e tempi di consegna",
-            content: "La consegna dei prodotti avviene di norma entro 30 giorni dalla conclusione del contratto. Per i prodotti realizzati su misura possono verificarsi ritardi; in tal caso vi informeremo tempestivamente."
+            content:
+              "La consegna dei prodotti avviene di solito entro 30 giorni dalla conclusione del contratto. Per i prodotti personalizzati possono verificarsi ritardi; in tal caso ti informeremo immediatamente."
           },
           cancellation: {
-            title: "6. Diritto di recesso e di ripensamento",
-            content: "Per i prodotti personalizzati e i contenuti digitali (ad es. video commemorativi creati individualmente) non è previsto il diritto di recesso. Per i prodotti non personalizzati si applicano le disposizioni di legge."
+            title: "6. Diritto di recesso e annullamento",
+            content:
+              "Non esiste diritto di reso per prodotti personalizzati e contenuti digitali (ad es. video commemorativi individuali). Le disposizioni di legge si applicano ai prodotti non personalizzati."
           },
           warranty: {
             title: "7. Garanzia",
-            content: "Garantiamo la conformità dei nostri prodotti al contratto. Vi preghiamo di comunicarci eventuali difetti entro 14 giorni dal ricevimento, in modo da poter esaminare una soluzione adeguata (riparazione, sostituzione o rimborso)."
+            content:
+              "Garantiamo la qualità contrattuale dei nostri prodotti. Ti preghiamo di segnalarci eventuali difetti entro 14 giorni dal ricevimento affinché possiamo valutare una soluzione appropriata (riparazione, sostituzione o rimborso)."
           },
           liability: {
             title: "7a. Responsabilità",
-            content: "La nostra responsabilità è limitata ai danni causati da dolo o colpa grave. Non ci assumiamo alcuna responsabilità per problemi tecnici da parte del cliente (ad es. connessione internet insufficiente, dispositivi incompatibili, impostazioni del software)."
+            content:
+              "La nostra responsabilità è limitata ai danni causati da comportamento doloso o colpa grave. Non ci assumiamo responsabilità per problemi tecnici lato cliente (ad es. connessione Internet insufficiente, dispositivi incompatibili, impostazioni software)."
           },
           ip: {
-            title: "8. Diritti d'autore e diritti d'uso",
-            content: "I contenuti da noi creati (ad es. video commemorativi) sono protetti da copyright. Ricevete un diritto d'uso semplice e non trasferibile per uso privato. L'uso commerciale o la cessione a terzi non è consentita, salvo diverso accordo scritto. Caricando foto, video, audio o testi, confermate di disporre dei diritti necessari; a tal fine ci manlevate da qualsiasi pretesa di terzi."
+            title: "8. Copyright e diritti d’uso",
+            content:
+              "I contenuti creati da noi (ad es. video commemorativi) sono soggetti a copyright. Ricevi un diritto d’uso semplice e non trasferibile per uso privato. L’uso commerciale o la cessione a terzi non è consentita salvo diverso accordo scritto. Caricando foto, video, audio o testi, confermi di avere i diritti necessari; ci esoneri da eventuali rivendicazioni di terzi."
           },
           privacy: {
             title: "9. Protezione dei dati",
-            content: "Trattiamo i dati personali esclusivamente in conformità con la nostra informativa sulla privacy. Ciò include la memorizzazione e il trattamento dei vostri dati per l'esecuzione del contratto, nonché la loro trasmissione a terzi necessari (ad es. fornitori di servizi di pagamento, hosting/IT, spedizione). Utilizzando i nostri servizi, acconsentite a tale trattamento."
+            content:
+              "Trattiamo i dati personali esclusivamente in conformità con la nostra informativa sulla privacy. Ciò include la conservazione e il trattamento dei tuoi dati per l’adempimento del contratto nonché la comunicazione a terzi necessari (ad es. fornitori di pagamento, hosting/IT, spedizione). Utilizzando i nostri servizi acconsenti a tale trattamento."
           },
           special: {
-            title: "10. Prodotti emotivi e avvertenze speciali",
-            content: "I nostri prodotti hanno un alto valore emotivo. I contenuti personalizzati non possono essere modificati o restituiti dopo il completamento. In caso di problemi tecnici da parte nostra (ad es. guasto del server), ci impegneremo a ripristinare l'accesso il più rapidamente possibile; non possiamo garantire una disponibilità permanente da parte del cliente."
+            title: "10. Prodotti emozionali & Note speciali",
+            content:
+              "I nostri prodotti hanno un alto valore emozionale. I contenuti personalizzati non possono essere modificati o restituiti dopo il completamento. In caso di problemi tecnici da parte nostra (ad es. guasto del server), ci impegneremo a ripristinare l’accesso il più rapidamente possibile; non possiamo garantire la disponibilità permanente lato cliente."
           },
           law: {
-            title: "11. Foro competente e diritto applicabile",
-            content: "Si applica esclusivamente il diritto svizzero. Il foro competente è la sede di Memora Moments."
+            title: "11. Foro competente e legge applicabile",
+            content:
+              "Si applica esclusivamente la legge svizzera. Il foro competente è la sede legale di Memora Moments."
           },
           final: {
             title: "12. Disposizioni finali",
-            content: "Qualora singole disposizioni di queste CGC fossero inefficaci, la validità delle restanti disposizioni rimane impregiudicata. Ci riserviamo il diritto di modificare queste CGC in qualsiasi momento. Si applica la versione attuale pubblicata con data e numero di versione."
+            content:
+              "Se singole disposizioni di queste CG fossero inefficaci, la validità delle restanti non sarà compromessa. Ci riserviamo il diritto di adattare queste CG in qualsiasi momento. Si applica la versione attuale pubblicata con data e numero di versione."
           },
         }
       },
       imprint: {
-        title: "Colophon",
+        title: "Impressum",
         sections: {
           info: {
-            title: "Informazioni ai sensi del § 5 TMG",
-            content: "Memora Moments\nProdotti commemorativi personalizzati"
+            title: "Informazioni secondo § 5 TMG",
+            content: "Memora Moments\nProdotti di memoria personalizzati"
           },
           contact: {
             title: "Contatto",
-            content: "E-mail: info.memora.moments@gmail.com\nTelefono: +41 79 407 56 99"
+            content:
+              "E-Mail: info.memora.moments@gmail.com\nTelefono: +41 79 407 56 99"
           },
           responsible: {
-            title: "Responsabile del contenuto ai sensi del § 55 Abs. 2 RStV",
-            content: "Memora Moments\nE-mail: info.memora.moments@gmail.com"
+            title: "Responsabile del contenuto secondo § 55 Abs. 2 RStV",
+            content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com"
           },
           disclaimer: {
             title: "Esclusione di responsabilità",
             content: {
               title: "Responsabilità per i contenuti",
-              content: "In qualità di fornitori di servizi, siamo responsabili per i nostri contenuti su queste pagine secondo le leggi generali ai sensi del § 7 comma 1 TMG. Tuttavia, secondo i §§ da 8 a 10 TMG, in qualità di fornitori di servizi non siamo obbligati a monitorare le informazioni di terzi trasmesse o memorizzate o a indagare su circostanze che indicano un'attività illegale."
+              content:
+                "In qualità di fornitori di servizi, siamo responsabili dei nostri contenuti su queste pagine secondo le leggi generali ai sensi del § 7 (1) TMG. Secondo §§ 8–10 TMG, non siamo però obbligati a monitorare informazioni di terzi trasmesse o memorizzate né a indagare su circostanze che indichino attività illegali."
             },
             links: {
               title: "Responsabilità per i link",
-              content: "La nostra offerta contiene link a siti web esterni di terzi, sui cui contenuti non abbiamo alcuna influenza. Pertanto, non possiamo assumerci alcuna responsabilità per questi contenuti esterni. Per i contenuti delle pagine collegate è sempre responsabile il rispettivo fornitore o gestore delle pagine."
+              content:
+                "La nostra offerta contiene link a siti esterni di terzi, sui cui contenuti non abbiamo alcuna influenza. Pertanto non possiamo assumere alcuna responsabilità per questi contenuti esterni. Il rispettivo fornitore o gestore delle pagine è sempre responsabile dei contenuti delle pagine collegate."
             },
             copyright: {
-              title: "Diritto d'autore",
-              content: "I contenuti e le opere creati dai gestori del sito su queste pagine sono soggetti al diritto d'autore tedesco. La riproduzione, l'elaborazione, la distribuzione e qualsiasi tipo di sfruttamento al di fuori dei limiti del diritto d'autore richiedono il consenso scritto del rispettivo autore o creatore."
+              title: "Copyright",
+              content:
+                "I contenuti e le opere create dagli operatori del sito su queste pagine sono soggetti alla legge tedesca sul copyright. La riproduzione, elaborazione, distribuzione e qualsiasi forma di sfruttamento al di fuori dei limiti del copyright richiede il consenso scritto del rispettivo autore o creatore."
             }
           }
         }
@@ -241,96 +271,112 @@ export const itContent: ContentData = {
     footer: {
       brand: {
         name: "Memora Moments",
-        description: "Momenti commemorativi digitali – realizzati con dignità, resistenti alle intemperie e facili da condividere."
+        description:
+          "Momenti commemorativi digitali – dignitosi, resistenti alle intemperie e facili da condividere."
       },
-      contactTitle: "Contatti",
+      contactTitle: "Contatto",
       linksTitle: "Link",
       legal: {
         privacy: "Privacy",
-        terms: "Termini",
-        imprint: "Colophon"
+        terms: "Condizioni",
+        imprint: "Impressum"
       },
       copyright: "Tutti i diritti riservati."
     }
   },
-
-  human: {
+  
+    human: {
     hero: {
-      title: "Ricordi che vivono – con cuore e suono.",
-      subtitle: "I momenti diventano un memoriale silenzioso – Memora Moments apre la porta a storie che rimangono. Immagini, video e musica mantengono vivo il ricordo, proprio dove appartiene: vicino al cuore.",
-      startButton: "Come funziona?",
+      title: "Ricordi che continuano a vivere – con cuore e suono.",
+      subtitle:
+        "I momenti diventano un memoriale silenzioso – Memora Moments apre la porta a storie che restano. Immagini, video e musica mantengono vivo il ricordo, proprio dove deve stare: vicino al cuore.",
+      startButton: "Come funziona",
       learnButton: "Scopri di più"
     },
     features: {
-      title: "Momenti indimenticabili per l'eternità",
-      subtitle: "I nostri Memora Moments uniscono la tecnologia moderna a un ricordo dignitoso.",
-      unique: { title: "Memoriale unico", desc: "Onora la vita di una persona cara con un ricordo duraturo." },
-      multimedia: { title: "Ricordi multimediali", desc: "Foto e video fanno rivivere momenti speciali." },
-      music: { title: "Integra musica di sottofondo", desc: "La musica crea vicinanza e fa vivere le emozioni." },
-      quality: { title: "Design dignitoso", desc: "Materiali semplici e di alta qualità che si integrano armoniosamente in qualsiasi tomba o casa." }
+      title: "Momenti indimenticabili per l’eternità",
+      subtitle:
+        "I nostri Memora Moments uniscono tecnologia moderna e commemorazione dignitosa.",
+      unique: { title: "Memoriale unico", desc: "Rendi onore alla vita di una persona cara con un ricordo duraturo." },
+      multimedia: { title: "Ricordi multimediali", desc: "Foto e video riportano in vita momenti speciali." },
+      music: { title: "Integra musica di sottofondo", desc: "La musica crea vicinanza e rende vive le emozioni." },
+      quality: { title: "Design dignitoso", desc: "Materiali semplici e di alta qualità che si integrano armoniosamente in ogni tomba o casa." }
     },
     howitworks: {
       title: "Come funziona",
-      subtitle: "In pochi passi al tuo Memora personale.",
+      subtitle: "Il tuo Memora personale in pochi passaggi.",
       step1: { title: "Seleziona il prodotto", desc: "Scegli tra Memora Tag, Frame o Deluxe." },
       step2: { title: "Seleziona media e musica", desc: "Scegli le tue foto e i tuoi video preferiti o anche messaggi vocali e aggiungi una musica di sottofondo adatta." },
-      step3: { title: "Ricevi Memora", desc: "Il tuo Memora arriva a casa tua." }
+      step3: { title: "Ricevi il tuo Memora", desc: "Il tuo Memora verrà consegnato a casa tua." }
     },
     products: {
-      title: "I nostri Memoras:",
+      title: "I nostri Memora:",
       subtitle: "I classici prodotti Memora.",
-      basic: { title: "Memora Tag", desc: "Una semplice lastra di plexiglas che dà vita ai ricordi tramite un album fotografico digitale – discreto e intramontabile.", price: "49 CHF" },
-      premium: { title: "Memora Frame", desc: "Una classica cornice per foto, combinata con la tecnologia moderna. Così ogni foto diventa una porta verso ricordi commoventi.", price: "79 CHF" },
-      deluxe: { title: "Memora Deluxe", desc: "Un'opera d'arte di alta qualità che mantiene vivo il passato e tocca il futuro.", price: "129 CHF" },
+      basic: { title: "Memora Tag", desc: "Una semplice piastra in plexiglass che dà vita ai ricordi tramite un album fotografico digitale – discreto e senza tempo.", price: "49 CHF" },
+      premium: { title: "Memora Frame", desc: "Una cornice classica unita alla tecnologia moderna. Ogni foto diventa una porta verso ricordi commoventi.", price: "79 CHF" },
+      deluxe: { title: "Memora Deluxe", desc: "Un’opera di alta qualità che mantiene vivo il passato e tocca il futuro.", price: "129 CHF" },
       features: {
-        tag1: "Lastra di plexiglas 6×6 cm o 3 cm ⌀",
-        tag2: "Sfoglia l'album fotografico digitale personale direttamente con un tocco",
+        tag1: "Piastra in plexiglass 6×6 cm o ⌀ 3 cm",
+        tag2: "Sfoglia l’album fotografico digitale personale direttamente con un tap",
         tag3: "Design minimalista e senza tempo, si integra armoniosamente",
-        tag4: "Per lapidi, urne, luoghi della memoria",
-        premium1: "Lastra di plexiglas da 3 cm ⌀ – collega immagine e memoriale digitale",
-        premium2: "Sfoglia l'album fotografico digitale personale direttamente con un tocco",
+        tag4: "Per lapidi, urne, luoghi commemorativi",
+        premium1: "Piastra in plexiglass ⌀ 3 cm – collega foto e memoriale digitale",
+        premium2: "Sfoglia l’album fotografico digitale personale direttamente con un tap",
         premium3: "Design personale con la tua foto",
-        premium4: "Ideale per la casa, angoli commemorativi o come regalo",
-        deluxe1: "Lastra di plexiglas di alta qualità 12×12 cm con finitura nobile",
+        premium4: "Ideale per casa, angoli commemorativi o come regalo",
+        deluxe1: "Piastra in plexiglass 12×12 cm di alta qualità con finitura elegante",
         deluxe2: "Design individuale con la tua foto e il tuo testo",
-        deluxe3: "Sfoglia l'album fotografico digitale personale direttamente con un tocco",
-        deluxe4: "Presentazione con un elegante supporto"
+        deluxe3: "Sfoglia l’album fotografico digitale personale direttamente con un tap",
+        deluxe4: "Presentazione con supporto raffinato"
       }
     },
     cta: {
       title: "Onora i tuoi cari",
       subtitle: "Crea il tuo memoriale e conserva i ricordi.",
-      create: "Crea memoriale",
+      create: "Crea Memoriale",
       contact: "Contattaci"
     },
     gedenken: {
-      title: "Crea memoriale - Memora Moments",
+      title: "Crea Memoriale - Memora Moments",
       heading: "Crea il tuo memoriale!",
-      description: "Carica i ricordi e creeremo un memoriale dignitoso."
+      description: "Carica i ricordi e noi creeremo un memoriale dignitoso."
     },
-
+    // Override dell'Uploader
     uploaderCopy: {
       headings: {
         pageTitleByMode: { human: "Seleziona il prodotto:" },
-        step1Subtitle: "Scegli il tuo prodotto – caricherai i contenuti nel passaggio successivo.",
+        step1Subtitle: "Scegli il prodotto – caricherai i contenuti nel passaggio successivo.",
         step2ByMode: { human: "Informazioni sulla persona" },
-        step2Subtitle: "Si prega di compilare i seguenti campi. Le note sono facoltative.",
-        step3Title: "Carica immagini e video",
+        step2Subtitle: "Compila i seguenti campi. Le note sono facoltative.",
+        step3Title: "Carica foto e video",
         step3Subtitle: "I file vengono salvati nel modulo e inviati in seguito.",
-        step4Title: "Informazioni di contatto",
-        step4Subtitle: "Utilizziamo questi dati per domande e conferme d'ordine.",
-        step5Title: "Informazioni di fatturazione e riepilogo",
-        step5Subtitle: "Si prega di controllare l'indirizzo e il riepilogo. Con 'Procedi al pagamento!' si passerà in seguito al checkout.",
+        step4Title: "Dati di contatto",
+        step4Subtitle: "Utilizziamo questi dati per domande e conferme d’ordine.",
+        step5Title: "Dati di fatturazione & riepilogo",
+        step5Subtitle: "Controlla l’indirizzo e il riepilogo. Con 'Procedi al pagamento!' andrai poi alla cassa.",
         summary: "Riepilogo"
+      },
+
+      buttons: {
+        back: "Indietro",
+        next: "Avanti",
+        reset: "Reimposta",
+        toPay: "Procedi al pagamento",
+        addText: "Aggiungi testo",
+        applyDesign: "Applica design",
+        remove: "Rimuovi",
       },
       products: {
         formatTitle: "Formato",
-        frameTitle: "Progetta cornice",
-        formatTitleDeluxe: "Progetta Deluxe",
+        frameTitle: "Design Frame",
+        formatTitleDeluxe: "Design Deluxe",
         roundLabel: "Rotondo · Ø 3 cm",
         squareLabel: "Quadrato · 6×6 cm",
-        petOptionsTitle: "Opzioni per Memora Tag per animali",
-        frameTip:"Suggerimento: sposta l'immagine con il mouse/tocco e aggiungi e posiziona liberamente i testi.",
+        petOptionsTitle: "Opzioni per Memora Tag Animali",
+        frameTip:"Suggerimento: muovi l’immagine con mouse/touch e aggiungi/posiziona liberamente i testi.",
+        frameOrientationLabel: "Orientamento",
+        framePortrait: "Verticale",
+        frameLandscape: "Orizzontale",
       },
       editor: {
         image: "Immagine",
@@ -338,42 +384,48 @@ export const itContent: ContentData = {
         posX: "Posizione orizzontale",
         posY: "Posizione verticale",
         emptyTitle: "Nessuna immagine selezionata",
-        emptySub: "Seleziona un'immagine sopra",
+        emptySub: "Seleziona un’immagine qui sopra",
         selectedText: "Testo selezionato",
         content: "Contenuto",
         font: "Carattere",
         size: "Dimensione",
         color: "Colore",
         previewLabel: "Anteprima adottata",
-        previewNote: "Questa anteprima verrà salvata con l'ordine."
+        previewNote: "Questa anteprima verrà salvata con l’ordine."
       },
       step2Fields: {
         human_lastName: "Cognome *",
         human_firstName: "Nome *",
-        human_deathDate: "Data di morte",
-        human_notesPH: "Desideri speciali, citazioni, note musicali…",
-        pet_name: "Nome dell'animale *",
-        pet_deathDate: "Data di morte *",
-        pet_notesPH: "Desideri speciali, suoni preferiti, note…",
-        surprise_name: "Nome (destinatario) *",
-        surprise_notesPH: "Matrimonio, compleanno, anniversario… desideri speciali"
+        human_deathDate: "Data del decesso",
+        notes_human: "Note (facoltativo)",
+        human_notesPH: "Desideri speciali, citazioni, appunti sulla musica…",
       },
       step3Fields: {
-        imagesLabel: "Immagini (più possibili)",
-        videosLabel: "Video (più possibili)",
+        imagesLabel: "Immagini (possibili multiple)",
+        videosLabel: "Video (possibili multiple)",
         remove: "Rimuovi",
-        imageCaptionPlaceholder: "Breve testo per l'immagine (opzionale)",
-        videoCaptionPlaceholder: "Breve testo per il video (opzionale)",
+        imageCaptionPlaceholder: "Breve testo per l’immagine (facoltativo)",
+        videoCaptionPlaceholder: "Breve testo per il video (facoltativo)",
+        // Selezione Musica
+        musicSelection: {
+          title: "Seleziona musica",
+          availableMusic: "Musica disponibile",
+          selected: "Selezionata",
+          select: "Seleziona",
+          moreMusic: "Altra musica da Pixabay",
+          pixabayPlaceholder: "Incolla link da pixabay.com/music/...",
+          pixabayButton: "Musica Pixabay",
+        },
       },
       contactFields: {
         firstName: "Nome *",
         lastName: "Cognome *",
-        email: "E-mail *",
-        phoneOpt: "Telefono (opzionale)"
+        email: "E-Mail *",
+        phoneOpt: "Telefono (facoltativo)"
       },
       invoiceFields: {
-        sameAsContact: "Indirizzo di fatturazione uguale all'indirizzo di contatto",
-        companyOpt: "Azienda (opzionale)",
+        sameAsContact: "Indirizzo di fatturazione uguale a quello di contatto",
+        companyOpt: "Azienda (facoltativo)",
         firstName: "Nome *",
         lastName: "Cognome *",
         street: "Via e n. *",
@@ -393,89 +445,120 @@ export const itContent: ContentData = {
         recipient: "Destinatario",
         notes: "Note",
         counts: (imgs, vids) => `Immagini: ${imgs} • Video: ${vids}`,
-        previewTitle: "Anteprima personalizzata"
-      }
+        previewTitle: "Anteprima personalizzata",
+        total: "Totale: ",
+        optionOrientation: "Orientamento",
+        optionPortrait: "Verticale",
+        optionLandscape: "Orizzontale",
+        modeHuman: "Persona",
+        modePet: "Animali",
+        modeSurprise: "Sorpresa",
+      },
+      privacyNotice: {
+        text: "Caricando immagini, accetti la nostra",
+        privacyLink: "Informativa sulla privacy",
+        and: "e",
+        termsLink: "Termini d’uso",
+        agreed: ".",
+      },
     }
   },
 
   pet: {
     hero: {
-      title: "Per i nostri fedeli compagni – ricordi con cuore e suono.",
-      subtitle: "I nostri animali domestici ci donano amore, lealtà e gioia. Con Memora Moments, il loro ricordo rimane vivo – nel cuore e in luoghi speciali.",
-      startButton: "Come funziona?",
+      title: "Per i nostri compagni fedeli – ricordi con cuore e suono.",
+      subtitle:
+        "I nostri animali ci donano amore, lealtà e gioia. Con Memora Moments, il loro ricordo resta vivo – nel cuore e in luoghi speciali.",
+      startButton: "Come funziona",
       learnButton: "Scopri di più"
     },
     features: {
-      title: "Momenti indimenticabili con il tuo tesoro",
-      subtitle: "Ricordi digitali per animali domestici.",
-      unique: { title: "Ricordo affettuoso", desc: "Momenti speciali con il tuo animale domestico." },
-      multimedia: { title: "Esperienze multimediali", desc: "Foto e video del tuo tesoro." },
-      music: { title: "Suoni preferiti", desc: "Il familiare abbaiare, miagolare o una canzone che unisce." },
-      quality: { title: "Design dignitoso", desc: "Materiali semplici e di alta qualità che si integrano armoniosamente in ogni casa, sia all'interno che all'esterno." }
+      title: "Momenti indimenticabili con il tuo amico",
+      subtitle: "Ricordi digitali per animali.",
+      unique: { title: "Ricordo affettuoso", desc: "Momenti speciali con il tuo animale." },
+      multimedia: { title: "Esperienze multimediali", desc: "Foto e video del tuo amico a quattro zampe." },
+      music: { title: "Suoni preferiti", desc: "Il latrato, il miagolio o una canzone che vi unisce." },
+      quality: { title: "Design dignitoso", desc: "Materiali semplici e di qualità che si integrano in ogni casa, dentro o fuori." }
     },
     howitworks: {
       title: "Come funziona",
-      subtitle: "Al Memora in tre passi.",
+      subtitle: "Verso il tuo Memora in tre passaggi.",
       step1: { title: "Seleziona il prodotto", desc: "Scegli tra Memora Tag, Frame o Deluxe." },
-      step2: { title: "Seleziona media e musica o suoni", desc: "Scegli le tue foto e i tuoi video preferiti o anche messaggi vocali e aggiungi una musica di sottofondo adatta." },
-      step3: { title: "Ricevi Memora", desc: "Il tuo Memora viene consegnato." }
+      step2: { title: "Seleziona media e musica o suoni", desc: "Scegli foto e video preferiti o anche messaggi vocali e aggiungi musica di sottofondo adatta." },
+      step3: { title: "Ricevi il tuo Memora", desc: "Il tuo Memora verrà consegnato." }
     },
     products: {
-      title: "Prodotti per animali domestici",
+      title: "Prodotti per animali",
       subtitle: "Ricordi per compagni fedeli.",
-      basic: { title: "Memora Pet Tag", desc: "Una semplice lastra di plexiglas che dà vita ai ricordi del tuo animale domestico con un album fotografico digitale", price: "da 49 CHF" },
-      premium: { title: "Memora Pet Frame", desc: "Una cornice elegante che collega la tua foto preferita a un album fotografico digitale – ideale per la casa.", price: "89 CHF" },
-      deluxe: { title: "Memora Pet Deluxe", desc: "Un'esclusiva lastra di plexiglas con supporto – per un ricordo duraturo e dignitoso.", price: "129 CHF" },
+      basic: { title: "Memora Pet Tag", desc: "Una semplice piastra in plexiglass che dà vita ai ricordi del tuo animale con un album fotografico digitale", price: "da 49 CHF" },
+      premium: { title: "Memora Pet Frame", desc: "Una cornice elegante che collega la tua foto preferita a un album fotografico digitale – ideale per casa.", price: "89 CHF" },
+      deluxe: { title: "Memora Pet Deluxe", desc: "Una piastra in plexiglass esclusiva con supporto – per un ricordo duraturo e dignitoso.", price: "129 CHF" },
       features: {
-        tag1: "Lastra di plexiglas 6×6 cm o 3 cm ⌀",
-        tag2: "Sfoglia l'album fotografico digitale personale direttamente con un tocco",
+        tag1: "Piastra in plexiglass 6×6 cm o ⌀ 3 cm",
+        tag2: "Sfoglia l’album fotografico digitale personale direttamente con un tap",
         tag3: "Design minimalista e senza tempo, si integra armoniosamente",
-        tag4: "Opzione: standard semplice, design personalizzato o come portachiavi",
-        premium1: "Lastra di plexiglas da 3 cm ⌀ – collega immagine e memoriale digitale",
-        premium2: "Sfoglia l'album fotografico digitale personale direttamente con un tocco",
+        tag4: "Opzione: standard semplice, personalizzato o come portachiavi",
+        premium1: "Piastra in plexiglass ⌀ 3 cm – collega foto & memoriale digitale",
+        premium2: "Sfoglia l’album fotografico digitale personale direttamente con un tap",
         premium3: "Design personale con la tua foto",
-        premium4: "Ideale per la casa o come regalo",
-        deluxe1: "Lastra di plexiglas di alta qualità 12×12 cm con finitura nobile",
+        premium4: "Ideale per casa o come regalo",
+        deluxe1: "Piastra in plexiglass 12×12 cm di alta qualità con finitura elegante",
         deluxe2: "Design individuale con la tua foto e il tuo testo",
-        deluxe3: "Sfoglia l'album fotografico digitale personale direttamente con un tocco",
-        deluxe4: "Presentazione con un elegante supporto"
+        deluxe3: "Sfoglia l’album fotografico digitale personale direttamente con un tap",
+        deluxe4: "Presentazione con supporto raffinato"
       }
     },
     cta: {
-      title: "Onora il tuo tesoro",
-      subtitle: "Una casa nel cuore – conserva il ricordo del tuo fedele compagno.",
+      title: "Onora il tuo amico",
+      subtitle: "Una casa nel cuore – conserva il ricordo del tuo compagno fedele.",
       create: "Crea ricordo",
       contact: "Contattaci"
     },
     gedenken: {
-      title: "Crea memoriale per animali domestici - Memora Moments",
-      heading: "Memoriale per il tuo animale domestico",
-      description: "Carica i ricordi del tuo tesoro."
+      title: "Crea memoriale per animali - Memora Moments",
+      heading: "Memoriale per il tuo animale",
+      description: "Carica i ricordi del tuo amico."
     },
+
     uploaderCopy: {
       headings: {
-        pageTitleByMode: { human: "Seleziona il prodotto:" },
-        step1Subtitle: "Scegli il tuo prodotto – caricherai i contenuti nel passaggio successivo.",
-        step2ByMode: { human: "Informazioni sulla persona" },
-        step2Subtitle: "Si prega di compilare i seguenti campi. Le note sono facoltative.",
-        step3Title: "Carica immagini e video",
+        pageTitleByMode: { human: "Seleziona il prodotto:", pet: "Seleziona il prodotto:", surprise: "Seleziona il prodotto (Sorpresa)" },
+        step1Subtitle: "Scegli il prodotto – caricherai i contenuti nel passaggio successivo.",
+        step2ByMode: { human: "Informazioni sulla persona", pet: "Informazioni sull’animale", surprise: "Informazioni per Sorpresa" },
+        step2Subtitle: "Compila i campi seguenti. Le note sono facoltative.",
+        step3Title: "Carica foto e video",
         step3Subtitle: "I file vengono salvati nel modulo e inviati in seguito.",
-        step4Title: "Informazioni di contatto",
-        step4Subtitle: "Utilizziamo questi dati per domande e conferme d'ordine.",
-        step5Title: "Informazioni di fatturazione e riepilogo",
-        step5Subtitle: "Si prega di controllare l'indirizzo e il riepilogo. Con 'Procedi al pagamento!' si passerà in seguito al checkout.",
+        step4Title: "Dati di contatto",
+        step4Subtitle: "Utilizziamo questi dati per domande e conferme d’ordine.",
+        step5Title: "Dati di fatturazione & riepilogo",
+        step5Subtitle: "Controlla l’indirizzo e il riepilogo. Con 'Procedi al pagamento!' andrai poi alla cassa.",
         summary: "Riepilogo"
+      },
+      buttons: {
+        back: "Indietro",
+        next: "Avanti",
+        reset: "Reimposta",
+        toPay: "Procedi al pagamento",
+        addText: "Aggiungi testo",
+        applyDesign: "Applica design",
+        remove: "Rimuovi",
       },
       products: {
         formatTitle: "Formato",
-        frameTitle: "Progetta cornice",
-        formatTitleDeluxe: "Progetta Deluxe",
+        frameTitle: "Design Frame",
+        formatTitleDeluxe: "Design Deluxe",
         roundLabel: "Rotondo · Ø 3 cm",
         squareLabel: "Quadrato · 6×6 cm",
-        petOptionsTitle: "Opzioni per Memora Tag per animali",
-        frameTip:"Suggerimento: sposta l'immagine con il mouse/tocco e aggiungi e posiziona liberamente i testi.",
-        petOptionsTitle: "Opzioni per Memora Tag per animali",
+        petOptionsTitle: "Opzioni per Memora Tag Animali",
         keychainLabel: "con portachiavi (+7 CHF)",
+        designLabel: "Design",
+        designStandard: "Standard",
+        designCustom: "Personalizzabile (+10 CHF)",
+        designCustomNote: "Nota: il design personalizzato costa +10 CHF addizionali.",
+        frameTip:"Suggerimento: muovi l’immagine con mouse/touch e aggiungi/posiziona liberamente i testi.",
+        frameOrientationLabel: "Orientamento",
+        framePortrait: "Verticale",
+        frameLandscape: "Orizzontale",
       },
       editor: {
         image: "Immagine",
@@ -483,42 +566,46 @@ export const itContent: ContentData = {
         posX: "Posizione orizzontale",
         posY: "Posizione verticale",
         emptyTitle: "Nessuna immagine selezionata",
-        emptySub: "Seleziona un'immagine sopra",
+        emptySub: "Seleziona un’immagine qui sopra",
         selectedText: "Testo selezionato",
         content: "Contenuto",
         font: "Carattere",
         size: "Dimensione",
         color: "Colore",
         previewLabel: "Anteprima adottata",
-        previewNote: "Questa anteprima verrà salvata con l'ordine."
+        previewNote: "Questa anteprima verrà salvata con l’ordine."
       },
       step2Fields: {
-        human_lastName: "Cognome *",
-        human_firstName: "Nome *",
-        human_deathDate: "Data di morte",
-        human_notesPH: "Desideri speciali, citazioni, note musicali…",
-        pet_name: "Nome dell'animale *",
-        pet_deathDate: "Data di morte *",
-        pet_notesPH: "Desideri speciali, suoni preferiti, note…",
-        surprise_name: "Nome (destinatario) *",
-        surprise_notesPH: "Matrimonio, compleanno, anniversario… desideri speciali"
+        pet_name: "Nome dell’animale *",
+        pet_deathDate: "Data del decesso",
+        notes_human: "Note aggiuntive",
+        pet_notesPH: "Desideri speciali, suoni preferiti, appunti…",
       },
       step3Fields: {
-        imagesLabel: "Immagini (più possibili)",
-        videosLabel: "Video (più possibili)",
+        imagesLabel: "Immagini (possibili multiple)",
+        videosLabel: "Video (possibili multiple)",
         remove: "Rimuovi",
-        imageCaptionPlaceholder: "Breve testo per l'immagine (opzionale)",
-        videoCaptionPlaceholder: "Breve testo per il video (opzionale)",
+        imageCaptionPlaceholder: "Breve testo per l’immagine (facoltativo)",
+        videoCaptionPlaceholder: "Breve testo per il video (facoltativo)",
+        musicSelection: {
+          title: "Seleziona musica",
+          availableMusic: "Musica disponibile",
+          selected: "Selezionata",
+          select: "Seleziona",
+          moreMusic: "Altra musica da Pixabay",
+          pixabayPlaceholder: "Incolla link da pixabay.com/music/...",
+          pixabayButton: "Musica Pixabay",
+        },
       },
       contactFields: {
         firstName: "Nome *",
         lastName: "Cognome *",
-        email: "E-mail *",
-        phoneOpt: "Telefono (opzionale)"
+        email: "E-Mail *",
+        phoneOpt: "Telefono (facoltativo)"
       },
       invoiceFields: {
-        sameAsContact: "Indirizzo di fatturazione uguale all'indirizzo di contatto",
-        companyOpt: "Azienda (opzionale)",
+        sameAsContact: "Indirizzo di fatturazione uguale a quello di contatto",
+        companyOpt: "Azienda (facoltativo)",
         firstName: "Nome *",
         lastName: "Cognome *",
         street: "Via e n. *",
@@ -538,89 +625,115 @@ export const itContent: ContentData = {
         recipient: "Destinatario",
         notes: "Note",
         counts: (imgs, vids) => `Immagini: ${imgs} • Video: ${vids}`,
-        previewTitle: "Anteprima personalizzata"
+        previewTitle: "Anteprima personalizzata",
+        total: "Totale: ",
+        optionOrientation: "Orientamento",
+        optionPortrait: "Verticale",
+        optionLandscape: "Orizzontale",
+        modeHuman: "Persona",
+        modePet: "Animali",
+        modeSurprise: "Sorpresa",
+      },
+      privacyNotice: {
+        text: "Caricando immagini, accetti la nostra",
+        privacyLink: "Informativa sulla privacy",
+        and: "e",
+        termsLink: "Termini d’uso",
+        agreed: ".",
       }
     }
-    
   },
 
   surprise: {
     hero: {
-      title: "Un regalo che tocca i cuori – sorprese indimenticabili.",
-      subtitle: "Che si tratti di un matrimonio, un compleanno o un anniversario – con Memora Moments rendi i ricordi tangibili. Foto, video e musica diventano un regalo unico che dura.",
-      startButton: "Come funziona?",
+      title: "Un regalo che tocca il cuore – sorprese indimenticabili.",
+      subtitle:
+        "Che sia per un matrimonio, compleanno o anniversario – con Memora Moments rendi i ricordi tangibili. Foto, video e musica diventano un dono unico che dura.",
+      startButton: "Come funziona",
       learnButton: "Scopri di più"
     },
     features: {
-      title: "Quel qualcosa in più",
+      title: "Quel tocco in più",
       subtitle: "Semplice, dignitoso e pieno di significato.",
       unique: { title: "Sorpresa unica", desc: "Ogni Sorpresa racconta una piccola storia." },
-      multimedia: { title: "Esperienze multimediali", desc: "Foto, video e musica rendono il tuo regalo vivace ed emozionante." },
-      music: { title: "Musica e messaggi", desc: "Aggiungi una musica di sottofondo o un messaggio vocale personale." },
+      multimedia: { title: "Esperienze multimediali", desc: "Foto, video e musica rendono il tuo regalo vivo ed emozionante." },
+      music: { title: "Musica & messaggi", desc: "Aggiungi musica di sottofondo o un messaggio vocale personale." },
       quality: { title: "Design elegante", desc: "Minimalista e di alta qualità – adatto a ogni occasione e celebrazione." }
     },
     howitworks: {
-      title: "Come funziona la Sorpresa",
-      subtitle: "Tre passi per il momento della sorpresa.",
+      title: "Come funziona Sorpresa",
+      subtitle: "Tre passaggi fino al momento sorpresa.",
       step1: { title: "Seleziona il prodotto", desc: "Scegli tra Memora Tag, Frame o Deluxe." },
-      step2: { title: "Seleziona media e musica", desc: "Scegli le tue foto e i tuoi video preferiti o anche messaggi vocali e aggiungi una musica di sottofondo adatta." },
-      step3: { title: "Ricevi la Sorpresa", desc: "Il tuo Memora viene consegnato direttamente a te." }
+      step2: { title: "Seleziona media e musica", desc: "Scegli foto e video preferiti o anche messaggi vocali e aggiungi musica di sottofondo adatta." },
+      step3: { title: "Ricevi la Sorpresa", desc: "Il tuo Memora verrà consegnato direttamente a te." }
     },
     products: {
       title: "Prodotti Sorpresa",
       subtitle: "Scegli il tuo stile.",
-      basic: { title: "Memora Surprise Tag", desc: "Una piccola lastra di plexiglas che collega un album fotografico digitale – originale e unico.", price: "49 CHF" },
+      basic: { title: "Memora Surprise Tag", desc: "Una piccola piastra in plexiglass che collega un album fotografico digitale – originale e unica.", price: "49 CHF" },
       premium: { title: "Memora Surprise Frame", desc: "Una cornice elegante che collega la tua foto preferita a un album fotografico digitale – ideale come regalo.", price: "79 CHF" },
-      deluxe: { title: "Memora Surprise Deluxe", desc: "Un'esclusiva lastra di plexiglas con tecnologia integrata – il regalo premium elegante per ricordi duraturi.", price: "129 CHF" },
+      deluxe: { title: "Memora Surprise Deluxe", desc: "Una piastra in plexiglass esclusiva con tecnologia integrata – il regalo premium elegante per ricordi duraturi.", price: "129 CHF" },
       features: {
-        tag1: "Lastra di plexiglas 6×6 cm o 3 cm ⌀",
-        tag2: "Sfoglia l'album fotografico digitale personale direttamente con un tocco",
+        tag1: "Piastra in plexiglass 6×6 cm o ⌀ 3 cm",
+        tag2: "Sfoglia l’album fotografico digitale personale direttamente con un tap",
         tag3: "Design minimalista e senza tempo, si integra armoniosamente",
-        tag4: "Una sorpresa che evoca emozioni e che sarà ricordata a lungo",
-        premium1: "Lastra di plexiglas da 3 cm ⌀ – collega immagine e memoriale digitale",
-        premium2: "Sfoglia l'album fotografico digitale personale direttamente con un tocco",
+        tag4: "Una sorpresa che suscita emozioni e resta nella memoria a lungo",
+        premium1: "Piastra in plexiglass ⌀ 3 cm – collega foto & memoriale digitale",
+        premium2: "Sfoglia l’album fotografico digitale personale direttamente con un tap",
         premium3: "Design personale con la tua foto",
         premium4: "Il regalo perfetto per compleanni, matrimoni o anniversari",
-        deluxe1: "Lastra di plexiglas di alta qualità 12×12 cm con finitura nobile",
+        deluxe1: "Piastra in plexiglass 12×12 cm di alta qualità con finitura elegante",
         deluxe2: "Design individuale con la tua foto e il tuo testo",
-        deluxe3: "Sfoglia l'album fotografico digitale personale direttamente con un tocco",
-        deluxe4: "Presentazione con un elegante supporto"
+        deluxe3: "Sfoglia l’album fotografico digitale personale direttamente con un tap",
+        deluxe4: "Presentazione con supporto raffinato"
       }
     },
     cta: {
-      title: "Pronto per il tuo momento di sorpresa?",
-      subtitle: "Sorpresa regala momenti unici.",
-      create: "Crea sorpresa",
+      title: "Pronto per il tuo momento sorpresa?",
+      subtitle: "Sorpresa offre momenti unici.",
+      create: "Crea Sorpresa",
       contact: "Contattaci"
     },
     gedenken: {
-      title: "Crea sorpresa - Memora Moments",
-      heading: "Il tuo momento Sorpresa",
+      title: "Crea Sorpresa - Memora Moments",
+      heading: "Il tuo momento sorpresa",
       description: "Carica i contenuti e progetteremo la tua esperienza."
     },
 
     uploaderCopy: {
       headings: {
-        pageTitleByMode: { human: "Seleziona il prodotto:" },
-        step1Subtitle: "Scegli il tuo prodotto – caricherai i contenuti nel passaggio successivo.",
-        step2ByMode: { human: "Informazioni sulla persona" },
-        step2Subtitle: "Si prega di compilare i seguenti campi. Le note sono facoltative.",
-        step3Title: "Carica immagini e video",
+        pageTitleByMode: { human: "Seleziona il prodotto:", pet: "Seleziona il prodotto:", surprise: "Seleziona il prodotto (Sorpresa)" },
+        step1Subtitle: "Scegli il prodotto – caricherai i contenuti nel passaggio successivo.",
+        step2ByMode: { human: "Informazioni sulla persona", pet: "Informazioni sull’animale", surprise: "Informazioni per Sorpresa" },
+        step2Subtitle: "Compila i campi seguenti. Le note sono facoltative.",
+        step3Title: "Carica foto e video",
         step3Subtitle: "I file vengono salvati nel modulo e inviati in seguito.",
-        step4Title: "Informazioni di contatto",
-        step4Subtitle: "Utilizziamo questi dati per domande e conferme d'ordine.",
-        step5Title: "Informazioni di fatturazione e riepilogo",
-        step5Subtitle: "Si prega di controllare l'indirizzo e il riepilogo. Con 'Procedi al pagamento!' si passerà in seguito al checkout.",
+        step4Title: "Dati di contatto",
+        step4Subtitle: "Utilizziamo questi dati per domande e conferme d’ordine.",
+        step5Title: "Dati di fatturazione & riepilogo",
+        step5Subtitle: "Controlla l’indirizzo e il riepilogo. Con 'Procedi al pagamento!' andrai poi alla cassa.",
         summary: "Riepilogo"
+      },
+      buttons: {
+        back: "Indietro",
+        next: "Avanti",
+        reset: "Reimposta",
+        toPay: "Procedi al pagamento",
+        addText: "Aggiungi testo",
+        applyDesign: "Applica design",
+        remove: "Rimuovi",
       },
       products: {
         formatTitle: "Formato",
-        frameTitle: "Progetta cornice",
-        formatTitleDeluxe: "Progetta Deluxe",
+        frameTitle: "Design Frame",
+        formatTitleDeluxe: "Design Deluxe",
         roundLabel: "Rotondo · Ø 3 cm",
         squareLabel: "Quadrato · 6×6 cm",
-        petOptionsTitle: "Opzioni per Memora Tag per animali",
-        frameTip:"Suggerimento: sposta l'immagine con il mouse/tocco e aggiungi e posiziona liberamente i testi.",
+        petOptionsTitle: "Opzioni per Memora Tag Animali",
+        frameTip:"Suggerimento: muovi l’immagine con mouse/touch e aggiungi/posiziona liberamente i testi.",
+        frameOrientationLabel: "Orientamento",
+        framePortrait: "Verticale",
+        frameLandscape: "Orizzontale",
       },
       editor: {
         image: "Immagine",
@@ -628,42 +741,45 @@ export const itContent: ContentData = {
         posX: "Posizione orizzontale",
         posY: "Posizione verticale",
         emptyTitle: "Nessuna immagine selezionata",
-        emptySub: "Seleziona un'immagine sopra",
+        emptySub: "Seleziona un’immagine qui sopra",
         selectedText: "Testo selezionato",
         content: "Contenuto",
         font: "Carattere",
         size: "Dimensione",
         color: "Colore",
         previewLabel: "Anteprima adottata",
-        previewNote: "Questa anteprima verrà salvata con l'ordine."
+        previewNote: "Questa anteprima verrà salvata con l’ordine."
       },
       step2Fields: {
-        human_lastName: "Cognome *",
-        human_firstName: "Nome *",
-        human_deathDate: "Data di morte",
-        human_notesPH: "Desideri speciali, citazioni, note musicali…",
-        pet_name: "Nome dell'animale *",
-        pet_deathDate: "Data di morte *",
-        pet_notesPH: "Desideri speciali, suoni preferiti, note…",
         surprise_name: "Nome (destinatario) *",
-        surprise_notesPH: "Matrimonio, compleanno, anniversario… desideri speciali"
+        notes_human: "Occasione / Note",
+        surprise_notesPH: "Matrimonio, compleanno, anniversario… desideri speciali…"
       },
       step3Fields: {
-        imagesLabel: "Immagini (più possibili)",
-        videosLabel: "Video (più possibili)",
+        imagesLabel: "Immagini (possibili multiple)",
+        videosLabel: "Video (possibili multiple)",
         remove: "Rimuovi",
-        imageCaptionPlaceholder: "Breve testo per l'immagine (opzionale)",
-        videoCaptionPlaceholder: "Breve testo per il video (opzionale)",
+        imageCaptionPlaceholder: "Breve testo per l’immagine (facoltativo)",
+        videoCaptionPlaceholder: "Breve testo per il video (facoltativo)",
+        musicSelection: {
+          title: "Seleziona musica",
+          availableMusic: "Musica disponibile",
+          selected: "Selezionata",
+          select: "Seleziona",
+          moreMusic: "Altra musica da Pixabay",
+          pixabayPlaceholder: "Incolla link da pixabay.com/music/...",
+          pixabayButton: "Musica Pixabay",
+        },
       },
       contactFields: {
         firstName: "Nome *",
         lastName: "Cognome *",
-        email: "E-mail *",
-        phoneOpt: "Telefono (opzionale)"
+        email: "E-Mail *",
+        phoneOpt: "Telefono (facoltativo)"
       },
       invoiceFields: {
-        sameAsContact: "Indirizzo di fatturazione uguale all'indirizzo di contatto",
-        companyOpt: "Azienda (opzionale)",
+        sameAsContact: "Indirizzo di fatturazione uguale a quello di contatto",
+        companyOpt: "Azienda (facoltativo)",
         firstName: "Nome *",
         lastName: "Cognome *",
         street: "Via e n. *",
@@ -683,8 +799,23 @@ export const itContent: ContentData = {
         recipient: "Destinatario",
         notes: "Note",
         counts: (imgs, vids) => `Immagini: ${imgs} • Video: ${vids}`,
-        previewTitle: "Anteprima personalizzata"
+        previewTitle: "Anteprima personalizzata",
+        total: "Totale: ",
+        optionOrientation: "Orientamento",
+        optionPortrait: "Verticale",
+        optionLandscape: "Orizzontale",
+        modeHuman: "Persona",
+        modePet: "Animali",
+        modeSurprise: "Sorpresa",
+      },
+      privacyNotice: {
+        text: "Caricando immagini, accetti la nostra",
+        privacyLink: "Informativa sulla privacy",
+        and: "e",
+        termsLink: "Termini d’uso",
+        agreed: ".",
       }
     }
   }
+
 };
