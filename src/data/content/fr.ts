@@ -282,9 +282,9 @@ export const frContent: ContentData = {
     },
     uploaderCopy: {
       headings: {
-        pageTitleByMode: { human: "Choisir le produit:", pet: "Choisir le produit:", surprise: "Choisir le produit (Surprise)" },
+        pageTitleByMode: { human: "Choisir le produit:"},
         step1Subtitle: "Choisissez votre produit – vous téléchargerez les contenus à l'étape suivante.",
-        step2ByMode: { human: "Informations sur la personne", pet: "Informations sur l'animal", surprise: "Informations pour la Surprise" },
+        step2ByMode: { human: "Informations sur la personne"},
         step2Subtitle: "Veuillez remplir les champs suivants. Les notes sont facultatives.",
         step3Title: "Télécharger des images et des vidéos",
         step3Subtitle: "Les fichiers sont enregistrés dans le formulaire et envoyés ultérieurement.",
@@ -435,7 +435,7 @@ export const frContent: ContentData = {
       title: "Produits pour animaux de compagnie",
       subtitle: "Souvenirs pour de fidèles compagnons.",
       basic: { title: "Memora Pet Tag", desc: "Une simple plaque en plexiglas qui donne vie aux souvenirs de votre animal de compagnie avec un album photo numérique", price: "dès 49 CHF" },
-      premium: { title: "Memora Pet Frame", desc: "Un cadre photo élégant qui relie votre photo préférée à un album photo numérique – idéal pour la maison.", price: "89 CHF" },
+      premium: { title: "Memora Pet Frame", desc: "Un cadre photo élégant qui relie votre photo préférée à un album photo numérique – idéal pour la maison.", price: "79 CHF" },
       deluxe: { title: "Memora Pet Deluxe", desc: "Une plaque en plexiglas exclusive avec support – pour un souvenir durable et digne.", price: "129 CHF" },
       features: {
         tag1: "Plaque en plexiglas de 6×6 cm ou 3 cm ⌀",

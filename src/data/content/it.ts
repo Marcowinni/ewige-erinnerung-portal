@@ -491,7 +491,7 @@ export const itContent: ContentData = {
       title: "Prodotti per animali",
       subtitle: "Ricordi per compagni fedeli.",
       basic: { title: "Memora Pet Tag", desc: "Una semplice piastra in plexiglass che dà vita ai ricordi del tuo animale con un album fotografico digitale", price: "da 49 CHF" },
-      premium: { title: "Memora Pet Frame", desc: "Una cornice elegante che collega la tua foto preferita a un album fotografico digitale – ideale per casa.", price: "89 CHF" },
+      premium: { title: "Memora Pet Frame", desc: "Una cornice elegante che collega la tua foto preferita a un album fotografico digitale – ideale per casa.", price: "79 CHF" },
       deluxe: { title: "Memora Pet Deluxe", desc: "Una piastra in plexiglass esclusiva con supporto – per un ricordo duraturo e dignitoso.", price: "129 CHF" },
       features: {
         tag1: "Piastra in plexiglass 6×6 cm o ⌀ 3 cm",

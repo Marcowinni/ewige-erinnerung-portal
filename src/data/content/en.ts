@@ -341,7 +341,7 @@ export const enContent: ContentData = {
       heading: "Create Your Memorial!",
       description: "Upload memories and we will create a dignified memorial."
     },
-
+    // Uploader-Overrides
     uploaderCopy: {
       headings: {
         pageTitleByMode: { human: "Select Product:" },
@@ -399,11 +399,6 @@ export const enContent: ContentData = {
         human_deathDate: "Date of Death",
         notes_human: "Notes (optional)",
         human_notesPH: "Special wishes, quotes, music notes…",
-        pet_name: "Pet's Name *",
-        pet_deathDate: "Date of Death *",
-        pet_notesPH: "Special wishes, favorite sounds, notes…",
-        surprise_name: "Name (Recipient) *",
-        surprise_notesPH: "Wedding, birthday, anniversary… special wishes"
       },
       step3Fields: {
         imagesLabel: "Pictures (multiple possible)",
@@ -496,7 +491,7 @@ export const enContent: ContentData = {
       title: "Pet Products",
       subtitle: "Memories for loyal companions.",
       basic: { title: "Memora Pet Tag", desc: "A simple plexiglass plate that brings memories of your pet to life with a digital photo album", price: "from 49 CHF" },
-      premium: { title: "Memora Pet Frame", desc: "A stylish picture frame that connects your favorite photo with a digital photo album – ideal for home.", price: "89 CHF" },
+      premium: { title: "Memora Pet Frame", desc: "A stylish picture frame that connects your favorite photo with a digital photo album – ideal for home.", price: "79 CHF" },
       deluxe: { title: "Memora Pet Deluxe", desc: "An exclusive plexiglass plate with a holder – for a lasting, dignified memento.", price: "129 CHF" },
       features: {
         tag1: "6×6 cm or 3 cm ⌀ plexiglass plate",

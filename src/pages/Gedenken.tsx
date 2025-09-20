@@ -14,7 +14,7 @@ const Gedenken = () => {
       <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-serif text-center mb-4">
-            {isPetMode ? "Gedenken für Ihr Haustier" : modeContent.gedenken.heading}
+            {modeContent.gedenken.heading}
           </h1>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
             {modeContent.gedenken.description}

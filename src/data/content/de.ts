@@ -385,7 +385,9 @@ export const deContent: ContentData = {
         squareLabel: "Quadratisch · 6×6 cm",
         petOptionsTitle: "Optionen für Haustier–Memora Tag",
         frameTip:"Tipp: Bild mit der Maus/Touch verschieben und Texte hinzufügen & frei positionieren.",
-
+        frameOrientationLabel: "Ausrichtung",
+        framePortrait: "Hochformat",
+        frameLandscape: "Querformat",
       },
       editor: {
         image: "Bild",
@@ -406,6 +408,7 @@ export const deContent: ContentData = {
         human_lastName: "Nachname *",
         human_firstName: "Vorname *",
         human_deathDate: "Sterbedatum",
+        notes_human: "Notizen (optional)",
         human_notesPH: "Besondere Wünsche, Zitate, Musik-Hinweise …",
 
       },
@@ -413,7 +416,6 @@ export const deContent: ContentData = {
         imagesLabel: "Bilder (mehrfach möglich)",
         videosLabel: "Videos (mehrfach möglich)",
         remove: "Entfernen",
-        // Texte für die Beschreibungsfelder
         imageCaptionPlaceholder: "Kurztext zum Bild (optional)",
         videoCaptionPlaceholder: "Kurztext zum Video (optional)",
         // Musik-Auswahl
@@ -502,7 +504,7 @@ export const deContent: ContentData = {
       title: "Haustier-Produkte",
       subtitle: "Erinnerungen für treue Begleiter.",
       basic: { title: "Memora Pet Tag", desc: "Eine schlichte Plexiglasplatte, die mit einem digitalen Fotoalbum Erinnerungen an Ihr Haustier zum Leben erweckt", price: "ab 49 CHF" },
-      premium: { title: "Memora Pet Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Fotoalbum verbindet – ideal für Zuhause.", price: "89 CHF" },
+      premium: { title: "Memora Pet Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Fotoalbum verbindet – ideal für Zuhause.", price: "79 CHF" },
       deluxe: { title: "Memora Pet Deluxe", desc: "Eine exklusive Plexiglasplatte mit Halterung – für ein bleibendes, würdiges Erinnerungsstück.", price: "129 CHF" },
       features: {
         tag1: "6×6 cm oder 3 cm ⌀ Plexiglasplatte",
@@ -527,7 +529,7 @@ export const deContent: ContentData = {
     },
     gedenken: {
       title: "Haustier-Gedenken erstellen - Memora Moments",
-      heading: "Gedenken für Ihr Haustier",
+      heading: "Gedenken für Ihr Haustier!",
       description: "Laden Sie Erinnerungen Ihres Lieblings hoch."
     },
 
@@ -605,7 +607,7 @@ export const deContent: ContentData = {
     },
     gedenken: {
       title: "Surprise erstellen - Memora Moments",
-      heading: "Ihr Surprise-Moment",
+      heading: "Ihr Surprise-Moment!",
       description: "Laden Sie Inhalte hoch und wir gestalten Ihr Erlebnis."
     },
 

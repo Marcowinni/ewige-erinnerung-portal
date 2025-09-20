@@ -739,52 +739,58 @@ function DesignEditor({
       <div className="flex flex-col md:flex-row gap-6">
         <div className="w-full md:w-3/5">
           {tip && <p className="text-xs text-muted-foreground mb-2 text-center md:text-left">{tip}</p>}
-          <label
-            htmlFor="file-upload-input"
-            className={`relative block w-full mx-auto touch-none select-none bg-muted/20 ${!local.bgImageUrl ? 'cursor-pointer' : 'cursor-grab'}`}
-            style={{ 
-              aspectRatio: `${W} / ${H}`,
-              borderRadius: shape === 'circle' ? '50%' : `${cornerRadius}px`
-            }}
-          >
-            <div
-              ref={editorContainerRef}
-              className="absolute inset-0"
-              onPointerDown={onPointerDown}
-              onPointerMove={onPointerMove}
-              onPointerUp={onPointerUpOrCancel}
-              onPointerCancel={onPointerUpOrCancel}
-            >
-              <canvas ref={canvasRef} width={W} height={H} className="w-full h-full" />
-              {!local.bgImageUrl && (
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none border-dashed border-muted-foreground/30 border-2" style={{ borderRadius: 'inherit' }}>
-                  <div className="text-center text-muted-foreground">
-                    <p className="text-sm font-medium">{copy.editor.emptyTitle}</p>
-                    <p className="text-xs">{copy.editor.emptySub}</p>
+          {(() => {
+            const EditorWrapper = local.bgImageUrl ? "div" : "label";
+            return (
+              <EditorWrapper
+                htmlFor={!local.bgImageUrl ? "file-upload-input" : undefined}
+                className={`relative block w-full mx-auto touch-none select-none bg-muted/20 ${!local.bgImageUrl ? 'cursor-pointer' : 'cursor-grab'}`}
+                style={{
+                  aspectRatio: `${W} / ${H}`,
+                  borderRadius: shape === 'circle' ? '50%' : `${cornerRadius}px`
+                }}
+              >
+                {/* Der innere Teil bleibt gleich */}
+                <div
+                  ref={editorContainerRef}
+                  className="absolute inset-0"
+                  onPointerDown={onPointerDown}
+                  onPointerMove={onPointerMove}
+                  onPointerUp={onPointerUpOrCancel}
+                  onPointerCancel={onPointerUpOrCancel}
+                >
+                  <canvas ref={canvasRef} width={W} height={H} className="w-full h-full" />
+                  {!local.bgImageUrl && (
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none border-dashed border-muted-foreground/30 border-2" style={{ borderRadius: 'inherit' }}>
+                      <div className="text-center text-muted-foreground">
+                        <p className="text-sm font-medium">{copy.editor.emptyTitle}</p>
+                        <p className="text-xs">{copy.editor.emptySub}</p>
+                      </div>
+                    </div>
+                  )}
+                  <div ref={overlayRef} className="absolute inset-0">
+                    {local.texts.map(t => {
+                      const rect = overlayRef.current?.getBoundingClientRect();
+                      const scaleFactor = rect ? rect.width / W : 1;
+                      return (
+                        <div key={t.id} data-text-id={t.id} onPointerDown={e => onMouseDownText(e as any, t.id)} onClick={(e) => { e.preventDefault(); selectText(t.id); }}
+                          className="absolute cursor-move whitespace-pre-wrap text-center"
+                          style={{
+                            left: `${t.x * 100}%`, top: `${t.y * 100}%`, transform: 'translate(-50%, -50%)',
+                            width: `${(t.width || 0.8) * 100}%`,
+                            fontSize: (t.fontSize || 24) * scaleFactor, fontFamily: t.fontFamily, color: t.color,
+                            fontWeight: t.fontWeight, fontStyle: t.fontStyle,
+                            border: activeTextId === t.id ? '1px dashed currentColor' : 'none', padding: '2px 4px',
+                          }}>
+                          {t.text}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-              )}
-              <div ref={overlayRef} className="absolute inset-0">
-                {local.texts.map(t => {
-                  const rect = overlayRef.current?.getBoundingClientRect();
-                  const scaleFactor = rect ? rect.width / W : 1;
-                  return (
-                    <div key={t.id} data-text-id={t.id} onPointerDown={e => onMouseDownText(e as any, t.id)} onClick={(e) => { e.preventDefault(); selectText(t.id); }}
-                      className="absolute cursor-move whitespace-pre-wrap text-center"
-                      style={{
-                        left: `${t.x * 100}%`, top: `${t.y * 100}%`, transform: 'translate(-50%, -50%)',
-                        width: `${(t.width || 0.8) * 100}%`,
-                        fontSize: (t.fontSize || 24) * scaleFactor, fontFamily: t.fontFamily, color: t.color,
-                        fontWeight: t.fontWeight, fontStyle: t.fontStyle,
-                        border: activeTextId === t.id ? '1px dashed currentColor' : 'none', padding: '2px 4px',
-                      }}>
-                      {t.text}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </label>
+              </EditorWrapper>
+            );
+          })()}
         </div>
         <div className="w-full md:w-2/5 space-y-4">
           <div className="space-y-2">
