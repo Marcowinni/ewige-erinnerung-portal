@@ -242,8 +242,8 @@ export const deContent: ContentData = {
         title: "Impressum",
         sections: {
           info: {
-            title: "Angaben gemäß § 5 TMG",
-            content: "Memora Moments\nPersonalisierte Erinnerungsprodukte"
+            title: "Memora Moments",
+            content: "Personalisierte Erinnerungsprodukte"
           },
           contact: {
             title: "Kontakt",
@@ -251,7 +251,7 @@ export const deContent: ContentData = {
               "E-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
           },
           responsible: {
-            title: "Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV",
+            title: "Verantwortlichkeit",
             content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com"
           },
           disclaimer: {
@@ -259,7 +259,7 @@ export const deContent: ContentData = {
             content: {
               title: "Haftung für Inhalte",
               content:
-                "Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen."
+                "Die Inhalte unserer Website wurden mit grösster Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte übernehmen wir jedoch keine Gewähr. Wir behalten uns vor, Inhalte jederzeit zu ändern, zu ergänzen oder zu entfernen."
             },
             links: {
               title: "Haftung für Links",
@@ -269,7 +269,7 @@ export const deContent: ContentData = {
             copyright: {
               title: "Urheberrecht",
               content:
-                "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers."
+                "Die Inhalte und Werke auf dieser Website unterliegen dem schweizerischen Urheberrecht. Jede Vervielfältigung, Bearbeitung, Verbreitung oder sonstige Verwertung ausserhalb der gesetzlichen Schranken des Urheberrechts bedarf der vorgängigen schriftlichen Zustimmung des jeweiligen Autors bzw. Rechteinhabers. Downloads und Kopien dieser Seite sind nur für den privaten Gebrauch gestattet."
             }
           }
         }

@@ -234,38 +234,39 @@ export const enContent: ContentData = {
         title: "Imprint",
         sections: {
           info: {
-            title: "Information according to § 5 TMG",
-            content: "Memora Moments\nPersonalized Memory Products"
+            title: "Memora Moments",
+            content: "Personalized memorial products"
           },
           contact: {
             title: "Contact",
             content:
-              "E-Mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99"
+              "E-mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99"
           },
           responsible: {
-            title: "Responsible for the content according to § 55 Abs. 2 RStV",
-            content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com"
+            title: "Responsibility",
+            content: "Memora Moments\nE-mail: info.memora.moments@gmail.com"
           },
           disclaimer: {
             title: "Disclaimer",
             content: {
               title: "Liability for Content",
               content:
-                "As a service provider, we are responsible for our own content on these pages in accordance with general laws pursuant to § 7 (1) TMG. According to §§ 8 to 10 TMG, however, we as a service provider are not obliged to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity."
+                "The contents of our website have been created with the greatest care. However, we cannot guarantee the accuracy, completeness or timeliness of the content. We reserve the right to change, supplement or remove content at any time."
             },
             links: {
               title: "Liability for Links",
               content:
-                "Our offer contains links to external websites of third parties, on whose content we have no influence. Therefore, we cannot assume any liability for this external content. The respective provider or operator of the pages is always responsible for the content of the linked pages."
+                "Our website contains links to external third-party websites over whose content we have no influence. Therefore, we cannot assume any liability for these external contents. The respective provider or operator of the pages is always responsible for the content of the linked pages."
             },
             copyright: {
               title: "Copyright",
               content:
-                "The content and works created by the site operators on these pages are subject to German copyright law. The reproduction, processing, distribution, and any kind of exploitation outside the limits of copyright require the written consent of the respective author or creator."
+                "The content and works on this website are subject to Swiss copyright law. Any reproduction, editing, distribution or any kind of exploitation outside the limits of copyright law requires the prior written consent of the respective author or rights holder. Downloads and copies of this site are permitted only for private use."
             }
           }
         }
       }
+
     },
 
     footer: {

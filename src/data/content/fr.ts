@@ -179,37 +179,42 @@ export const frContent: ContentData = {
         }
       },
       imprint: {
-        title: "Mentions Légales",
+        title: "Mentions légales",
         sections: {
           info: {
-            title: "Informations selon § 5 TMG",
-            content: "Memora Moments\nProduits de souvenirs personnalisés"
+            title: "Memora Moments",
+            content: "Produits commémoratifs personnalisés"
           },
           contact: {
             title: "Contact",
-            content: "E-mail : info.memora.moments@gmail.com\nTéléphone : +41 79 407 56 99"
+            content:
+              "E-mail : info.memora.moments@gmail.com\nTéléphone : +41 79 407 56 99"
           },
           responsible: {
-            title: "Responsable du contenu selon § 55 Abs. 2 RStV",
+            title: "Responsabilité",
             content: "Memora Moments\nE-mail : info.memora.moments@gmail.com"
           },
           disclaimer: {
             title: "Clause de non-responsabilité",
             content: {
-                title: "Responsabilité pour le contenu",
-                content: "En tant que prestataire de services, nous sommes responsables de notre propre contenu sur ces pages conformément aux lois générales selon le § 7 al. 1 TMG. Selon les §§ 8 à 10 TMG, nous ne sommes cependant pas tenus, en tant que prestataire de services, de surveiller les informations tierces transmises ou stockées ou de rechercher des circonstances indiquant une activité illégale."
+              title: "Responsabilité pour le contenu",
+              content:
+                "Le contenu de notre site a été rédigé avec le plus grand soin. Toutefois, nous ne pouvons garantir l’exactitude, l’exhaustivité ou l’actualité des informations. Nous nous réservons le droit de modifier, compléter ou supprimer le contenu à tout moment."
             },
             links: {
-                title: "Responsabilité pour les liens",
-                content: "Notre offre contient des liens vers des sites web externes de tiers, sur le contenu desquels nous n'avons aucune influence. C'est pourquoi nous ne pouvons assumer aucune garantie pour ces contenus externes. Le fournisseur ou l'exploitant respectif des pages est toujours responsable du contenu des pages liées."
+              title: "Responsabilité pour les liens",
+              content:
+                "Notre site contient des liens vers des sites web externes de tiers sur lesquels nous n’avons aucune influence. Par conséquent, nous déclinons toute responsabilité quant à ces contenus externes. Le fournisseur ou l’exploitant respectif des pages est toujours responsable du contenu des pages liées."
             },
             copyright: {
-                title: "Droit d'auteur",
-                content: "Les contenus et œuvres créés par les exploitants de ces pages sont soumis au droit d'auteur allemand. La reproduction, le traitement, la diffusion et toute forme d'exploitation en dehors des limites du droit d'auteur nécessitent l'accord écrit de l'auteur ou du créateur respectif."
+              title: "Droit d’auteur",
+              content:
+                "Le contenu et les œuvres de ce site sont soumis au droit d’auteur suisse. Toute reproduction, modification, distribution ou exploitation en dehors des limites de la loi sur le droit d’auteur nécessite l’accord écrit préalable de l’auteur ou du titulaire des droits. Les téléchargements et copies de ce site ne sont autorisés que pour un usage privé."
             }
           }
         }
       }
+
     },
     footer: {
       brand: {
