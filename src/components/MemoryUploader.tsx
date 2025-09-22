@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Toggle } from "@/components/ui/toggle";
 import { Check, Music4, Play, Pause, Bold, Italic } from "lucide-react";
 import PrivacyTermsNotice from "@/components/PrivacyTermsNotice";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import {
   Carousel,
   CarouselContent,
@@ -459,7 +460,7 @@ function clearPersisted() {
   }
 }
 
-/* ==================== Design Editor (Final, Corrected Version) ==================== */
+/* ==================== Design Editor ==================== */
 function DesignEditor({
   value,
   onChange,
@@ -488,7 +489,7 @@ function DesignEditor({
   const editorContainerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // ... (Die restliche Logik der Funktion bleibt unverändert)
+  // Stabile onChange-Referenz
   const onChangeRef = useRef(onChange);
   useEffect(() => {
     onChangeRef.current = onChange;
@@ -618,12 +619,27 @@ function DesignEditor({
   };
 
   useEffect(() => { onChangeRef.current(local); }, [local]);
+
+  // Debounced auto-save for the preview
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      // Nur eine Vorschau generieren, wenn ein Bild vorhanden ist
+      if (canvasRef.current && local.bgImageUrl) {
+        exportPng();
+      }
+    }, 500); // Wartet 500ms nach der letzten Änderung
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [local.bgImageUrl, local.scale, local.offsetX, local.offsetY, local.texts]);
   
   const draw = (renderTexts: boolean) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    ctx.imageSmoothingQuality = "high";
     ctx.clearRect(0, 0, W, H);
     applyClip(ctx, W, H);
     if (imgRef.current) {
@@ -688,9 +704,28 @@ function DesignEditor({
   
   const onUpload = (files: FileList | null) => {
     if (files && files[0]) {
-      if (local.bgImageUrl && local.bgImageUrl.startsWith("blob:")) URL.revokeObjectURL(local.bgImageUrl);
+      if (local.bgImageUrl && local.bgImageUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(local.bgImageUrl);
+      }
       const url = URL.createObjectURL(files[0]);
-      setLocal((s) => ({ ...s, bgImageUrl: url, scale: 1, offsetX: 0, offsetY: 0 }));
+      
+      const tempImg = new Image();
+      tempImg.src = url;
+      tempImg.onload = () => {
+        const canvasWidth = W;
+        const canvasHeight = H;
+        const scaleX = canvasWidth / tempImg.width;
+        const scaleY = canvasHeight / tempImg.height;
+        const initialScale = Math.max(scaleX, scaleY); // 'Cover' effect
+
+        setLocal((s) => ({
+          ...s,
+          bgImageUrl: url,
+          scale: initialScale,
+          offsetX: 0,
+          offsetY: 0,
+        }));
+      };
     }
   };
 
@@ -816,9 +851,19 @@ function DesignEditor({
             <Label>{copy.editor.zoom} ({local.scale.toFixed(2)})</Label>
             <Input type="range" min={ZOOM_MIN} max={ZOOM_MAX} step={0.01} value={local.scale} onChange={(e) => setLocal(s => ({ ...s, scale: Number(e.target.value) }))} />
           </div>
-          <div className="flex gap-2">
-            <Button onClick={addText} type="button">{copy.buttons.addText}</Button>
-            <Button onClick={exportPng} type="button" variant="secondary">{copy.buttons.applyDesign}</Button>
+          <div className="space-y-2">
+            <Label htmlFor="file-upload-input">{copy.editor.image}</Label>
+            <div className="flex items-center gap-2">
+                <Input
+                    id="file-upload-input"
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => onUpload(e.target.files)}
+                    className="hidden"
+                />
+                <Button onClick={addText} type="button">{copy.buttons.addText}</Button>
+            </div>
           </div>
           {activeText && (
             <div className="space-y-3 border rounded-md p-3">
@@ -1540,6 +1585,7 @@ function Step5InvoiceAndPayView(props: {
   onPlaceOrder: () => void;
   onReset: () => void;
   copy: UploaderCopy;
+  onPreviewClick: (url: string) => void;
 }) {
   const { mode, form, setForm, productLabel, onBack, onPlaceOrder, onReset, copy } = props;
 
@@ -1635,9 +1681,30 @@ function Step5InvoiceAndPayView(props: {
               <li className="mt-2">
                 <strong>{copy.summary.previewTitle}:</strong>
                 <div className="mt-2 flex items-center gap-4">
-                  {form.pet_tag_custom?.previewDataUrl && (<img src={form.pet_tag_custom.previewDataUrl} alt="Tag Vorschau" className="w-20 h-20 rounded-full border" />)}
-                  {form.frame_custom?.previewDataUrl && (<img src={form.frame_custom.previewDataUrl} alt="Frame Vorschau" className="w-28 h-auto rounded-xl border" />)}
-                  {form.deluxe_custom?.previewDataUrl && (<img src={form.deluxe_custom.previewDataUrl} alt="Deluxe Vorschau" className="w-28 h-auto rounded-xl border" />)}
+                  {form.pet_tag_custom?.previewDataUrl && (
+                    <img 
+                      src={form.pet_tag_custom.previewDataUrl} 
+                      alt="Tag Vorschau" 
+                      className="w-20 h-20 rounded-full border cursor-pointer hover:opacity-80 transition-opacity"
+                      onClick={() => props.onPreviewClick(form.pet_tag_custom!.previewDataUrl!)}
+                    />
+                  )}
+                  {form.frame_custom?.previewDataUrl && (
+                    <img 
+                      src={form.frame_custom.previewDataUrl} 
+                      alt="Frame Vorschau" 
+                      className="w-28 h-auto rounded-xl border cursor-pointer hover:opacity-80 transition-opacity"
+                      onClick={() => props.onPreviewClick(form.frame_custom!.previewDataUrl!)}
+                    />
+                  )}
+                  {form.deluxe_custom?.previewDataUrl && (
+                    <img 
+                      src={form.deluxe_custom.previewDataUrl} 
+                      alt="Deluxe Vorschau" 
+                      className="w-28 h-auto rounded-xl border cursor-pointer hover:opacity-80 transition-opacity"
+                      onClick={() => props.onPreviewClick(form.deluxe_custom!.previewDataUrl!)}
+                    />
+                  )}
                 </div>
               </li>
             )}
@@ -1674,6 +1741,7 @@ const MemoryUploader = () => {
   const { mode, modeContent } = useContent();
   const media = useMemo(() => getMediaForMode(mode as Mode), [mode]);
   const products = modeContent.products;
+  const [modalImageUrl, setModalImageUrl] = useState<string | null>(null);
 
   // Copy zusammenbauen (Content + Fallbacks)
   const contentCopy = (modeContent as any)?.uploaderCopy as Partial<UploaderCopy> | undefined;
@@ -1782,6 +1850,15 @@ const MemoryUploader = () => {
 
   return (
     <div id="memory-form-start" className="space-y-10">
+      <Dialog open={!!modalImageUrl} onOpenChange={(isOpen) => !isOpen && setModalImageUrl(null)}>
+        <DialogContent className="max-w-xl p-2">
+           <DialogTitle className="sr-only">{COPY.summary.previewTitle}</DialogTitle>
+           <DialogDescription className="sr-only">
+            Eine vergrösserte Ansicht deines personalisierten Designs.
+          </DialogDescription>
+          {modalImageUrl && <img src={modalImageUrl} alt="Grosse Vorschau" className="w-full h-auto rounded-md" />}
+        </DialogContent>
+      </Dialog>
       {step === 1 && (
         <Step1View
           mode={mode as Mode}
@@ -1829,6 +1906,7 @@ const MemoryUploader = () => {
           onPlaceOrder={goPayment}
           onReset={resetAll}
           copy={COPY}
+          onPreviewClick={setModalImageUrl}
         />
       )}
     </div>
