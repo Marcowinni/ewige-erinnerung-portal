@@ -90,7 +90,7 @@ export const enContent: ContentData = {
           responsible: {
             title: "1. Responsible Body",
             content:
-              "Memora Moments\n[Insert Address]\n[Postal Code, City]\n[Commercial Register No., if available]\nE-Mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99\n\nWe are responsible for the collection, processing, and use of your personal data in accordance with the Swiss Data Protection Act (revDSG)."
+              "Memora Moments\nBreitenmattstrasse\n8635 Dürnten\nE-Mail: info.memora.moments@gmail.com\nPhone: +41 79 407 56 99\n\nWe are responsible for the collection, processing, and use of your personal data in accordance with the Swiss Data Protection Act (revDSG)."
           },
           dataCollection: {
             title: "2. Collection and Processing of Personal Data",

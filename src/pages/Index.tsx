@@ -10,14 +10,15 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useContent } from "@/contexts/ContentContext";
 import { getMediaForMode } from "@/data/productMedia";
+import { Helmet } from "react-helmet-async";
 
 const Index = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
   const productsRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
 
-  // Neu: wir holen auch das mode (human | pet | surprise)
-  const { mode, isPetMode, modeContent } = useContent();
+  
+  const { mode, isPetMode, modeContent, sharedContent } = useContent();
   const content = modeContent;
 
   // Produktmedien basierend auf dem Modus
@@ -32,6 +33,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+
+      {/* Meta Tags */}
+      <Helmet>
+        <title>{sharedContent.navigation.home}</title>
+        <meta name="description" content={content.hero.subtitle} />
+      </Helmet>
+
       <Navbar />
 
       {/* Hero Section */}

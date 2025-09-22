@@ -6,16 +6,19 @@ import { BrowserRouter } from "react-router-dom";
 import { ContentProvider } from "@/contexts/ContentContext";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
+import { HelmetProvider } from "react-helmet-async";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ContentProvider>
-        <ThemeProvider defaultTheme="light" storageKey="memora-theme">
-          <App />
-          <Toaster />
-        </ThemeProvider>
-      </ContentProvider>
+      <HelmetProvider>
+        <ContentProvider>
+          <ThemeProvider defaultTheme="dark" storageKey="memora-theme">
+            <App />
+            <Toaster />
+          </ThemeProvider>
+        </ContentProvider>
+      </HelmetProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

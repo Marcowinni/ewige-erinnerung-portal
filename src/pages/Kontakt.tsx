@@ -9,9 +9,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Send, Mail, Phone, Loader2 } from "lucide-react";
 import { useContent } from "@/contexts/ContentContext";
+import { Helmet } from "react-helmet-async";
 
 const Kontakt = () => {
-  const { t } = useContent();
+  const { t, sharedContent } = useContent();
+  const contactContent = sharedContent.contact;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -55,6 +57,13 @@ const Kontakt = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+
+      {/* NEU: Meta Tags */}
+      <Helmet>
+        <title>{contactContent.title}</title>
+        <meta name="description" content={contactContent.description} />
+      </Helmet>
+
       <Navbar />
 
       <main className="flex-grow pt-32 pb-16">

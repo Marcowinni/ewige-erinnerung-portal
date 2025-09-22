@@ -1,14 +1,7 @@
-User-agent: Googlebot
-Allow: /
 
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# Allow all user agents to crawl the site
 User-agent: *
 Allow: /
+
+# Sitemap location
+Sitemap: https://www.deine-webseite.ch/sitemap.xml

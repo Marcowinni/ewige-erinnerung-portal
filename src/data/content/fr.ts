@@ -81,7 +81,7 @@ export const frContent: ContentData = {
         sections: {
           responsible: {
             title: "1. Organisme Responsable",
-            content: "Memora Moments\n[Insérer l'adresse]\n[Code Postal, Ville]\n[N° du registre du commerce, si disponible]\nE-mail : info.memora.moments@gmail.com\nTéléphone : +41 79 407 56 99\n\nNous sommes responsables de la collecte, du traitement et de l'utilisation de vos données personnelles conformément à la loi suisse sur la protection des données (nLPD)."
+            content: "Memora Moments\nBreitenmattstrasse\n8635 Dürnten\nE-mail : info.memora.moments@gmail.com\nTéléphone : +41 79 407 56 99\n\nNous sommes responsables de la collecte, du traitement et de l'utilisation de vos données personnelles conformément à la loi suisse sur la protection des données (nLPD)."
           },
           dataCollection: {
             title: "2. Collecte et Traitement des Données Personnelles",

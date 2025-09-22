@@ -3,14 +3,22 @@ import Footer from "@/components/Footer";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import { Heart, User, Mail } from "lucide-react";
 import { useContent } from "@/contexts/ContentContext";
+import { Helmet } from "react-helmet-async";
 
 const Ueber = () => {
   const { t, sharedContent } = useContent();
 
-  
+  const aboutContentForSeo = sharedContent.about; // Gemeinsame Inhalte für alle Sprachen
 
   return (
     <div className="min-h-screen flex flex-col">
+
+      {/* NEU: Meta Tags */}
+      <Helmet>
+        <title>{aboutContentForSeo.title}</title>
+        <meta name="description" content={aboutContentForSeo.description} />
+      </Helmet>
+
       <Navbar />
 
       <main className="flex-grow pt-32 pb-16">

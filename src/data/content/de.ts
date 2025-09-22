@@ -90,7 +90,7 @@ export const deContent: ContentData = {
       responsible: {
         title: "1. Verantwortliche Stelle",
         content:
-          "Memora Moments\n[Adresse einfügen]\n[PLZ, Ort]\n[Handelsregister-Nr., falls vorhanden]\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99\n\nWir sind verantwortlich für die Erhebung, Verarbeitung und Nutzung Ihrer personenbezogenen Daten im Sinne des Schweizer Datenschutzgesetzes (revDSG)."
+          "Memora Moments\nBreitenmattstrasse\n8635 Dürnten\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99\n\nWir sind verantwortlich für die Erhebung, Verarbeitung und Nutzung Ihrer personenbezogenen Daten im Sinne des Schweizer Datenschutzgesetzes (revDSG)."
       },
 
       dataCollection: {
