@@ -37,9 +37,17 @@ const Kontakt = () => {
     setSubmitStatus(null);
 
     // DEINE EMAILJS DATEN SIND HIER EINGETRAGEN
-    const serviceId = "service_ayz3kyy";
-    const templateId = "template_d1val3k";
-    const userId = "TnMHahiII8VciyTUd";
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const userId = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    // Sicherheitscheck: Sind die Variablen überhaupt vorhanden?
+    if (!serviceId || !templateId || !userId) {
+      console.error("EmailJS environment variables are not set!");
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
 
     emailjs.send(serviceId, templateId, formData, userId)
       .then((response) => {

@@ -12,6 +12,9 @@ import { Toggle } from "@/components/ui/toggle";
 import { Check, Music4, Play, Pause, Bold, Italic } from "lucide-react";
 import PrivacyTermsNotice from "@/components/PrivacyTermsNotice";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 import {
   Carousel,
   CarouselContent,
@@ -1472,7 +1475,12 @@ function Step3View(props: {
                     <div className="flex-grow min-w-0">
                       <p className="font-medium truncate">{track.title}</p>
                     </div>
-                    <Button size="sm" onClick={() => setForm(s => ({ ...s, selectedLocalMusic: track.id }))} variant={isSelected ? "default" : "outline"} className="flex-shrink-0">
+                    <Button 
+                      size="sm" 
+                      onClick={() => setForm(s => ({ ...s, selectedLocalMusic: track.id, pixabayMusicLink: "" }))} // Setzt Pixabay-Link zurück
+                      variant={isSelected ? "default" : "outline"} 
+                      className="flex-shrink-0"
+                    >
                       {isSelected ? copy.step3Fields.musicSelection?.selected : copy.step3Fields.musicSelection?.select}
                     </Button>
                   </div>
@@ -1485,7 +1493,13 @@ function Step3View(props: {
           <div>
             <h4 className="text-md font-medium text-muted-foreground mb-3">{copy.step3Fields.musicSelection?.moreMusic}</h4>
             <div className="flex gap-2">
-              <Input type="url" placeholder={copy.step3Fields.musicSelection?.pixabayPlaceholder} value={form.pixabayMusicLink || ""} onChange={(e) => setForm(s => ({ ...s, pixabayMusicLink: e.target.value }))} className="flex-1" />
+              <Input 
+                type="url" 
+                placeholder={copy.step3Fields.musicSelection?.pixabayPlaceholder} 
+                value={form.pixabayMusicLink || ""} 
+                onChange={(e) => setForm(s => ({ ...s, pixabayMusicLink: e.target.value, selectedLocalMusic: undefined }))} // Setzt lokale Musikauswahl zurück
+                className="flex-1" 
+              />
               <Button onClick={() => window.open("https://pixabay.com/music/", "_blank")} variant="outline">
                 {copy.step3Fields.musicSelection?.pixabayButton}
               </Button>
@@ -1583,11 +1597,12 @@ function Step5InvoiceAndPayView(props: {
   productLabel: string;
   onBack: () => void;
   onPlaceOrder: () => void;
+  isSubmitting: boolean;
   onReset: () => void;
   copy: UploaderCopy;
   onPreviewClick: (url: string) => void;
 }) {
-  const { mode, form, setForm, productLabel, onBack, onPlaceOrder, onReset, copy } = props;
+  const { mode, form, setForm, productLabel, onBack, onPlaceOrder, isSubmitting, onReset, copy, onPreviewClick } = props;
 
   // Preisberechnung aufrufen
   const totalPrice = calculatePrice(form, mode as Mode);
@@ -1713,6 +1728,20 @@ function Step5InvoiceAndPayView(props: {
             {mode === "surprise" && (<li><strong>{copy.summary.recipient}:</strong> <span className="text-foreground">{form.surprise_name}</span></li>)}
             {form.notes && (<li><strong>{copy.summary.notes}:</strong> <span className="text-foreground">{form.notes}</span></li>)}
             <li><strong>{copy.summary.counts(form.images.length, form.videos.length)}</strong></li>
+            {form.selectedLocalMusic && (
+              <li>
+                <strong>Music:</strong>
+                <span className="text-foreground ml-1">
+                  {form.selectedLocalMusic.replace('.mp3', '').replace(/-/g, ' ')}
+                </span>
+              </li>
+            )}
+            {form.pixabayMusicLink && (
+              <li>
+                <strong>Pixabay Musis:</strong>
+                <span className="text-foreground ml-1">{form.pixabayMusicLink}</span>
+              </li>
+            )}
             <li className="font-bold text-lg pt-2 mt-2 border-t">
               <div className="flex justify-between items-center text-foreground">
                 <span>{copy.summary.total}:</span>
@@ -1727,8 +1756,14 @@ function Step5InvoiceAndPayView(props: {
             <Button variant="outline" onClick={onBack}>{copy.buttons.back}</Button>
             <Button variant="ghost" onClick={onReset}>{copy.buttons.reset}</Button>
           </div>
-          <Button size="lg" onClick={onPlaceOrder} disabled={invalid}>
-            {`${copy.buttons.toPay} (CHF ${totalPrice.toFixed(2)})`}
+          <Button size="lg" onClick={onPlaceOrder} disabled={invalid || isSubmitting}>
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              </>
+            ) : (
+              `${copy.buttons.toPay} (CHF ${totalPrice.toFixed(2)})`
+            )}
           </Button>
         </div>
       </div>
@@ -1746,6 +1781,8 @@ const MemoryUploader = () => {
   // Copy zusammenbauen (Content + Fallbacks)
   const contentCopy = (modeContent as any)?.uploaderCopy as Partial<UploaderCopy> | undefined;
   const COPY: UploaderCopy = mergeCopy(DEFAULT_COPY, contentCopy ?? {});
+
+  const [isSubmitting, setIsSubmitting] = useState(false); 
 
   // Persisted Defaults laden
   const persistedInit = loadPersisted();
@@ -1834,11 +1871,58 @@ const MemoryUploader = () => {
     setStep(3);
     scrollToTop();
   };
-  const goPayment = () => {
-    // Hier später Checkout (Stripe o. ä.) starten
-    console.log("CHECKOUT PAYLOAD", { mode, form });
-    alert("Daten sind gespeichert. Zahlungsintegration (Stripe) folgt.");
-    // Nach erfolgreicher Zahlung ggf. clearPersisted();
+  // placement of order
+  const onPlaceOrder = async () => {
+      setIsSubmitting(true);
+      toast.info("Bestellung wird verarbeitet...");
+
+      try {
+        // 1. Lade alle Dateien hoch
+        const uploadPromises = [
+          ...form.images.map(f => supabase.storage.from('uploads').upload(`${Date.now()}-${f.file.name}`, f.file)),
+          ...form.videos.map(f => supabase.storage.from('uploads').upload(`${Date.now()}-${f.file.name}`, f.file))
+        ];
+        
+        const uploadResults = await Promise.all(uploadPromises);
+
+        const uploadedFilePaths: string[] = [];
+        for (const result of uploadResults) {
+          if (result.error) {
+            console.error("Upload-Fehler:", result.error);
+            throw new Error(`Datei-Upload fehlgeschlagen: ${result.error.message}`);
+          }
+          uploadedFilePaths.push(result.data.path);
+        }
+
+        // 2. Bereite die Bestelldaten für die Datenbank vor
+        const { images, videos, ...formDataForDb } = form;
+
+        const orderPayload = {
+          customer_name: `${form.contact_firstName} ${form.contact_lastName}`,
+          customer_email: form.contact_email,
+          total_price: calculatePrice(form, mode as Mode),
+          order_data: formDataForDb,
+          files: uploadedFilePaths,
+        };
+
+        // 3. Speichere die Bestellung in der 'orders'-Tabelle
+        const { error: dbError } = await supabase.from('orders').insert([orderPayload]);
+
+        if (dbError) {
+          console.error("Datenbank-Fehler:", dbError);
+          throw new Error(`Datenbankfehler: ${dbError.message}`);
+        }
+
+        // 4. Erfolg!
+        toast.success("Vielen Dank! Deine Bestellung wurde erfolgreich übermittelt.");
+        resetAll();
+
+      } catch (error) {
+        console.error("Ein Fehler ist im Bestellprozess aufgetreten:", error);
+        toast.error(`Fehler bei der Bestellung: ${error instanceof Error ? error.message : "Ein unbekannter Fehler ist aufgetreten."}`);
+      } finally {
+        setIsSubmitting(false);
+      }
   };
   const resetAll = () => {
     clearPersisted();
@@ -1903,7 +1987,8 @@ const MemoryUploader = () => {
           setForm={setForm}
           productLabel={selected ? productMap[selected].title : ""}
           onBack={backFromStep4}
-          onPlaceOrder={goPayment}
+          onPlaceOrder={onPlaceOrder}
+          isSubmitting={isSubmitting}
           onReset={resetAll}
           copy={COPY}
           onPreviewClick={setModalImageUrl}
