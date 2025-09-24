@@ -11,12 +11,15 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useContent } from "@/contexts/ContentContext";
 import { getMediaForMode } from "@/data/productMedia";
 import { Helmet } from "react-helmet-async";
+import { useState } from "react";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const Index = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
   const productsRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
 
+  const [activeGallery, setActiveGallery] = useState<{ images: { src: string; alt: string }[]; startIndex: number } | null>(null);
   
   const { mode, isPetMode, modeContent, sharedContent } = useContent();
   const content = modeContent;
@@ -41,6 +44,28 @@ const Index = () => {
       </Helmet>
 
       <Navbar />
+
+      <Dialog open={!!activeGallery} onOpenChange={(isOpen) => !isOpen && setActiveGallery(null)}>
+        <DialogContent className="max-w-5xl p-2">
+          <DialogTitle className="sr-only">Productgalery</DialogTitle>
+          <DialogDescription className="sr-only">
+            Durchblättern der Produktbilder mit den Pfeiltasten.
+          </DialogDescription>
+          {activeGallery && (
+            <Carousel opts={{ loop: true, startIndex: activeGallery.startIndex }}>
+              <CarouselContent>
+                {activeGallery.images.map((image, index) => (
+                  <CarouselItem key={index}>
+                    <img src={image.src} alt={image.alt} className="w-full h-auto object-contain rounded-md max-h-[80vh]" />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-2 md:-left-10" />
+              <CarouselNext className="right-2 md:-right-10" />
+            </Carousel>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* Hero Section */}
       <section className="relative h-screen overflow-hidden">
@@ -194,8 +219,8 @@ const Index = () => {
                   <Carousel className="w-full">
                     <CarouselContent>
                       {(media.basicProduct?.images ?? []).map((image, index) => (
-                        <CarouselItem key={index}>
-                          <img src={image.src} alt={image.alt} className="w-full h-64 object-cover" />
+                        <CarouselItem key={index} onClick={() => setActiveGallery({ images: media.basicProduct?.images ?? [], startIndex: index })} className="cursor-pointer">
+                          <img src={image.src} alt={image.alt} className="w-full h-80 object-cover" />
                         </CarouselItem>
                       ))}
                     </CarouselContent>
@@ -224,8 +249,7 @@ const Index = () => {
                   <Carousel className="w-full">
                     <CarouselContent>
                       {(media.premiumProduct?.images ?? []).map((image, index) => (
-                        <CarouselItem key={index}>
-                          <img src={image.src} alt={image.alt} className="w-full h-64 object-cover" />
+                        <CarouselItem key={index} onClick={() => setActiveGallery({ images: media.premiumProduct?.images ?? [], startIndex: index })} className="cursor-pointer">                          <img src={image.src} alt={image.alt} className="w-full h-80 object-cover" />
                         </CarouselItem>
                       ))}
                     </CarouselContent>
@@ -248,14 +272,14 @@ const Index = () => {
                 </CardFooter>
               </Card>
 
-              {/* Deluxe (NEU) */}
+              {/* Deluxe*/}
               <Card className="h-full border-2 border-border">
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
                   <Carousel className="w-full">
                     <CarouselContent>
                       {(media.deluxeProduct?.images ?? media.premiumProduct?.images ?? []).map((image, index) => (
-                        <CarouselItem key={index}>
-                          <img src={image.src} alt={image.alt} className="w-full h-64 object-cover" />
+                       <CarouselItem key={index} onClick={() => setActiveGallery({ images: media.deluxeProduct?.images ?? [], startIndex: index })} className="cursor-pointer">
+                          <img src={image.src} alt={image.alt} className="w-full h-80 object-cover" />
                         </CarouselItem>
                       ))}
                     </CarouselContent>

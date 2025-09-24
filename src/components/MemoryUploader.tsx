@@ -922,6 +922,7 @@ function Step1View(props: {
   form: FormState;
   setForm: React.Dispatch<React.SetStateAction<FormState>>;
   copy: UploaderCopy;
+  onPreviewClick: (url: string) => void;
 }) {
   const { mode, productMap, selected, setSelected, onNext, form, setForm, copy } = props;
 
@@ -970,7 +971,12 @@ function Step1View(props: {
                   <CarouselContent>
                     {(p.images ?? []).map((img, idx) => (
                       <CarouselItem key={idx}>
-                        <img src={img.src} alt={img.alt} className="w-full h-56 md:h-64 object-cover" loading="lazy" />
+                        <div
+                          className="cursor-pointer"
+                          onClick={() => props.onPreviewClick(img.src)}
+                        >
+                          <img src={img.src} alt={img.alt} className="w-full h-64 md:h-80 object-cover" loading="lazy" />
+                        </div>
                       </CarouselItem>
                     ))}
                   </CarouselContent>
@@ -1953,6 +1959,7 @@ const MemoryUploader = () => {
           form={form}
           setForm={setForm}
           copy={COPY}
+          onPreviewClick={setModalImageUrl}
         />
       )}
       {step === 2 && (

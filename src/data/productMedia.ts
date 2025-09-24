@@ -42,18 +42,34 @@ export const humanMedia: ProductMedia = {
     },
   ],
   basicProduct: {
-    images: [
+    images: [ // KORREKTUR: Fehlende eckige Klammer hinzugefügt
       {
-        src: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Tag für Menschen",
+        src: "/produktbilder/Human Media/Memora Tag/memora_tag_1.png",
+        alt: "Runder Memora Tag auf hellem Hintergrund",
       },
       {
-        src: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Tag Detail - Menschen",
+        src: "/produktbilder/Human Media/Memora Tag/memora_tag_2.png",
+        alt: "Quadratischer Memora Tag auf hellem Hintergrund",
       },
       {
-        src: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Tag Verwendung - Menschen",
+        src: "/produktbilder/Human Media/Memora Tag/memora_tag_3.png",
+        alt: "Quadratischer Memora Tag in der Hand gehalten",
+      },
+      {
+        src: "/produktbilder/Human Media/Memora Tag/memora_tag_4.png",
+        alt: "Quadratischer Memora Tag an einem Grabstein befestigt",
+      },
+      {
+        src: "/produktbilder/Human Media/Memora Tag/memora_tag_5.png",
+        alt: "Nahaufnahme des Memora Tags auf einem Grabstein mit roten Blumen",
+      },
+      {
+        src: "/produktbilder/Human Media/Memora Tag/memora_tag_6.png",
+        alt: "Memora Tag auf einem Grabstein aus der Ferne",
+      },
+      {
+        src: "/produktbilder/Human Media/Memora Tag/memora_tag_7.png",
+        alt: "Runder Memora Tag neben einer schwarzen Urne",
       },
     ],
   },
