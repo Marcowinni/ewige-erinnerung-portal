@@ -189,13 +189,13 @@ const Index = () => {
           </div>
 
           {/* Demo Videos Carousel */}
-          <div className="max-w-4xl mx-auto mb-16">
-            <Carousel className="w-full">
+          <div className="max-w-2xl mx-auto mb-16">
+            <Carousel className="w-full" showControls={false}>
               <CarouselContent>
                 {media.demoVideos.map((video, index) => (
                   <CarouselItem key={index}>
                     <div className="rounded-lg overflow-hidden shadow-xl">
-                      <div className="aspect-w-16 aspect-h-9 relative">
+                      <div className="relative">
                         <video className="w-full rounded-lg" controls poster={video.poster}>
                           <source src={video.src} type="video/mp4" />
                           Ihr Browser unterstützt keine Videos.
@@ -205,8 +205,6 @@ const Index = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
             </Carousel>
           </div>
 

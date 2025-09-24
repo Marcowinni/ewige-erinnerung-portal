@@ -22,6 +22,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { set } from "date-fns";
 
 // Preiskalkulation
 function calculatePrice(form: FormState, mode: Mode): number {
@@ -922,7 +923,7 @@ function Step1View(props: {
   form: FormState;
   setForm: React.Dispatch<React.SetStateAction<FormState>>;
   copy: UploaderCopy;
-  onPreviewClick: (url: string) => void;
+  onPreviewClick: (gallery: { images: { src: string; alt: string }[]; startIndex: number }) => void;
 }) {
   const { mode, productMap, selected, setSelected, onNext, form, setForm, copy } = props;
 
@@ -970,13 +971,8 @@ function Step1View(props: {
                 <Carousel className="w-full">
                   <CarouselContent>
                     {(p.images ?? []).map((img, idx) => (
-                      <CarouselItem key={idx}>
-                        <div
-                          className="cursor-pointer"
-                          onClick={() => props.onPreviewClick(img.src)}
-                        >
-                          <img src={img.src} alt={img.alt} className="w-full h-64 md:h-80 object-cover" loading="lazy" />
-                        </div>
+                      <CarouselItem key={idx} onClick={() => props.onPreviewClick({ images: p.images ?? [], startIndex: idx })} className="cursor-pointer">
+                        <img src={img.src} alt={img.alt} className="w-full h-[26rem] md:h-[26rem] object-cover" loading="lazy" />
                       </CarouselItem>
                     ))}
                   </CarouselContent>
@@ -1606,7 +1602,7 @@ function Step5InvoiceAndPayView(props: {
   isSubmitting: boolean;
   onReset: () => void;
   copy: UploaderCopy;
-  onPreviewClick: (url: string) => void;
+  onPreviewClick: (gallery: { images: { src: string; alt: string }[]; startIndex: number }) => void;
 }) {
   const { mode, form, setForm, productLabel, onBack, onPlaceOrder, isSubmitting, onReset, copy, onPreviewClick } = props;
 
@@ -1707,7 +1703,7 @@ function Step5InvoiceAndPayView(props: {
                       src={form.pet_tag_custom.previewDataUrl} 
                       alt="Tag Vorschau" 
                       className="w-20 h-20 rounded-full border cursor-pointer hover:opacity-80 transition-opacity"
-                      onClick={() => props.onPreviewClick(form.pet_tag_custom!.previewDataUrl!)}
+                      onClick={() => props.onPreviewClick({ images: [{ src: form.pet_tag_custom!.previewDataUrl!, alt: 'Tag Vorschau' }], startIndex: 0 })}
                     />
                   )}
                   {form.frame_custom?.previewDataUrl && (
@@ -1715,7 +1711,7 @@ function Step5InvoiceAndPayView(props: {
                       src={form.frame_custom.previewDataUrl} 
                       alt="Frame Vorschau" 
                       className="w-28 h-auto rounded-xl border cursor-pointer hover:opacity-80 transition-opacity"
-                      onClick={() => props.onPreviewClick(form.frame_custom!.previewDataUrl!)}
+                      onClick={() => props.onPreviewClick({ images: [{ src: form.frame_custom!.previewDataUrl!, alt: 'Frame Vorschau' }], startIndex: 0 })}
                     />
                   )}
                   {form.deluxe_custom?.previewDataUrl && (
@@ -1723,7 +1719,7 @@ function Step5InvoiceAndPayView(props: {
                       src={form.deluxe_custom.previewDataUrl} 
                       alt="Deluxe Vorschau" 
                       className="w-28 h-auto rounded-xl border cursor-pointer hover:opacity-80 transition-opacity"
-                      onClick={() => props.onPreviewClick(form.deluxe_custom!.previewDataUrl!)}
+                      onClick={() => props.onPreviewClick({ images: [{ src: form.deluxe_custom!.previewDataUrl!, alt: 'Deluxe Vorschau' }], startIndex: 0 })}
                     />
                   )}
                 </div>
@@ -1782,8 +1778,7 @@ const MemoryUploader = () => {
   const { mode, modeContent } = useContent();
   const media = useMemo(() => getMediaForMode(mode as Mode), [mode]);
   const products = modeContent.products;
-  const [modalImageUrl, setModalImageUrl] = useState<string | null>(null);
-
+  const [activeGallery, setActiveGallery] = useState<{ images: { src: string; alt: string }[]; startIndex: number } | null>(null);
   // Copy zusammenbauen (Content + Fallbacks)
   const contentCopy = (modeContent as any)?.uploaderCopy as Partial<UploaderCopy> | undefined;
   const COPY: UploaderCopy = mergeCopy(DEFAULT_COPY, contentCopy ?? {});
@@ -1940,13 +1935,25 @@ const MemoryUploader = () => {
 
   return (
     <div id="memory-form-start" className="space-y-10">
-      <Dialog open={!!modalImageUrl} onOpenChange={(isOpen) => !isOpen && setModalImageUrl(null)}>
-        <DialogContent className="max-w-xl p-2">
-           <DialogTitle className="sr-only">{COPY.summary.previewTitle}</DialogTitle>
-           <DialogDescription className="sr-only">
-            Eine vergrösserte Ansicht deines personalisierten Designs.
+      <Dialog open={!!activeGallery} onOpenChange={(isOpen) => !isOpen && setActiveGallery(null)}>
+        <DialogContent className="max-w-5xl p-2">
+          <DialogTitle className="sr-only">Produktgalerie</DialogTitle>
+          <DialogDescription className="sr-only">
+            Durchblättern der Produktbilder mit den Pfeiltasten.
           </DialogDescription>
-          {modalImageUrl && <img src={modalImageUrl} alt="Grosse Vorschau" className="w-full h-auto rounded-md" />}
+          {activeGallery && (
+            <Carousel opts={{ loop: true, startIndex: activeGallery.startIndex }}>
+              <CarouselContent>
+                {activeGallery.images.map((image, index) => (
+                  <CarouselItem key={index}>
+                    <img src={image.src} alt={image.alt} className="w-full h-auto object-contain rounded-md max-h-[80vh]" />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-2 md:-left-10" />
+              <CarouselNext className="right-2 md:-right-10" />
+            </Carousel>
+          )}
         </DialogContent>
       </Dialog>
       {step === 1 && (
@@ -1959,7 +1966,7 @@ const MemoryUploader = () => {
           form={form}
           setForm={setForm}
           copy={COPY}
-          onPreviewClick={setModalImageUrl}
+          onPreviewClick={setActiveGallery}
         />
       )}
       {step === 2 && (
@@ -1998,7 +2005,7 @@ const MemoryUploader = () => {
           isSubmitting={isSubmitting}
           onReset={resetAll}
           copy={COPY}
-          onPreviewClick={setModalImageUrl}
+          onPreviewClick={setActiveGallery}
         />
       )}
     </div>

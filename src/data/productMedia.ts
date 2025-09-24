@@ -27,22 +27,15 @@ export interface ProductMedia {
 
 /** ---------------------- HUMAN MEDIA ---------------------- **/
 export const humanMedia: ProductMedia = {
-  demoVideos: [
+  demoVideos:  [
     {
-      src: "https://www.w3schools.com/html/mov_bbb.mp4",
-      poster:
-        "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-      alt: "Memora Tag Demo für Menschen",
-    },
-    {
-      src: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
-      poster:
-        "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-      alt: "Memora Frame Demo für Menschen",
+      src: "/produktbilder/Pet Media/Pet Produktvideos/memora_pet_produktvideo.mp4",
+      poster: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_4.png",
+      alt: "Produktvideo für Memora Pet Produkte",
     },
   ],
   basicProduct: {
-    images: [ // KORREKTUR: Fehlende eckige Klammer hinzugefügt
+    images: [ 
       {
         src: "/produktbilder/Human Media/Memora Tag/memora_tag_1.png",
         alt: "Runder Memora Tag auf hellem Hintergrund",
@@ -74,25 +67,25 @@ export const humanMedia: ProductMedia = {
     ],
   },
   premiumProduct: {
-    images: [
-      {
-        src: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Frame für Menschen",
-      },
-      {
-        src: "https://images.unsplash.com/photo-1605693803834-d6b0cd20ecbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Frame Gravur - Menschen",
-      },
-      {
-        src: "https://images.unsplash.com/photo-1560472354-4cb83edd6080?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Frame Personalisierung - Menschen",
-      },
-      {
-        src: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Frame Qualität - Menschen",
-      },
-    ],
-  },
+  images: [
+    {
+      src: "/produktbilder/Human Media/Memora Frame/memora_frame_1.png",
+      alt: "Eleganter Memora Frame in einem Wohnzimmer",
+    },
+    {
+      src: "/produktbilder/Human Media/Memora Frame/memora_frame_2.png",
+      alt: "Memora Frame auf einem Beistelltisch neben einer Pflanze",
+    },
+    {
+      src: "/produktbilder/Human Media/Memora Frame/memora_frame_3.png",
+      alt: "Nahaufnahme eines personalisierten Memora Frame",
+    },
+    {
+      src: "/produktbilder/Human Media/Memora Frame/memora_frame_4.png",
+      alt: "Memora Frame auf einer Kommode in einem hellen Raum",
+    },
+  ],
+},
   deluxeProduct: {
     images: [
       {
@@ -119,67 +112,88 @@ export const humanMedia: ProductMedia = {
 export const petMedia: ProductMedia = {
   demoVideos: [
     {
-      src: "https://www.w3schools.com/html/mov_bbb.mp4",
-      poster:
-        "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-      alt: "Memora Tag Demo für Haustiere",
-    },
-    {
-      src: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
-      poster:
-        "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-      alt: "Memora Frame Demo für Haustiere",
+      src: "/produktbilder/Pet Media/Pet Produktvideos/memora_pet_produktvideo.mp4",
+      poster: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_4.png",
+      alt: "Produktvideo für Memora Pet Produkte",
     },
   ],
   basicProduct: {
     images: [
       {
-        src: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Tag für Haustiere",
+        src: "/produktbilder/Pet Media/Pet Tag/memora_pet_tag_keyholder_1.png",
+        alt: "Memora Pet Tag als Schlüsselanhänger mit Licht und Schatten",
       },
       {
-        src: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Tag Detail - Haustiere",
+        src: "/produktbilder/Pet Media/Pet Tag/memora_pet_tag_keyholder_2.png",
+        alt: "Nahaufnahme des Memora Pet Tag Schlüsselanhängers",
       },
       {
-        src: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Tag Verwendung - Haustiere",
+        src: "/produktbilder/Pet Media/Pet Tag/memora_pet_tag_keyholder_3.png",
+        alt: "Memora Pet Tag Schlüsselanhänger auf einem Holztisch",
+      },
+      {
+        src: "/produktbilder/Pet Media/Pet Tag/memora_pet_tag_rund_1.png",
+        alt: "Runder Memora Pet Tag an einer weissen Wand",
+      },
+      {
+        src: "/produktbilder/Pet Media/Pet Tag/memora_pet_tag_rund_2.png",
+        alt: "Runder Memora Pet Tag in einem hellen Raum",
+      },
+      {
+        src: "/produktbilder/Pet Media/Pet Tag/memora_pet_tag_rund_3.png",
+        alt: "Runder Memora Pet Tag neben einer kleinen Urne",
+      },
+      {
+        src: "/produktbilder/Pet Media/Pet Tag/memora_pet_tag_square_1.png",
+        alt: "Quadratischer Memora Pet Tag an einer Wand",
+      },
+      {
+        src: "/produktbilder/Pet Media/Pet Tag/memora_pet_tag_square_2.png",
+        alt: "Schräger Blick auf den quadratischen Memora Pet Tag",
+      },
+      {
+        src: "/produktbilder/Pet Media/Pet Tag/memora_pet_tag_square_3.png",
+        alt: "Quadratischer Memora Pet Tag neben einer Urne",
       },
     ],
   },
   premiumProduct: {
     images: [
       {
-        src: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Frame für Haustiere",
+        src: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_1.png",
+        alt: "Personalisierter Memora Pet Frame mit Hundefoto",
       },
       {
-        src: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Frame Gravur - Haustiere",
+        src: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_2.png",
+        alt: "Schräge Ansicht des Memora Pet Frame",
       },
       {
-        src: "https://images.unsplash.com/photo-1601758228466-ce2e95424623?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Frame Personalisierung - Haustiere",
+        src: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_3.png",
+        alt: "Memora Pet Frame auf einem Beistelltisch",
       },
       {
-        src: "https://images.unsplash.com/photo-1574158622682-e40e69881006?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Frame Qualität - Haustiere",
+        src: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_4.png",
+        alt: "Memora Pet Frame in einem Wohnzimmer auf einem Tisch",
+      },
+      {
+        src: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_5.png",
+        alt: "Memora Pet Frame an einer Wand in einem Raum",
       },
     ],
   },
   deluxeProduct: {
     images: [
       {
-        src: "https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Haustier-Memora Deluxe – Portrait",
+        src: "/produktbilder/Pet Media/Pet Deluxe/memora_pet_deluxe_1.png",
+        alt: "Memora Pet Deluxe Platte mit Halterung in einem hellen Raum",
       },
       {
-        src: "https://images.unsplash.com/photo-1546421845-6471bdcf3f72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Haustier-Memora Deluxe – Gravur",
+        src: "/produktbilder/Pet Media/Pet Deluxe/memora_pet_deluxe_2.png",
+        alt: "Memora Pet Deluxe auf einem Tisch neben einer Kerze",
       },
       {
-        src: "https://images.unsplash.com/photo-1534361960057-19889db9621e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Haustier-Memora Deluxe – Detail",
+        src: "/produktbilder/Pet Media/Pet Deluxe/memora_pet_deluxe_3.png",
+        alt: "Memora Pet Deluxe auf einem dunklen Tisch mit einer Orchidee",
       },
     ],
   },
@@ -191,18 +205,11 @@ export const petMedia: ProductMedia = {
 
 /** ---------------------- SURPRISE MEDIA ---------------------- **/
 export const surpriseMedia: ProductMedia = {
-  demoVideos: [
+  demoVideos:  [
     {
-      src: "https://www.w3schools.com/html/mov_bbb.mp4",
-      poster:
-        "https://images.unsplash.com/photo-1579208575657-c595a05383b7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0",
-      alt: "Surprise Tag Demo",
-    },
-    {
-      src: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
-      poster:
-        "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-      alt: "Surprise Frame Demo",
+      src: "/produktbilder/Pet Media/Pet Produktvideos/memora_pet_produktvideo.mp4",
+      poster: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_4.png",
+      alt: "Produktvideo für Memora Pet Produkte",
     },
   ],
   basicProduct: {
