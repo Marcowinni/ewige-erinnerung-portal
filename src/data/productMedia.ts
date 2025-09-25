@@ -98,9 +98,19 @@ export const humanMedia: ProductMedia = {
 
 /** ---------------------- PET MEDIA ---------------------- **/
 export const petMedia: ProductMedia = {
-  demoVideos: [
-    
-  ],
+  demoVideos:  [
+
+    {
+
+      src: "/produktbilder/Pet Media/Pet Produktvideos/memora_pet_produktvideo.mp4",
+
+      poster: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_4.png",
+
+      alt: "Produktvideo für Memora Pet Produkte",
+
+    },
+
+  ],
   basicProduct: {
     images: [
       {
