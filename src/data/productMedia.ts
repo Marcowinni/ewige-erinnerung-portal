@@ -89,17 +89,9 @@ export const humanMedia: ProductMedia = {
   deluxeProduct: {
     images: [
       {
-        src: "https://images.unsplash.com/photo-1520697222860-7b53ab037854?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Deluxe – Glasplatte",
-      },
-      {
-        src: "https://images.unsplash.com/photo-1533139502658-0198f920d8ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Deluxe – Gravur",
-      },
-      {
-        src: "https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-        alt: "Memora Deluxe – Inszenierung",
-      },
+      src: "/produktbilder/Human Media/Memora Deluxe/memora_coming_soon.jpg",
+      alt: "Coming Soon: Memora Deluxe Produkt",
+    },
     ],
   },
   tagDefaults: {
@@ -203,67 +195,68 @@ export const petMedia: ProductMedia = {
   },
 };
 
-/** ---------------------- SURPRISE MEDIA ---------------------- **/
+//** ---------------------- SURPRISE MEDIA ---------------------- **/
 export const surpriseMedia: ProductMedia = {
-  demoVideos:  [
-    {
-      src: "/produktbilder/Pet Media/Pet Produktvideos/memora_pet_produktvideo.mp4",
-      poster: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_4.png",
-      alt: "Produktvideo für Memora Pet Produkte",
-    },
-  ],
+  demoVideos: [], // Vorerst leer, da kein Surprise-Video vorhanden ist
   basicProduct: {
     images: [
       {
-        src: "https://images.unsplash.com/photo-1579208575657-c595a05383b7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0",
-        alt: "Surprise Tag – Platte",
+        src: "/produktbilder/Surprise Media/Surprise Tag/memora_surprise_tag_1.png",
+        alt: "Runder Memora Surprise Tag auf weissem Hintergrund",
       },
       {
-        src: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Surprise Tag – Detail",
+        src: "/produktbilder/Surprise Media/Surprise Tag/memora_surprise_tag_2.png",
+        alt: "Runder Memora Surprise Tag von vorne",
       },
       {
-        src: "https://images.unsplash.com/photo-1517816428104-797678c7cf0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Surprise Tag – Anwendung",
+        src: "/produktbilder/Surprise Media/Surprise Tag/memora_surprise_tag_3.png",
+        alt: "Runder Memora Surprise Tag in einer Geschenkbox",
+      },
+      {
+        src: "/produktbilder/Surprise Media/Surprise Tag/memora_surprise_tag_4.png",
+        alt: "Memora Surprise Tag als Geschenk",
+      },
+      {
+        src: "/produktbilder/Surprise Media/Surprise Tag/memora_surprise_tag_5.png",
+        alt: "Memora Surprise Tag in einem Notizbuch",
+      },
+      {
+        src: "/produktbilder/Surprise Media/Surprise Tag/memora_surprise_tag_6.png",
+        alt: "Memora Surprise Tag als Weihnachtsgeschenk",
       },
     ],
   },
   premiumProduct: {
     images: [
       {
-        src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Surprise Frame – Setup",
+        src: "/produktbilder/Surprise Media/Surprise Frame/memora_surprise_frame_1.png",
+        alt: "Memora Surprise Frame auf einem Tisch",
       },
       {
-        src: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Surprise Frame – Stimmung",
+        src: "/produktbilder/Surprise Media/Surprise Frame/memora_surprise_frame_2.png",
+        alt: "Memora Surprise Frame in einem hellen Raum",
       },
       {
-        src: "https://images.unsplash.com/photo-1545153997-203db7f40b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Surprise Frame – Detail",
+        src: "/produktbilder/Surprise Media/Surprise Frame/memora_surprise_frame_3.png",
+        alt: "Memora Surprise Frame in einem modernen Wohnzimmer",
+      },
+      {
+        src: "/produktbilder/Surprise Media/Surprise Frame/memora_surprise_frame_4.png",
+        alt: "Nahaufnahme des Memora Surprise Frame",
       },
     ],
   },
   deluxeProduct: {
     images: [
       {
-        src: "https://images.unsplash.com/photo-1551782450-17144c3a8f59?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Surprise Deluxe – Inszenierung",
-      },
-      {
-        src: "https://images.unsplash.com/photo-1532960401447-7dd05bef20c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Surprise Deluxe – Gravur",
-      },
-      {
-        src: "https://images.unsplash.com/photo-1520975867597-0f2a9c9d7f9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80",
-        alt: "Surprise Deluxe – Detail",
+        src: "/produktbilder/Surprise Media/Surprise Deluxe/surprise_coming_soon.jpg",
+        alt: "Memora Surprise Deluxe - Coming Soon",
       },
     ],
   },
-  // Surprise kann auf die Human-Defaults zeigen – oder eigene bekommen
   tagDefaults: {
-    round:  "/vorschaubilder/tag-default-round.png",
-    square: "/vorschaubilder/tag-default-square.png",
+    round:  "/vorschaubilder/suprise-tag-default.png",
+    square: "/vorschaubilder/surprise-tag-default.png",
   },
 };
 
