@@ -27,9 +27,13 @@ export interface ProductMedia {
 
 /** ---------------------- HUMAN MEDIA ---------------------- **/
 export const humanMedia: ProductMedia = {
-  demoVideos:  [
-    
-  ],
+  demoVideos: [
+  {
+    src: "https://btwzspkoyusxajcchapn.supabase.co/storage/v1/object/public/website-media/demo-videos/memora_produktvideo.mp4", // <-- DEIN NEUER SUPABASE LINK
+    poster: "/produktbilder/Human Media/Memora Frame/memora_frame_4.png",
+    alt: "Produktvideo für Memora Produkte",
+  },
+],
   basicProduct: {
     images: [ 
       {
@@ -98,19 +102,13 @@ export const humanMedia: ProductMedia = {
 
 /** ---------------------- PET MEDIA ---------------------- **/
 export const petMedia: ProductMedia = {
-  demoVideos:  [
-
-    {
-
-      src: "/produktbilder/Pet Media/Pet Produktvideos/memora_pet_produktvideo.mp4",
-
-      poster: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_4.png",
-
-      alt: "Produktvideo für Memora Pet Produkte",
-
-    },
-
-  ],
+  demoVideos: [
+  {
+    src: "https://btwzspkoyusxajcchapn.supabase.co/storage/v1/object/public/website-media/demo-videos/pets_produktvideo.mp4", 
+    poster: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_4.png", 
+    alt: "Produktvideo für Memora Pet Produkte",
+  },
+],
   basicProduct: {
     images: [
       {
@@ -199,7 +197,13 @@ export const petMedia: ProductMedia = {
 
 //** ---------------------- SURPRISE MEDIA ---------------------- **/
 export const surpriseMedia: ProductMedia = {
-  demoVideos: [], // Vorerst leer, da kein Surprise-Video vorhanden ist
+  demoVideos: [
+  {
+    src: "https://btwzspkoyusxajcchapn.supabase.co/storage/v1/object/public/website-media/demo-videos/suprise_produktvideo.mp4", 
+    poster: "/produktbilder/Surprise Media/Surprise Frame/memora_surprise_frame_4.png", 
+    alt: "Produktvideo für Memora Surprise Produkte",
+  },
+],
   basicProduct: {
     images: [
       {
