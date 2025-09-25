@@ -1,0 +1,81 @@
+[33m49c9ab0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m video
+[33mda4d559[m video removed
+[33mb57b61a[m bilder
+[33m934c09d[m productmedia
+[33m8d7f429[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m basic fotos human
+[33mc673d75[m supabase
+[33mbf92b1e[m seo und cookies
+[33m7145a11[m impressumtexte
+[33mc4d12cf[m memoryuploader funktionen
+[33me6e0a19[m sprachmodule fertig
+[33mdc4a295[m anpassung sprachmodule
+[33m7157835[m anpassung englsch
+[33m85185a4[m umstellung sprachen
+[33m7b14532[m text editor
+[33mbed4ccc[m designeditor funktionen
+[33m09442cb[m kontaktformular
+[33m35f5d46[m responsive design
+[33md3b2e10[m mehr lieder hinzufügen
+[33m6ed1e51[m hinzufügen kurztext
+[33m96bb623[m en ts
+[33m217b7ef[m änderungen musik
+[33m8cb2437[m Re-add music selection and Pixabay link
+[33m88327a6[m Fix: Update content types and properties
+[33m0105c63[m Refactor Gedenken page
+[33mb4337a0[m musik ordner
+[33m198b7a3[m text abänderung
+[33m8f46b50[m ueberuns
+[33m2e98101[m texte abgeändert
+[33m96f93e6[m mobile ansicht
+[33mb172d5b[m spotifylink
+[33m13ce9a5[m tipp änderung
+[33m676c8e0[m footer
+[33m3a274ab[m Add multi-language support for legal pages
+[33m9778482[m Add privacy and terms links
+[33m9e76c3d[m deluxe editor
+[33m33747f4[m behebung error kontaktseite
+[33mbcead0e[m Fix contact page variables
+[33m16e5600[m Fix: aboutPage.title not displayed
+[33m0920de7[m sprachen
+[33m80d2d01[m texte über de/en etc
+[33mc47500f[m version1
+[33m7e33ac3[m drittes produkt und eigene gestaltung
+[33md2c0037[m div anpassungen
+[33m1bdb805[m Fix Gedenken page mode switching
+[33me78dbd4[m Refactor content and language handling
+[33mdf49f6d[m löschung productcontent2
+[33m0bad5f2[m anpassung human und pet mode
+[33mc51b0cc[m Align logo with "Memora Moments"
+[33mea0b11f[m Refactor product display for modes
+[33m4f7c534[m Update pet mode background image
+[33m004b5ae[m Add multi-image and video upload
+[33mbda8658[m Add pet-friendly product options
+[33mc8a7e6b[m Enhance product image display
+[33m23cc288[m änderungen
+[33m21d7e8b[m Fix language switching on subpages
+[33m6c70498[m Update language switching on subpages
+[33mac69da1[m diverse änderungen
+[33me666c1d[m Fix Kontakt-Seite: Tags korrigiert & Formular stabilisiert
+[33m69fd417[m Update Kontakt.tsx
+[33mfdea0c0[m Update Kontakt.tsx
+[33m228a4c0[m Add border to product cards
+[33mf39d490[m Fix LanguageProvider useState error
+[33m87eb549[m Update branding and video carousel
+[33mb75075f[m Update hero image
+[33m26d92c7[m Refactor: Update branding and add language support
+[33mfff54b0[m Add product variations
+[33m736ff9f[m Update to NFC plates
+[33mb7a6ea6[m Remove carousel arrows
+[33m7656680[m Replace testimonial with demo video
+[33mf4f36b5[m Update Index.tsx
+[33m980bc70[m Update Ueber.tsx
+[33m63b5f53[m Add product options
+[33m37d4f11[m feat: Add multiple product options
+[33mb836425[m Update Navbar.tsx
+[33m5fabfc5[m Update Navbar.tsx
+[33m87f11f4[m Fix: Fade-in animation issue
+[33mbddd072[m Remove parallax effect
+[33mc9b47cf[m Fix: Text disappearing on scroll
+[33ma0eeb4d[m Fix: Circular dependency in CSS
+[33m62f587b[m feat: Implement memorial website
+[33m991b2cb[m Use tech stack vite_react_shadcn_ts

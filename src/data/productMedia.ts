@@ -255,7 +255,7 @@ export const surpriseMedia: ProductMedia = {
 /** ---------------------- SELECTOR ---------------------- **/
 export const getMediaForMode = (modeOrIsPet: Mode | boolean): ProductMedia => {
   if (typeof modeOrIsPet === "boolean") {
-    // alte Aufrufe: true => pet, false => human
+
     return modeOrIsPet ? petMedia : humanMedia;
   }
   if (modeOrIsPet === "pet") return petMedia;
