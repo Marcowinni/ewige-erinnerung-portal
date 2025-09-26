@@ -495,7 +495,7 @@ export const enContent: ContentData = {
       premium: { title: "Memora Pet Frame", desc: "A stylish picture frame that connects your favorite photo with a digital photo album – ideal for home.", price: "79 CHF" },
       deluxe: { title: "Memora Pet Deluxe", desc: "An exclusive plexiglass plate with a holder – for a lasting, dignified memento.", price: "129 CHF" },
       features: {
-        tag1: "6×6 cm or 3 cm ⌀ plexiglass plate",
+        tag1: "6×6 cm or 2.5 cm ⌀ plexiglass plate",
         tag2: "Browse personal digital photo album directly via tap",
         tag3: "Minimalist, timeless design, blends in harmoniously",
         tag4: "Option: Standard simple, individually designed, or as a keychain",

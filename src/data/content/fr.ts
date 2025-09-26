@@ -443,7 +443,7 @@ export const frContent: ContentData = {
       premium: { title: "Memora Pet Frame", desc: "Un cadre photo élégant qui relie votre photo préférée à un album photo numérique – idéal pour la maison.", price: "79 CHF" },
       deluxe: { title: "Memora Pet Deluxe", desc: "Une plaque en plexiglas exclusive avec support – pour un souvenir durable et digne.", price: "129 CHF" },
       features: {
-        tag1: "Plaque en plexiglas de 6×6 cm ou 3 cm ⌀",
+        tag1: "Plaque en plexiglas de 6×6 cm ou 2.5 cm ⌀",
         tag2: "Parcourez l'album photo numérique personnel directement d'un simple toucher",
         tag3: "Design minimaliste et intemporel, s'intègre harmonieusement",
         tag4: "Option : standard simple, conçu individuellement ou en porte-clés",

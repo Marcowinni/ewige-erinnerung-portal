@@ -464,6 +464,7 @@ export const deContent: ContentData = {
         modeHuman: "Human",
         modePet: "Pet",
         modeSurprise: "Surprise",
+        total: "Gesamtpreis"
       },
      privacyNotice: {
         text: "Mit dem Hochladen von Bildern erklären Sie sich mit unseren",
@@ -507,7 +508,7 @@ export const deContent: ContentData = {
       premium: { title: "Memora Pet Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Fotoalbum verbindet – ideal für Zuhause.", price: "79 CHF" },
       deluxe: { title: "Memora Pet Deluxe", desc: "Eine exklusive Plexiglasplatte mit Halterung – für ein bleibendes, würdiges Erinnerungsstück.", price: "129 CHF" },
       features: {
-        tag1: "6×6 cm oder 3 cm ⌀ Plexiglasplatte",
+        tag1: "6×6 cm oder 2.5 cm ⌀ Plexiglasplatte",
         tag2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         tag3: "Minimales, zeitloses Design, fügt sich harmonisch ein",
         tag4: "Option: Standard schlicht, individuell gestaltet oder als Schlüsselanhänger",

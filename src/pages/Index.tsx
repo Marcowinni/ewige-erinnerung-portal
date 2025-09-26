@@ -11,7 +11,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useContent } from "@/contexts/ContentContext";
 import { getMediaForMode } from "@/data/productMedia";
 import { Helmet } from "react-helmet-async";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const Index = () => {
@@ -25,7 +25,7 @@ const Index = () => {
   const content = modeContent;
 
   // Produktmedien basierend auf dem Modus
-  const media = getMediaForMode(mode);
+  const media = useMemo(() => getMediaForMode(mode), [mode]);
 
   // Hintergrundbild je Modus
   const heroBg = mode === "pet"
@@ -196,8 +196,12 @@ const Index = () => {
                   <CarouselItem key={index}>
                     <div className="rounded-lg overflow-hidden shadow-xl">
                       <div className="relative">
-                        <video className="w-full rounded-lg" controls poster={video.poster}>
-                          <source src={video.src} type="video/mp4" />
+                        <video 
+                          key={video.src}
+                          className="w-full rounded-lg" 
+                          controls poster={video.poster}
+                        >
+                        <source src={video.src} type="video/mp4" />
                           Ihr Browser unterstützt keine Videos.
                         </video>
                       </div>
