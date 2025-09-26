@@ -4,4 +4,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://www.deine-webseite.ch/sitemap.xml
+Sitemap: https://www.memora-moments.ch/sitemap.xml
