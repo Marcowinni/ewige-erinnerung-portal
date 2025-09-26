@@ -261,7 +261,7 @@ export const surpriseMedia: ProductMedia = {
     ],
   },
   tagDefaults: {
-    round:  "/vorschaubilder/suprise-tag-default.png",
+    round:  "/vorschaubilder/surprise-tag-default.png",
     square: "/vorschaubilder/surprise-tag-default.png",
   },
 };

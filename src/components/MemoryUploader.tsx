@@ -1602,9 +1602,10 @@ function Step5InvoiceAndPayView(props: {
   isSubmitting: boolean;
   onReset: () => void;
   copy: UploaderCopy;
+  media: any;
   onPreviewClick: (gallery: { images: { src: string; alt: string }[]; startIndex: number }) => void;
 }) {
-  const { mode, form, setForm, productLabel, onBack, onPlaceOrder, isSubmitting, onReset, copy, onPreviewClick } = props;
+  const { mode, form, setForm, productLabel, onBack, onPlaceOrder, isSubmitting, onReset, copy, media, onPreviewClick } = props;
 
   // Preisberechnung aufrufen
   const totalPrice = calculatePrice(form, mode as Mode);
@@ -1694,6 +1695,8 @@ function Step5InvoiceAndPayView(props: {
             <li><strong>{copy.summary.product}:</strong> <span className="text-foreground">{productLabel || "-"}</span></li>
             {form.product === "basic" && (<li><strong>{copy.summary.format}:</strong> <span className="text-foreground">{(form.tag_format ?? "round_3cm") === "square_6cm" ? copy.summary.formatSquare : copy.summary.formatRound}</span></li>)}
             {options.length > 0 && (<li><strong>{copy.summary.options}:</strong> <span className="text-foreground">{options.join(", ")}</span></li>)}
+            
+            {/* Klickbare Vorschauen für individuelle Designs */}
             {(form.pet_tag_custom?.previewDataUrl || form.frame_custom?.previewDataUrl || form.deluxe_custom?.previewDataUrl) && (
               <li className="mt-2">
                 <strong>{copy.summary.previewTitle}:</strong>
@@ -1725,6 +1728,31 @@ function Step5InvoiceAndPayView(props: {
                 </div>
               </li>
             )}
+
+            {/* Klickbare Vorschau für Standard-Tag (der korrigierte Block) */}
+            {form.product === 'basic' && !(mode === 'pet' && form.pet_tag_customEnabled) && (() => {
+              const isRound = (form.tag_format ?? "round_3cm") === "round_3cm";
+              const mediaData = getMediaForMode(mode);
+              const defaultImageSrc = isRound ? mediaData.tagDefaults?.round : mediaData.tagDefaults?.square;
+              
+              if (!defaultImageSrc) return null;
+
+              return (
+                <li className="mt-2">
+                  <strong>{copy.summary.previewTitle}:</strong>
+                  <div className="mt-2 flex items-center gap-4">
+                    <img
+                      src={defaultImageSrc}
+                      alt="Standard Tag Vorschau"
+                      className={`w-20 h-20 border cursor-pointer hover:opacity-80 transition-opacity ${isRound ? 'rounded-full' : 'rounded-xl'}`}
+                      onClick={() => props.onPreviewClick({ images: [{ src: defaultImageSrc, alt: 'Standard Tag Vorschau' }], startIndex: 0 })}
+                    />
+                  </div>
+                </li>
+              );
+            })()}
+
+            {/* Restliche Zusammenfassungs-Infos */}
             {mode === "human" && (<li><strong>{copy.summary.person}:</strong> <span className="text-foreground">{form.human_firstName} {form.human_lastName}{" "}{form.human_deathDate ? `(${form.human_deathDate})` : ""}</span></li>)}
             {mode === "pet" && (<li><strong>{copy.summary.pet}:</strong> <span className="text-foreground">{form.pet_name} {form.pet_deathDate ? `(${form.pet_deathDate})` : ""}</span></li>)}
             {mode === "surprise" && (<li><strong>{copy.summary.recipient}:</strong> <span className="text-foreground">{form.surprise_name}</span></li>)}
@@ -1732,7 +1760,7 @@ function Step5InvoiceAndPayView(props: {
             <li><strong>{copy.summary.counts(form.images.length, form.videos.length)}</strong></li>
             {form.selectedLocalMusic && (
               <li>
-                <strong>Music:</strong>
+                <strong>Musik:</strong>
                 <span className="text-foreground ml-1">
                   {form.selectedLocalMusic.replace('.mp3', '').replace(/-/g, ' ')}
                 </span>
@@ -1740,7 +1768,7 @@ function Step5InvoiceAndPayView(props: {
             )}
             {form.pixabayMusicLink && (
               <li>
-                <strong>Pixabay Musis:</strong>
+                <strong>Pixabay Musik:</strong>
                 <span className="text-foreground ml-1">{form.pixabayMusicLink}</span>
               </li>
             )}
@@ -1762,6 +1790,7 @@ function Step5InvoiceAndPayView(props: {
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Bestellung wird verarbeitet...
               </>
             ) : (
               `${copy.buttons.toPay} (CHF ${totalPrice.toFixed(2)})`
@@ -1784,7 +1813,7 @@ const MemoryUploader = () => {
   const COPY: UploaderCopy = mergeCopy(DEFAULT_COPY, contentCopy ?? {});
 
   const [isSubmitting, setIsSubmitting] = useState(false); 
-
+  const isInitialRender = useRef(true);
   // Persisted Defaults laden
   const persistedInit = loadPersisted();
 
@@ -1812,6 +1841,17 @@ const MemoryUploader = () => {
     const t = setTimeout(() => persist(step, form), 300);
     return () => clearTimeout(t);
   }, [step, form]);
+
+   // Setzt das Formular zurück, wenn der Modus wechselt
+  useEffect(() => {
+    // Führe den Reset nur aus, wenn es nicht der erste Render ist, um den initialen Zustand nicht zu löschen
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+    } else {
+      console.log("Modus gewechselt, setze Formular zurück.");
+      resetAll();
+    }
+  }, [mode]); // Beobachtet Änderungen am Modus
 
   const productMap: Record<
     ProductKey,
@@ -2005,6 +2045,7 @@ const MemoryUploader = () => {
           isSubmitting={isSubmitting}
           onReset={resetAll}
           copy={COPY}
+          media={media}
           onPreviewClick={setActiveGallery}
         />
       )}

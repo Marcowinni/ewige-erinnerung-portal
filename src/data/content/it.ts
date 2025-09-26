@@ -495,7 +495,7 @@ export const itContent: ContentData = {
       premium: { title: "Memora Pet Frame", desc: "Una cornice elegante che collega la tua foto preferita a un album fotografico digitale – ideale per casa.", price: "79 CHF" },
       deluxe: { title: "Memora Pet Deluxe", desc: "Una piastra in plexiglass esclusiva con supporto – per un ricordo duraturo e dignitoso.", price: "129 CHF" },
       features: {
-        tag1: "Piastra in plexiglass 6×6 cm o ⌀ 3 cm",
+        tag1: "Piastra in plexiglass 6×6 cm o ⌀ 2.5 cm",
         tag2: "Sfoglia l’album fotografico digitale personale direttamente con un tap",
         tag3: "Design minimalista e senza tempo, si integra armoniosamente",
         tag4: "Opzione: standard semplice, personalizzato o come portachiavi",
