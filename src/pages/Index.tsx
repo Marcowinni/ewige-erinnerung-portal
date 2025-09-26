@@ -216,7 +216,7 @@ const Index = () => {
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8">
               {/* Basic */}
-              <Card className="h-full border-2 border-border">
+              <Card className="h-full border-2 border-border flex flex-col">
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
                   <Carousel className="w-full">
                     <CarouselContent>
@@ -230,7 +230,7 @@ const Index = () => {
                     <CarouselNext className="right-2" />
                   </Carousel>
                 </CardHeader>
-                <CardContent className="p-8">
+                <CardContent className="p-8 flex-grow">
                   <h3 className="text-2xl font-serif mb-4 text-center">{content.products.basic.title}</h3>
                   <ul className="space-y-2 mb-6 text-muted-foreground">
                     <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.tag1}</li>
@@ -246,7 +246,7 @@ const Index = () => {
               </Card>
 
               {/* Premium */}
-              <Card className="h-full border-2 border-border">
+              <Card className="h-full border-2 border-border flex flex-col">
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
                   <Carousel className="w-full">
                     <CarouselContent>
@@ -259,7 +259,7 @@ const Index = () => {
                     <CarouselNext className="right-2" />
                   </Carousel>
                 </CardHeader>
-                <CardContent className="p-8">
+                <CardContent className="p-8 flex-grow">
                   <h3 className="text-2xl font-serif mb-4 text-center">{content.products.premium.title}</h3>
                   <ul className="space-y-2 mb-6 text-muted-foreground">
                     <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.premium1}</li>
@@ -275,7 +275,7 @@ const Index = () => {
               </Card>
 
               {/* Deluxe*/}
-              <Card className="h-full border-2 border-border">
+              <Card className="h-full border-2 border-border flex flex-col">
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
                   <Carousel className="w-full">
                     <CarouselContent>
@@ -289,7 +289,7 @@ const Index = () => {
                     <CarouselNext className="right-2" />
                   </Carousel>
                 </CardHeader>
-                <CardContent className="p-8">
+                <CardContent className="p-8 flex-grow">
                   <h3 className="text-2xl font-serif mb-4 text-center">{content.products.deluxe.title}</h3>
                   <ul className="space-y-2 mb-6 text-muted-foreground">
                     <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.deluxe1}</li>
