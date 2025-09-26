@@ -74,7 +74,26 @@ const ContentContext = createContext<ContentContextType | undefined>(undefined);
 
 export const ContentProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>("de");
-  const [mode, setMode] = useState<Mode>("human");
+
+
+  // Funktion, um den Modus aus der Subdomain zu ermitteln
+  const getModeFromSubdomain = (): Mode => {
+    // Sicherstellen, dass der Code nur im Browser ausgeführt wird
+    if (typeof window === 'undefined') {
+      return 'human';
+    }
+    const hostname = window.location.hostname;
+    if (hostname.startsWith('pet.')) {
+      return 'pet';
+    }
+    if (hostname.startsWith('surprise.')) {
+      return 'surprise';
+    }
+    // Standard-Modus, wenn keine passende Subdomain gefunden wird
+    return 'human';
+  };
+
+  const [mode, setMode] = useState<Mode>(getModeFromSubdomain);
 
   const isPetMode = mode === "pet";
 
