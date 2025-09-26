@@ -614,7 +614,7 @@ export const deContent: ContentData = {
 
     uploaderCopy: {
       headings: {
-        pageTitleByMode: { surprise: "Produkt wählen (Surprise)" },
+        pageTitleByMode: { surprise: "Produkt wählen:" },
         step2ByMode: { surprise: "Angaben für Surprise" }
       },
       step2Fields: {
