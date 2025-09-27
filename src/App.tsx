@@ -24,6 +24,8 @@ const RouteChangeTracker = () => {
   const location = useLocation();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    
     // Prüft, ob die Zustimmung bereits gegeben wurde
     const consent = Cookies.get("memora-cookie-consent");
     if (consent === "true") {
