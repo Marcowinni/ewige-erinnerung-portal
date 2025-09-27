@@ -253,10 +253,10 @@ const Index = () => {
                 <CardContent className="p-8 flex-grow">
                   <h3 className="text-2xl font-serif mb-4 text-center">{content.products.basic.title}</h3>
                   <ul className="space-y-2 mb-6 text-muted-foreground">
-                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.tag1}</li>
-                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.tag2}</li>
-                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.tag3}</li>
-                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.tag4}</li>
+                    <li className="flex items-center"><Check className="w-5 h-5 mr-2 text-green-500 flex-shrink-0" />{content.products.features.tag1}</li>
+                    <li className="flex items-center"><Check className="w-5 h-5 mr-2 text-green-500 flex-shrink-0" />{content.products.features.tag2}</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500 flex-shrink-0" />{content.products.features.tag3}</li>
+                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500 flex-shrink-0" />{content.products.features.tag4}</li>
                   </ul>
                   <p className="text-center text-muted-foreground">{content.products.basic.desc}</p>
                 </CardContent>
@@ -282,10 +282,10 @@ const Index = () => {
                 <CardContent className="p-8 flex-grow">
                   <h3 className="text-2xl font-serif mb-4 text-center">{content.products.premium.title}</h3>
                   <ul className="space-y-2 mb-6 text-muted-foreground">
-                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.premium1}</li>
-                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.premium2}</li>
-                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.premium3}</li>
-                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.premium4}</li>
+                    <li className="flex items-center"><Check className="w-5 h-5 mr-2 text-green-500 flex-shrink-0" />{content.products.features.premium1}</li>
+                    <li className="flex items-center"><Check className="w-5 h-5 mr-2 text-green-500 flex-shrink-0" />{content.products.features.premium2}</li>
+                    <li className="flex items-center"><Check className="w-5 h-5 mr-2 text-green-500 flex-shrink-0" />{content.products.features.premium3}</li>
+                    <li className="flex items-center"><Check className="w-5 h-5 mr-2 text-green-500 flex-shrink-0" />{content.products.features.premium4}</li>
                   </ul>
                   <p className="text-center text-muted-foreground">{content.products.premium.desc}</p>
                 </CardContent>
@@ -312,10 +312,10 @@ const Index = () => {
                 <CardContent className="p-8 flex-grow">
                   <h3 className="text-2xl font-serif mb-4 text-center">{content.products.deluxe.title}</h3>
                   <ul className="space-y-2 mb-6 text-muted-foreground">
-                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.deluxe1}</li>
-                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.deluxe2}</li>
-                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.deluxe3}</li>
-                    <li className="flex items-center"><Check className="w-4 h-4 mr-2 text-green-500" />{content.products.features.deluxe4}</li>
+                    <li className="flex items-center"><Check className="w-5 h-5 mr-2 text-green-500 flex-shrink-0" />{content.products.features.deluxe1}</li>
+                    <li className="flex items-center"><Check className="w-5 h-5 mr-2 text-green-500 flex-shrink-0" />{content.products.features.deluxe2}</li>
+                    <li className="flex items-center"><Check className="w-5 h-5 mr-2 text-green-500 flex-shrink-0" />{content.products.features.deluxe3}</li>
+                    <li className="flex items-center"><Check className="w-5 h-5 mr-2 text-green-500 flex-shrink-0" />{content.products.features.deluxe4}</li>
                   </ul>
                   <p className="text-center text-muted-foreground">{content.products.deluxe.desc}</p>
                 </CardContent>

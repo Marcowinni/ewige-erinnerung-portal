@@ -985,7 +985,7 @@ function Step1View(props: {
                 <ul className="space-y-2 mb-4 text-muted-foreground">
                   {p.features.map((f, i) => (
                     <li key={i} className="flex items-center">
-                      <Check className="w-4 h-4 mr-2 text-green-500" />
+                      <Check className="w-5 h-5 mr-2 text-green-500 flex-shrink-0" />
                       {f}
                     </li>
                   ))}
