@@ -308,7 +308,7 @@ export const deContent: ContentData = {
       subtitle:
         "Unsere Memora Moments vereinen moderne Technologie mit würdevoller Erinnerung.",
       unique: { title: "Einzigartiges Gedenken", desc: "Würdigen Sie das Leben eines geliebten Menschen mit einer bleibenden Erinnerung." },
-      multimedia: { title: "Multimedia Erinnerungen", desc: "Fotos und Videos machen besondere Augenblicke wieder erlebbar." },
+      multimedia: { title: "Multimedia Erinnerungen", desc: "Erhalten Sie Ihr digitales Fotoalbum. Fotos und Videos machen besondere Augenblicke wieder erlebbar." },
       music: { title: "Hintergrundmusik einbinden", desc: "Musik schafft Nähe und lässt Emotionen lebendig werden." },
       quality: { title: "Würdevoll gestaltet", desc: "Schlichte, hochwertige Materialien, die sich harmonisch in jedes Grab oder Zuhause einfügen." }
     },
@@ -330,7 +330,7 @@ export const deContent: ContentData = {
         tag2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         tag3: "Minimales, zeitloses Design, fügt sich harmonisch ein",
         tag4: "Für Grabsteine, Urnen, Erinnerungsorte",
-        premium1: "3 cm ⌀ Plexiglasplatte – verbindet Bild & digitales Gedenken",
+        premium1: "3 cm ⌀ Smart-Tag – verbindet Bild & digitales Gedenken",
         premium2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         premium3: "Persönliche Gestaltung mit eigenem Foto",
         premium4: "Ideal für Zuhause, Gedenkecken oder als Geschenk",
@@ -490,7 +490,7 @@ export const deContent: ContentData = {
       title: "Unvergessliche Momente mit Ihrem Liebling",
       subtitle: "Digitale Erinnerungen für Haustiere.",
       unique: { title: "Liebevolle Erinnerung", desc: "Besondere Momente mit Ihrem Haustier." },
-      multimedia: { title: "Multimedia Erlebnisse", desc: "Fotos und Videos Ihres Lieblings." },
+      multimedia: { title: "Multimedia Erlebnisse", desc: "Erhalten Sie Ihr digitales Fotoalbum. Fotos und Videos Ihres Lieblings." },
       music: { title: "Lieblingsgeräusche", desc: "Das vertraute Bellen, Miauen oder ein Lied, das verbindet." },
       quality: { title: "Würdevolle Gestaltung", desc: "Schlichte, hochwertige Materialien, die sich harmonisch in jedes Zuhause einfügen, ob drinnen oder draussen." }
     },
@@ -568,7 +568,7 @@ export const deContent: ContentData = {
       title: "Das gewisse Etwas",
       subtitle: "Schlicht, würdevoll und voller Bedeutung.",
       unique: { title: "Einzigartige Überraschung", desc: "Jede Surprise erzählt eine kleine Geschichte." },
-      multimedia: { title: "Multimedia-Erlebnisse", desc: "Fotos, Videos und Musik machen Ihr Geschenk lebendig und emotional." },
+      multimedia: { title: "Multimedia-Erlebnisse", desc: "Erhalten Sie Ihr digitales Fotoalbum. Fotos, Videos und Musik machen Ihr Geschenk lebendig und emotional." },
       music: { title: "Musik & Botschaften", desc: "Fügen Sie Hintergrundmusik oder eine persönliche Sprachnachricht hinzu." },
       quality: { title: "Edles Design", desc: "Minimalistisch und hochwertig – passend zu jedem Anlass und jeder Feier." }
     },

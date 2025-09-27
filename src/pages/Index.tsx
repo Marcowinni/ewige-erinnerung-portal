@@ -16,6 +16,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/compone
 
 const Index = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
+  const howItWorksRef = useRef<HTMLDivElement>(null);
   const productsRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +42,21 @@ const Index = () => {
       <Helmet>
         <title>{sharedContent.navigation.home}</title>
         <meta name="description" content={content.hero.subtitle} />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.memora-moments.ch/" />
+        <meta property="og:title" content={sharedContent.navigation.home} />
+        <meta property="og:description" content={content.hero.subtitle} />
+        <meta property="og:image" content="https://www.memora-moments.ch/vorschaubilder%20social%20media/logo_memora_moments.png" />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://www.memora-moments.ch/" />
+        <meta property="twitter:title" content={sharedContent.navigation.home} />
+        <meta property="twitter:description" content={content.hero.subtitle} />
+        <meta property="twitter:image" content="https://www.memora-moments.ch/vorschaubilder%20social%20media/logo_memora_moments.png" />
+
       </Helmet>
 
       <Navbar />
@@ -87,8 +103,12 @@ const Index = () => {
               {content.hero.subtitle}
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-                <Link to="/gedenken">{content.hero.startButton}</Link>
+              <Button
+                size="lg"
+                className="bg-primary hover:bg-primary/90"
+                onClick={() => howItWorksRef.current?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                {content.hero.startButton}
               </Button>
               <Button
                 asChild
@@ -141,7 +161,7 @@ const Index = () => {
       </section>
 
       {/* How it Works */}
-      <section className="py-20 bg-secondary/50">
+      <section ref={howItWorksRef} className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif mb-4">{content.howitworks.title}</h2>
