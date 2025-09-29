@@ -73,6 +73,27 @@ const dataUrlToBlob = async (dataUrl: string): Promise<Blob> => {
     return blob;
   };
 
+  // Hilfsfunktion, um Dateinamen sicher zu machen (Umlaute, Sonderzeichen etc. entfernen)
+function sanitizeFileName(filename: string): string {
+  const germanUmlauts: { [key: string]: string } = {
+    'ä': 'ae', 'ö': 'oe', 'ü': 'ue', 'Ä': 'Ae', 'Ö': 'Oe', 'Ü': 'Ue', 'ß': 'ss',
+  };
+  
+  let sanitized = filename;
+  
+  // Umlaute ersetzen
+  for (const key in germanUmlauts) {
+    sanitized = sanitized.replace(new RegExp(key, 'g'), germanUmlauts[key]);
+  }
+
+  // Leerzeichen und andere unerwünschte Zeichen durch Bindestrich ersetzen
+  // Erlaubt sind Buchstaben, Zahlen, Punkte, Unterstriche und Bindestriche
+  return sanitized
+    .toLowerCase()
+    .replace(/[^a-z0-9._-]+/g, '-')
+    .replace(/--+/g, '-'); // Mehrfache Bindestriche durch einen ersetzen
+}
+
 type EditorText = {
   id: string;
   text: string;
@@ -1982,8 +2003,8 @@ const MemoryUploader = () => {
       // 3. Lade jetzt alle Dateien in den bestellungs-spezifischen Ordner hoch
       toast.info("Lade Dateien hoch...");
       const uploadPromises = [
-        ...form.images.map(f => supabase.storage.from('uploads').upload(`${orderFolderPath}/${f.file.name}`, f.file)),
-        ...form.videos.map(f => supabase.storage.from('uploads').upload(`${orderFolderPath}/${f.file.name}`, f.file))
+        ...form.images.map(f => supabase.storage.from('uploads').upload(`${orderFolderPath}/${sanitizeFileName(f.file.name)}`, f.file)),
+        ...form.videos.map(f => supabase.storage.from('uploads').upload(`${orderFolderPath}/${sanitizeFileName(f.file.name)}`, f.file))
       ];
 
       const uploadResults = await Promise.all(uploadPromises);
