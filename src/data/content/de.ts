@@ -534,24 +534,129 @@ export const deContent: ContentData = {
       description: "Laden Sie Erinnerungen Ihres Lieblings hoch."
     },
 
+    // Uploader-Overrides
     uploaderCopy: {
       headings: {
-        pageTitleByMode: { pet: "Produkt wählen:" },
-        step2ByMode: { pet: "Angaben zum Haustier" }
+        pageTitleByMode: { human: "Produkt wählen:", pet: "Produkt für dein Haustier wählen:", surprise: "Produkt für die Überraschung wählen:" },
+        step1Subtitle: "Wähle dein Produkt – die Inhalte lädst du im nächsten Schritt hoch.",
+        step2ByMode: { human: "Angaben zur Person", pet: "Angaben zum Haustier", surprise: "Angaben für die Überraschung" },
+        step2Subtitle: "Bitte die folgenden Felder ausfüllen. Notizen sind optional.",
+        step3Title: "Bilder & Videos hochladen",
+        step3Subtitle: "Dateien werden im Formular gespeichert und später mitgesendet.",
+        step4Title: "Kontaktangaben",
+        step4Subtitle: "Diese Daten verwenden wir für Rückfragen und die Auftragsbestätigung.",
+        step5Title: "Rechnungsangaben & Übersicht",
+        step5Subtitle: "Bitte prüfe die Adresse und die Zusammenfassung. Mit Weiter zur Zahlung! geht es später in den Checkout.",
+        summary: "Zusammenfassung"
+      },
+      buttons: {
+        back: "Zurück",
+        next: "Weiter",
+        reset: "Zurücksetzen",
+        toPay: "Weiter zur Zahlung",
+        addText: "Text hinzufügen",
+        applyDesign: "Design übernehmen",
+        remove: "Entfernen",
       },
       products: {
+        formatTitle: "Format",
+        frameTitle: "Frame gestalten",
+        formatTitleDeluxe: "Deluxe gestalten",
+        roundLabel: "Rund · Ø 3 cm",
+        squareLabel: "Quadratisch · 6×6 cm",
         petOptionsTitle: "Optionen für Haustier–Memora Tag",
         keychainLabel: "mit Schlüsselanhänger (+7 CHF)",
         designLabel: "Design",
         designStandard: "Standard",
         designCustom: "Individuell gestaltbar",
-        designCustomNote: "Hinweis: Individuelles Design kostet +10 CHF."
+        designCustomNote: "Hinweis: Individuelles Design kostet +10 CHF.",
+        frameTip:"Tipp: Bild mit der Maus/Touch verschieben und Texte hinzufügen & frei positionieren.",
+        frameOrientationLabel: "Ausrichtung",
+        framePortrait: "Hochformat",
+        frameLandscape: "Querformat",
+      },
+      editor: {
+        image: "Bild",
+        zoom: "Zoom",
+        posX: "Horizontale Position",
+        posY: "Vertikale Position",
+        emptyTitle: "Kein Bild ausgewählt",
+        emptySub: "Bitte oben ein Bild wählen",
+        selectedText: "Ausgewählter Text",
+        content: "Inhalt",
+        font: "Schriftart",
+        size: "Grösse",
+        color: "Farbe",
+        previewLabel: "Übernommene Vorschau",
+        previewNote: "Diese Vorschau wird mit der Bestellung gespeichert."
       },
       step2Fields: {
+        notes_human: "Weitere Notizen",
+        human_notesPH: "Besondere Wünsche, Zitate, Musik-Hinweise …",
         pet_name: "Name des Haustiers *",
         pet_deathDate: "Sterbedatum",
-        pet_notesPH: "Besondere Wünsche, Lieblingsgeräusche, Hinweise …"
-      }
+        pet_notesPH: "Besondere Wünsche, Lieblingsgeräusche, Hinweise …",
+      },
+      step3Fields: {
+        imagesLabel: "Bilder (mehrfach möglich)",
+        videosLabel: "Videos (mehrfach möglich)",
+        remove: "Entfernen",
+        imageCaptionPlaceholder: "Kurztext zum Bild (optional)",
+        videoCaptionPlaceholder: "Kurztext zum Video (optional)",
+        musicSelection: {
+          title: "Musik auswählen",
+          availableMusic: "Verfügbare Musik",
+          selected: "Ausgewählt",
+          select: "Auswählen",
+          moreMusic: "Weitere Musik von Pixabay",
+          pixabayPlaceholder: "Link von pixabay.com/music/ einfügen...",
+          pixabayButton: "Pixabay Music",
+        },
+      },
+      contactFields: {
+        firstName: "Vorname *",
+        lastName: "Nachname *",
+        email: "E-Mail *",
+        phoneOpt: "Telefon (optional)"
+      },
+      invoiceFields: {
+        sameAsContact: "Rechnungsadresse gleich Kontaktadresse",
+        companyOpt: "Firma (optional)",
+        firstName: "Vorname *",
+        lastName: "Nachname *",
+        street: "Strasse & Nr. *",
+        zip: "PLZ *",
+        city: "Ort *",
+        country: "Land *"
+      },
+      summary: {
+        mode: "Modus",
+        product: "Produkt",
+        format: "Format",
+        formatRound: "Rund Ø 3 cm",
+        formatSquare: "Quadratisch 6×6 cm",
+        options: "Optionen",
+        person: "Person",
+        pet: "Haustier",
+        recipient: "Empfänger",
+        notes: "Notizen",
+        counts: (imgs, vids) => `Bilder: ${imgs} • Videos: ${vids}`,
+        previewTitle: "Individuelle Vorschau",
+        optionOrientation: "Ausrichtung",
+        optionPortrait: "Hochformat",
+        optionLandscape: "Querformat",
+        modeHuman: "Human",
+        modePet: "Pet",
+        modeSurprise: "Surprise",
+        total: "Gesamtpreis"
+      },
+      privacyNotice: {
+        text: "Mit dem Hochladen von Bildern erklären Sie sich mit unseren",
+        privacyLink: "Datenschutzrichtlinien",
+        and: "und",
+        termsLink: "Nutzungsbedingungen",
+        agreed: "einverstanden.",
+      } 
     }
   },
 
@@ -612,15 +717,124 @@ export const deContent: ContentData = {
       description: "Laden Sie Inhalte hoch und wir gestalten Ihr Erlebnis."
     },
 
+    // Uploader-Overrides für den Surprise-Modus
     uploaderCopy: {
       headings: {
-        pageTitleByMode: { surprise: "Produkt wählen:" },
-        step2ByMode: { surprise: "Angaben für Surprise" }
+        pageTitleByMode: { human: "Produkt wählen:", pet: "Produkt für dein Haustier wählen:", surprise: "Produkt für die Überraschung wählen:" },
+        step1Subtitle: "Wähle dein Produkt – die Inhalte lädst du im nächsten Schritt hoch.",
+        step2ByMode: { human: "Angaben zur Person", pet: "Angaben zum Haustier", surprise: "Angaben für die Überraschung" },
+        step2Subtitle: "Bitte die folgenden Felder ausfüllen. Notizen sind optional.",
+        step3Title: "Bilder & Videos hochladen",
+        step3Subtitle: "Dateien werden im Formular gespeichert und später mitgesendet.",
+        step4Title: "Kontaktangaben",
+        step4Subtitle: "Diese Daten verwenden wir für Rückfragen und die Auftragsbestätigung.",
+        step5Title: "Rechnungsangaben & Übersicht",
+        step5Subtitle: "Bitte prüfe die Adresse und die Zusammenfassung. Mit Weiter zur Zahlung! geht es später in den Checkout.",
+        summary: "Zusammenfassung"
+      },
+      buttons: {
+        back: "Zurück",
+        next: "Weiter",
+        reset: "Zurücksetzen",
+        toPay: "Weiter zur Zahlung",
+        addText: "Text hinzufügen",
+        applyDesign: "Design übernehmen",
+        remove: "Entfernen",
+      },
+      products: {
+        formatTitle: "Format",
+        frameTitle: "Frame gestalten",
+        formatTitleDeluxe: "Deluxe gestalten",
+        roundLabel: "Rund · Ø 3 cm",
+        squareLabel: "Quadratisch · 6×6 cm",
+        petOptionsTitle: "Optionen für Haustier–Memora Tag",
+        frameTip:"Tipp: Bild mit der Maus/Touch verschieben und Texte hinzufügen & frei positionieren.",
+        frameOrientationLabel: "Ausrichtung",
+        framePortrait: "Hochformat",
+        frameLandscape: "Querformat",
+      },
+      editor: {
+        image: "Bild",
+        zoom: "Zoom",
+        posX: "Horizontale Position",
+        posY: "Vertikale Position",
+        emptyTitle: "Kein Bild ausgewählt",
+        emptySub: "Bitte oben ein Bild wählen",
+        selectedText: "Ausgewählter Text",
+        content: "Inhalt",
+        font: "Schriftart",
+        size: "Grösse",
+        color: "Farbe",
+        previewLabel: "Übernommene Vorschau",
+        previewNote: "Diese Vorschau wird mit der Bestellung gespeichert."
       },
       step2Fields: {
+        notes_human: "Anlass / Notizen",
+        human_notesPH: "Besondere Wünsche, Zitate, Musik-Hinweise …",
+        pet_notesPH: "Besondere Wünsche, Lieblingsgeräusche, Hinweise …",
         surprise_name: "Name (Empfänger) *",
-        surprise_notesPH: "Anlass, Idee oder besondere Wünsche …"
-      }
+        surprise_notesPH: "Hochzeit, Geburtstag, Jubiläum … besondere Wünsche"
+      },
+      step3Fields: {
+        imagesLabel: "Bilder (mehrfach möglich)",
+        videosLabel: "Videos (mehrfach möglich)",
+        remove: "Entfernen",
+        imageCaptionPlaceholder: "Kurztext zum Bild (optional)",
+        videoCaptionPlaceholder: "Kurztext zum Video (optional)",
+        musicSelection: {
+          title: "Musik auswählen",
+          availableMusic: "Verfügbare Musik",
+          selected: "Ausgewählt",
+          select: "Auswählen",
+          moreMusic: "Weitere Musik von Pixabay",
+          pixabayPlaceholder: "Link von pixabay.com/music/ einfügen...",
+          pixabayButton: "Pixabay Music",
+        },
+      },
+      contactFields: {
+        firstName: "Vorname *",
+        lastName: "Nachname *",
+        email: "E-Mail *",
+        phoneOpt: "Telefon (optional)"
+      },
+      invoiceFields: {
+        sameAsContact: "Rechnungsadresse gleich Kontaktadresse",
+        companyOpt: "Firma (optional)",
+        firstName: "Vorname *",
+        lastName: "Nachname *",
+        street: "Strasse & Nr. *",
+        zip: "PLZ *",
+        city: "Ort *",
+        country: "Land *"
+      },
+      summary: {
+        mode: "Modus",
+        product: "Produkt",
+        format: "Format",
+        formatRound: "Rund Ø 3 cm",
+        formatSquare: "Quadratisch 6×6 cm",
+        options: "Optionen",
+        person: "Person",
+        pet: "Haustier",
+        recipient: "Empfänger",
+        notes: "Notizen",
+        counts: (imgs, vids) => `Bilder: ${imgs} • Videos: ${vids}`,
+        previewTitle: "Individuelle Vorschau",
+        optionOrientation: "Ausrichtung",
+        optionPortrait: "Hochformat",
+        optionLandscape: "Querformat",
+        modeHuman: "Human",
+        modePet: "Pet",
+        modeSurprise: "Surprise",
+        total: "Gesamtpreis"
+      },
+      privacyNotice: {
+        text: "Mit dem Hochladen von Bildern erklären Sie sich mit unseren",
+        privacyLink: "Datenschutzrichtlinien",
+        and: "und",
+        termsLink: "Nutzungsbedingungen",
+        agreed: "einverstanden.",
+      } 
     }
   }
 };
