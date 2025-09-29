@@ -44,7 +44,7 @@ const Album = () => {
 
       if (error || !data) {
         console.error("Fehler beim Abrufen des Album-Links:", error);
-        setError("Dieses Album konnte nicht gefunden werden.");
+        setError("Dieses Album konnte nicht gefunden werden oder der Link ist nicht korrekt freigegeben.");
       } else if (!data.canva_link) {
         setError("Für diese Bestellung wurde noch kein Album erstellt.");
       } else {
@@ -59,24 +59,25 @@ const Album = () => {
   if (loading) return <Spinner />;
   if (error) return <ErrorDisplay message={error} />;
 
-  // Funktion, um den Einbettungs-Link sicher zu erstellen
+  // Funktion, um sicherzustellen, dass der Link das `?embed` am Ende hat
   const getEmbedLink = (url: string) => {
     try {
-      // Erstelle ein URL-Objekt, um den Link einfach zu bearbeiten
-      const link = new URL(url);
-      // Entferne alle bestehenden Parameter, um sauber zu starten
-      link.search = '';
-      // Füge den für die Einbettung notwendigen Parameter hinzu
-      link.searchParams.append('embed', '');
-      return link.toString();
+      if (!url.includes('canva.com/design')) {
+        throw new Error("Ungültiger Canva-Link.");
+      }
+      // Wenn der Link bereits '?embed' enthält, gib ihn einfach zurück
+      if (url.includes('?embed')) {
+        return url;
+      }
+      // Andernfalls füge es hinzu
+      return `${url}?embed`;
     } catch (e) {
-      // Falls die URL ungültig ist, gib eine Fehlermeldung aus
-      console.error("Ungültige Canva-URL:", url);
+      console.error("Fehler beim Erstellen des Einbettungs-Links:", e);
       setError("Der gespeicherte Canva-Link ist ungültig.");
       return "";
     }
   };
-  
+
   const embedLink = getEmbedLink(albumData.canva_link);
   const subjectName = albumData.subject_details || "diese besonderen Momente";
 
