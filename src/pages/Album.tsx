@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
 import { useContent } from '@/contexts/ContentContext';
-import { useIsMobile } from "@/hooks/use-mobile"; // Hook zur Erkennung von Mobilgeräten
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import { Play, Pause, X, ExternalLink } from "lucide-react";
 
@@ -26,7 +26,7 @@ const ErrorDisplay = ({ message }: { message: string }) => (
 const Album = () => {
   const { albumId } = useParams<{ albumId: string }>();
   const { sharedContent } = useContent();
-  const isMobile = useIsMobile(); // Prüft, ob wir auf einem mobilen Gerät sind
+  const isMobile = useIsMobile();
   const [albumData, setAlbumData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -121,7 +121,7 @@ const Album = () => {
   const subjectName = albumData.subject_details || sharedContent.albumPage.defaultName;
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-background p-4 pt-8 md:p-8 relative">
+    <div className="min-h-screen flex flex-col bg-background p-4 pt-8 md:p-8 relative">
       {musicSrc && (
         <div className="absolute top-4 right-4 md:top-8 md:right-8 z-30">
           <Button
@@ -172,22 +172,24 @@ const Album = () => {
               allowFullScreen={true}
             ></iframe>
           )}
-          
-          {/* *** HIER IST DIE LÖSUNG FÜR DEN VOLLBILDMODUS AUF DEM HANDY *** */}
-          {isMobile && embedLink && (
-            <a
-              href={embedLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="absolute bottom-4 right-4 z-20"
-            >
-              <Button variant="secondary" className="rounded-full shadow-lg">
-                <ExternalLink className="h-4 w-4 mr-2" />
-                {sharedContent.albumPage.openInNewTab}
-              </Button>
-            </a>
-          )}
         </div>
+
+        {/* *** HIER IST DIE ANPASSUNG FÜR DEN BUTTON *** */}
+        {/* Der Button wird jetzt nur auf Mobilgeräten *unterhalb* des Albums angezeigt */}
+        {isMobile && embedLink && (
+            <div className="mt-6 flex justify-center">
+                <a
+                    href={embedLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <Button variant="secondary" className="rounded-full shadow-lg">
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        {sharedContent.albumPage.openInNewTab}
+                    </Button>
+                </a>
+            </div>
+        )}
       </main>
     </div>
   );
