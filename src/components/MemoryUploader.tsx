@@ -66,6 +66,13 @@ type MediaFile = {
   id: string; // Eindeutige ID für die Bearbeitung und als React-Key
 };
 
+// Hilfsfunktion, um DataURL in Blob zu konvertieren
+const dataUrlToBlob = async (dataUrl: string): Promise<Blob> => {
+    const res = await fetch(dataUrl);
+    const blob = await res.blob();
+    return blob;
+  };
+
 type EditorText = {
   id: string;
   text: string;
@@ -1914,56 +1921,106 @@ const MemoryUploader = () => {
   };
   // placement of order
   const onPlaceOrder = async () => {
-      setIsSubmitting(true);
-      toast.info("Bestellung wird verarbeitet...");
+    setIsSubmitting(true);
+    toast.info("Bestellung wird verarbeitet...");
 
-      try {
-        // 1. Lade alle Dateien hoch
-        const uploadPromises = [
-          ...form.images.map(f => supabase.storage.from('uploads').upload(`${Date.now()}-${f.file.name}`, f.file)),
-          ...form.videos.map(f => supabase.storage.from('uploads').upload(`${Date.now()}-${f.file.name}`, f.file))
-        ];
-        
-        const uploadResults = await Promise.all(uploadPromises);
+    try {
+      // 1. Bereite die strukturierten Daten für die Datenbank vor
+      const optionsSummary = [];
+      if (form.product === 'basic' && form.tag_format) optionsSummary.push(`Format: ${form.tag_format}`);
+      if (form.product === 'premium' && form.frame_orientation) optionsSummary.push(`Ausrichtung: ${form.frame_orientation}`);
+      if (form.pet_tag_keychain) optionsSummary.push("Mit Schlüsselanhänger");
+      if (form.pet_tag_customEnabled) optionsSummary.push("Individuelles Design");
 
-        const uploadedFilePaths: string[] = [];
-        for (const result of uploadResults) {
-          if (result.error) {
-            console.error("Upload-Fehler:", result.error);
-            throw new Error(`Datei-Upload fehlgeschlagen: ${result.error.message}`);
-          }
-          uploadedFilePaths.push(result.data.path);
-        }
+      const subjectDetails = 
+        mode === 'human' ? `Person: ${form.human_firstName} ${form.human_lastName}` :
+        mode === 'pet' ? `Haustier: ${form.pet_name}` :
+        `Anlass für: ${form.surprise_name}`;
+      
+      const billingAddress = `${form.invoice_street}, ${form.invoice_zip} ${form.invoice_city}, ${form.invoice_country}`;
 
-        // 2. Bereite die Bestelldaten für die Datenbank vor
-        const { images, videos, ...formDataForDb } = form;
+      const musicChoice = form.selectedLocalMusic || form.pixabayMusicLink || "Keine Auswahl";
 
-        const orderPayload = {
-          customer_name: `${form.contact_firstName} ${form.contact_lastName}`,
-          customer_email: form.contact_email,
-          total_price: calculatePrice(form, mode as Mode),
-          order_data: formDataForDb,
-          files: uploadedFilePaths,
-        };
+      // 2. Erstelle einen ersten Datenbank-Eintrag, um eine ID zu bekommen
+      const initialOrderPayload = {
+        product_type: selected ? productMap[selected].title : "N/A",
+        options_summary: optionsSummary.join(', '),
+        total_price: calculatePrice(form, mode as Mode),
+        subject_details: subjectDetails,
+        music_choice: musicChoice,
+        contact_name: `${form.contact_firstName} ${form.contact_lastName}`,
+        contact_email: form.contact_email,
+        contact_phone: form.contact_phone || "N/A",
+        billing_address: billingAddress,
+        notes: form.notes || "Keine Notizen",
+      };
 
-        // 3. Speichere die Bestellung in der 'orders'-Tabelle
-        const { error: dbError } = await supabase.from('orders').insert([orderPayload]);
+      const { data: orderData, error: initialInsertError } = await supabase
+        .from('orders')
+        .insert(initialOrderPayload)
+        .select('id')
+        .single();
 
-        if (dbError) {
-          console.error("Datenbank-Fehler:", dbError);
-          throw new Error(`Datenbankfehler: ${dbError.message}`);
-        }
-
-        // 4. Erfolg!
-        toast.success("Vielen Dank! Deine Bestellung wurde erfolgreich übermittelt.");
-        resetAll();
-
-      } catch (error) {
-        console.error("Ein Fehler ist im Bestellprozess aufgetreten:", error);
-        toast.error(`Fehler bei der Bestellung: ${error instanceof Error ? error.message : "Ein unbekannter Fehler ist aufgetreten."}`);
-      } finally {
-        setIsSubmitting(false);
+      if (initialInsertError || !orderData) {
+        throw new Error(`Fehler beim Erstellen der Bestellung: ${initialInsertError?.message}`);
       }
+      
+      const orderId = orderData.id;
+      const orderFolderPath = `order_${orderId}`;
+
+      // 3. Lade jetzt alle Dateien in den bestellungs-spezifischen Ordner hoch
+      toast.info("Lade Dateien hoch...");
+      const uploadPromises = [
+        ...form.images.map(f => supabase.storage.from('uploads').upload(`${orderFolderPath}/${f.file.name}`, f.file)),
+        ...form.videos.map(f => supabase.storage.from('uploads').upload(`${orderFolderPath}/${f.file.name}`, f.file))
+      ];
+
+      const uploadResults = await Promise.all(uploadPromises);
+
+      const uploadedFilePaths: string[] = [];
+      for (const result of uploadResults) {
+        if (result.error) throw new Error(`Datei-Upload fehlgeschlagen: ${result.error.message}`);
+        uploadedFilePaths.push(result.data.path);
+      }
+
+      // 4. Lade das erstellte Vorschau-Bild hoch
+      let previewFilePath: string | null = null;
+      const previewDataUrl = form.frame_custom?.previewDataUrl || form.deluxe_custom?.previewDataUrl || form.pet_tag_custom?.previewDataUrl;
+      
+      if (previewDataUrl) {
+        toast.info("Lade Vorschau hoch...");
+        const previewBlob = await dataUrlToBlob(previewDataUrl);
+        const previewPath = `${orderFolderPath}/previews/custom_design_preview.png`;
+        
+        const { data: previewUploadData, error: previewUploadError } = await supabase.storage
+          .from('uploads')
+          .upload(previewPath, previewBlob, { contentType: 'image/png' });
+
+        if (previewUploadError) throw new Error(`Vorschau-Upload fehlgeschlagen: ${previewUploadError.message}`);
+        previewFilePath = previewUploadData.path;
+      }
+      
+      // 5. Aktualisiere den Datenbank-Eintrag mit den Dateipfaden
+      const { error: updateError } = await supabase
+        .from('orders')
+        .update({
+          uploaded_files: uploadedFilePaths,
+          preview_file_path: previewFilePath
+        })
+        .eq('id', orderId);
+
+      if (updateError) throw new Error(`Fehler beim Speichern der Dateipfade: ${updateError.message}`);
+
+      // 6. Erfolg!
+      toast.success("Vielen Dank! Deine Bestellung wurde erfolgreich übermittelt.");
+      resetAll();
+
+    } catch (error) {
+      console.error("Ein Fehler ist im Bestellprozess aufgetreten:", error);
+      toast.error(`Fehler bei der Bestellung: ${error instanceof Error ? error.message : "Ein unbekannter Fehler ist aufgetreten."}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   const resetAll = () => {
     clearPersisted();
