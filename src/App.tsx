@@ -18,6 +18,8 @@ import AGB from "./pages/AGB";
 import Impressum from "./pages/Impressum";
 import NotFound from "./pages/NotFound";
 
+import Album from "./pages/Album";
+
 const queryClient = new QueryClient();
 
 const RouteChangeTracker = () => {
@@ -50,6 +52,7 @@ const App = () => (
         <Route path="/datenschutz" element={<Datenschutz />} />
         <Route path="/agb" element={<AGB />} />
         <Route path="/impressum" element={<Impressum />} />
+        <Route path="/album/:albumId" element={<Album />} />
         {/* Fügt den RouteChangeTracker hinzu */}
         <Route path="*" element={<NotFound />} />
       </Routes>
