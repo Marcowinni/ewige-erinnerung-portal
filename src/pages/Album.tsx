@@ -29,7 +29,6 @@ const Album = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // State für den Audio Player
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -42,7 +41,6 @@ const Album = () => {
 
     const fetchAlbumData = async () => {
       setLoading(true);
-      // Wir holen jetzt auch `music_choice` aus der Datenbank
       const { data, error: dbError } = await supabase
         .from('orders')
         .select('canva_link, subject_details, music_choice')
@@ -62,7 +60,18 @@ const Album = () => {
     fetchAlbumData();
   }, [albumId]);
 
-  // Audio Player Logik
+  useEffect(() => {
+    if (albumData && audioRef.current) {
+      const audio = audioRef.current;
+      audio.play().then(() => {
+        setIsPlaying(true);
+      }).catch(error => {
+        console.log("Autoplay wurde vom Browser blockiert. Manuelle Interaktion erforderlich.", error);
+        setIsPlaying(false);
+      });
+    }
+  }, [albumData]);
+
   const togglePlayPause = () => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -70,23 +79,18 @@ const Album = () => {
     if (isPlaying) {
       audio.pause();
     } else {
-      audio.play().catch(e => console.error("Audio-Wiedergabe fehlgeschlagen:", e));
+      audio.play();
     }
     setIsPlaying(!isPlaying);
   };
-
+  
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-
     const handleEnded = () => setIsPlaying(false);
     audio.addEventListener('ended', handleEnded);
-
-    return () => {
-      audio.removeEventListener('ended', handleEnded);
-    };
+    return () => audio.removeEventListener('ended', handleEnded);
   }, []);
-
 
   if (loading) return <Spinner />;
   if (error) return <ErrorDisplay message={error} />;
@@ -102,16 +106,9 @@ const Album = () => {
     }
   };
 
-  // Ermittle die korrekte Musik-URL
   const getMusicSrc = (musicChoice: string) => {
-    if (!musicChoice || musicChoice === 'Keine Auswahl') {
-      return null;
-    }
-    // Prüft, ob es ein externer Link ist
-    if (musicChoice.startsWith('http')) {
-      return musicChoice;
-    }
-    // Andernfalls ist es eine lokale Datei
+    if (!musicChoice || musicChoice === 'Keine Auswahl') return null;
+    if (musicChoice.startsWith('http')) return musicChoice;
     return `/music/${musicChoice}`;
   };
 
@@ -120,16 +117,19 @@ const Album = () => {
   const subjectName = albumData.subject_details || sharedContent.albumPage.defaultName;
 
   return (
-    <div className="min-h-screen flex flex-col bg-background p-4 md:p-8 relative">
-      {/* Audio-Player und Button */}
+    // *** HIER IST DIE ANPASSUNG ***
+    // Alter Code: p-4 md:p-8
+    // Neuer Code: p-2 sm:p-4 md:p-8
+    <div className="min-h-screen flex flex-col bg-background p-2 sm:p-4 md:p-8 relative">
       {musicSrc && (
         <>
           <audio ref={audioRef} src={musicSrc} loop />
+          {/* Button-Position ebenfalls für mobile angepasst */}
           <Button
             onClick={togglePlayPause}
             variant="outline"
             size="icon"
-            className="absolute top-4 right-4 md:top-8 md:right-8 z-10 rounded-full h-12 w-12"
+            className="absolute top-2 right-2 sm:top-4 sm:right-4 md:top-8 md:right-8 z-10 rounded-full h-12 w-12"
             title={isPlaying ? sharedContent.albumPage.pauseButton : sharedContent.albumPage.playButton}
           >
             {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
@@ -138,10 +138,10 @@ const Album = () => {
       )}
 
       <main className="flex-grow container mx-auto text-center flex flex-col">
-        <h1 className="text-4xl md:text-5xl font-serif mb-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif mb-2 sm:mb-4">
           {sharedContent.albumPage.title(subjectName)}
         </h1>
-        <p className="text-xl text-muted-foreground mb-8">
+        <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8">
           {sharedContent.albumPage.subtitle}
         </p>
         
