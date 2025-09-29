@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
 import { useContent } from '@/contexts/ContentContext';
@@ -35,6 +35,21 @@ const Album = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   
   const [showPlayButtonHint, setShowPlayButtonHint] = useState(true);
+
+  // *** FEHLERBEHEBUNG #310: useMemo MUSS an den Anfang der Komponente ***
+  // Alle Hooks müssen vor den ersten return-Statements aufgerufen werden.
+  const embedLink = useMemo(() => {
+    if (!albumData?.canva_link) return null;
+    try {
+      if (albumData.canva_link.includes('?embed')) {
+        return albumData.canva_link;
+      }
+      return `${albumData.canva_link}?embed`;
+    } catch {
+      return null;
+    }
+  }, [albumData?.canva_link]);
+
 
   useEffect(() => {
     if (!albumId) {
@@ -100,28 +115,17 @@ const Album = () => {
   if (error) return <ErrorDisplay message={error} />;
   if (!albumData) return <ErrorDisplay message="Keine Album-Daten zum Anzeigen vorhanden." />;
 
-  const getEmbedLink = (url: string) => {
-    try {
-      if (!url.includes('canva.com/design')) throw new Error("Ungültiger Canva-Link.");
-      return url.includes('?embed') ? url : `${url}?embed`;
-    } catch (e) {
-      setError("Der gespeicherte Canva-Link ist ungültig.");
-      return "";
-    }
-  };
-
   const getMusicSrc = (musicChoice: string) => {
     if (!musicChoice || musicChoice === 'Keine Auswahl') return null;
     if (musicChoice.startsWith('http')) return musicChoice;
     return `/music/${musicChoice}`;
   };
 
-  const embedLink = getEmbedLink(albumData.canva_link);
   const musicSrc = getMusicSrc(albumData.music_choice);
   const subjectName = albumData.subject_details || sharedContent.albumPage.defaultName;
 
   return (
-    <div className="min-h-screen flex flex-col bg-background p-4 pt-8 md:p-8 relative">
+    <div className="h-screen w-screen flex flex-col bg-background p-4 pt-8 md:p-8 relative">
       {musicSrc && (
         <div className="absolute top-4 right-4 md:top-8 md:right-8 z-30">
           <Button
@@ -146,6 +150,7 @@ const Album = () => {
                 >
                   <X className="h-4 w-4" />
                 </Button>
+                {/* *** KORRIGIERTER PFEIL *** */}
                 <div className="absolute -top-2 right-4 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-primary"></div>
               </div>
             </div>
@@ -163,7 +168,7 @@ const Album = () => {
         </p>
         
         <div className="relative flex-1 w-full max-w-5xl mx-auto">
-          {embedLink && (
+          {embedLink ? (
             <iframe
               loading="lazy"
               src={embedLink}
@@ -171,11 +176,9 @@ const Album = () => {
               allow="fullscreen; autoplay; clipboard-write;"
               allowFullScreen={true}
             ></iframe>
-          )}
+          ) : <ErrorDisplay message="Der Canva-Link ist ungültig oder konnte nicht verarbeitet werden." />}
         </div>
 
-        {/* *** HIER IST DIE ANPASSUNG FÜR DEN BUTTON *** */}
-        {/* Der Button wird jetzt nur auf Mobilgeräten *unterhalb* des Albums angezeigt */}
         {isMobile && embedLink && (
             <div className="mt-6 flex justify-center">
                 <a
