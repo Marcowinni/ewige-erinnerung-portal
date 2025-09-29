@@ -11,6 +11,14 @@ export const itContent: ContentData = {
       mode: { human: "Persona", pet: "Animali", surprise: "Sorpresa" }
     },
 
+    albumPage: {
+      title: (name) => `Ricordi di ${name}`,
+      subtitle: "Una raccolta di momenti indimenticabili.",
+      defaultName: "questi momenti speciali",
+      playButton: "Riproduci musica",
+      pauseButton: "Metti in pausa la musica"
+    },
+
     // SEO/Meta per la pagina Chi Siamo
     about: {
       title: "Chi Siamo - Memora Moments",

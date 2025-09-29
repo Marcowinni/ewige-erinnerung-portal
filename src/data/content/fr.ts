@@ -10,6 +10,15 @@ export const frContent: ContentData = {
       start: "Commencer un Mémorial",
       mode: { human: "Personnes", pet: "Animaux", surprise: "Surprise" }
     },
+
+    albumPage: {
+      title: (name) => `Souvenirs de ${name}`,
+      subtitle: "Une collection de moments inoubliables.",
+      defaultName: "ces moments spéciaux",
+      playButton: "Jouer la musique",
+      pauseButton: "Mettre la musique en pause"
+    },
+    
     about: {
       title: "À propos de Nous - Memora Moments",
       heading: "À propos de Memora Moments",

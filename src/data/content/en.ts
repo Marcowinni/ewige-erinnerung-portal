@@ -11,6 +11,14 @@ export const enContent: ContentData = {
       mode: { human: "Human", pet: "Pets", surprise: "Surprise" }
     },
 
+    albumPage: {
+      title: (name) => `Memories of ${name}`,
+      subtitle: "A collection of unforgettable moments.",
+      defaultName: "these special moments",
+      playButton: "Play Music",
+      pauseButton: "Pause Music"
+    },
+
     // SEO/Meta for the About page
     about: {
       title: "About Us - Memora Moments",

@@ -11,6 +11,14 @@ export const deContent: ContentData = {
       mode: { human: "Menschen", pet: "Haustiere", surprise: "Surprise" }
     },
 
+    albumPage: {
+      title: (name) => `Erinnerungen an ${name}`,
+      subtitle: "Eine Sammlung unvergesslicher Augenblicke.",
+      defaultName: "diese besonderen Momente",
+      playButton: "Musik abspielen",
+      pauseButton: "Musik pausieren"
+    },
+
     // SEO/Meta für die About-Seite
     about: {
       title: "Über uns - Memora Moments",

@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import { useContent } from '@/contexts/ContentContext';
+import { Button } from "@/components/ui/button";
+import { Play, Pause } from "lucide-react";
 
 // Lade-Spinner Komponente
 const Spinner = () => (
@@ -23,105 +24,139 @@ const ErrorDisplay = ({ message }: { message: string }) => (
 
 const Album = () => {
   const { albumId } = useParams<{ albumId: string }>();
+  const { sharedContent } = useContent();
   const [albumData, setAlbumData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  console.log("1. Album-Komponente wird gerendert. Album ID aus URL:", albumId);
+  // State für den Audio Player
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    // Diese Funktion wird nur einmal beim Laden der Seite ausgeführt.
     if (!albumId) {
-      console.error("FEHLER: Keine Album-ID in der URL gefunden.");
       setError("Keine Album-ID in der URL gefunden.");
       setLoading(false);
       return;
     }
 
     const fetchAlbumData = async () => {
-      console.log("2. Starte Datenabruf von Supabase für ID:", albumId);
       setLoading(true);
-
+      // Wir holen jetzt auch `music_choice` aus der Datenbank
       const { data, error: dbError } = await supabase
         .from('orders')
-        .select('canva_link, subject_details')
+        .select('canva_link, subject_details, music_choice')
         .eq('id', albumId)
         .single();
 
-      console.log("3. Supabase-Antwort erhalten:", { data, dbError });
-
       if (dbError || !data) {
-        console.error("FEHLER beim Abrufen der Album-Daten:", dbError);
-        setError("Dieses Album konnte nicht gefunden werden oder der Link ist nicht korrekt freigegeben.");
+        setError("Dieses Album konnte nicht gefunden werden.");
       } else if (!data.canva_link) {
-        console.warn("WARNUNG: Album gefunden, aber es ist kein Canva-Link hinterlegt.");
         setError("Für diese Bestellung wurde noch kein Album erstellt.");
       } else {
-        console.log("ERFOLG: Album-Daten erfolgreich geladen.");
         setAlbumData(data);
       }
       setLoading(false);
     };
 
     fetchAlbumData();
-  }, [albumId]); // Dieser Haken wird nur ausgeführt, wenn sich die albumId ändert.
+  }, [albumId]);
 
-  const getEmbedLink = (url: string | undefined) => {
-    if (!url) return "";
+  // Audio Player Logik
+  const togglePlayPause = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play().catch(e => console.error("Audio-Wiedergabe fehlgeschlagen:", e));
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleEnded = () => setIsPlaying(false);
+    audio.addEventListener('ended', handleEnded);
+
+    return () => {
+      audio.removeEventListener('ended', handleEnded);
+    };
+  }, []);
+
+
+  if (loading) return <Spinner />;
+  if (error) return <ErrorDisplay message={error} />;
+  if (!albumData) return <ErrorDisplay message="Keine Album-Daten zum Anzeigen vorhanden." />;
+
+  const getEmbedLink = (url: string) => {
     try {
-      if (!url.includes('canva.com/design')) {
-        throw new Error("Ungültiger Canva-Link.");
-      }
+      if (!url.includes('canva.com/design')) throw new Error("Ungültiger Canva-Link.");
       return url.includes('?embed') ? url : `${url}?embed`;
     } catch (e) {
-      console.error("Fehler beim Erstellen des Einbettungs-Links:", e);
       setError("Der gespeicherte Canva-Link ist ungültig.");
       return "";
     }
   };
 
-  console.log("4. Zustand vor dem Rendern der Ansicht:", { loading, error, hasAlbumData: !!albumData });
+  // Ermittle die korrekte Musik-URL
+  const getMusicSrc = (musicChoice: string) => {
+    if (!musicChoice || musicChoice === 'Keine Auswahl') {
+      return null;
+    }
+    // Prüft, ob es ein externer Link ist
+    if (musicChoice.startsWith('http')) {
+      return musicChoice;
+    }
+    // Andernfalls ist es eine lokale Datei
+    return `/music/${musicChoice}`;
+  };
 
-  if (loading) {
-    console.log("5a. Zeige Lade-Spinner an.");
-    return <Spinner />;
-  }
-  
-  if (error) {
-    console.log("5b. Zeige Fehlermeldung an:", error);
-    return <ErrorDisplay message={error} />;
-  }
-
-  if (!albumData) {
-    console.log("5c. Zeige Fehlermeldung an, da keine Album-Daten vorhanden sind.");
-    return <ErrorDisplay message="Keine Album-Daten zum Anzeigen vorhanden." />;
-  }
-  
   const embedLink = getEmbedLink(albumData.canva_link);
-  const subjectName = albumData.subject_details || "diese besonderen Momente";
-  
-  console.log("5d. Bereit zum Rendern des Albums mit diesem Link:", embedLink);
+  const musicSrc = getMusicSrc(albumData.music_choice);
+  const subjectName = albumData.subject_details || sharedContent.albumPage.defaultName;
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
-      <main className="flex-grow container mx-auto px-4 py-16 text-center flex flex-col">
-        <h1 className="text-4xl md:text-5xl font-serif mb-4">Erinnerungen an {subjectName}</h1>
-        <p className="text-xl text-muted-foreground mb-8">Eine Sammlung unvergesslicher Augenblicke.</p>
+    <div className="min-h-screen flex flex-col bg-background p-4 md:p-8 relative">
+      {/* Audio-Player und Button */}
+      {musicSrc && (
+        <>
+          <audio ref={audioRef} src={musicSrc} loop />
+          <Button
+            onClick={togglePlayPause}
+            variant="outline"
+            size="icon"
+            className="absolute top-4 right-4 md:top-8 md:right-8 z-10 rounded-full h-12 w-12"
+            title={isPlaying ? sharedContent.albumPage.pauseButton : sharedContent.albumPage.playButton}
+          >
+            {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
+          </Button>
+        </>
+      )}
+
+      <main className="flex-grow container mx-auto text-center flex flex-col">
+        <h1 className="text-4xl md:text-5xl font-serif mb-4">
+          {sharedContent.albumPage.title(subjectName)}
+        </h1>
+        <p className="text-xl text-muted-foreground mb-8">
+          {sharedContent.albumPage.subtitle}
+        </p>
         
         <div className="flex-grow w-full aspect-video border rounded-lg overflow-hidden shadow-xl">
-          {embedLink ? (
+          {embedLink && (
             <iframe
               loading="lazy"
               src={embedLink}
               className="w-full h-full border-0"
               allowFullScreen
-              allow="fullscreen"
+              allow="fullscreen; autoplay"
             ></iframe>
-          ) : <ErrorDisplay message="Einbettungs-Link konnte nicht erstellt werden." />}
+          )}
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

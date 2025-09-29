@@ -326,6 +326,14 @@ export interface FooterContent {
   copyright: string;
 }
 
+export interface AlbumPageContent {
+  title: (name: string) => string;
+  subtitle: string;
+  defaultName: string;
+  playButton: string;
+  pauseButton: string;
+}
+
 export interface SharedContent {
   navigation: NavigationContent;
   about: {
@@ -364,7 +372,10 @@ export interface SharedContent {
   aboutPage: AboutPageContent;
   legal: LegalContent;
   footer: FooterContent;
+  albumPage: AlbumPageContent;
 }
+
+
 
 /* ==========================================
    ModeContent: mit optionalem uploaderCopy-Override
