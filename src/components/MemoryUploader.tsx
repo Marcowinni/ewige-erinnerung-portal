@@ -491,6 +491,7 @@ function DesignEditor({
   copy: UploaderCopy; // Geändert von UploaderCopy["editor"] zu UploaderCopy
   tip?: string;
 }) {
+  const PREVIEW_SCALE_FACTOR = 3;
   const W = width;
   const H = height;
 
@@ -650,9 +651,15 @@ function DesignEditor({
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    
+    // Wende den Skalierungsfaktor an
+    ctx.resetTransform();
+    ctx.scale(PREVIEW_SCALE_FACTOR, PREVIEW_SCALE_FACTOR);
+
     ctx.imageSmoothingQuality = "high";
     ctx.clearRect(0, 0, W, H);
-    applyClip(ctx, W, H);
+    applyClip(ctx, W, H); // applyClip arbeitet weiterhin mit den originalen W/H-Werten
+
     if (imgRef.current) {
       const img = imgRef.current;
       const scaledW = img.width * local.scale;
@@ -664,6 +671,7 @@ function DesignEditor({
       ctx.fillStyle = "rgba(148, 163, 184, 0.15)";
       ctx.fillRect(0, 0, W, H);
     }
+
     if (renderTexts) {
       local.texts.forEach(t => {
         ctx.fillStyle = t.color || "#ffffff";
@@ -673,7 +681,10 @@ function DesignEditor({
         wrapText(ctx, t.text || "", t.x * W, t.y * H, (t.width || 0.8) * W, t.fontSize || 24);
       });
     }
-    ctx.restore();
+    
+    // WICHTIG: Die globale Transformation zurücksetzen nach dem Zeichnen
+    ctx.resetTransform();
+    ctx.restore(); // applyClip's save() wiederherstellen
   };
 
   useEffect(() => {
@@ -805,7 +816,7 @@ function DesignEditor({
                   onPointerUp={onPointerUpOrCancel}
                   onPointerCancel={onPointerUpOrCancel}
                 >
-                  <canvas ref={canvasRef} width={W} height={H} className="w-full h-full" />
+                  <canvas ref={canvasRef} width={W * PREVIEW_SCALE_FACTOR} height={H * PREVIEW_SCALE_FACTOR} className="w-full h-full" />
                   {!local.bgImageUrl && (
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none border-dashed border-muted-foreground/30 border-2" style={{ borderRadius: 'inherit' }}>
                       <div className="text-center text-muted-foreground">
