@@ -16,7 +16,8 @@ export const deContent: ContentData = {
       subtitle: "Eine Sammlung unvergesslicher Augenblicke.",
       defaultName: "diese besonderen Momente",
       playButton: "Musik abspielen",
-      pauseButton: "Musik pausieren"
+      pauseButton: "Musik pausieren",
+      playButtonHint: "Hier die Musik steuern"
     },
 
     // SEO/Meta für die About-Seite

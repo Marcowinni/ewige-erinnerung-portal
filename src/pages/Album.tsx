@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
 import { useContent } from '@/contexts/ContentContext';
 import { Button } from "@/components/ui/button";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, X } from "lucide-react";
 
 // Lade-Spinner Komponente
 const Spinner = () => (
@@ -29,8 +29,12 @@ const Album = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // State für den Audio Player
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  
+  // NEU: State für den Hinweis
+  const [showPlayButtonHint, setShowPlayButtonHint] = useState(true);
 
   useEffect(() => {
     if (!albumId) {
@@ -66,7 +70,7 @@ const Album = () => {
       audio.play().then(() => {
         setIsPlaying(true);
       }).catch(error => {
-        console.log("Autoplay wurde vom Browser blockiert. Manuelle Interaktion erforderlich.", error);
+        console.log("Autoplay wurde vom Browser blockiert.", error);
         setIsPlaying(false);
       });
     }
@@ -117,27 +121,45 @@ const Album = () => {
   const subjectName = albumData.subject_details || sharedContent.albumPage.defaultName;
 
   return (
-    // *** HIER IST DIE ANPASSUNG ***
-    // Alter Code: p-4 md:p-8
-    // Neuer Code: p-2 sm:p-4 md:p-8
-    <div className="min-h-screen flex flex-col bg-background p-2 sm:p-4 md:p-8 relative">
+    <div className="min-h-screen flex flex-col bg-background p-4 pt-8 md:p-8 relative">
       {musicSrc && (
         <>
           <audio ref={audioRef} src={musicSrc} loop />
-          {/* Button-Position ebenfalls für mobile angepasst */}
-          <Button
-            onClick={togglePlayPause}
-            variant="outline"
-            size="icon"
-            className="absolute top-2 right-2 sm:top-4 sm:right-4 md:top-8 md:right-8 z-10 rounded-full h-12 w-12"
-            title={isPlaying ? sharedContent.albumPage.pauseButton : sharedContent.albumPage.playButton}
-          >
-            {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
-          </Button>
+          <div className="absolute top-4 right-4 md:top-8 md:right-8 z-20">
+            <Button
+              onClick={togglePlayPause}
+              variant="outline"
+              size="icon"
+              className="rounded-full h-12 w-12"
+              title={isPlaying ? sharedContent.albumPage.pauseButton : sharedContent.albumPage.playButton}
+            >
+              {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
+            </Button>
+          </div>
+
+          {/* NEU: Der Hinweis, der auf den Button zeigt */}
+          {showPlayButtonHint && (
+            <div className="absolute top-20 right-4 md:top-24 md:right-8 z-10 animate-in fade-in duration-500">
+              <div className="relative bg-primary text-primary-foreground rounded-lg p-3 pr-8 shadow-lg max-w-[150px] text-center">
+                <p className="text-sm font-medium">{sharedContent.albumPage.playButtonHint}</p>
+                {/* Schliessen-Button für den Hinweis */}
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="absolute top-0 right-0 h-8 w-8 text-primary-foreground/70 hover:text-primary-foreground"
+                  onClick={() => setShowPlayButtonHint(false)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+                {/* Pfeil, der nach oben zeigt */}
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-primary"></div>
+              </div>
+            </div>
+          )}
         </>
       )}
 
-      <main className="flex-grow container mx-auto text-center flex flex-col">
+      <main className="w-full flex-grow text-center flex flex-col">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif mb-2 sm:mb-4">
           {sharedContent.albumPage.title(subjectName)}
         </h1>
@@ -145,7 +167,7 @@ const Album = () => {
           {sharedContent.albumPage.subtitle}
         </p>
         
-        <div className="flex-grow w-full aspect-video border rounded-lg overflow-hidden shadow-xl">
+        <div className="flex-grow w-full max-w-5xl mx-auto aspect-video border rounded-lg overflow-hidden shadow-xl">
           {embedLink && (
             <iframe
               loading="lazy"

@@ -16,7 +16,8 @@ export const itContent: ContentData = {
       subtitle: "Una raccolta di momenti indimenticabili.",
       defaultName: "questi momenti speciali",
       playButton: "Riproduci musica",
-      pauseButton: "Metti in pausa la musica"
+      pauseButton: "Metti in pausa la musica",
+      playButtonHint: "Controlla la musica qui"
     },
 
     // SEO/Meta per la pagina Chi Siamo

@@ -16,9 +16,10 @@ export const frContent: ContentData = {
       subtitle: "Une collection de moments inoubliables.",
       defaultName: "ces moments spéciaux",
       playButton: "Jouer la musique",
-      pauseButton: "Mettre la musique en pause"
+      pauseButton: "Mettre la musique en pause",
+      playButtonHint: "Contrôlez la musique ici"
     },
-    
+
     about: {
       title: "À propos de Nous - Memora Moments",
       heading: "À propos de Memora Moments",

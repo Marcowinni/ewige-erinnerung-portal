@@ -16,7 +16,8 @@ export const enContent: ContentData = {
       subtitle: "A collection of unforgettable moments.",
       defaultName: "these special moments",
       playButton: "Play Music",
-      pauseButton: "Pause Music"
+      pauseButton: "Pause Music",
+      playButtonHint: "Control the music here"
     },
 
     // SEO/Meta for the About page
