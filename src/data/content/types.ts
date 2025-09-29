@@ -333,6 +333,7 @@ export interface AlbumPageContent {
   playButton: string;
   pauseButton: string;
   playButtonHint: string;
+  openInNewTab: string;
 }
 
 export interface SharedContent {

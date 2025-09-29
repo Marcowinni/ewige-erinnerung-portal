@@ -17,7 +17,8 @@ export const itContent: ContentData = {
       defaultName: "questi momenti speciali",
       playButton: "Riproduci musica",
       pauseButton: "Metti in pausa la musica",
-      playButtonHint: "Controlla la musica qui"
+      playButtonHint: "Controlla la musica qui",
+      openInNewTab: "Apri a schermo intero"
     },
 
     // SEO/Meta per la pagina Chi Siamo

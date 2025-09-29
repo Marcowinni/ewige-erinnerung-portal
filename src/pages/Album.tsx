@@ -2,8 +2,9 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
 import { useContent } from '@/contexts/ContentContext';
+import { useIsMobile } from "@/hooks/use-mobile"; // Hook zur Erkennung von Mobilgeräten
 import { Button } from "@/components/ui/button";
-import { Play, Pause, X } from "lucide-react";
+import { Play, Pause, X, ExternalLink } from "lucide-react";
 
 // Lade-Spinner Komponente
 const Spinner = () => (
@@ -25,6 +26,7 @@ const ErrorDisplay = ({ message }: { message: string }) => (
 const Album = () => {
   const { albumId } = useParams<{ albumId: string }>();
   const { sharedContent } = useContent();
+  const isMobile = useIsMobile(); // Prüft, ob wir auf einem mobilen Gerät sind
   const [albumData, setAlbumData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -121,7 +123,6 @@ const Album = () => {
   return (
     <div className="h-screen w-screen flex flex-col bg-background p-4 pt-8 md:p-8 relative">
       {musicSrc && (
-        // Dieser Container sorgt dafür, dass die Buttons über dem Inhalt liegen
         <div className="absolute top-4 right-4 md:top-8 md:right-8 z-30">
           <Button
             onClick={togglePlayPause}
@@ -153,7 +154,6 @@ const Album = () => {
       )}
       <audio ref={audioRef} src={musicSrc ?? ''} loop />
 
-      {/* Das main-Element bekommt einen z-index, damit es unter den Buttons liegt */}
       <main className="w-full h-full flex flex-col text-center relative z-10">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif mb-2 sm:mb-4 shrink-0">
           {sharedContent.albumPage.title(subjectName)}
@@ -168,13 +168,24 @@ const Album = () => {
               loading="lazy"
               src={embedLink}
               className="absolute top-0 left-0 w-full h-full border-0 rounded-lg shadow-xl"
-              // *** HIER IST DIE LÖSUNG FÜR VOLLBILD & BEDIENUNG ***
               allow="fullscreen; autoplay; clipboard-write;"
               allowFullScreen={true}
-              // @ts-ignore
-              webkitallowfullscreen="true"
-              mozallowfullscreen="true"
             ></iframe>
+          )}
+          
+          {/* *** HIER IST DIE LÖSUNG FÜR DEN VOLLBILDMODUS AUF DEM HANDY *** */}
+          {isMobile && embedLink && (
+            <a
+              href={embedLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute bottom-4 right-4 z-20"
+            >
+              <Button variant="secondary" className="rounded-full shadow-lg">
+                <ExternalLink className="h-4 w-4 mr-2" />
+                {sharedContent.albumPage.openInNewTab}
+              </Button>
+            </a>
           )}
         </div>
       </main>
