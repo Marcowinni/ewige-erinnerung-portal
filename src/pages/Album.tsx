@@ -59,11 +59,25 @@ const Album = () => {
   if (loading) return <Spinner />;
   if (error) return <ErrorDisplay message={error} />;
 
-  // Erstelle den Einbettungs-Link für Canva
-  // Statt /view durch /embed zu ersetzen, was oft nicht mehr funktioniert,
-  // nutzen wir eine URL-Struktur, die für die Einbettung vorgesehen ist.
-  const embedLink = `${albumData.canva_link}?embed`;
-
+  // Funktion, um den Einbettungs-Link sicher zu erstellen
+  const getEmbedLink = (url: string) => {
+    try {
+      // Erstelle ein URL-Objekt, um den Link einfach zu bearbeiten
+      const link = new URL(url);
+      // Entferne alle bestehenden Parameter, um sauber zu starten
+      link.search = '';
+      // Füge den für die Einbettung notwendigen Parameter hinzu
+      link.searchParams.append('embed', '');
+      return link.toString();
+    } catch (e) {
+      // Falls die URL ungültig ist, gib eine Fehlermeldung aus
+      console.error("Ungültige Canva-URL:", url);
+      setError("Der gespeicherte Canva-Link ist ungültig.");
+      return "";
+    }
+  };
+  
+  const embedLink = getEmbedLink(albumData.canva_link);
   const subjectName = albumData.subject_details || "diese besonderen Momente";
 
   return (
@@ -75,13 +89,15 @@ const Album = () => {
         
         {/* Eingebettetes Canva-Album */}
         <div className="flex-grow w-full aspect-video border rounded-lg overflow-hidden shadow-xl">
-          <iframe
-            loading="lazy"
-            src={embedLink}
-            className="w-full h-full border-0"
-            allowFullScreen
-            allow="fullscreen"
-          ></iframe>
+          {embedLink && (
+            <iframe
+              loading="lazy"
+              src={embedLink}
+              className="w-full h-full border-0"
+              allowFullScreen
+              allow="fullscreen"
+            ></iframe>
+          )}
         </div>
       </main>
       <Footer />
