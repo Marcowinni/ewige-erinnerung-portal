@@ -36,10 +36,9 @@ const Album = () => {
 
     const fetchAlbumData = async () => {
       setLoading(true);
-      // Wir holen uns jetzt mehr Daten, um die Seite zu personalisieren
       const { data, error } = await supabase
         .from('orders')
-        .select('canva_link, subject_details') // NEU: `subject_details` hinzugefügt
+        .select('canva_link, subject_details')
         .eq('id', albumId)
         .single();
 
@@ -61,9 +60,10 @@ const Album = () => {
   if (error) return <ErrorDisplay message={error} />;
 
   // Erstelle den Einbettungs-Link für Canva
-  const embedLink = albumData.canva_link.replace("/view", "/embed");
-  
-  // Extrahiere den Namen für den Titel
+  // Statt /view durch /embed zu ersetzen, was oft nicht mehr funktioniert,
+  // nutzen wir eine URL-Struktur, die für die Einbettung vorgesehen ist.
+  const embedLink = `${albumData.canva_link}?embed`;
+
   const subjectName = albumData.subject_details || "diese besonderen Momente";
 
   return (
@@ -76,6 +76,7 @@ const Album = () => {
         {/* Eingebettetes Canva-Album */}
         <div className="flex-grow w-full aspect-video border rounded-lg overflow-hidden shadow-xl">
           <iframe
+            loading="lazy"
             src={embedLink}
             className="w-full h-full border-0"
             allowFullScreen
