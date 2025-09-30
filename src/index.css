@@ -135,3 +135,71 @@
   filter: invert(0.85) sepia(1) hue-rotate(180deg) saturate(3);
   border-radius: 999px;
 }
+
+/* --- Neue Album Styles --- */
+.album-background {
+  background-image: url('/lovable-uploads/background_album.png'); /* Fallback */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.album-background::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: hsla(var(--background), 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 0;
+}
+
+/* Desktop: Buch-Container */
+.album-container {
+  display: flex;
+  perspective: 1500px;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+  position: relative;
+}
+
+.album-page {
+  background-color: hsl(var(--card));
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid hsl(var(--border));
+}
+
+.album-page.left-page, .album-page.right-page {
+    width: 50%;
+    height: 100%;
+}
+
+.album-page.left-page {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-right: none;
+}
+
+.album-page.right-page {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border-left: none;
+}
+
+.album-spine {
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(to right, hsl(var(--border)), hsl(var(--muted)), hsl(var(--border)));
+}
+
+
+/* Mobile: Cover & Fullscreen Modal */
+.album-cover-mobile {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.album-cover-mobile:hover {
+    transform: scale(1.03);
+    box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
+}
+

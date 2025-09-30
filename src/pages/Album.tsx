@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase';
 import { useContent } from '@/contexts/ContentContext';
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
-import { Play, Pause, X, ExternalLink } from "lucide-react";
+import { Play, Pause, X, ExternalLink, Music4, BookOpen } from "lucide-react";
 
 // Lade-Spinner Komponente
 const Spinner = () => (
@@ -33,23 +33,19 @@ const Album = () => {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-  
-  const [showPlayButtonHint, setShowPlayButtonHint] = useState(true);
+  const [isAlbumOpen, setIsAlbumOpen] = useState(false);
 
-  // *** FEHLERBEHEBUNG #310: useMemo MUSS an den Anfang der Komponente ***
-  // Alle Hooks müssen vor den ersten return-Statements aufgerufen werden.
   const embedLink = useMemo(() => {
     if (!albumData?.canva_link) return null;
     try {
-      if (albumData.canva_link.includes('?embed')) {
-        return albumData.canva_link;
-      }
-      return `${albumData.canva_link}?embed`;
+      const url = new URL(albumData.canva_link);
+      url.searchParams.set('embed', '');
+      url.searchParams.set('autoplay', '1');
+      return url.toString();
     } catch {
       return null;
     }
   }, [albumData?.canva_link]);
-
 
   useEffect(() => {
     if (!albumId) {
@@ -57,7 +53,6 @@ const Album = () => {
       setLoading(false);
       return;
     }
-
     const fetchAlbumData = async () => {
       setLoading(true);
       const { data, error: dbError } = await supabase
@@ -75,31 +70,25 @@ const Album = () => {
       }
       setLoading(false);
     };
-
     fetchAlbumData();
   }, [albumId]);
 
   useEffect(() => {
-    if (albumData && audioRef.current) {
-      const audio = audioRef.current;
-      audio.play().then(() => {
-        setIsPlaying(true);
-      }).catch(error => {
-        console.log("Autoplay wurde vom Browser blockiert.", error);
-        setIsPlaying(false);
-      });
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (isAlbumOpen && albumData?.music_choice) {
+      audio.play().then(() => setIsPlaying(true)).catch(e => console.log("Autoplay blockiert", e));
+    } else {
+      audio.pause();
+      setIsPlaying(false);
     }
-  }, [albumData]);
+  }, [isAlbumOpen, albumData]);
 
   const togglePlayPause = () => {
     const audio = audioRef.current;
     if (!audio) return;
-
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      audio.play();
-    }
+    if (isPlaying) audio.pause();
+    else audio.play();
     setIsPlaying(!isPlaying);
   };
   
@@ -122,78 +111,89 @@ const Album = () => {
   };
 
   const musicSrc = getMusicSrc(albumData.music_choice);
-  const subjectName = albumData.subject_details || sharedContent.albumPage.defaultName;
+  
+  const subjectNameRaw = albumData.subject_details || sharedContent.albumPage.defaultName;
+  const subjectName = subjectNameRaw.includes(':') 
+      ? subjectNameRaw.substring(subjectNameRaw.indexOf(':') + 1).trim() 
+      : subjectNameRaw;
 
+  // ==== Mobile Ansicht ====
+  if (isMobile) {
+    return (
+      <>
+        <div className="album-background h-screen w-screen flex flex-col items-center justify-center p-4 text-center">
+            {/* Alles ist jetzt in einem z-10 Container */}
+            <div className="relative z-10 flex flex-col items-center">
+                <h1 className="text-4xl font-serif mb-2 text-foreground">{sharedContent.albumPage.title(subjectName)}</h1>
+                <p className="text-lg text-muted-foreground mb-8 max-w-sm">{sharedContent.albumPage.subtitle}</p>
+                
+                <div 
+                    className="album-cover-mobile relative w-full max-w-xs aspect-[3/4] rounded-lg shadow-2xl flex flex-col items-center justify-center cursor-pointer"
+                    onClick={() => setIsAlbumOpen(true)}
+                >
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/80 to-primary/60 rounded-lg"></div>
+                    {/* Hier wurde die Textfarbe für Icon und Text auf "text-white" geändert */}
+                    <BookOpen className="w-16 h-16 text-white/80 mb-4" />
+                    <p className="text-xl font-semibold text-white">{sharedContent.albumPage.openAlbum || 'Album öffnen'}</p>
+                </div>
+                
+                <a href={albumData.canva_link} target="_blank" rel="noopener noreferrer" className="mt-8">
+                </a>
+            </div>
+            <audio ref={audioRef} src={musicSrc ?? ''} loop />
+        </div>
+
+        {isAlbumOpen && (
+            <div className="fixed inset-0 z-50 bg-black animate-in fade-in">
+                {embedLink ? (
+                    <iframe src={embedLink} className="absolute inset-0 w-full h-full border-0" allow="fullscreen; autoplay; clipboard-write;" allowFullScreen={true}></iframe>
+                ) : (
+                    <div className="w-full h-full flex items-center justify-center"><ErrorDisplay message="Der Canva-Link ist ungültig." /></div>
+                )}
+                <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
+                     {musicSrc && (
+                        <Button onClick={togglePlayPause} variant="outline" size="icon" className="rounded-full h-10 w-10 bg-black/30 text-white border-white/50 backdrop-blur-sm" title={isPlaying ? sharedContent.albumPage.pauseButton : sharedContent.albumPage.playButton}>
+                            {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+                        </Button>
+                    )}
+                    <Button variant="outline" size="icon" className="rounded-full h-10 w-10 bg-black/30 text-white border-white/50 backdrop-blur-sm" onClick={() => setIsAlbumOpen(false)}>
+                      <X className="h-5 w-5" />
+                    </Button>
+                </div>
+            </div>
+        )}
+      </>
+    );
+  }
+
+  // ==== Desktop Ansicht ====
   return (
-    <div className="h-screen w-screen flex flex-col bg-background p-4 pt-8 md:p-8 relative">
+    <div className="album-background h-screen w-screen flex items-center justify-center p-8">
       {musicSrc && (
-        <div className="absolute top-4 right-4 md:top-8 md:right-8 z-30">
-          <Button
-            onClick={togglePlayPause}
-            variant="outline"
-            size="icon"
-            className="rounded-full h-12 w-12"
-            title={isPlaying ? sharedContent.albumPage.pauseButton : sharedContent.albumPage.playButton}
-          >
+        <div className="absolute top-6 right-6 z-30">
+          <Button onClick={togglePlayPause} variant="outline" size="icon" className="rounded-full h-12 w-12 bg-background/50 backdrop-blur-sm" title={isPlaying ? sharedContent.albumPage.pauseButton : sharedContent.albumPage.playButton}>
             {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
           </Button>
-          
-          {showPlayButtonHint && (
-            <div className="absolute top-16 right-0 z-20 animate-in fade-in duration-500">
-              <div className="relative bg-primary text-primary-foreground rounded-lg p-3 pr-8 shadow-lg max-w-[150px] text-center">
-                <p className="text-sm font-medium">{sharedContent.albumPage.playButtonHint}</p>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  className="absolute top-0 right-0 h-8 w-8 text-primary-foreground/70 hover:text-primary-foreground"
-                  onClick={() => setShowPlayButtonHint(false)}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-                {/* *** KORRIGIERTER PFEIL *** */}
-                <div className="absolute -top-2 right-4 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-primary"></div>
-              </div>
-            </div>
-          )}
         </div>
       )}
       <audio ref={audioRef} src={musicSrc ?? ''} loop />
-
-      <main className="w-full h-full flex flex-col text-center relative z-10">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif mb-2 sm:mb-4 shrink-0">
-          {sharedContent.albumPage.title(subjectName)}
-        </h1>
-        <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 shrink-0">
-          {sharedContent.albumPage.subtitle}
-        </p>
-        
-        <div className="relative flex-1 w-full max-w-5xl mx-auto">
-          {embedLink ? (
-            <iframe
-              loading="lazy"
-              src={embedLink}
-              className="absolute top-0 left-0 w-full h-full border-0 rounded-lg shadow-xl"
-              allow="fullscreen; autoplay; clipboard-write;"
-              allowFullScreen={true}
-            ></iframe>
-          ) : <ErrorDisplay message="Der Canva-Link ist ungültig oder konnte nicht verarbeitet werden." />}
+      <div className="album-container w-full h-full max-w-7xl max-h-[90vh]">
+        <div className="album-page left-page">
+          <div className="flex flex-col items-center justify-center h-full text-center p-12">
+            <Music4 className="w-16 h-16 text-primary/50 mb-8" />
+            <h1 className="text-5xl font-serif mb-4">{sharedContent.albumPage.title(subjectName)}</h1>
+            <p className="text-xl text-muted-foreground">{sharedContent.albumPage.subtitle}</p>
+          </div>
         </div>
-
-        {isMobile && embedLink && (
-            <div className="mt-6 flex justify-center">
-                <a
-                    href={embedLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <Button variant="secondary" className="rounded-full shadow-lg">
-                        <ExternalLink className="h-4 w-4 mr-2" />
-                        {sharedContent.albumPage.openInNewTab}
-                    </Button>
-                </a>
-            </div>
-        )}
-      </main>
+        <div className="album-spine"></div>
+        <div className="album-page right-page">
+          <div className="p-6 w-full h-full">
+            {embedLink ? (
+                <iframe loading="lazy" src={embedLink} className="w-full h-full border-0 rounded-lg shadow-md" allow="fullscreen; autoplay; clipboard-write;" allowFullScreen={true}></iframe>
+            ) : <ErrorDisplay message="Der Canva-Link ist ungültig." />}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

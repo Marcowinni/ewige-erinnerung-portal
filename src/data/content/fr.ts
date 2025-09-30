@@ -13,11 +13,13 @@ export const frContent: ContentData = {
 
     albumPage: {
       title: (name) => `Souvenirs de ${name}`,
+      preTitle: "Un album numérique pour : ",
       subtitle: "Une collection de moments inoubliables.",
       defaultName: "ces moments spéciaux",
       playButton: "Jouer la musique",
       pauseButton: "Mettre la musique en pause",
-      playButtonHint: "Contrôlez la musique ici"
+      playButtonHint: "Contrôlez la musique ici",
+      openAlbum: "Ouvrir l'album"
     },
 
     about: {

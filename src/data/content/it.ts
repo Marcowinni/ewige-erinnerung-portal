@@ -13,12 +13,13 @@ export const itContent: ContentData = {
 
     albumPage: {
       title: (name) => `Ricordi di ${name}`,
+      preTitle: "Un album digitale per: ",
       subtitle: "Una raccolta di momenti indimenticabili.",
       defaultName: "questi momenti speciali",
       playButton: "Riproduci musica",
       pauseButton: "Metti in pausa la musica",
       playButtonHint: "Controlla la musica qui",
-      openInNewTab: "Apri a schermo intero"
+      openAlbum: "Apri Album"
     },
 
     // SEO/Meta per la pagina Chi Siamo

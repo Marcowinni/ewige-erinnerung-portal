@@ -328,12 +328,13 @@ export interface FooterContent {
 
 export interface AlbumPageContent {
   title: (name: string) => string;
+  preTitle?: string;
   subtitle: string;
   defaultName: string;
   playButton: string;
   pauseButton: string;
   playButtonHint: string;
-  openInNewTab: string;
+  openAlbum?: string; 
 }
 
 export interface SharedContent {

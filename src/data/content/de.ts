@@ -13,11 +13,14 @@ export const deContent: ContentData = {
 
     albumPage: {
       title: (name) => `Erinnerungen an ${name}`,
+      preTitle: "Ein digitales Album für: ",
       subtitle: "Eine Sammlung unvergesslicher Augenblicke.",
       defaultName: "diese besonderen Momente",
       playButton: "Musik abspielen",
       pauseButton: "Musik pausieren",
-      playButtonHint: "Hier die Musik steuern"
+      playButtonHint: "Hier die Musik steuern",
+
+      openAlbum: "Album öffnen"
     },
 
     // SEO/Meta für die About-Seite

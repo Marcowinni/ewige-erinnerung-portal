@@ -13,11 +13,13 @@ export const enContent: ContentData = {
 
     albumPage: {
       title: (name) => `Memories of ${name}`,
+      preTitle: "A digital album for: ",
       subtitle: "A collection of unforgettable moments.",
       defaultName: "these special moments",
       playButton: "Play Music",
       pauseButton: "Pause Music",
-      playButtonHint: "Control the music here"
+      playButtonHint: "Control the music here",
+      openAlbum: "Open Album"
     },
 
     // SEO/Meta for the About page
