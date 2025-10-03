@@ -172,74 +172,65 @@ export const itContent: ContentData = {
         }
       },
       terms: {
-        title: "Condizioni Generali di Contratto",
+        title: "Condizioni generali di contratto (CGC)",
         sections: {
           scope: {
-            title: "1. Ambito di applicazione",
-            content:
-              "Le presenti Condizioni Generali (CG) si applicano a tutti gli ordini e contratti tra Memora Moments (di seguito 'noi') e i clienti (di seguito 'tu') in relazione all’acquisto di tag NFC, video commemorativi e contenuti digitali correlati."
+            title: "Preambolo e contatto",
+            content: "Questo sito web è gestito da TW Projects GmbH. In tutto il sito web, i termini \"noi\", \"ci\" e \"nostro/i\" si riferiscono a TW Projects GmbH. TW Projects GmbH offre questo sito web, comprese tutte le informazioni, gli strumenti e i servizi disponibili su questo sito, a voi, l'utente, a condizione che accettiate tutti i termini, le condizioni, le politiche e le avvertenze qui indicate.\n\nLa vostra soddisfazione è la nostra massima priorità. Se avete domande o suggerimenti, inviate un'e-mail a info.memora.moments@gmail.ch o scriveteci un messaggio tramite il modulo di contatto.\n\nTW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten CH\nE-mail: info.memora.moments@gmail.ch\nTelefono: +41 79 407 56 99"
           },
           contract: {
-            title: "2. Conclusione del contratto",
-            content:
-              "Il contratto si conclude non appena confermiamo espressamente il tuo ordine tramite e-mail. Possiamo rifiutare ordini per motivi tecnici o legali."
+            title: "1. Ambito di applicazione e stipula del contratto",
+            content: "Le presenti CGC si applicano a tutti gli ordini effettuati tramite il nostro sito web e all'utilizzo dei nostri servizi.\n\nUn contratto vincolante si perfeziona non appena confermiamo espressamente l'ordine via e-mail."
           },
           services: {
-            title: "3. Servizi",
-            content:
-              "I nostri servizi comprendono: produzione e consegna di tag NFC (prodotti fisici); creazione e fornitura di video commemorativi personalizzati (contenuti digitali); accesso ad altri contenuti digitali correlati al prodotto."
+            title: "2. Consenso al trattamento dei vostri dati",
+            content: "Il vostro consenso alle presenti Condizioni Generali di Contratto include il vostro consenso a tale trattamento dei dati personali. I vostri dati di immagine/foto vengono utilizzati da noi esclusivamente per la corretta esecuzione del vostro ordine."
           },
           prices: {
-            title: "4. Prezzi e condizioni di pagamento",
-            content:
-              "Tutti i prezzi sono in Franchi Svizzeri (CHF) inclusa IVA ove applicabile. Metodi di pagamento accettati: carta di credito, TWINT, pagamento anticipato. Il pagamento è dovuto prima della consegna o della creazione del contenuto digitale."
+            title: "3. Assortimento, prezzi e pagamento",
+            content: "I nostri prodotti sono costituiti in particolare da targhe commemorative personalizzate, tag NFC e contenuti digitali associati (ad es. album fotografico digitale).\n\nI prodotti personalizzati e i contenuti digitali vengono creati individualmente secondo le specifiche del cliente e sono esclusi dal cambio o dalla restituzione.\n\nI prodotti non personalizzati possono essere restituiti in conformità alle disposizioni di legge.\n\nIl nostro assortimento viene costantemente adeguato allo sviluppo tecnico. I nostri prezzi e la quota delle spese di spedizione a vostro carico possono variare di volta in volta.\n\nLe spese di consegna per gli ordini in Svizzera sono a nostro carico. Le spese di consegna per le spedizioni al di fuori della Svizzera saranno fatturate al destinatario in un secondo momento.\n\nTutti i prezzi si intendono in Franchi Svizzeri (CHF), IVA inclusa (se applicabile).\n\nIl pagamento viene effettuato prima della consegna o prima della creazione dei contenuti digitali.\n\nPer gli ordini online avete la possibilità di pagare con i seguenti mezzi di pagamento: Carta di credito, TWINT, pagamento anticipato. Questi possono variare di volta in volta e a seconda del paese. La vostra scelta di un mezzo di pagamento ci autorizza a incassare o a riscuotere i pagamenti nella relativa modalità. In caso di storni, abbiamo diritto al rimborso dei relativi costi e delle spese di elaborazione bancaria."
           },
           delivery: {
-            title: "5. Consegna e tempi di consegna",
-            content:
-              "La consegna dei prodotti avviene di solito entro 30 giorni dalla conclusione del contratto. Per i prodotti personalizzati possono verificarsi ritardi; in tal caso ti informeremo immediatamente."
+            title: "4. Ordine, consegna, trasferimento del rischio e riserva di proprietà",
+            content: "Non appena le vostre immagini o i vostri filmati digitali ci pervengono, l'ordine viene eseguito secondo le vostre indicazioni. Confermiamo gli ordini effettuati per via elettronica tramite un'e-mail all'indirizzo da voi indicato.\n\nDopo la conferma dell'ordine, la consegna del prodotto avviene entro 30 giorni, salvo diversa indicazione sul prodotto.\n\nSi prega di notare che gli ordini digitali, una volta pervenutici, non possono essere modificati, cancellati o uniti.\n\nSe durante l'esecuzione dell'ordine sulle vostre immagini dovessero apparire contenuti che violano palesemente i divieti di legge, non eseguiremo il vostro ordine.\n\nLe consegne vengono effettuate all'indirizzo indicato dal cliente. Il rischio di perimento fortuito, di danneggiamento fortuito o di perdita fortuita della merce consegnata passa a voi al momento della consegna all'impresa di trasporto."
           },
           cancellation: {
-            title: "6. Diritto di recesso e annullamento",
-            content:
-              "Non esiste diritto di reso per prodotti personalizzati e contenuti digitali (ad es. video commemorativi individuali). Le disposizioni di legge si applicano ai prodotti non personalizzati."
+            title: "5. Riserva di proprietà",
+            content: "I prodotti consegnati rimangono di proprietà di TW Projects GmbH fino al completo pagamento (comprese le spese di spedizione e l'eventuale IVA) (riserva di proprietà, iscrizione nel registro riservata)."
           },
           warranty: {
-            title: "7. Garanzia",
-            content:
-              "Garantiamo la qualità contrattuale dei nostri prodotti. Ti preghiamo di segnalarci eventuali difetti entro 14 giorni dal ricevimento affinché possiamo valutare una soluzione appropriata (riparazione, sostituzione o rimborso)."
+            title: "6. Diritti e doveri per i contenuti personalizzati",
+            content: "Il cliente fornisce testi, immagini, video o altri contenuti di qualità adeguata.\n\nIl cliente assicura di possedere tutti i diritti d'autore e della personalità necessari o di aver ottenuto il consenso degli aventi diritto.\n\nIl cliente concede a TW Projects GmbH una licenza non esclusiva e mondiale per l'utilizzo dei contenuti forniti per la creazione, l'archiviazione и la fornitura dei prodotti.\n\nCi riserviamo il diritto di rifiutare o rimuovere successivamente contenuti che violino i diritti di terzi o siano illegali."
           },
           liability: {
-            title: "7a. Responsabilità",
-            content:
-              "La nostra responsabilità è limitata ai danni causati da comportamento doloso o colpa grave. Non ci assumiamo responsabilità per problemi tecnici lato cliente (ad es. connessione Internet insufficiente, dispositivi incompatibili, impostazioni software)."
+            title: "7. Procedura di notifica e rimozione (Notice-&-Takedown)",
+            content: "Gli aventi diritto (ad es. parenti, eredi) possono contestare che i contenuti violino i diritti della personalità.\n\nDopo aver ricevuto una segnalazione motivata, provvederemo a rimuovere tempestivamente i contenuti interessati. Si prega di inviare le segnalazioni a: [info.memora.moments@gmail.ch]."
           },
           ip: {
-            title: "8. Copyright e diritti d’uso",
-            content:
-              "I contenuti creati da noi (ad es. video commemorativi) sono soggetti a copyright. Ricevi un diritto d’uso semplice e non trasferibile per uso privato. L’uso commerciale o la cessione a terzi non è consentita salvo diverso accordo scritto. Caricando foto, video, audio o testi, confermi di avere i diritti necessari; ci esoneri da eventuali rivendicazioni di terzi."
+            title: "8. Garanzia e responsabilità",
+            content: "Si applicano i diritti legali sui vizi secondo il Codice delle obbligazioni svizzero (CO).\n\nA nostra scelta, provvederemo a una riparazione o a una fornitura sostitutiva. I reclami possono essere accettati solo se si riferiscono a un difetto materiale e vengono presentati entro 21 giorni dal ricevimento dei prodotti.\n\nSi prega di notare che errori di battitura inseriti dal cliente, immagini di qualità insufficiente (ad esempio a causa di una risoluzione troppo bassa per le immagini digitali), errori di progettazione imputabili al cliente, nonché una scelta errata del prodotto, quantità d'ordine errate o altri difetti derivanti da errori nell'inserimento dell'ordine sono esclusi dal reclamo. Ciò vale anche per i danni verificatisi durante il trasporto.\n\nIn particolare, non ci assumiamo alcuna responsabilità per:\n- la qualità o la liceità dei contenuti forniti dal cliente,\n- variazioni di colore dovute a specifiche del materiale o impostazioni del dispositivo,\n- interruzioni temporanee dei nostri servizi digitali.\n- per danni che non sono tipicamente prevedibili data la natura del rispettivo ordine e dei prodotti e il loro normale utilizzo.\n\nLa nostra responsabilità è, per quanto consentito dalla legge, limitata a dolo e colpa grave. Per colpa lieve rispondiamo solo in caso di danni alla persona."
           },
           privacy: {
-            title: "9. Protezione dei dati",
-            content:
-              "Trattiamo i dati personali esclusivamente in conformità con la nostra informativa sulla privacy. Ciò include la conservazione e il trattamento dei tuoi dati per l’adempimento del contratto nonché la comunicazione a terzi necessari (ad es. fornitori di pagamento, hosting/IT, spedizione). Utilizzando i nostri servizi acconsenti a tale trattamento."
+            title: "9. Utilizzo dei servizi digitali",
+            content: "Ci impegniamo a garantire un'elevata disponibilità dei nostri servizi di hosting e streaming. Tuttavia, possono verificarsi interruzioni di breve durata (manutenzione, forza maggiore, guasti tecnici).\n\nNon viene garantito un determinato livello di servizio."
           },
           special: {
-            title: "10. Prodotti emozionali & Note speciali",
-            content:
-              "I nostri prodotti hanno un alto valore emozionale. I contenuti personalizzati non possono essere modificati o restituiti dopo il completamento. In caso di problemi tecnici da parte nostra (ad es. guasto del server), ci impegneremo a ripristinare l’accesso il più rapidamente possibile; non possiamo garantire la disponibilità permanente lato cliente."
+            title: "10. Diritti di terzi",
+            content: "Siete gli unici responsabili di garantire di disporre dei diritti necessari sulle immagini che inviate, inclusi i diritti d'autore, di marchio e della personalità. Qualora terzi dovessero far valere pretese nei nostri confronti in relazione al vostro ordine per la violazione di tali diritti, siete tenuti a respingere tali pretese o a sostenere i costi per la difesa da tali pretese. Le nostre pretese di risarcimento danni rimangono impregiudicate."
           },
           law: {
-            title: "11. Foro competente e legge applicabile",
-            content:
-              "Si applica esclusivamente la legge svizzera. Il foro competente è la sede legale di Memora Moments."
+            title: "11. Protezione dei dati",
+            content: "Il trattamento dei dati personali è disciplinato dalla nostra informativa sulla privacy.\n\nIl cliente prende atto che per l'hosting, l'elaborazione dei pagamenti o altri servizi possono essere utilizzati fornitori terzi."
           },
           final: {
-            title: "12. Disposizioni finali",
-            content:
-              "Se singole disposizioni di queste CG fossero inefficaci, la validità delle restanti non sarà compromessa. Ci riserviamo il diritto di adattare queste CG in qualsiasi momento. Si applica la versione attuale pubblicata con data e numero di versione."
+            title: "12. Regolamentazione delle donazioni",
+            content: "Doniamo il 10% del prezzo di vendita netto di ogni prodotto venduto a fondazioni di beneficenza (ad es. Make-A-Wish Svizzera).\n\nIl versamento delle donazioni avviene una volta all'anno, alla fine dell'anno.\n\nLa scelta della fondazione e la gestione delle donazioni sono di competenza di TW Projects GmbH. Il cliente non ha alcun diritto individuale alla trasmissione o alla destinazione della donazione."
           },
-        }
+          contact: {
+            title: "13. Usi vietati",
+            content: "Il sito web non può essere utilizzato per scopi illegali, spam, malware o violazioni dei diritti di terzi.\n\nCi riserviamo il diritto di bloccare l'accesso in caso di abuso."
+          },
+        },
       },
       imprint: {
         title: "Note legali",

@@ -667,6 +667,8 @@ function DesignEditor({
   };
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if(dragText) return; // Wenn ein Text gezogen wird, keine Bildverschiebung
+
     if (!pointers.current.has(e.pointerId)) return;
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
     if (pointers.current.size === 1 && dragImg) {
@@ -2042,8 +2044,8 @@ const MemoryUploader = () => {
   };
 
   const scrollToTop = () => {
-    const el = document.getElementById("memory-form-start");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
   };
 
   // Navigation

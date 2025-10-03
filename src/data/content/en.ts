@@ -172,74 +172,65 @@ export const enContent: ContentData = {
         }
       },
       terms: {
-        title: "General Terms and Conditions",
+        title: "Terms and Conditions (GTC)",
         sections: {
           scope: {
-            title: "1. Scope of Application",
-            content:
-              "These General Terms and Conditions (GTC) apply to all orders and contracts between Memora Moments (hereinafter 'we') and customers (hereinafter 'you') in connection with the purchase of NFC tags, memorial videos, and related digital content."
+            title: "Preamble and Contact",
+            content: "This website is operated by TW Projects GmbH. Throughout the site, the terms “we”, “us” and “our” refer to TW Projects GmbH. TW Projects GmbH offers this website, including all information, tools and services available from this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices stated here.\n\nYour satisfaction is our top priority. If you have any questions or suggestions, please send an email to info.memora.moments@gmail.ch or write us a message via the contact form.\n\nTW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten CH\nEmail: info.memora.moments@gmail.ch\nPhone: +41 79 407 56 99"
           },
           contract: {
-            title: "2. Conclusion of Contract",
-            content:
-              "The contract is concluded as soon as we expressly confirm your order by e-mail. We may refuse orders for technical or legal reasons."
+            title: "1. Scope and Conclusion of Contract",
+            content: "These GTC apply to all orders placed via our website and to the use of our services.\n\nA binding contract is concluded as soon as we expressly confirm the order by email."
           },
           services: {
-            title: "3. Services",
-            content:
-              "Our services include: Production and delivery of NFC tags (physical products); creation and provision of personalized memorial videos (digital content); access to other digital content related to the product."
+            title: "2. Consent to the Processing of Your Data",
+            content: "Your agreement to these General Terms and Conditions includes your consent to such processing of personal data. Your image/photo data will be used by us exclusively for the proper processing of your order."
           },
           prices: {
-            title: "4. Prices and Payment Conditions",
-            content:
-              "All prices are in Swiss Francs (CHF) including statutory VAT, where applicable. Accepted payment methods: Credit card, TWINT, prepayment. Payment is due before delivery or before the creation of the digital content."
+            title: "3. Assortment, Prices and Payment",
+            content: "Our products consist in particular of personalized memorial plaques, NFC tags and associated digital content (e.g. digital photo album).\n\nPersonalized products and digital content are created individually according to customer specifications and are excluded from exchange or return.\n\nNon-personalized products can be returned in accordance with the statutory provisions.\n\nOur product range is constantly being adapted to technical developments. Our prices and the shipping costs charged to you may change from time to time.\n\nWe cover the delivery costs for orders within Switzerland. Delivery costs for shipments outside of Switzerland will be invoiced to the recipient subsequently.\n\nAll prices are in Swiss Francs (CHF), incl. statutory value-added tax (where applicable).\n\nPayment is made before delivery or before the creation of the digital content.\n\nFor online orders, you have the option of paying with the following payment methods: Credit card, TWINT, advance payment. These may change from time to time and may vary from country to country. Your choice of a payment method authorizes us to collect or receive payments in the corresponding way. In the event of chargebacks, we are entitled to reimbursement of the associated costs and bank processing fees."
           },
           delivery: {
-            title: "5. Delivery and Delivery Times",
-            content:
-              "The delivery of the products usually takes place within 30 days after the conclusion of the contract. For custom-made products, delays may occur; we will inform you immediately in such a case."
+            title: "4. Order, Delivery, Transfer of Risk and Retention of Title",
+            content: "As soon as your digital images or films arrive, the order will be executed according to your specifications. We will confirm orders placed electronically by sending an e-mail to the address you have provided.\n\nAfter confirmation of the order, the product will be delivered within 30 days, unless otherwise stated for the product.\n\nPlease note that digital orders cannot be changed, deleted or merged after they have been received by us.\n\nIf image content that clearly violates legal prohibitions becomes apparent on your images during the execution of the order, we will not execute your order.\n\nThe deliveries are made to the address specified by the customer. The risk of accidental loss, accidental damage or accidental loss of the delivered goods passes to you upon handover to the transport company."
           },
           cancellation: {
-            title: "6. Right of Revocation and Withdrawal",
-            content:
-              "There is no right of return for personalized products and digital content (e.g., individually created memorial videos). The statutory provisions apply to non-personalized products."
+            title: "5. Retention of Title",
+            content: "The delivered products remain the property of TW Projects GmbH until full payment has been received (including shipping costs and any VAT) (retention of title, registration in the register reserved)."
           },
           warranty: {
-            title: "7. Warranty",
-            content:
-              "We guarantee the contractual quality of our products. Please inform us of any defects within 14 days of receipt so that we can examine an appropriate solution (rectification, replacement, or refund)."
+            title: "6. Rights and Obligations for Personalized Content",
+            content: "The customer supplies texts, images, videos or other content in suitable quality.\n\nThe customer warrants that he/she holds all necessary copyrights and personal rights or has obtained the consent of the authorized parties.\n\nThe customer grants TW Projects GmbH a non-exclusive, worldwide license to use the delivered content for the creation, storage and provision of the products.\n\nWe reserve the right to reject or subsequently remove content if it infringes the rights of third parties or is illegal."
           },
           liability: {
-            title: "7a. Liability",
-            content:
-              "Our liability is limited to damages caused by intentional or grossly negligent conduct. We assume no responsibility for technical problems on the customer's side (e.g., insufficient internet connection, incompatible devices, software settings)."
+            title: "7. Notice-&-Takedown Procedure",
+            content: "Authorized persons (e.g. relatives, heirs) can complain that content violates personal rights.\n\nAfter receipt of a justified notification, we will take the affected content offline in a timely manner. Please send notifications to: [info.memora.moments@gmail.ch]."
           },
           ip: {
-            title: "8. Copyright and Usage Rights",
-            content:
-              "The content created by us (e.g., memorial videos) is subject to copyright. You receive a simple, non-transferable right of use for private use. Commercial use or disclosure to third parties is not permitted unless otherwise agreed in writing. By uploading photos, videos, audio, or texts, you confirm that you have the necessary rights; you indemnify us from third-party claims in this regard."
+            title: "8. Warranty and Liability",
+            content: "The statutory warranty rights according to the Swiss Code of Obligations (OR) apply.\n\nWe will, at our discretion, provide subsequent improvement or a replacement delivery. Complaints can only be recognized if they relate to a material defect and are made within 21 days of receipt of the products.\n\nPlease note that typing errors entered by the customer, images of insufficient quality (for example due to insufficient resolution of digital images), design errors for which the customer is responsible, as well as incorrect product selection, incorrect order quantities or other defects caused by errors in the order entry are excluded from the complaint. This also applies to damage incurred during transport.\n\nIn particular, we assume no liability for:\n- the quality or legality of the content supplied by the customer,\n- color deviations due to material specifics or device settings,\n- temporary interruptions of our digital services.\n- for damages that are not typically to be expected given the nature of the respective order and the products and their normal use.\n\nOur liability is limited to intent and gross negligence, insofar as this is legally permissible. We are only liable for slight negligence in the event of personal injury."
           },
           privacy: {
-            title: "9. Data Protection",
-            content:
-              "We process personal data exclusively in accordance with our privacy policy. This includes the storage and processing of your data for contract fulfillment as well as the disclosure to necessary third parties (e.g., payment providers, hosting/IT, shipping). By using our services, you agree to this processing."
+            title: "9. Use of Digital Services",
+            content: "We strive for high availability of our hosting and streaming services. However, short-term interruptions (maintenance, force majeure, technical faults) may occur.\n\nA specific service level is not guaranteed."
           },
           special: {
-            title: "10. Emotional Products & Special Notes",
-            content:
-              "Our products have a high emotional value. Personalized content cannot be changed or returned after completion. In case of technical problems on our part (e.g., server failure), we will endeavor to restore access as quickly as possible; we cannot guarantee permanent availability on the customer's side."
+            title: "10. Third-party Rights",
+            content: "You alone are responsible for ensuring that you have the necessary rights to the images you send in, including copyright, trademark and personal rights. Should third parties assert claims against us in connection with your order due to the infringement of such rights, you are obliged to defend against these claims or to bear the costs of defending against these claims. Claims for damages by us remain unaffected."
           },
           law: {
-            title: "11. Place of Jurisdiction and Applicable Law",
-            content:
-              "Swiss law applies exclusively. The place of jurisdiction is the registered office of Memora Moments."
+            title: "11. Data Protection",
+            content: "The processing of personal data is governed by our privacy policy.\n\nThe customer acknowledges that third-party providers may be used for hosting, payment processing or other services."
           },
           final: {
-            title: "12. Final Provisions",
-            content:
-              "Should individual provisions of these GTC be ineffective, the validity of the remaining provisions shall not be affected. We reserve the right to adapt these GTC at any time. The current version, published with the date and version number, applies."
+            title: "12. Donation Policy",
+            content: "We donate 10% of the net sales price of each product sold to charitable foundations (e.g. Make-A-Wish Switzerland).\n\nThe donations are paid out once a year, at the end of the year.\n\nTW Projects GmbH is responsible for selecting the foundation and processing the donations. The customer has no individual legal claim to the forwarding or earmarking of the donation."
           },
-        }
+          contact: {
+            title: "13. Prohibited Uses",
+            content: "The website may not be used for illegal purposes, spam, malware or infringement of third-party rights.\n\nWe reserve the right to block access in the event of misuse."
+          },
+        },
       },
       imprint: {
         title: "Imprint",

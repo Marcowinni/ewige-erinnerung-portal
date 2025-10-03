@@ -102,7 +102,7 @@ export const deContent: ContentData = {
       responsible: {
         title: "1. Verantwortliche Stelle",
         content:
-          "Memora Moments\nBreitenmattstrasse\n8635 Dürnten\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99\n\nWir sind verantwortlich für die Erhebung, Verarbeitung und Nutzung Ihrer personenbezogenen Daten im Sinne des Schweizer Datenschutzgesetzes (revDSG)."
+          "TW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99\n\nWir sind verantwortlich für die Erhebung, Verarbeitung und Nutzung Ihrer personenbezogenen Daten im Sinne des Schweizer Datenschutzgesetzes (revDSG)."
       },
 
       dataCollection: {
@@ -184,71 +184,62 @@ export const deContent: ContentData = {
         title: "Allgemeine Geschäftsbedingungen",
         sections: {
           scope: {
-            title: "1. Geltungsbereich",
-            content:
-              "Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Bestellungen und Vertragsabschlüsse zwischen Memora Moments (nachfolgend «wir») und Kund:innen (nachfolgend «Sie») im Zusammenhang mit dem Erwerb von NFC-Tags, Erinnerungs-Videos und damit verbundenen digitalen Inhalten."
+            title: "Präambel und Kontakt",
+            content: "Diese Website wird von TW Projects GmbH betrieben. Überall auf der Webseite beziehen sich die Begriffe \"wir\", \"uns\" und \"unsere/n\" auf TW Projects GmbH. TW Projects GmbH bietet diese Website, einschliesslich aller Informationen, Tools und Dienste, die auf dieser Website verfügbar sind, Ihnen, dem Benutzer, unter der Bedingung an, dass Sie alle hier angegebenen Bedingungen, Konditionen, Richtlinien und Hinweise akzeptieren.\n\nIhre Zufriedenheit ist unsere oberste Priorität. Sollten Sie Fragen oder Anregungen haben, so senden Sie eine E-Mail an info.memora.moments@gmail.ch oder schreiben Sie uns eine Nachricht über das Kontakt-Formular.\n\nTW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten CH\nE-Mail: info.memora.moments@gmail.ch\nTelefon: +41 79 407 56 99"
           },
           contract: {
-            title: "2. Vertragsabschluss",
-            content:
-              "Der Vertrag kommt zustande, sobald wir Ihre Bestellung ausdrücklich per E-Mail bestätigen. Wir können Bestellungen aus technischen oder rechtlichen Gründen ablehnen."
+            title: "1. Geltungsbereich und Vertragsabschluss",
+            content: "Diese AGB gelten für alle Bestellungen über unsere Website sowie für die Nutzung unserer Dienste.\n\nEin verbindlicher Vertrag kommt zustande, sobald wir die Bestellung ausdrücklich per E-Mail bestätigen."
           },
           services: {
-            title: "3. Leistungen",
-            content:
-              "Unsere Leistungen umfassen: Herstellung und Lieferung von NFC-Tags (physische Produkte); Erstellung und Bereitstellung von personalisierten Erinnerungs-Videos (digitale Inhalte); Zugang zu weiteren digitalen Inhalten im Zusammenhang mit dem Produkt."
+            title: "2. Einwilligung in die Bearbeitung Ihrer Daten",
+            content: "Ihr Einverständnis mit diesen Allgemeinen Geschäftsbedingungen schliesst Ihr Einverständnis in solche Bearbeitung personenbezogener Daten ein. Ihre Bild-/Fotodaten werden von uns ausschliesslich zur einwandfreien Abwicklung Ihres Auftrags verwendet."
           },
           prices: {
-            title: "4. Preise und Zahlungsbedingungen",
-            content:
-              "Alle Preise verstehen sich in Schweizer Franken (CHF) inkl. gesetzlicher Mehrwertsteuer, sofern anwendbar. Akzeptierte Zahlungsarten: Kreditkarte, TWINT, Vorkasse. Die Zahlung ist vor Lieferung bzw. vor der Erstellung der digitalen Inhalte fällig."
+            title: "3. Sortiment, Preise und Zahlung",
+            content: "Unsere Produkte bestehen insbesondere aus personalisierten Gedenkplatten, NFC-Tags sowie damit verbundenen digitalen Inhalten (z. B. digitales Fotoalbum).\n\nPersonalisierte Produkte und digitale Inhalte werden individuell nach Kundenvorgaben erstellt und sind vom Umtausch oder der Rückgabe ausgeschlossen.\n\nNicht-personalisierte Produkte können gemäss den gesetzlichen Bestimmungen zurückgegeben werden.\n\nUnser Sortiment wird ständig der technischen Entwicklung angepasst. Unsere Preise sowie der Ihnen verrechnete Versandkostenanteil können sich von Zeit zu Zeit ändern.\n\nDie Lieferkosten für Bestellungen innerhalb der Schweiz übernehmen wir für Sie. Lieferkosten für Sendungen ausserhalb der Schweiz werden dem Empfänger nachträglich in Rechnung gestellt.\n\nAlle Preise verstehen sich in Schweizer Franken (CHF), inkl. gesetzlicher Mehrwertsteuer (sofern anwendbar).\n\nZahlung erfolgt vor Lieferung bzw. vor Erstellung der digitalen Inhalte.\n\nBei Online-Bestellungen haben Sie die Möglichkeit zur Zahlung mit den folgenden Zahlungsmitteln: Kreditkarte, TWINT, Vorkasse. Diese können von Zeit zu Zeit sowie landesspezifisch ändern. Mit Ihrer Wahl eines Zahlungsmittels ist die Ermächtigung an uns verbunden, Zahlungen im entsprechenden Wege einzunehmen bzw. einzuziehen. Falls es zu Rückbelastungen kommt, haben wir Anspruch auf Erstattung der damit verbundenen Kosten und Bankbearbeitungsgebühren."
           },
           delivery: {
-            title: "5. Lieferung und Lieferfristen",
-            content:
-              "Die Lieferung der Produkte erfolgt in der Regel innerhalb von 30 Tagen nach Vertragsabschluss. Bei individuell angefertigten Produkten kann es zu Verzögerungen kommen; wir informieren Sie in einem solchen Fall umgehend."
+            title: "4. Bestellung, Lieferung, Gefahrübergang und Eigentumsvorbehalt",
+            content: "Sobald Ihre digitalen Bilder oder Filme bei uns eintreffen, wird der Auftrag gemäss Ihren Angaben ausgeführt. Bestellungen auf elektronischem Weg bestätigen wir durch eine E-Mail an die von Ihnen angegebene Adresse.\n\nNach Bestätigung der Bestellung erfolgt die Lieferung des Produkts innerhalb von 30 Tagen, sofern beim Produkt nichts anderes angegeben ist.\n\nBeachten Sie bitte, dass digitale Bestellungen, nachdem sie bei uns eingetroffen sind, weder geändert, gelöscht noch zusammengeführt werden können.\n\nSoweit Bildinhalte, welche erkennbar gegen gesetzliche Verbote verstossen, bei der Auftragsausführung auf Ihren Bildern offenbar werden, werden wir Ihren Auftrag nicht ausführen.\n\nDie Lieferungen erfolgen an die vom Kunden angegebene Adresse. Die Gefahr des zufälligen Untergangs, der zufälligen Beschädigung oder des zufälligen Verlusts der gelieferten Ware geht mit deren Aushändigung an das Transportunternehmen auf Sie über."
           },
           cancellation: {
-            title: "6. Widerruf und Rücktrittsrecht",
-            content:
-              "Für personalisierte Produkte und digitale Inhalte (z. B. individuell erstellte Erinnerungs-Videos) besteht kein Rückgaberecht. Für nicht personalisierte Produkte gelten die gesetzlichen Bestimmungen."
+            title: "5. Eigentumsvorbehalt",
+            content: "Die gelieferten Produkte bleiben bis zur vollständigen Bezahlung (einschliesslich Versandkosten und etwaiger Mehrwertsteuer) Eigentum von TW Projects GmbH (Eigentumsvorbehalt, Registereintrag vorbehalten)."
           },
           warranty: {
-            title: "7. Gewährleistung",
-            content:
-              "Wir gewährleisten die vertragsgemässe Beschaffenheit unserer Produkte. Allfällige Mängel teilen Sie uns bitte innert 14 Tagen nach Erhalt mit, damit wir eine angemessene Lösung (Nachbesserung, Ersatz oder Rückerstattung) prüfen können."
+            title: "6. Rechte und Pflichten bei personalisierten Inhalten",
+            content: "Der Kunde liefert Texte, Bilder, Videos oder andere Inhalte in geeigneter Qualität.\n\nDer Kunde sichert zu, dass er alle erforderlichen Urheber- und Persönlichkeitsrechte besitzt bzw. die Einwilligung der Berechtigten eingeholt hat.\n\nDer Kunde räumt TW Projects GmbH eine nicht-exklusive, weltweite Lizenz ein, die gelieferten Inhalte für die Erstellung, Speicherung und Bereitstellung der Produkte zu nutzen.\n\nWir behalten uns vor, Inhalte abzulehnen oder nachträglich zu entfernen, wenn sie Rechte Dritter verletzen oder rechtswidrig sind."
           },
           liability: {
-            title: "7a. Haftung",
-            content:
-              "Unsere Haftung ist auf Schäden beschränkt, die durch vorsätzliches oder grob fahrlässiges Verhalten verursacht wurden. Für technische Probleme auf Kundenseite (z. B. unzureichende Internetverbindung, inkompatible Endgeräte, Softwareeinstellungen) übernehmen wir keine Verantwortung."
+            title: "7. Notice-&-Takedown-Verfahren",
+            content: "Berechtigte (z. B. Angehörige, Erben) können beanstanden, dass Inhalte Persönlichkeitsrechte verletzen.\n\nNach Erhalt einer begründeten Meldung nehmen wir betroffene Inhalte zeitnah offline. Meldungen richten Sie bitte an: [info.memora.moments@gmail.ch]."
           },
           ip: {
-            title: "8. Urheberrechte und Nutzungsrechte",
-            content:
-              "Die von uns erstellten Inhalte (z. B. Erinnerungs-Videos) unterliegen dem Urheberrecht. Sie erhalten ein einfaches, nicht übertragbares Nutzungsrecht zur privaten Nutzung. Eine kommerzielle Nutzung oder Weitergabe an Dritte ist nicht erlaubt, ausser es wurde schriftlich etwas anderes vereinbart. Mit dem Hochladen von Fotos, Videos, Audio oder Texten bestätigen Sie, dass Sie über die notwendigen Rechte verfügen; Sie stellen uns insoweit von Ansprüchen Dritter frei."
+            title: "8. Gewährleistung und Haftung",
+            content: "Es gelten die gesetzlichen Mängelrechte gemäss Schweizer Obligationenrecht (OR).\n\nWir leisten nach Wahl Nachbesserung oder Ersatzlieferung. Reklamationen können nur anerkannt werden, wenn sie sich auf Sachmangel beziehen und innerhalb von 21 Tagen nach Erhalt der Produkte geltend gemacht werden.\n\nBitte beachten Sie, dass vom Kunden eingegebene Schreibfehler, qualitativ unzureichende Bilder (zum Beispiel durch zu geringe Auflösung bei Digitalbildern), selbst verschuldete Gestaltungsfehler sowie falsche Produktauswahl, falsche Bestellmengen oder andere durch Fehler bei der Bestelleingabe entstandene Mängel von der Reklamation ausgeschlossen sind. Dies gilt ebenfalls für auf dem Transportweg entstandene Beschädigungen.\n\nKeine Haftung übernehmen wir insbesondere für:\n- die Qualität oder Rechtmässigkeit der vom Kunden gelieferten Inhalte,\n- Farbabweichungen infolge Materialspezifika oder Geräteeinstellungen,\n- vorübergehende Unterbrüche unserer digitalen Dienste.\n- Für Schäden, die nach Art des jeweiligen Auftrags und der Produkte und bei normaler Verwendung dieser Produkte typischerweise nicht zu erwarten sind.\n\nUnsere Haftung ist, soweit gesetzlich zulässig, auf Vorsatz und grobe Fahrlässigkeit beschränkt. Für leichte Fahrlässigkeit haften wir nur bei Personenschäden."
           },
           privacy: {
-            title: "9. Datenschutz",
-            content:
-              "Wir verarbeiten personenbezogene Daten ausschliesslich gemäss unserer Datenschutzerklärung. Dies umfasst die Speicherung und Verarbeitung Ihrer Daten zur Vertragserfüllung sowie die Weitergabe an notwendige Dritte (z. B. Zahlungsanbieter, Hosting/IT, Versand). Mit Nutzung unserer Dienstleistungen erklären Sie sich mit dieser Verarbeitung einverstanden."
+            title: "9. Nutzung digitaler Dienste",
+            content: "Wir bemühen uns um eine hohe Verfügbarkeit unserer Hosting- und Streamingdienste. Kurzfristige Unterbrüche (Wartung, höhere Gewalt, technische Störungen) können jedoch auftreten.\n\nEin bestimmtes Service-Level wird nicht garantiert."
           },
           special: {
-            title: "10. Emotionale Produkte & besondere Hinweise",
-            content:
-              "Unsere Produkte haben einen hohen emotionalen Wert. Personalisierte Inhalte können nach der Fertigstellung nicht verändert oder zurückgegeben werden. Bei technischen Problemen unsererseits (z. B. Serverausfall) bemühen wir uns um eine schnellstmögliche Wiederherstellung des Zugangs; eine permanente Verfügbarkeit auf Kundenseite können wir nicht garantieren."
+            title: "10. Rechte Dritter",
+            content: "Sie allein sind dafür verantwortlich, dass Ihnen die erforderlichen Rechte an den von Ihnen eingesandten Bildern, einschliesslich Urheber-, Marken- und Persönlichkeitsrechte, zustehen. Sollten Dritte im Zusammenhang mit Ihrem Auftrag wegen Verletzung solcher Rechte Ansprüche gegen uns geltend machen, sind Sie verpflichtet, diese Ansprüche abzuwehren bzw. die Kosten der Abwehr dieser Ansprüche zu übernehmen. Schadensersatzansprüche von uns bleiben unberührt."
           },
           law: {
-            title: "11. Gerichtsstand und anwendbares Recht",
-            content:
-              "Es gilt ausschliesslich schweizerisches Recht. Gerichtsstand ist der Sitz von Memora Moments."
+            title: "11. Datenschutz",
+            content: "Die Verarbeitung personenbezogener Daten richtet sich nach unserer Datenschutzerklärung.\n\nDer Kunde nimmt zur Kenntnis, dass für Hosting, Zahlungsabwicklung oder andere Leistungen Drittanbieter eingesetzt werden können."
           },
           final: {
-            title: "12. Schlussbestimmungen",
-            content:
-              "Sollten einzelne Bestimmungen dieser AGB unwirksam sein, bleibt die Gültigkeit der übrigen Bestimmungen unberührt. Wir behalten uns vor, diese AGB jederzeit anzupassen. Es gilt die jeweils aktuelle Version, die mit Datum und Versionsnummer veröffentlicht wird."
+            title: "12. Spendenregelung",
+            content: "Wir spenden 10% des Nettoverkaufspreises jedes verkauften Produkts an wohltätige Stiftungen (z. B. Make-A-Wish Schweiz).\n\nDie Auszahlung der Spenden erfolgt einmal jährlich, jeweils Ende Jahr.\n\nDie Auswahl der Stiftung und die Abwicklung der Spenden obliegt TW Projects GmbH. Ein individueller Rechtsanspruch des Kunden auf die Weiterleitung oder Zweckbindung besteht nicht."
           },
-        }
+          contact: {
+            title: "13. Verbotene Nutzungen",
+            content: "Die Website darf nicht für rechtswidrige Zwecke, Spam, Malware oder Verstösse gegen Rechte Dritter genutzt werden.\n\nWir behalten uns vor, bei Missbrauch den Zugang zu sperren."
+          },
+        },
       },
       imprint: {
         title: "Impressum",
