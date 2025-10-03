@@ -11,6 +11,10 @@ export const enContent: ContentData = {
       mode: { human: "Human", pet: "Pets", surprise: "Surprise" }
     },
 
+    banner: {
+      text: "Free delivery throughout Switzerland"
+    },
+
     albumPage: {
       title: (name) => `Memories of ${name}`,
       preTitle: "A digital album for: ",
@@ -292,7 +296,7 @@ export const enContent: ContentData = {
     hero: {
       title: "Memories that live on – with heart and sound.",
       subtitle:
-        "Moments become a silent memorial – Memora Moments opens the door to stories that remain. Pictures, videos, and music keep the memory alive, right where it belongs: close to the heart.",
+        "A memorial piece with a Smart Tag – just a tap with your smartphone, and the digital memory album of your loved one opens. The most beautiful moments stay alive – in your heart and in special places.",
       startButton: "How it works",
       learnButton: "Learn More"
     },
@@ -486,7 +490,7 @@ export const enContent: ContentData = {
     hero: {
       title: "For our loyal companions – memories with heart and sound.",
       subtitle:
-        "Our pets give us love, loyalty, and joy. With Memora Moments, their memory stays alive – in the heart and in special places.",
+        "A keepsake with a Smart Tag – just a tap with your smartphone, and the digital photo album of your pet opens. The most beautiful moments stay alive – in your heart and in special places.",
       startButton: "How it works",
       learnButton: "Learn More"
     },
@@ -681,7 +685,7 @@ export const enContent: ContentData = {
     hero: {
       title: "A gift that touches hearts – unforgettable surprises.",
       subtitle:
-        "Whether for a wedding, birthday, or anniversary – with Memora Moments, you make memories tangible. Photos, videos, and music become a unique gift that lasts.",
+        "Whether it’s a wedding, birthday, or anniversary – with Memora Moments you make memories tangible. Tap the gift with your smartphone, and the digital memory album opens. A surprise that lasts.",
       startButton: "How it works",
       learnButton: "Learn More"
     },

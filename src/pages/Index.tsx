@@ -1,11 +1,11 @@
-import { useRef } from "react";
+import { useRef} from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FeatureCard from "@/components/FeatureCard";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Heart, Camera, Music, Sparkles, Check, PawPrint } from "lucide-react";
+import { Heart, Camera, Music, Sparkles, Check, PawPrint, X } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useContent } from "@/contexts/ContentContext";
@@ -24,6 +24,9 @@ const Index = () => {
   
   const { mode, isPetMode, modeContent, sharedContent } = useContent();
   const content = modeContent;
+
+  const bannerContent = sharedContent.banner;
+  const [isBannerOpen, setIsBannerOpen] = useState(true)
 
   // Produktmedien basierend auf dem Modus
   const media = useMemo(() => getMediaForMode(mode), [mode]);
@@ -150,6 +153,21 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Banner-Komponente */}
+      {bannerContent && isBannerOpen && (
+        <div className="relative bg-primary text-primary-foreground px-4 py-3 text-center text-sm font-medium">
+          <span>{bannerContent.text}</span>
+          <button
+            onClick={() => setIsBannerOpen(false)}
+            className="absolute top-1/2 right-4 -translate-y-1/2 opacity-70 hover:opacity-100"
+            aria-label="Banner schliessen"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+      )}
+
 
       {/* Features Section */}
       <section ref={featuresRef} className="py-20 bg-background">

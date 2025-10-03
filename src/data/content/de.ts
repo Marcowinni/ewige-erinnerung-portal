@@ -11,6 +11,10 @@ export const deContent: ContentData = {
       mode: { human: "Menschen", pet: "Haustiere", surprise: "Surprise" }
     },
 
+    banner: {
+      text: "Kostenlose Lieferung in die ganze Schweiz"
+    },
+
     albumPage: {
       title: (name) => `Erinnerungen an ${name}`,
       preTitle: "Ein digitales Album für: ",
@@ -302,7 +306,7 @@ export const deContent: ContentData = {
     hero: {
       title: "Erinnerungen, die weiterleben – mit Herz und Klang.",
       subtitle:
-        "Aus Momenten wird ein stilles Denkmal – Memora Moments öffnet die Tür zu Geschichten, die bleiben. Bilder, Videos und Musik halten die Erinnerung lebendig, genau dort, wo sie hingehört: nah am Herzen",
+        "Ein Gedenkstück mit Smart-Tag – ein Tipp mit dem Smartphone, und das digitale Erinnerungsalbum zu Ihrem geliebten Menschen öffnet sich. So bleiben die schönsten Momente lebendig – im Herzen und an besonderen Orten.",
       startButton: "Wie funktionierts?",
       learnButton: "Mehr erfahren"
     },
@@ -500,7 +504,7 @@ export const deContent: ContentData = {
     hero: {
       title: "Für unsere treuen Begleiter – Erinnerungen mit Herz und Klang.",
       subtitle:
-        "Unsere Haustiere schenken uns Liebe, Treue und Freude. Mit Memora Moments bleibt ihre Erinnerung lebendig – im Herzen und an besonderen Orten.",
+        "Ein Erinnerungsstück mit Smart-Tag – ein Tipp mit dem Smartphone, und das digitale Fotoalbum zu Ihrem Tier öffnet sich. So bleiben die schönsten Momente lebendig – im Herzen und an besonderen Orten.",
       startButton: "Wie funktionierts?",
       learnButton: "Mehr erfahren"
     },
@@ -698,7 +702,7 @@ export const deContent: ContentData = {
     hero: {
       title: "Ein Geschenk, das Herzen berührt – unvergessliche Überraschungen.",
       subtitle:
-        "Ob Hochzeit, Geburtstag oder Jubiläum – mit Memora Moments machen Sie Erinnerungen greifbar. Fotos, Videos und Musik werden zu einem einzigartigen Geschenk, das bleibt.",
+        "Ob Hochzeit, Geburtstag oder Jubiläum – mit Memora Moments machen Sie Erinnerungen greifbar. Tippe mit dem Smartphone an das Geschenk, und das digitale Erinnerungsalbum öffnet sich. Eine Überraschung, die bleibt.",
       startButton: "Wie funktionierts?",
       learnButton: "Mehr erfahren"
     },
@@ -722,7 +726,7 @@ export const deContent: ContentData = {
       subtitle: "Drei Schritte zum Überraschungsmoment.",
       step1: { title: "Produkt auswählen", desc: "Wählen Sie zwischen Memora Tag, Frame oder Deluxe." },
       step2: { title: "Medien und Musik auswählen", desc: "Wählen Sie Ihre Lieblingsbilder und Lieblingsvideos oder auch Sprachnachrichten und fügen Sie passende Hintergrundmusik hinzu." },
-      step3: { title: "Surprise erhalten", desc: "Ihre Memora oder wird direkt zu Ihnen geliefert." }
+      step3: { title: "Surprise erhalten", desc: "Ihre Memora wird direkt zu Ihnen geliefert." }
     },
     products: {
       title: "Surprise-Produkte",

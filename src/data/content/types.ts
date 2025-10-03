@@ -354,6 +354,9 @@ export interface AlbumPageContent {
 
 export interface SharedContent {
   navigation: NavigationContent;
+  banner?: {
+    text: string;
+  };
   about: {
     title: string;
     heading: string;

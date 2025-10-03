@@ -11,6 +11,10 @@ export const itContent: ContentData = {
       mode: { human: "Persona", pet: "Animali", surprise: "Sorpresa" }
     },
 
+    banner: {
+      text: "Spedizione gratuita in tutta la Svizzera"
+    },
+
     albumPage: {
       title: (name) => `Ricordi di ${name}`,
       preTitle: "Un album digitale per: ",
@@ -292,7 +296,7 @@ export const itContent: ContentData = {
     hero: {
       title: "Ricordi che continuano a vivere – con cuore e suono.",
       subtitle:
-        "I momenti diventano un memoriale silenzioso – Memora Moments apre la porta a storie che restano. Immagini, video e musica mantengono vivo il ricordo, proprio dove deve stare: vicino al cuore.",
+        "Un ricordo commemorativo con Smart Tag – basta un tocco con lo smartphone, e si apre l’album digitale della persona amata. I momenti più belli rimangono vivi – nel cuore e in luoghi speciali.",
       startButton: "Come funziona",
       learnButton: "Scopri di più"
     },
@@ -486,7 +490,7 @@ export const itContent: ContentData = {
     hero: {
       title: "Per i nostri compagni fedeli – ricordi con cuore e suono.",
       subtitle:
-        "I nostri animali ci donano amore, lealtà e gioia. Con Memora Moments, il loro ricordo resta vivo – nel cuore e in luoghi speciali.",
+        "Un ricordo con Smart Tag – basta un tocco con lo smartphone, e si apre l’album digitale del tuo animale. I momenti più belli rimangono vivi – nel cuore e in luoghi speciali.",
       startButton: "Come funziona",
       learnButton: "Scopri di più"
     },
@@ -681,7 +685,7 @@ export const itContent: ContentData = {
     hero: {
       title: "Un regalo che tocca il cuore – sorprese indimenticabili.",
       subtitle:
-        "Che sia per un matrimonio, compleanno o anniversario – con Memora Moments rendi i ricordi tangibili. Foto, video e musica diventano un dono unico che dura.",
+        "Che sia un matrimonio, un compleanno o un anniversario – con Memora Moments rendi i ricordi tangibili. Tocca il regalo con lo smartphone, e si apre l’album digitale. Una sorpresa che rimane.",
       startButton: "Come funziona",
       learnButton: "Scopri di più"
     },

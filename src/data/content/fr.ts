@@ -11,6 +11,10 @@ export const frContent: ContentData = {
       mode: { human: "Personnes", pet: "Animaux", surprise: "Surprise" }
     },
 
+    banner: {
+      text: "Livraison gratuite dans toute la Suisse"
+    },
+
     albumPage: {
       title: (name) => `Souvenirs de ${name}`,
       preTitle: "Un album numérique pour : ",
@@ -250,7 +254,7 @@ export const frContent: ContentData = {
   human: {
     hero: {
       title: "Des souvenirs qui perdurent – avec cœur et musique.",
-      subtitle: "De moments naît un mémorial silencieux – Memora Moments ouvre la porte à des histoires qui restent. Images, vidéos et musique maintiennent le souvenir vivant, là où il doit être : près du cœur.",
+      subtitle: "Un objet commémoratif avec Smart Tag – un simple geste avec votre smartphone, et l’album numérique de votre être cher s’ouvre. Les plus beaux moments restent vivants – dans le cœur et dans des lieux spéciaux.",
       startButton: "Comment ça marche ?",
       learnButton: "En savoir plus"
     },
@@ -448,7 +452,7 @@ export const frContent: ContentData = {
   pet: {
     hero: {
       title: "Pour nos fidèles compagnons – des souvenirs avec cœur et son.",
-      subtitle: "Nos animaux de compagnie nous donnent de l'amour, de la fidélité et de la joie. Avec Memora Moments, leur souvenir reste vivant – dans le cœur et dans des lieux spéciaux.",
+      subtitle: "Un souvenir avec Smart Tag – un simple geste avec votre smartphone, et l’album photo numérique de votre animal s’ouvre. Les plus beaux moments restent vivants – dans le cœur et dans des lieux spéciaux.",
       startButton: "Comment ça marche ?",
       learnButton: "En savoir plus"
     },
@@ -640,7 +644,7 @@ export const frContent: ContentData = {
   surprise: {
     hero: {
       title: "Un cadeau qui touche les cœurs – des surprises inoubliables.",
-      subtitle: "Que ce soit pour un mariage, un anniversaire ou un jubilé – avec Memora Moments, vous rendez les souvenirs tangibles. Photos, vidéos et musique deviennent un cadeau unique qui reste.",
+      subtitle: "Mariage, anniversaire ou jubilé – avec Memora Moments, vous rendez les souvenirs tangibles. Touchez le cadeau avec votre smartphone, et l’album numérique s’ouvre. Une surprise qui demeure.",
       startButton: "Comment ça marche ?",
       learnButton: "En savoir plus"
     },
