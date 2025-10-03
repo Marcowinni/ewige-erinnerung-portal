@@ -119,6 +119,34 @@ const Index = () => {
                 <Link to="/ueber">{content.hero.learnButton}</Link>
               </Button>
             </div>
+
+             <div className="mt-12 max-w-md">
+              <div className="rounded-xl border border-white/20 bg-black/20 p-6 backdrop-blur-md shadow-lg">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 pt-1">
+                    <Heart className="h-6 w-6 text-white/80" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-lg font-semibold text-white">
+                      {content.donation.title}
+                    </h3>
+                    <p className="mt-1 text-sm text-white/80">
+                      {content.donation.description}
+                    </p>
+                    <Button asChild variant="link" className="p-0 h-auto text-sm text-white mt-3 hover:text-primary-foreground">
+                      <a
+                          href={isPetMode ? "https://www.trd.ch/de/" : "https://makeawish.ch/en/"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                      >
+                          {content.donation.linkText}
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>

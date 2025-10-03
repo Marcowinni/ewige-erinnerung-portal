@@ -324,6 +324,13 @@ export const deContent: ContentData = {
       music: { title: "Hintergrundmusik einbinden", desc: "Musik schafft Nähe und lässt Emotionen lebendig werden." },
       quality: { title: "Würdevoll gestaltet", desc: "Schlichte, hochwertige Materialien, die sich harmonisch in jedes Grab oder Zuhause einfügen." }
     },
+
+    donation: {
+      title: "Gemeinsam Gutes tun",
+      description: "10% jedes Kaufs eines Memora Moments Produkts spenden wir an eine wohltätige Stiftung, um Hoffnung und Freude zu schenken.",
+      linkText: "Erfahre mehr über Make-A-Wish"
+    },  
+
     howitworks: {
       title: "So einfach funktioniert es",
       subtitle: "In wenigen Schritten zur persönlichen Memora.",
@@ -506,6 +513,13 @@ export const deContent: ContentData = {
       music: { title: "Lieblingsgeräusche", desc: "Das vertraute Bellen, Miauen oder ein Lied, das verbindet." },
       quality: { title: "Würdevolle Gestaltung", desc: "Schlichte, hochwertige Materialien, die sich harmonisch in jedes Zuhause einfügen, ob drinnen oder draussen." }
     },
+
+    donation: {
+      title: "Hilfe für Tiere in Not",
+      description: "10% jedes Kaufs eines Memora Pet Produkts gehen an die Stiftung Tierrettungsdienst, um Tieren in Not zu helfen.",
+      linkText: "Mehr über den Tierrettungsdienst"
+    },
+
     howitworks: {
       title: "So einfach funktioniert es",
       subtitle: "In drei Schritten zur Memora.",
@@ -689,6 +703,13 @@ export const deContent: ContentData = {
       music: { title: "Musik & Botschaften", desc: "Fügen Sie Hintergrundmusik oder eine persönliche Sprachnachricht hinzu." },
       quality: { title: "Edles Design", desc: "Minimalistisch und hochwertig – passend zu jedem Anlass und jeder Feier." }
     },
+
+    donation: {
+      title: "Ein Lächeln schenken",
+      description: "10% jedes Kaufs eines Memora Surprise Produkts spenden wir an die Stiftung Make-A-Wish, um Kindern ihre Herzenswünsche zu erfüllen.",
+      linkText: "Erfahre mehr über Make-A-Wish"
+    },
+
     howitworks: {
       title: "So funktioniert Surprise",
       subtitle: "Drei Schritte zum Überraschungsmoment.",

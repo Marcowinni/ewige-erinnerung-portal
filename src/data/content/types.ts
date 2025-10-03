@@ -168,6 +168,12 @@ export interface FeatureContent {
   quality: { title: string; desc: string };
 }
 
+export interface DonationContent {
+  title: string;
+  description: string;
+  linkText: string;
+}
+
 export interface HowItWorksContent {
   title: string;
   subtitle: string;
@@ -386,6 +392,7 @@ export interface SharedContent {
 export interface ModeContent {
   hero: HeroContent;
   features: FeatureContent;
+  donation: DonationContent;
   howitworks: HowItWorksContent;
   products: ProductsContent;
   cta: CTAContent;

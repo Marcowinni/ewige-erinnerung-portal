@@ -314,6 +314,13 @@ export const enContent: ContentData = {
       music: { title: "Integrate Background Music", desc: "Music creates closeness and brings emotions to life." },
       quality: { title: "Dignified Design", desc: "Simple, high-quality materials that blend harmoniously into any grave or home." }
     },
+
+    donation: {
+      title: "Doing Good Together",
+      description: "We donate 10% of every purchase of a Memora Moments product to a charitable foundation to bring hope and joy.",
+      linkText: "Learn more about Make-A-Wish"
+    },
+
     howitworks: {
       title: "How It Works",
       subtitle: "To a personal Memora in just a few steps.",
@@ -492,6 +499,13 @@ export const enContent: ContentData = {
       music: { title: "Favorite Sounds", desc: "The familiar bark, meow, or a song that connects." },
       quality: { title: "Dignified Design", desc: "Simple, high-quality materials that blend harmoniously into any home, whether indoors or outdoors." }
     },
+
+    donation: {
+      title: "Help for Animals in Need",
+      description: "10% of every purchase of a Memora Pet product goes to the Animal Rescue Service Foundation to help animals in need.",
+      linkText: "More about the Animal Rescue Service"
+    },
+
     howitworks: {
       title: "How It Works",
       subtitle: "To the Memora in three steps.",
@@ -672,6 +686,13 @@ export const enContent: ContentData = {
       music: { title: "Music & Messages", desc: "Add background music or a personal voice message." },
       quality: { title: "Elegant Design", desc: "Minimalist and high-quality – suitable for any occasion and celebration." }
     },
+
+    donation: {
+      title: "Giving a Smile",
+      description: "We donate 10% of every purchase of a Memora Surprise product to the Make-A-Wish Foundation to grant children their dearest wishes.",
+      linkText: "Learn more about Make-A-Wish"
+    },
+
     howitworks: {
       title: "How Surprise Works",
       subtitle: "Three steps to the surprise moment.",

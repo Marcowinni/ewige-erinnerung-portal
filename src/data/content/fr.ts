@@ -258,6 +258,13 @@ export const frContent: ContentData = {
       music: { title: "Intégrer une musique de fond", desc: "La musique crée une proximité et fait vivre les émotions." },
       quality: { title: "Conception digne", desc: "Des matériaux simples et de haute qualité qui s'intègrent harmonieusement dans n'importe quelle tombe ou maison." }
     },
+
+    donation: {
+      title: "Faire le bien ensemble",
+      description: "Nous reversons 10% de chaque achat d'un produit Memora Moments à une fondation caritative pour apporter espoir et joie.",
+      linkText: "En savoir plus sur Make-A-Wish"
+    },
+
     howitworks: {
       title: "C'est aussi simple que ça",
       subtitle: "Votre Memora personnel en quelques étapes.",
@@ -441,6 +448,13 @@ export const frContent: ContentData = {
       music: { title: "Sons préférés", desc: "L'aboiement familier, le miaulement ou une chanson qui relie." },
       quality: { title: "Conception digne", desc: "Des matériaux simples et de haute qualité qui s'intègrent harmonieusement dans n'importe quelle maison, que ce soit à l'intérieur ou à l'extérieur." }
     },
+
+    donation: {
+      title: "Aide pour les animaux en détresse",
+      description: "10% de chaque achat d'un produit Memora Pet sont reversés à la fondation Tierrettungsdienst pour aider les animaux dans le besoin.",
+      linkText: "En savoir plus sur le Tierrettungsdienst"
+    },
+
     howitworks: {
       title: "C'est aussi simple que ça",
       subtitle: "Votre Memora en trois étapes.",
@@ -618,6 +632,13 @@ export const frContent: ContentData = {
       music: { title: "Musique et messages", desc: "Ajoutez une musique de fond ou un message vocal personnel." },
       quality: { title: "Design élégant", desc: "Minimaliste et de haute qualité – adapté à chaque occasion et à chaque célébration." }
     },
+
+    donation: {
+      title: "Offrir un sourire",
+      description: "Nous reversons 10% de chaque achat d'un produit Memora Surprise à la fondation Make-A-Wish pour réaliser les vœux les plus chers des enfants.",
+      linkText: "En savoir plus sur Make-A-Wish"
+    },
+
     howitworks: {
       title: "Comment fonctionne Surprise",
       subtitle: "Trois étapes pour le moment de surprise.",

@@ -314,6 +314,13 @@ export const itContent: ContentData = {
       music: { title: "Integra musica di sottofondo", desc: "La musica crea vicinanza e rende vive le emozioni." },
       quality: { title: "Design dignitoso", desc: "Materiali semplici e di alta qualità che si integrano armoniosamente in ogni tomba o casa." }
     },
+
+    donation: {
+      title: "Fare del bene insieme",
+      description: "Doniamo il 10% di ogni acquisto di un prodotto Memora Moments a una fondazione di beneficenza per donare speranza e gioia.",
+      linkText: "Scopri di più su Make-A-Wish"
+    },
+
     howitworks: {
       title: "Come funziona",
       subtitle: "Il tuo Memora personale in pochi passaggi.",
@@ -492,6 +499,13 @@ export const itContent: ContentData = {
       music: { title: "Suoni preferiti", desc: "Il latrato, il miagolio o una canzone che vi unisce." },
       quality: { title: "Design dignitoso", desc: "Materiali semplici e di qualità che si integrano in ogni casa, dentro o fuori." }
     },
+
+    donation: {
+      title: "Aiuto per gli animali in difficoltà",
+      description: "Il 10% di ogni acquisto di un prodotto Memora Pet va alla fondazione Tierrettungsdienst per aiutare gli animali in difficoltà.",
+      linkText: "Maggiori informazioni sul Tierrettungsdienst"
+    },
+
     howitworks: {
       title: "Come funziona",
       subtitle: "Verso il tuo Memora in tre passaggi.",
@@ -672,6 +686,13 @@ export const itContent: ContentData = {
       music: { title: "Musica & messaggi", desc: "Aggiungi musica di sottofondo o un messaggio vocale personale." },
       quality: { title: "Design elegante", desc: "Minimalista e di alta qualità – adatto a ogni occasione e celebrazione." }
     },
+
+    donation: {
+      title: "Regalare un sorriso",
+      description: "Doniamo il 10% di ogni acquisto di un prodotto Memora Surprise alla fondazione Make-A-Wish per esaudire i desideri più cari dei bambini.",
+      linkText: "Scopri di più su Make-A-Wish"
+    },
+
     howitworks: {
       title: "Come funziona Sorpresa",
       subtitle: "Tre passaggi fino al momento sorpresa.",
