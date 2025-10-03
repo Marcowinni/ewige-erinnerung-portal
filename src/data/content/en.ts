@@ -473,6 +473,14 @@ export const enContent: ContentData = {
         modePet: "Pets",
         modeSurprise: "Surprise",
       },
+
+      orderConfirmation: {
+        prefix: "I have read and accept the",
+        termsLinkText: "Terms and Conditions",
+        separator: "and the",
+        privacyLinkText: "Privacy Policy",
+        suffix: "."
+      },
       privacyNotice: {
       text: "By uploading pictures, you agree to our",
       privacyLink: "Privacy Policy",
@@ -660,6 +668,14 @@ export const enContent: ContentData = {
         modePet: "Pets",
         modeSurprise: "Surprise",
       },
+
+      orderConfirmation: {
+        prefix: "I have read and accept the",
+        termsLinkText: "Terms and Conditions",
+        separator: "and the",
+        privacyLinkText: "Privacy Policy",
+        suffix: "."
+      },
       privacyNotice: {
         text: "By uploading pictures, you agree to our",
         privacyLink: "Privacy Policy",
@@ -840,6 +856,14 @@ export const enContent: ContentData = {
         modeHuman: "Human",
         modePet: "Pets",
         modeSurprise: "Surprise",
+      },
+
+      orderConfirmation: {
+        prefix: "I have read and accept the",
+        termsLinkText: "Terms and Conditions",
+        separator: "and the",
+        privacyLinkText: "Privacy Policy",
+        suffix: "."
       },
       privacyNotice: {
         text: "By uploading pictures, you agree to our",

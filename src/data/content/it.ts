@@ -473,6 +473,14 @@ export const itContent: ContentData = {
         modePet: "Animali",
         modeSurprise: "Sorpresa",
       },
+
+      orderConfirmation: {
+        prefix: "Ho letto e accetto i",
+        termsLinkText: "Termini e Condizioni",
+        separator: "e la",
+        privacyLinkText: "Politica sulla privacy",
+        suffix: "."
+      },
       privacyNotice: {
         text: "Caricando immagini, accetti la nostra",
         privacyLink: "Informativa sulla privacy",
@@ -660,6 +668,14 @@ export const itContent: ContentData = {
         modePet: "Animali",
         modeSurprise: "Sorpresa",
       },
+
+      orderConfirmation: {
+        prefix: "Ho letto e accetto i",
+        termsLinkText: "Termini e Condizioni",
+        separator: "e la",
+        privacyLinkText: "Politica sulla privacy",
+        suffix: "."
+      },
       privacyNotice: {
         text: "Caricando immagini, accetti la nostra",
         privacyLink: "Informativa sulla privacy",
@@ -840,6 +856,14 @@ export const itContent: ContentData = {
         modeHuman: "Persona",
         modePet: "Animali",
         modeSurprise: "Sorpresa",
+      },
+
+      orderConfirmation: {
+        prefix: "Ho letto e accetto i",
+        termsLinkText: "Termini e Condizioni",
+        separator: "e la",
+        privacyLinkText: "Politica sulla privacy",
+        suffix: "."
       },
       privacyNotice: {
         text: "Caricando immagini, accetti la nostra",

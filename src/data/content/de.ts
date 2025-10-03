@@ -485,6 +485,14 @@ export const deContent: ContentData = {
         modeSurprise: "Surprise",
         total: "Gesamtpreis"
       },
+
+      orderConfirmation: {
+        prefix: "Ich habe die",
+        termsLinkText: "AGB",
+        separator: "und die",
+        privacyLinkText: "Datenschutzbestimmungen",
+        suffix: "gelesen und akzeptiere sie."
+      },
      privacyNotice: {
         text: "Mit dem Hochladen von Bildern erklären Sie sich mit unseren",
         privacyLink: "Datenschutzrichtlinien",
@@ -676,6 +684,14 @@ export const deContent: ContentData = {
         modeSurprise: "Surprise",
         total: "Gesamtpreis"
       },
+
+      orderConfirmation: {
+        prefix: "Ich habe die",
+        termsLinkText: "AGB",
+        separator: "und die",
+        privacyLinkText: "Datenschutzbestimmungen",
+        suffix: "gelesen und akzeptiere sie."
+      },
       privacyNotice: {
         text: "Mit dem Hochladen von Bildern erklären Sie sich mit unseren",
         privacyLink: "Datenschutzrichtlinien",
@@ -860,6 +876,14 @@ export const deContent: ContentData = {
         modePet: "Pet",
         modeSurprise: "Surprise",
         total: "Gesamtpreis"
+      },
+
+      orderConfirmation: {
+        prefix: "Ich habe die",
+        termsLinkText: "AGB",
+        separator: "und die",
+        privacyLinkText: "Datenschutzbestimmungen",
+        suffix: "gelesen und akzeptiere sie."
       },
       privacyNotice: {
         text: "Mit dem Hochladen von Bildern erklären Sie sich mit unseren",

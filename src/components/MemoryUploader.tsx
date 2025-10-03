@@ -23,6 +23,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { set } from "date-fns";
+import { Link } from "react-router-dom";
 
 // Preiskalkulation
 function calculatePrice(form: FormState, mode: Mode): number {
@@ -172,8 +173,10 @@ type FormState = {
   frame_orientation?: "portrait" | "landscape";
   frame_custom?: CustomDesign; // Editor-Zustand + Vorschau
 
-  // NEU: Deluxe-Editor (immer 12x12 cm, keine Ausrichtung)
+  // Deluxe-Editor (immer 12x12 cm, keine Ausrichtung)
   deluxe_custom?: CustomDesign;
+
+  agreedToTerms?: boolean;
 };
 
 // --- Copy (Texte zentral) ---
@@ -300,6 +303,13 @@ type UploaderCopy = {
     modeHuman: string;
     modePet: string;
     modeSurprise: string;
+  };
+  orderConfirmation: {
+    prefix: string;
+    termsLinkText: string;
+    separator: string;
+    privacyLinkText: string;
+    suffix: string;
   };
 };
 
@@ -439,6 +449,13 @@ const DEFAULT_COPY: UploaderCopy = {
     modePet: "Pet",
     modeSurprise: "Surprise"
   },
+  orderConfirmation: {
+        prefix: "Ich habe die",
+        termsLinkText: "AGB",
+        separator: "und die",
+        privacyLinkText: "Datenschutzbestimmungen",
+        suffix: "gelesen und akzeptiere sie."
+      },
 };
 
 // Hilfs-Merger (flach + nested einfach)
@@ -500,7 +517,7 @@ function DesignEditor({
   width = 420,
   height = 420,
   cornerRadius = 24,
-  copy, // Nimmt jetzt das ganze `UploaderCopy` Objekt an
+  copy,
   tip,
 }: {
   value: CustomDesign | undefined;
@@ -509,7 +526,7 @@ function DesignEditor({
   width?: number;
   height?: number;
   cornerRadius?: number;
-  copy: UploaderCopy; // Geändert von UploaderCopy["editor"] zu UploaderCopy
+  copy: UploaderCopy;
   tip?: string;
 }) {
   const PREVIEW_SCALE_FACTOR = 3;
@@ -522,7 +539,11 @@ function DesignEditor({
   const editorContainerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Stabile onChange-Referenz
+  // --- NEUE STATE-VARIABLEN für die direkte Bearbeitung ---
+  const [editingTextId, setEditingTextId] = useState<string | null>(null);
+  const pinchStateRef = useRef<{ initialDist: number; initialFontSize: number } | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   const onChangeRef = useRef(onChange);
   useEffect(() => {
     onChangeRef.current = onChange;
@@ -545,6 +566,23 @@ function DesignEditor({
     origX: number;
     origY: number;
   } | null>(null);
+
+  // --- NEU: Effekt, um das Textfeld zu fokussieren, wenn die Bearbeitung startet ---
+  useEffect(() => {
+    if (editingTextId && textareaRef.current) {
+      textareaRef.current.focus();
+      textareaRef.current.select();
+    }
+  }, [editingTextId]);
+
+  // --- NEU: Effekt, um die Höhe des Textfeldes automatisch anzupassen ---
+  const activeTextContent = local.texts.find(t => t.id === editingTextId)?.text;
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [activeTextContent, editingTextId]);
 
   useEffect(() => {
     const handleMove = (e: PointerEvent | MouseEvent) => {
@@ -653,33 +691,27 @@ function DesignEditor({
 
   useEffect(() => { onChangeRef.current(local); }, [local]);
 
-  // Debounced auto-save for the preview
   useEffect(() => {
     const handler = setTimeout(() => {
-      // Nur eine Vorschau generieren, wenn ein Bild vorhanden ist
       if (canvasRef.current && local.bgImageUrl) {
         exportPng();
       }
-    }, 500); // Wartet 500ms nach der letzten Änderung
-
-    return () => {
-      clearTimeout(handler);
-    };
+    }, 500);
+    return () => clearTimeout(handler);
   }, [local.bgImageUrl, local.scale, local.offsetX, local.offsetY, local.texts]);
-  
+
   const draw = (renderTexts: boolean) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     
-    // Wende den Skalierungsfaktor an
     ctx.resetTransform();
     ctx.scale(PREVIEW_SCALE_FACTOR, PREVIEW_SCALE_FACTOR);
 
     ctx.imageSmoothingQuality = "high";
     ctx.clearRect(0, 0, W, H);
-    applyClip(ctx, W, H); // applyClip arbeitet weiterhin mit den originalen W/H-Werten
+    applyClip(ctx, W, H);
 
     if (imgRef.current) {
       const img = imgRef.current;
@@ -703,9 +735,8 @@ function DesignEditor({
       });
     }
     
-    // WICHTIG: Die globale Transformation zurücksetzen nach dem Zeichnen
     ctx.resetTransform();
-    ctx.restore(); // applyClip's save() wiederherstellen
+    ctx.restore();
   };
 
   useEffect(() => {
@@ -759,7 +790,7 @@ function DesignEditor({
         const canvasHeight = H;
         const scaleX = canvasWidth / tempImg.width;
         const scaleY = canvasHeight / tempImg.height;
-        const initialScale = Math.max(scaleX, scaleY); // 'Cover' effect
+        const initialScale = Math.max(scaleX, scaleY);
 
         setLocal((s) => ({
           ...s,
@@ -772,21 +803,29 @@ function DesignEditor({
     }
   };
 
-  const handleTriggerUpload = () => {
-    fileInputRef.current?.click();
-  };
-
   const addText = () => {
     const id = crypto.randomUUID();
     setLocal((s) => ({ ...s, texts: [...s.texts, { id, text: "Neuer Text", x: 0.5, y: 0.5, fontFamily: "system-ui, sans-serif", fontSize: 28, color: "#ffffff", fontWeight: "normal", fontStyle: "normal", width: 0.8 }] }));
     setActiveTextId(id);
+    setEditingTextId(id); // --- NEU: Direkt in den Bearbeitungsmodus wechseln
   };
   const selectText = (id: string) => setActiveTextId(id);
-  const updateActiveText = (patch: Partial<EditorText>) => setLocal((s) => ({ ...s, texts: s.texts.map((t) => (t.id === activeTextId ? { ...t, ...patch } : t)) }));
+
+  // --- ÜBERARBEITET: updateActiveText kann jetzt auch eine ID annehmen ---
+  const updateActiveText = (patch: Partial<EditorText> & { id?: string }) => {
+    const targetId = patch.id || activeTextId;
+    if (!targetId) return;
+    setLocal((s) => ({
+      ...s,
+      texts: s.texts.map((t) => (t.id === targetId ? { ...t, ...patch } : t)),
+    }));
+  };
+
   const removeActiveText = () => {
     if (activeTextId) {
       setLocal((s) => ({ ...s, texts: s.texts.filter((t) => t.id !== activeTextId) }));
       setActiveTextId(null);
+      setEditingTextId(null);
     }
   };
 
@@ -812,6 +851,41 @@ function DesignEditor({
     { label: "Great Vibes", value: "'Great Vibes', cursive" },
   ];
 
+  // --- NEU: Touch-Handler für die Grössenänderung ---
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>, text: EditorText) => {
+    if (e.touches.length === 2) {
+      e.stopPropagation();
+      setActiveTextId(text.id);
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      pinchStateRef.current = {
+        initialDist: Math.hypot(dx, dy),
+        initialFontSize: text.fontSize,
+      };
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>, textId: string) => {
+    if (e.touches.length === 2 && pinchStateRef.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      const newDist = Math.hypot(dx, dy);
+      
+      const scale = newDist / pinchStateRef.current.initialDist;
+      const newSize = pinchStateRef.current.initialFontSize * scale;
+
+      const clampedSize = Math.max(10, Math.min(96, newSize));
+      
+      updateActiveText({ id: textId, fontSize: clampedSize });
+    }
+  };
+
+  const handleTouchEnd = () => {
+    pinchStateRef.current = null;
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex flex-col md:flex-row gap-6">
@@ -828,7 +902,6 @@ function DesignEditor({
                   borderRadius: shape === 'circle' ? '50%' : `${cornerRadius}px`
                 }}
               >
-                {/* Der innere Teil bleibt gleich */}
                 <div
                   ref={editorContainerRef}
                   className="absolute inset-0"
@@ -850,17 +923,44 @@ function DesignEditor({
                     {local.texts.map(t => {
                       const rect = overlayRef.current?.getBoundingClientRect();
                       const scaleFactor = rect ? rect.width / W : 1;
+                      
+                      // --- NEU: Logik für In-Place-Editing ---
+                      if (editingTextId === t.id) {
+                        return (
+                          <Textarea
+                            key={t.id}
+                            ref={textareaRef}
+                            value={t.text}
+                            onBlur={() => setEditingTextId(null)}
+                            onChange={(e) => updateActiveText({ id: t.id, text: e.target.value })}
+                            className="absolute bg-transparent border-dashed border-white/50 focus-visible:ring-0 focus-visible:ring-offset-0 resize-none text-center p-0 m-0"
+                            style={{
+                              left: `${t.x * 100}%`, top: `${t.y * 100}%`, transform: 'translate(-50%, -50%)',
+                              width: `${(t.width || 0.8) * 100}%`,
+                              fontSize: (t.fontSize || 24) * scaleFactor, fontFamily: t.fontFamily, color: t.color,
+                              fontWeight: t.fontWeight, fontStyle: t.fontStyle, lineHeight: 1.2,
+                            }}
+                          />
+                        );
+                      }
+                      
                       return (
-                        <div key={t.id} data-text-id={t.id} onPointerDown={e => onMouseDownText(e as any, t.id)} onClick={(e) => { e.preventDefault(); selectText(t.id); }}
-                          className="absolute cursor-move whitespace-pre-wrap text-center"
+                        <div key={t.id} data-text-id={t.id}
+                          onPointerDown={e => onMouseDownText(e as any, t.id)}
+                          onDoubleClick={() => setEditingTextId(t.id)}
+                          onTouchStart={(e) => handleTouchStart(e, t)}
+                          onTouchMove={(e) => handleTouchMove(e, t.id)}
+                          onTouchEnd={handleTouchEnd}
+                          className="absolute cursor-move whitespace-pre-wrap text-center flex items-center justify-center"
                           style={{
                             left: `${t.x * 100}%`, top: `${t.y * 100}%`, transform: 'translate(-50%, -50%)',
                             width: `${(t.width || 0.8) * 100}%`,
                             fontSize: (t.fontSize || 24) * scaleFactor, fontFamily: t.fontFamily, color: t.color,
                             fontWeight: t.fontWeight, fontStyle: t.fontStyle,
                             border: activeTextId === t.id ? '1px dashed currentColor' : 'none', padding: '2px 4px',
+                            minHeight: (t.fontSize || 24) * scaleFactor * 1.2,
                           }}>
-                          {t.text}
+                          {t.text || "Text eingeben..."}
                         </div>
                       );
                     })}
@@ -894,31 +994,25 @@ function DesignEditor({
             <Label>{copy.editor.zoom} ({local.scale.toFixed(2)})</Label>
             <Input type="range" min={ZOOM_MIN} max={ZOOM_MAX} step={0.01} value={local.scale} onChange={(e) => setLocal(s => ({ ...s, scale: Number(e.target.value) }))} />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="file-upload-input">{copy.editor.image}</Label>
-            <div className="flex items-center gap-2">
-                <Input
-                    id="file-upload-input"
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => onUpload(e.target.files)}
-                    className="hidden"
-                />
-                <Button onClick={addText} type="button">{copy.buttons.addText}</Button>
-            </div>
+          <div className="flex items-center gap-2">
+             <Button onClick={addText} type="button">{copy.buttons.addText}</Button>
           </div>
+          
+          {/* --- ÜBERARBEITET: Das Textarea-Feld ist jetzt ausgeblendet, da die Bearbeitung direkt erfolgt --- */}
           {activeText && (
             <div className="space-y-3 border rounded-md p-3">
               <div className="flex justify-between items-center"><Label className="font-semibold">{copy.editor.selectedText}</Label><Button size="sm" variant="outline" onClick={removeActiveText}>{copy.buttons.remove}</Button></div>
-              <div className="space-y-2"><Label>{copy.editor.content}</Label><Textarea value={activeText.text} onChange={e => updateActiveText({ text: e.target.value })} /></div>
+              
+              {/* Das Text-Input-Feld ist jetzt nicht mehr nötig */}
+              {/* <div className="space-y-2"><Label>{copy.editor.content}</Label><Textarea value={activeText.text} onChange={e => updateActiveText({ text: e.target.value })} /></div> */}
+
               <div className="space-y-2">
                 <Label>Textbox Breite ({Math.round((activeText.width || 0.8) * 100)}%)</Label>
                 <Input type="range" min={0.2} max={1} step={0.01} value={activeText.width} onChange={(e) => updateActiveText({ width: Number(e.target.value) })} />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div><Label>{copy.editor.font}</Label><select className="w-full border rounded-md h-10 px-2 bg-background" value={activeText.fontFamily} onChange={e => updateActiveText({ fontFamily: e.target.value })}>{FONT_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}</select></div>
-                <div><Label>{copy.editor.size}</Label><Input type="number" min={10} max={96} value={activeText.fontSize} onChange={e => updateActiveText({ fontSize: Number(e.target.value) })} /></div>
+                <div><Label>{copy.editor.size}</Label><Input type="number" min={10} max={96} value={Math.round(activeText.fontSize)} onChange={e => updateActiveText({ fontSize: Number(e.target.value) })} /></div>
               </div>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
@@ -1819,13 +1913,41 @@ function Step5InvoiceAndPayView(props: {
             </li>
           </ul>
         </div>
+        
+
+        {/* Checkbox für AGB und Datenschutz */}
+        <div className="mt-8 flex items-start space-x-3">
+          <Checkbox
+            id="terms"
+            checked={!!form.agreedToTerms}
+            onCheckedChange={(checked) => setForm((s) => ({ ...s, agreedToTerms: !!checked }))}
+            aria-labelledby="terms-label"
+          />
+          <div className="grid gap-1.5 leading-none">
+            <label
+              id="terms-label"
+              htmlFor="terms"
+              className="text-sm text-muted-foreground"
+            >
+              {copy.orderConfirmation.prefix}{" "}
+              <Link to="/agb" target="_blank" className="font-semibold text-primary underline-offset-4 hover:underline">
+                {copy.orderConfirmation.termsLinkText}
+              </Link>{" "}
+              {copy.orderConfirmation.separator}{" "}
+              <Link to="/datenschutz" target="_blank" className="font-semibold text-primary underline-offset-4 hover:underline">
+                {copy.orderConfirmation.privacyLinkText}
+              </Link>{" "}
+              {copy.orderConfirmation.suffix}
+            </label>
+          </div>
+        </div>
 
         <div className="mt-2 flex flex-wrap justify-between gap-3">
           <div className="flex gap-3">
             <Button variant="outline" onClick={onBack}>{copy.buttons.back}</Button>
             <Button variant="ghost" onClick={onReset}>{copy.buttons.reset}</Button>
           </div>
-          <Button size="lg" onClick={onPlaceOrder} disabled={invalid || isSubmitting}>
+          <Button size="lg" onClick={onPlaceOrder} disabled={invalid || isSubmitting || !form.agreedToTerms}>
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
