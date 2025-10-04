@@ -336,7 +336,7 @@ export const deContent: ContentData = {
     products: {
       title: "Unsere Memoras:",
       subtitle: "Die klassischen Memora-Produkte.",
-      basic: { title: "Memora Tag", desc: "Ein schlichter Smart-Tag, die Erinnerungen per digitalem Fotoalbum zum Leben erweckt – dezent und unvergänglich.", price: "49 CHF" },
+      basic: { title: "Memora Tag", desc: "Ein schlichter Smart-Tag, der Erinnerungen per digitalem Fotoalbum zum Leben erweckt – dezent und unvergänglich.", price: "49 CHF" },
       premium: { title: "Memora Frame", desc: "Ein klassischer Bilderrahmen, verbunden mit moderner Technologie. So wird jedes Foto zum Tor zu bewegenden Erinnerungen.", price: "79 CHF" },
       deluxe: { title: "Memora Deluxe", desc: "Ein hochwertiges Kunstwerk, das die Vergangenheit lebendig hält und Zukunft berührt.", price: "129 CHF" },
       features: {
@@ -533,7 +533,7 @@ export const deContent: ContentData = {
     products: {
       title: "Haustier-Produkte",
       subtitle: "Erinnerungen für treue Begleiter.",
-      basic: { title: "Memora Pet Tag", desc: "Ein schlichter Smart-Tag, die mit einem digitalen Fotoalbum Erinnerungen an Ihr Haustier zum Leben erweckt", price: "ab 49 CHF" },
+      basic: { title: "Memora Pet Tag", desc: "Ein schlichter Smart-Tag, der mit einem digitalen Fotoalbum Erinnerungen an Ihr Haustier zum Leben erweckt", price: "ab 49 CHF" },
       premium: { title: "Memora Pet Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Fotoalbum verbindet – ideal für Zuhause.", price: "79 CHF" },
       deluxe: { title: "Memora Pet Deluxe", desc: "Eine exklusive Plexiglasplatte mit Halterung – für ein bleibendes, würdiges Erinnerungsstück.", price: "129 CHF" },
       features: {

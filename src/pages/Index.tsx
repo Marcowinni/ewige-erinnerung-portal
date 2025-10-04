@@ -136,7 +136,7 @@ const Index = () => {
                     <p className="mt-1 text-sm text-white/80">
                       {content.donation.description}
                     </p>
-                    <Button asChild variant="link" className="p-0 h-auto text-sm text-white mt-3 hover:text-primary-foreground">
+                    <Button asChild variant="link" className="p-0 h-auto text-sm text-white mt-3 underline-offset-4 hover:underline">
                       <a
                           href={isPetMode ? "https://www.trd.ch/de/" : "https://makeawish.ch/en/"}
                           target="_blank"
@@ -156,8 +156,10 @@ const Index = () => {
 
       {/* Banner-Komponente */}
       {bannerContent && isBannerOpen && (
-        <div className="relative bg-primary text-primary-foreground px-4 py-3 text-center text-sm font-medium">
-          <span>{bannerContent.text}</span>
+        <div className="relative bg-secondary text-secondary-foreground px-4 py-3 text-center text-sm md:text-base font-medium">
+          <div className="flex items-center justify-center gap-2">
+            <span>{bannerContent.text}</span>
+          </div>
           <button
             onClick={() => setIsBannerOpen(false)}
             className="absolute top-1/2 right-4 -translate-y-1/2 opacity-70 hover:opacity-100"
@@ -265,7 +267,8 @@ const Index = () => {
                         <video 
                           key={video.src}
                           className="w-full rounded-lg" 
-                          controls poster={video.poster}
+                          controls
+                          preload="metadata"
                         >
                         <source src={video.src} type="video/mp4" />
                           Ihr Browser unterstützt keine Videos.

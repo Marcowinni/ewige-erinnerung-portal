@@ -6,7 +6,6 @@ import { Mode } from "./content/types";
 export interface ProductMedia {
   demoVideos: {
     src: string;
-    poster: string;
     alt: string;
   }[];
   basicProduct: {
@@ -29,8 +28,7 @@ export interface ProductMedia {
 export const humanMedia: ProductMedia = {
   demoVideos: [
   {
-    src: "https://btwzspkoyusxajcchapn.supabase.co/storage/v1/object/public/website-media/demo-videos/memora_produktvideo.mp4", // <-- DEIN NEUER SUPABASE LINK
-    poster: "/produktbilder/Human Media/Memora Frame/memora_frame_4.png",
+    src: "https://btwzspkoyusxajcchapn.supabase.co/storage/v1/object/public/website-media/demo-videos/memora_produktvideo.mp4",
     alt: "Produktvideo für Memora Produkte",
   },
 ],
@@ -105,7 +103,6 @@ export const petMedia: ProductMedia = {
   demoVideos: [
   {
     src: "https://btwzspkoyusxajcchapn.supabase.co/storage/v1/object/public/website-media/demo-videos/pets_produktvideo.mp4", 
-    poster: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_4.png", 
     alt: "Produktvideo für Memora Pet Produkte",
   },
 ],
@@ -200,7 +197,6 @@ export const surpriseMedia: ProductMedia = {
   demoVideos: [
   {
     src: "https://btwzspkoyusxajcchapn.supabase.co/storage/v1/object/public/website-media/demo-videos/suprise_produktvideo.mp4", 
-    poster: "/produktbilder/Surprise Media/Surprise Frame/memora_surprise_frame_4.png", 
     alt: "Produktvideo für Memora Surprise Produkte",
   },
 ],
