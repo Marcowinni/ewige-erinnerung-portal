@@ -322,7 +322,7 @@ export const deContent: ContentData = {
 
     donation: {
       title: "Gemeinsam Gutes tun",
-      description: "10% jedes Kaufs eines Memora Moments Produkts spenden wir an eine wohltätige Stiftung, um Hoffnung und Freude zu schenken.",
+      description: "10% jedes Kaufs eines Memora Moments Produkts spenden wir an die Stiftung Make-A-Wish, um Hoffnung und Freude zu schenken.",
       linkText: "Erfahre mehr über Make-A-Wish"
     },  
 
@@ -330,8 +330,8 @@ export const deContent: ContentData = {
       title: "So einfach funktioniert es",
       subtitle: "In wenigen Schritten zur persönlichen Memora.",
       step1: { title: "Produkt auswählen", desc: "Wählen Sie zwischen Memora Tag, Frame oder Deluxe." },
-      step2: { title: "Medien und Musik auswählen", desc: "Wählen Sie Ihre Lieblingsbilder und Lieblingsvideos oder auch Sprachnachrichten und fügen Sie passende Hintergrundmusik hinzu." },
-      step3: { title: "Memora erhalten", desc: "Ihre Memora kommt zu Ihnen nach Hause." }
+      step2: { title: "Medien und Musik auswählen", desc: "Wählen Sie behutsam Fotos, Videos oder Sprachnachrichten Ihres geliebten Verewigten und ergänzen Sie eine stimmige musikalische Begleitung. " },
+      step3: { title: "Memora erhalten", desc: "Das Gedenkstück mit Smart-Tag – bereits mit Ihrem digitalen Fotoalbum verknüpft – kommt zu Ihnen nach Hause." }
     },
     products: {
       title: "Unsere Memoras:",
@@ -504,16 +504,16 @@ export const deContent: ContentData = {
     hero: {
       title: "Für unsere treuen Begleiter – Erinnerungen mit Herz und Klang.",
       subtitle:
-        "Ein Erinnerungsstück mit Smart-Tag – ein Tipp mit dem Smartphone, und das digitale Fotoalbum zu Ihrem Tier öffnet sich. So bleiben die schönsten Momente lebendig – im Herzen und an besonderen Orten.",
+        "Ein Erinnerungsstück mit Smart-Tag – ein Tipp mit dem Smartphone, und das digitale Fotoalbum zu Ihrem geliebten Tier öffnet sich. So bleiben die schönsten Momente lebendig – im Herzen und an besonderen Orten.",
       startButton: "Wie funktionierts?",
       learnButton: "Mehr erfahren"
     },
     features: {
       title: "Unvergessliche Momente mit Ihrem Liebling",
       subtitle: "Digitale Erinnerungen für Haustiere.",
-      unique: { title: "Liebevolle Erinnerung", desc: "Besondere Momente mit Ihrem Haustier." },
-      multimedia: { title: "Multimedia Erlebnisse", desc: "Erhalten Sie Ihr digitales Fotoalbum. Fotos und Videos Ihres Lieblings." },
-      music: { title: "Lieblingsgeräusche", desc: "Das vertraute Bellen, Miauen oder ein Lied, das verbindet." },
+      unique: { title: "Liebevolle Erinnerung", desc: "Bewahren Sie die treue Begleitung Ihres Tieres in einer bleibenden Erinnerung." },
+      multimedia: { title: "Multimedia Erlebnisse", desc: "Erhalten Sie Ihr digitales Fotoalbum – mit Fotos und Videos Ihres Lieblings, die Erinnerungen lebendig werden lassen" },
+      music: { title: "Lieblingsgeräusche", desc: "Hinterlegen Sie Aufnahmen Ihres Tieres oder Musik im Album, damit die Erinnerung auch hörbar wird." },
       quality: { title: "Würdevolle Gestaltung", desc: "Schlichte, hochwertige Materialien, die sich harmonisch in jedes Zuhause einfügen, ob drinnen oder draussen." }
     },
 
@@ -527,8 +527,8 @@ export const deContent: ContentData = {
       title: "So einfach funktioniert es",
       subtitle: "In drei Schritten zur Memora.",
       step1: { title: "Produkt auswählen", desc: "Wählen Sie zwischen Memora Tag, Frame oder Deluxe." },
-      step2: { title: "Medien und Musik oder Geräusche auswählen", desc: "Wählen Sie Ihre Lieblingsbilder und Lieblingsvideos oder auch Sprachnachrichten und fügen Sie passende Hintergrundmusik hinzu." },
-      step3: { title: "Memora erhalten", desc: "Ihre Memora wird geliefert." }
+      step2: { title: "Medien und Musik oder Geräusche auswählen", desc: "Wählen Sie Ihre Lieblingsbilder und Lieblingsvideos oder auch Audiodateien und fügen Sie passende Hintergrundmusik hinzu." },
+      step3: { title: "Memora erhalten", desc: "Ihre Memora mit Smart-Tag – bereits mit dem digitalen Fotoalbum verknüpft – kommt zu Ihnen nach Hause" }
     },
     products: {
       title: "Haustier-Produkte",
@@ -541,7 +541,7 @@ export const deContent: ContentData = {
         tag2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         tag3: "Minimales, zeitloses Design, fügt sich harmonisch ein",
         tag4: "Option: Standard schlicht, individuell gestaltet oder als Schlüsselanhänger",
-        premium1: "3 cm ⌀ Plexiglasplatte – verbindet Bild & digitales Gedenken",
+        premium1: "3 cm ⌀ Smart-Tag – verbindet Bild & digitales Gedenken",
         premium2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         premium3: "Persönliche Gestaltung mit eigenem Foto",
         premium4: "Ideal für Zuhause oder als Geschenk",
@@ -700,7 +700,7 @@ export const deContent: ContentData = {
   // --- SURPRISE MODE ---
   surprise: {
     hero: {
-      title: "Ein Geschenk, das Herzen berührt – unvergessliche Überraschungen.",
+      title: "Ein Geschenk, das Herzen berührt",
       subtitle:
         "Ob Hochzeit, Geburtstag oder Jubiläum – mit Memora Moments machen Sie Erinnerungen greifbar. Tippe mit dem Smartphone an das Geschenk, und das digitale Erinnerungsalbum öffnet sich. Eine Überraschung, die bleibt.",
       startButton: "Wie funktionierts?",
@@ -726,20 +726,20 @@ export const deContent: ContentData = {
       subtitle: "Drei Schritte zum Überraschungsmoment.",
       step1: { title: "Produkt auswählen", desc: "Wählen Sie zwischen Memora Tag, Frame oder Deluxe." },
       step2: { title: "Medien und Musik auswählen", desc: "Wählen Sie Ihre Lieblingsbilder und Lieblingsvideos oder auch Sprachnachrichten und fügen Sie passende Hintergrundmusik hinzu." },
-      step3: { title: "Surprise erhalten", desc: "Ihre Memora wird direkt zu Ihnen geliefert." }
+      step3: { title: "Surprise erhalten", desc: "Ihr Memora Geschenk mit Smart-Tag – bereits mit dem digitalen Fotoalbum verknüpft – kommt zu Ihnen nach Hause." }
     },
     products: {
       title: "Surprise-Produkte",
       subtitle: "Wählen Sie Ihren Stil.",
-      basic: { title: "Memora Surprise Tag", desc: "Ein Smart-Tag, die ein digitales Fotoalbum verbindet – originell und einzigartig.", price: "49 CHF" },
+      basic: { title: "Memora Surprise Tag", desc: "Ein Smart-Tag, der ein digitales Fotoalbum verbindet – originell und einzigartig.", price: "49 CHF" },
       premium: { title: "Memora Surprise Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Fotoalbum verbindet – ideal als Geschenk.", price: "79 CHF" },
       deluxe: { title: "Memora Surprise Deluxe", desc: "Eine exklusive Plexiglasplatte mit integrierter Technologie – das elegante Premium-Geschenk für bleibende Erinnerungen.", price: "129 CHF" },
       features: {
         tag1: "6×6 cm oder 3 cm ⌀ Smart-Tag",
         tag2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         tag3: "Minimales, zeitloses Design, fügt sich harmonisch ein",
-        tag4: "Überraschung, die Emotionen weckt und lange in Erinnerung bleibt",
-        premium1: "3 cm ⌀ Plexiglasplatte – verbindet Bild & digitales Gedenken",
+        tag4: "Eine Überraschung, die Emotionen weckt und lange in Erinnerung bleibt",
+        premium1: "3 cm ⌀ Smart-Tag – verbindet Bild & digitales Gedenken",
         premium2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
         premium3: "Persönliche Gestaltung mit eigenem Foto",
         premium4: "Das perfekte Geschenk für Geburtstage, Hochzeiten oder Jubiläen",

@@ -312,7 +312,7 @@ export const enContent: ContentData = {
 
     donation: {
       title: "Doing Good Together",
-      description: "We donate 10% of every purchase of a Memora Moments product to a charitable foundation to bring hope and joy.",
+      description: "We donate 10% of every purchase of a Memora Moments product to Make-A-Wish to bring hope and joy.",
       linkText: "Learn more about Make-A-Wish"
     },
 
@@ -320,8 +320,8 @@ export const enContent: ContentData = {
       title: "How It Works",
       subtitle: "To a personal Memora in just a few steps.",
       step1: { title: "Select Product", desc: "Choose between Memora Tag, Frame, or Deluxe." },
-      step2: { title: "Select Media and Music", desc: "Choose your favorite pictures and videos or even voice messages and add suitable background music." },
-      step3: { title: "Receive Memora", desc: "Your Memora will be delivered to your home." }
+      step2: { title: "Select Media and Music", desc: "Carefully select photos, videos, or voice messages of your loved one and add a fitting musical background." },
+      step3: { title: "Receive Memora", desc: "The Memora with Smart-Tag – already linked to your digital photo album – will be delivered to your home." }
     },
     products: {
       title: "Our Memoras:",
@@ -490,16 +490,16 @@ export const enContent: ContentData = {
     hero: {
       title: "For our loyal companions – memories with heart and sound.",
       subtitle:
-        "A keepsake with a Smart Tag – just a tap with your smartphone, and the digital photo album of your pet opens. The most beautiful moments stay alive – in your heart and in special places.",
+        "A keepsake with a Smart Tag – just a tap with your smartphone, and the digital photo album of your beloved pet opens. The most beautiful moments stay alive – in your heart and in special places.",
       startButton: "How it works",
       learnButton: "Learn More"
     },
     features: {
       title: "Unforgettable moments with your darling",
       subtitle: "Digital memories for pets.",
-      unique: { title: "Loving Memory", desc: "Special moments with your pet." },
-      multimedia: { title: "Multimedia Experiences", desc: "Photos and videos of your darling." },
-      music: { title: "Favorite Sounds", desc: "The familiar bark, meow, or a song that connects." },
+      unique: { title: "Loving Memory", desc: "Preserve your pet’s loyal companionship in a lasting memory." },
+      multimedia: { title: "Multimedia Experiences", desc: "Receive your digital photo album – with photos and videos of your pet that bring memories to life." },
+      music: { title: "Favorite Sounds", desc: "Upload recordings of your pet or music in the album to make the memory audible." },
       quality: { title: "Dignified Design", desc: "Simple, high-quality materials that blend harmoniously into any home, whether indoors or outdoors." }
     },
 
@@ -513,8 +513,8 @@ export const enContent: ContentData = {
       title: "How It Works",
       subtitle: "To the Memora in three steps.",
       step1: { title: "Select Product", desc: "Choose between Memora Tag, Frame, or Deluxe." },
-      step2: { title: "Select Media and Music or Sounds", desc: "Choose your favorite pictures and videos or even voice messages and add suitable background music." },
-      step3: { title: "Receive Memora", desc: "Your Memora will be delivered." }
+      step2: { title: "Select Media and Music or Sounds", desc: "Choose your favorite pictures and videos or even audio files and add suitable background music." },
+      step3: { title: "Receive Memora", desc: "Your Memora with Smart-Tag – already linked to the digital photo album – will be delivered to your home" }
     },
     products: {
       title: "Pet Products",
@@ -709,7 +709,7 @@ export const enContent: ContentData = {
       subtitle: "Three steps to the surprise moment.",
       step1: { title: "Select Product", desc: "Choose between Memora Tag, Frame, or Deluxe." },
       step2: { title: "Select Media and Music", desc: "Choose your favorite pictures and videos or even voice messages and add suitable background music." },
-      step3: { title: "Receive Surprise", desc: "Your Memora will be delivered directly to you." }
+      step3: { title: "Receive Surprise", desc: "Your Memora gift with Smart-Tag – already linked to the digital photo album – will be delivered to your home." }
     },
     products: {
       title: "Surprise Products",

@@ -312,7 +312,7 @@ export const itContent: ContentData = {
 
     donation: {
       title: "Fare del bene insieme",
-      description: "Doniamo il 10% di ogni acquisto di un prodotto Memora Moments a una fondazione di beneficenza per donare speranza e gioia.",
+      description: "Doniamo il 10% di ogni acquisto di un prodotto Memora Moments a Make-A-Wish per donare speranza e gioia.",
       linkText: "Scopri di più su Make-A-Wish"
     },
 
@@ -320,8 +320,8 @@ export const itContent: ContentData = {
       title: "Come funziona",
       subtitle: "Il tuo Memora personale in pochi passaggi.",
       step1: { title: "Seleziona il prodotto", desc: "Scegli tra Memora Tag, Frame o Deluxe." },
-      step2: { title: "Seleziona media e musica", desc: "Scegli le tue foto e i tuoi video preferiti o anche messaggi vocali e aggiungi una musica di sottofondo adatta." },
-      step3: { title: "Ricevi il tuo Memora", desc: "Il tuo Memora verrà consegnato a casa tua." }
+      step2: { title: "Seleziona media e musica", desc: "Selezionate con cura foto, video o messaggi vocali della persona cara e aggiungete un accompagnamento musicale adatto." },
+      step3: { title: "Ricevi il tuo Memora", desc: "Il ricordo con Smart-Tag – già collegato al vostro album fotografico digitale – arriverà a casa vostra." }
     },
     products: {
       title: "I nostri Memora:",
@@ -490,16 +490,16 @@ export const itContent: ContentData = {
     hero: {
       title: "Per i nostri compagni fedeli – ricordi con cuore e suono.",
       subtitle:
-        "Un ricordo con Smart Tag – basta un tocco con lo smartphone, e si apre l’album digitale del tuo animale. I momenti più belli rimangono vivi – nel cuore e in luoghi speciali.",
+        "Un ricordo con Smart Tag – basta un tocco con lo smartphone, e si apre l’album digitale del tuo animale amato. I momenti più belli rimangono vivi – nel cuore e in luoghi speciali.",
       startButton: "Come funziona",
       learnButton: "Scopri di più"
     },
     features: {
       title: "Momenti indimenticabili con il tuo amico",
       subtitle: "Ricordi digitali per animali.",
-      unique: { title: "Ricordo affettuoso", desc: "Momenti speciali con il tuo animale." },
-      multimedia: { title: "Esperienze multimediali", desc: "Foto e video del tuo amico a quattro zampe." },
-      music: { title: "Suoni preferiti", desc: "Il latrato, il miagolio o una canzone che vi unisce." },
+      unique: { title: "Ricordo affettuoso", desc: "Conservate la fedele compagnia del vostro animale in un ricordo duraturo." },
+      multimedia: { title: "Esperienze multimediali", desc: "Ricevete il vostro album fotografico digitale – con foto e video del vostro animale che rendono i ricordi vivi." },
+      music: { title: "Suoni preferiti", desc: "Caricate registrazioni del vostro animale o musica nell’album per rendere il ricordo udibile." },
       quality: { title: "Design dignitoso", desc: "Materiali semplici e di qualità che si integrano in ogni casa, dentro o fuori." }
     },
 
@@ -513,8 +513,8 @@ export const itContent: ContentData = {
       title: "Come funziona",
       subtitle: "Verso il tuo Memora in tre passaggi.",
       step1: { title: "Seleziona il prodotto", desc: "Scegli tra Memora Tag, Frame o Deluxe." },
-      step2: { title: "Seleziona media e musica o suoni", desc: "Scegli foto e video preferiti o anche messaggi vocali e aggiungi musica di sottofondo adatta." },
-      step3: { title: "Ricevi il tuo Memora", desc: "Il tuo Memora verrà consegnato." }
+      step2: { title: "Seleziona media e musica o suoni", desc: "Scegli foto e video preferiti o anche File audio e aggiungi musica di sottofondo adatta." },
+      step3: { title: "Ricevi il tuo Memora", desc: "La vostra Memora con Smart-Tag – già collegata all’album fotografico digitale – arriverà a casa vostra." }
     },
     products: {
       title: "Prodotti per animali",
@@ -709,7 +709,7 @@ export const itContent: ContentData = {
       subtitle: "Tre passaggi fino al momento sorpresa.",
       step1: { title: "Seleziona il prodotto", desc: "Scegli tra Memora Tag, Frame o Deluxe." },
       step2: { title: "Seleziona media e musica", desc: "Scegli foto e video preferiti o anche messaggi vocali e aggiungi musica di sottofondo adatta." },
-      step3: { title: "Ricevi la Sorpresa", desc: "Il tuo Memora verrà consegnato direttamente a te." }
+      step3: { title: "Ricevi la Sorpresa", desc: "Il vostro regalo Memora con Smart-Tag – già collegato all’album fotografico digitale – arriverà a casa vostra." }
     },
     products: {
       title: "Prodotti Sorpresa",
