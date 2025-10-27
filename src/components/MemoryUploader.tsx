@@ -538,6 +538,7 @@ function DesignEditor({
   const imgRef = useRef<HTMLImageElement | null>(null);
   const editorContainerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+ 
 
   // --- NEUE STATE-VARIABLEN für die direkte Bearbeitung ---
   const [editingTextId, setEditingTextId] = useState<string | null>(null);
@@ -1737,13 +1738,37 @@ function Step5InvoiceAndPayView(props: {
   isSubmitting: boolean;
   onReset: () => void;
   copy: UploaderCopy;
-  media: any;
+  media: any; // Sollte spezifischer sein, z.B. ProductMedia
   onPreviewClick: (gallery: { images: { src: string; alt: string }[]; startIndex: number }) => void;
+  // --- NEUE PROPS FÜR RABATTCODE ---
+  discountCodeInput: string;
+  setDiscountCodeInput: (value: string) => void;
+  appliedDiscount: { code: string; type: 'percentage' | 'fixed'; value: number } | null;
+  setAppliedDiscount: (discount: { code: string; type: 'percentage' | 'fixed'; value: number } | null) => void;
+  discountError: string | null;
+  setDiscountError: (error: string | null) => void;
+  isApplyingDiscount: boolean;
+  handleApplyDiscount: () => Promise<void>;
 }) {
-  const { mode, form, setForm, productLabel, onBack, onPlaceOrder, isSubmitting, onReset, copy, media, onPreviewClick } = props;
+  const {
+    mode, form, setForm, productLabel, onBack, onPlaceOrder, isSubmitting, onReset, copy, media, onPreviewClick,
+    discountCodeInput, setDiscountCodeInput, appliedDiscount, setAppliedDiscount,
+    discountError, setDiscountError, isApplyingDiscount, handleApplyDiscount
+  } = props;
 
-  // Preisberechnung aufrufen
-  const totalPrice = calculatePrice(form, mode as Mode);
+  // Preisberechnung
+  const originalPrice = useMemo(() => calculatePrice(form, mode as Mode), [form, mode]);
+  const discountAmount = useMemo(() => {
+      if (!appliedDiscount) return 0;
+      if (appliedDiscount.type === 'fixed') {
+          return Math.min(originalPrice, appliedDiscount.value);
+      }
+      if (appliedDiscount.type === 'percentage') {
+          return originalPrice * (appliedDiscount.value / 100);
+      }
+      return 0;
+  }, [appliedDiscount, originalPrice]);
+  const finalPrice = useMemo(() => Math.max(0, originalPrice - discountAmount), [originalPrice, discountAmount]);
 
   const toggleSame = (checked: boolean) => {
     setForm((s) => ({
@@ -1762,19 +1787,20 @@ function Step5InvoiceAndPayView(props: {
     !form.invoice_city ||
     !form.invoice_country;
 
-  // Options-Logik mit Übersetzungen
+  // Options-Logik (unverändert)
   const options: string[] = [];
   if (form.product === 'basic' && mode === 'pet' && (form.tag_format ?? "round_3cm") === "round_3cm" && form.pet_tag_keychain) {
     options.push(copy.products.keychainLabel);
   }
   if (form.product === 'basic' && mode === 'pet' && form.pet_tag_customEnabled) {
-    options.push(copy.products.designCustom);
+    // Unterscheide Text für Standard vs Custom
+    options.push(form.pet_tag_customEnabled ? copy.products.designCustom : copy.products.designStandard);
   }
-  // Stellt sicher, dass die Ausrichtung NUR beim Frame (premium) angezeigt wird
   if (form.product === 'premium' && form.frame_orientation) {
     const orientationLabel = form.frame_orientation === "portrait" ? copy.summary.optionPortrait : copy.summary.optionLandscape;
     options.push(`${copy.summary.optionOrientation}: ${orientationLabel}`);
   }
+
   return (
     <div>
       <h2 className="text-2xl md:text-3xl font-serif mb-3">{copy.headings.step5Title}</h2>
@@ -1783,13 +1809,12 @@ function Step5InvoiceAndPayView(props: {
       </p>
 
       <div className="space-y-10">
-        {/* Rechnungsadresse */}
+        {/* Rechnungsadresse (unverändert) */}
         <div>
           <div className="flex items-center gap-2 mb-4">
             <Checkbox id="same" checked={!!form.invoice_sameAsContact} onCheckedChange={(v) => toggleSame(!!v)} />
             <Label htmlFor="same">{copy.invoiceFields.sameAsContact}</Label>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="md:col-span-2">
               <Label htmlFor="invoice_company">{copy.invoiceFields.companyOpt}</Label>
@@ -1822,102 +1847,111 @@ function Step5InvoiceAndPayView(props: {
           </div>
         </div>
 
+        {/* --- NEU: Rabattcode-Eingabe --- */}
+        <div className="mt-6 mb-8"> {/* Adjusted margin */}
+          <Label htmlFor="discount_code">Rabattcode (optional)</Label>
+          <div className="flex items-center gap-2 mt-1">
+            <Input
+              id="discount_code"
+              value={discountCodeInput}
+              onChange={(e) => {
+                setDiscountCodeInput(e.target.value);
+                setDiscountError(null);
+              }}
+              placeholder="Gutscheincode eingeben"
+              disabled={!!appliedDiscount || isApplyingDiscount}
+              className="flex-grow"
+            />
+            {appliedDiscount ? (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setAppliedDiscount(null);
+                  setDiscountCodeInput("");
+                  setDiscountError(null);
+                }}
+              >
+                Entfernen
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={handleApplyDiscount}
+                disabled={!discountCodeInput || isApplyingDiscount}
+              >
+                {isApplyingDiscount ? <Loader2 className="h-4 w-4 animate-spin" /> : "Anwenden"}
+              </Button>
+            )}
+          </div>
+          {discountError && <p className="text-sm text-red-500 mt-1">{discountError}</p>}
+          {appliedDiscount && !discountError && <p className="text-sm text-green-600 mt-1">Code "{appliedDiscount.code}" angewendet!</p>}
+        </div>
+        {/* --- ENDE RABATTCODE --- */}
+
         {/* Zusammenfassung */}
         <div className="border rounded-lg p-6">
           <h3 className="text-xl font-serif mb-4">{copy.headings.summary}</h3>
           <ul className="space-y-1 text-sm text-muted-foreground">
-            <li><strong>{copy.summary.mode}:</strong> <span className="text-foreground">{mode === "pet" ? "Pet" : mode === "surprise" ? "Surprise" : "Human"}</span></li>
-            <li><strong>{copy.summary.product}:</strong> <span className="text-foreground">{productLabel || "-"}</span></li>
-            {form.product === "basic" && (<li><strong>{copy.summary.format}:</strong> <span className="text-foreground">{(form.tag_format ?? "round_3cm") === "square_6cm" ? copy.summary.formatSquare : copy.summary.formatRound}</span></li>)}
-            {options.length > 0 && (<li><strong>{copy.summary.options}:</strong> <span className="text-foreground">{options.join(", ")}</span></li>)}
-            
-            {/* Klickbare Vorschauen für individuelle Designs */}
-            {(form.pet_tag_custom?.previewDataUrl || form.frame_custom?.previewDataUrl || form.deluxe_custom?.previewDataUrl) && (
-              <li className="mt-2">
-                <strong>{copy.summary.previewTitle}:</strong>
-                <div className="mt-2 flex items-center gap-4">
-                  {form.pet_tag_custom?.previewDataUrl && (
-                    <img 
-                      src={form.pet_tag_custom.previewDataUrl} 
-                      alt="Tag Vorschau" 
-                      className="w-20 h-20 rounded-full border cursor-pointer hover:opacity-80 transition-opacity"
-                      onClick={() => props.onPreviewClick({ images: [{ src: form.pet_tag_custom!.previewDataUrl!, alt: 'Tag Vorschau' }], startIndex: 0 })}
-                    />
-                  )}
-                  {form.frame_custom?.previewDataUrl && (
-                    <img 
-                      src={form.frame_custom.previewDataUrl} 
-                      alt="Frame Vorschau" 
-                      className="w-28 h-auto rounded-xl border cursor-pointer hover:opacity-80 transition-opacity"
-                      onClick={() => props.onPreviewClick({ images: [{ src: form.frame_custom!.previewDataUrl!, alt: 'Frame Vorschau' }], startIndex: 0 })}
-                    />
-                  )}
-                  {form.deluxe_custom?.previewDataUrl && (
-                    <img 
-                      src={form.deluxe_custom.previewDataUrl} 
-                      alt="Deluxe Vorschau" 
-                      className="w-28 h-auto rounded-xl border cursor-pointer hover:opacity-80 transition-opacity"
-                      onClick={() => props.onPreviewClick({ images: [{ src: form.deluxe_custom!.previewDataUrl!, alt: 'Deluxe Vorschau' }], startIndex: 0 })}
-                    />
-                  )}
-                </div>
-              </li>
-            )}
+            {/* ... (Andere Listeneinträge wie Modus, Produkt, Optionen, Vorschau etc. bleiben wie sie waren) ... */}
+             <li><strong>{copy.summary.mode}:</strong> <span className="text-foreground">{mode === "pet" ? copy.summary.modePet : mode === "surprise" ? copy.summary.modeSurprise : copy.summary.modeHuman}</span></li>
+             <li><strong>{copy.summary.product}:</strong> <span className="text-foreground">{productLabel || "-"}</span></li>
+             {form.product === "basic" && (<li><strong>{copy.summary.format}:</strong> <span className="text-foreground">{(form.tag_format ?? "round_3cm") === "square_6cm" ? copy.summary.formatSquare : copy.summary.formatRound}</span></li>)}
+             {options.length > 0 && (<li><strong>{copy.summary.options}:</strong> <span className="text-foreground">{options.join(", ")}</span></li>)}
 
-            {/* Klickbare Vorschau für Standard-Tag (der korrigierte Block) */}
-            {form.product === 'basic' && !(mode === 'pet' && form.pet_tag_customEnabled) && (() => {
-              const isRound = (form.tag_format ?? "round_3cm") === "round_3cm";
-              const mediaData = getMediaForMode(mode);
-              const defaultImageSrc = isRound ? mediaData.tagDefaults?.round : mediaData.tagDefaults?.square;
-              
-              if (!defaultImageSrc) return null;
+             {(form.pet_tag_custom?.previewDataUrl || form.frame_custom?.previewDataUrl || form.deluxe_custom?.previewDataUrl) && (
+               <li className="mt-2">
+                 <strong>{copy.summary.previewTitle}:</strong>
+                 <div className="mt-2 flex items-center gap-4">
+                   {form.pet_tag_custom?.previewDataUrl && ( <img src={form.pet_tag_custom.previewDataUrl} alt="Tag Vorschau" className="w-20 h-20 rounded-full border cursor-pointer hover:opacity-80 transition-opacity" onClick={() => onPreviewClick({ images: [{ src: form.pet_tag_custom!.previewDataUrl!, alt: 'Tag Vorschau' }], startIndex: 0 })} /> )}
+                   {form.frame_custom?.previewDataUrl && ( <img src={form.frame_custom.previewDataUrl} alt="Frame Vorschau" className="w-28 h-auto rounded-xl border cursor-pointer hover:opacity-80 transition-opacity" onClick={() => onPreviewClick({ images: [{ src: form.frame_custom!.previewDataUrl!, alt: 'Frame Vorschau' }], startIndex: 0 })} /> )}
+                   {form.deluxe_custom?.previewDataUrl && ( <img src={form.deluxe_custom.previewDataUrl} alt="Deluxe Vorschau" className="w-28 h-auto rounded-xl border cursor-pointer hover:opacity-80 transition-opacity" onClick={() => onPreviewClick({ images: [{ src: form.deluxe_custom!.previewDataUrl!, alt: 'Deluxe Vorschau' }], startIndex: 0 })} /> )}
+                 </div>
+               </li>
+             )}
 
-              return (
-                <li className="mt-2">
-                  <strong>{copy.summary.previewTitle}:</strong>
-                  <div className="mt-2 flex items-center gap-4">
-                    <img
-                      src={defaultImageSrc}
-                      alt="Standard Tag Vorschau"
-                      className={`w-20 h-20 border cursor-pointer hover:opacity-80 transition-opacity ${isRound ? 'rounded-full' : 'rounded-xl'}`}
-                      onClick={() => props.onPreviewClick({ images: [{ src: defaultImageSrc, alt: 'Standard Tag Vorschau' }], startIndex: 0 })}
-                    />
-                  </div>
-                </li>
-              );
-            })()}
+             {form.product === 'basic' && !(mode === 'pet' && form.pet_tag_customEnabled) && (() => {
+               const isRound = (form.tag_format ?? "round_3cm") === "round_3cm";
+               const mediaData = getMediaForMode(mode);
+               const defaultImageSrc = isRound ? mediaData.tagDefaults?.round : mediaData.tagDefaults?.square;
+               if (!defaultImageSrc) return null;
+               return ( <li className="mt-2"> <strong>{copy.summary.previewTitle}:</strong> <div className="mt-2 flex items-center gap-4"> <img src={defaultImageSrc} alt="Standard Tag Vorschau" className={`w-20 h-20 border cursor-pointer hover:opacity-80 transition-opacity ${isRound ? 'rounded-full' : 'rounded-xl'}`} onClick={() => onPreviewClick({ images: [{ src: defaultImageSrc, alt: 'Standard Tag Vorschau' }], startIndex: 0 })} /> </div> </li> );
+             })()}
 
-            {/* Restliche Zusammenfassungs-Infos */}
-            {mode === "human" && (<li><strong>{copy.summary.person}:</strong> <span className="text-foreground">{form.human_firstName} {form.human_lastName}{" "}{form.human_deathDate ? `(${form.human_deathDate})` : ""}</span></li>)}
-            {mode === "pet" && (<li><strong>{copy.summary.pet}:</strong> <span className="text-foreground">{form.pet_name} {form.pet_deathDate ? `(${form.pet_deathDate})` : ""}</span></li>)}
-            {mode === "surprise" && (<li><strong>{copy.summary.recipient}:</strong> <span className="text-foreground">{form.surprise_name}</span></li>)}
-            {form.notes && (<li><strong>{copy.summary.notes}:</strong> <span className="text-foreground">{form.notes}</span></li>)}
-            <li><strong>{copy.summary.counts(form.images.length, form.videos.length)}</strong></li>
-            {form.selectedLocalMusic && (
+             {mode === "human" && (<li><strong>{copy.summary.person}:</strong> <span className="text-foreground">{form.human_firstName} {form.human_lastName}{" "}{form.human_deathDate ? `(${form.human_deathDate})` : ""}</span></li>)}
+             {mode === "pet" && (<li><strong>{copy.summary.pet}:</strong> <span className="text-foreground">{form.pet_name} {form.pet_deathDate ? `(${form.pet_deathDate})` : ""}</span></li>)}
+             {mode === "surprise" && (<li><strong>{copy.summary.recipient}:</strong> <span className="text-foreground">{form.surprise_name}</span></li>)}
+             {form.notes && (<li><strong>{copy.summary.notes}:</strong> <span className="text-foreground">{form.notes}</span></li>)}
+             <li><strong>{copy.summary.counts(form.images.length, form.videos.length)}</strong></li>
+             {form.selectedLocalMusic && ( <li> <strong>Musik:</strong> <span className="text-foreground ml-1"> {form.selectedLocalMusic.replace('.mp3', '').replace(/-/g, ' ')} </span> </li> )}
+             {form.pixabayMusicLink && ( <li> <strong>Pixabay Musik:</strong> <span className="text-foreground ml-1">{form.pixabayMusicLink}</span> </li> )}
+
+            {/* --- ANGEPASSTE PREISANZEIGE --- */}
+            <li className="pt-2 mt-2 border-t"> {/* Trennlinie vor Preisen */}
+              <span>Zwischensumme:</span>
+              <span className="text-foreground ml-1 float-right">CHF {originalPrice.toFixed(2)}</span>
+            </li>
+            {appliedDiscount && (
               <li>
-                <strong>Musik:</strong>
-                <span className="text-foreground ml-1">
-                  {form.selectedLocalMusic.replace('.mp3', '').replace(/-/g, ' ')}
+                <span>Rabatt ({appliedDiscount.code}):</span>
+                <span className="text-red-500 ml-1 float-right">
+                  - CHF {discountAmount.toFixed(2)}
+                  {appliedDiscount.type === 'percentage' && ` (${appliedDiscount.value}%)`}
                 </span>
               </li>
             )}
-            {form.pixabayMusicLink && (
-              <li>
-                <strong>Pixabay Musik:</strong>
-                <span className="text-foreground ml-1">{form.pixabayMusicLink}</span>
-              </li>
-            )}
-            <li className="font-bold text-lg pt-2 mt-2 border-t">
+            <li className="font-bold text-lg pt-2 mt-2 border-t"> {/* Trennlinie vor Gesamtpreis */}
               <div className="flex justify-between items-center text-foreground">
                 <span>{copy.summary.total}:</span>
-                <span>CHF {totalPrice.toFixed(2)}</span>
+                <span>CHF {finalPrice.toFixed(2)}</span>
               </div>
             </li>
+            {/* --- ENDE ANGEPASSTE PREISANZEIGE --- */}
           </ul>
         </div>
-        
 
-        {/* Checkbox für AGB und Datenschutz */}
+        {/* Checkbox für AGB und Datenschutz (unverändert) */}
         <div className="mt-8 flex items-start space-x-3">
           <Checkbox
             id="terms"
@@ -1944,6 +1978,7 @@ function Step5InvoiceAndPayView(props: {
           </div>
         </div>
 
+        {/* Buttons (angepasst für finalPrice) */}
         <div className="mt-2 flex flex-wrap justify-between gap-3">
           <div className="flex gap-3">
             <Button variant="outline" onClick={onBack}>{copy.buttons.back}</Button>
@@ -1956,7 +1991,7 @@ function Step5InvoiceAndPayView(props: {
                 Bestellung wird verarbeitet...
               </>
             ) : (
-              `${copy.buttons.toPay} (CHF ${totalPrice.toFixed(2)})`
+              `${copy.buttons.toPay} (CHF ${finalPrice.toFixed(2)})` // finalPrice verwenden
             )}
           </Button>
         </div>
@@ -1998,6 +2033,12 @@ const MemoryUploader = () => {
   const [selected, setSelected] = useState<ProductKey | null>(
     (persistedInit?.form?.product ?? null) as ProductKey | null
   );
+
+  //Discount Variables
+  const [discountCodeInput, setDiscountCodeInput] = useState("");
+  const [appliedDiscount, setAppliedDiscount] = useState<{ code: string; type: 'percentage' | 'fixed'; value: number } | null>(null);
+  const [discountError, setDiscountError] = useState<string | null>(null);
+  const [isApplyingDiscount, setIsApplyingDiscount] = useState(false);
 
   // Auto-Persist (debounced)
   useEffect(() => {
@@ -2075,6 +2116,46 @@ const MemoryUploader = () => {
     setStep(3);
     scrollToTop();
   };
+
+  //discount function
+  const handleApplyDiscount = async () => {
+        if (!discountCodeInput || isApplyingDiscount || appliedDiscount) return;
+
+        setIsApplyingDiscount(true);
+        setDiscountError(null);
+
+        try {
+            const { data, error } = await supabase.functions.invoke(
+                'validate-discount-code',
+                { body: { code: discountCodeInput } }
+            );
+
+            if (error) { // Fehler beim Funktionsaufruf
+                throw new Error(error.message || "Fehler bei der Code-Prüfung.");
+            }
+
+            if (data && data.valid) { // Code gültig
+                setAppliedDiscount({
+                    code: data.code,
+                    type: data.discountType,
+                    value: data.value,
+                });
+                toast.success(data.message);
+            } else { // Code ungültig (von Funktion zurückgemeldet)
+                setDiscountError(data.message || "Ungültiger Code.");
+                setAppliedDiscount(null);
+            }
+
+        } catch (err) {
+            console.error("Error applying discount code:", err);
+            const message = err instanceof Error ? err.message : "Ein Fehler ist aufgetreten.";
+            setDiscountError(message);
+            setAppliedDiscount(null);
+            toast.error(`Fehler: ${message}`);
+        } finally {
+            setIsApplyingDiscount(false);
+        }
+    };
   // placement of order
   const onPlaceOrder = async () => {
     setIsSubmitting(true);
@@ -2273,6 +2354,14 @@ const MemoryUploader = () => {
           copy={COPY}
           media={media}
           onPreviewClick={setActiveGallery}
+          discountCodeInput={discountCodeInput}
+          setDiscountCodeInput={setDiscountCodeInput}
+          appliedDiscount={appliedDiscount}
+          setAppliedDiscount={setAppliedDiscount}
+          discountError={discountError}
+          setDiscountError={setDiscountError}
+          isApplyingDiscount={isApplyingDiscount}
+          handleApplyDiscount={handleApplyDiscount}
         />
       )}
     </div>
