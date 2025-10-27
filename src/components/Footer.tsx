@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, Instagram, Facebook } from "lucide-react";
 import MemoraLogo from "@/components/MemoraLogo";
 import { useContent } from "@/contexts/ContentContext";
 
@@ -7,6 +7,8 @@ const Footer = () => {
   const { sharedContent } = useContent();
   const { footer: f, navigation: nav } = sharedContent;
   const year = new Date().getFullYear();
+
+  const facebookUrl = "https://www.facebook.com";
 
   return (
     <footer className="border-t bg-secondary/30">
@@ -45,8 +47,30 @@ const Footer = () => {
                   +41 79 407 56 99
                 </a>
               </li>
-            </ul>
-          </div>
+              <li className="flex items-center gap-3">
+                  <Instagram className="w-5 h-5 text-primary" />
+                  <a
+                    href="https://www.instagram.com/memora.moments/"
+                    target="_blank" // Öffnet in neuem Tab
+                    rel="noopener noreferrer" // Sicherheit für externe Links
+                    className="hover:underline"
+                  >
+                    @memora.moments
+                  </a>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Facebook className="w-5 h-5 text-primary" />
+                  <a
+                    href={facebookUrl} // Verwende die Variable hier
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    Facebook {/* Du kannst den Text anpassen, z.B. "Memora Moments auf Facebook" */}
+                  </a>
+                </li>
+              </ul>
+            </div>
 
           {/* Links */}
           <div>
