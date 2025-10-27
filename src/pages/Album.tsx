@@ -55,19 +55,31 @@ const Album = () => {
     }
     const fetchAlbumData = async () => {
       setLoading(true);
-      const { data, error: dbError } = await supabase
-        .from('orders')
-        .select('canva_link, subject_details, music_choice')
-        .eq('id', albumId)
-        .single();
+      const { data: functionData, error: functionError } = await supabase.functions.invoke(
+        'get-album-data', // Name der Funktion
+        {
+          body: { albumId: albumId } // Sende die ID im Body
+        }
+      );
 
-      if (dbError || !data) {
-        setError("Dieses Album konnte nicht gefunden werden.");
-      } else if (!data.canva_link) {
-        setError("Für diese Bestellung wurde noch kein Album erstellt.");
+      if (functionError) {
+         // Fehler beim Aufruf der Funktion selbst (Netzwerk, 500er etc.)
+         console.error("Function invoke error:", functionError);
+         setError(`Fehler beim Laden der Albumdaten: ${functionError.message}`);
+      } else if (functionData.error) {
+         // Fehler, der *innerhalb* der Funktion aufgetreten ist (z.B. 404, DB-Fehler)
+         console.error("Function returned error:", functionData.error);
+         setError(functionData.error === "Album not found." || functionData.error === "Album data not found."
+           ? "Dieses Album konnte nicht gefunden werden."
+           : `Fehler: ${functionData.error}`);
+      } else if (!functionData.canva_link) {
+         // Gültige Antwort, aber kein Canva-Link vorhanden
+         setError("Für diese Bestellung wurde noch kein Album erstellt.");
       } else {
-        setAlbumData(data);
+         // Erfolg!
+         setAlbumData(functionData);
       }
+
       setLoading(false);
     };
     fetchAlbumData();

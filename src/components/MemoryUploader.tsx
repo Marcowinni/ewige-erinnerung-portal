@@ -2111,17 +2111,16 @@ const MemoryUploader = () => {
         notes: form.notes || "Keine Notizen",
       };
 
-      const { data: orderData, error: initialInsertError } = await supabase
-        .from('orders')
-        .insert(initialOrderPayload)
-        .select('id')
-        .single();
+      const { data: functionResponse, error: functionError } = await supabase.functions.invoke('create-order', {
+        body: initialOrderPayload // Sende die Daten an die Funktion
+      });
 
-      if (initialInsertError || !orderData) {
-        throw new Error(`Fehler beim Erstellen der Bestellung: ${initialInsertError?.message}`);
+      if (functionError || !functionResponse || functionResponse.error) {
+          const errorMessage = functionError?.message || functionResponse?.error || 'Unknown error invoking function';
+          throw new Error(`Fehler beim Erstellen der Bestellung via Funktion: ${errorMessage}`);
       }
       
-      const orderId = orderData.id;
+      const orderId = functionResponse.orderData.id;
       const orderFolderPath = `order_${orderId}`;
 
       // 3. Lade jetzt alle Dateien in den bestellungs-spezifischen Ordner hoch
