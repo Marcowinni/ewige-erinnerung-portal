@@ -66,7 +66,7 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="hover:underline"
                   >
-                    Facebook {/* Du kannst den Text anpassen, z.B. "Memora Moments auf Facebook" */}
+                    @memora-moments 
                   </a>
                 </li>
               </ul>
