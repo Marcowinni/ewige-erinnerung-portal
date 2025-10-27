@@ -2115,12 +2115,13 @@ const MemoryUploader = () => {
         body: initialOrderPayload // Sende die Daten an die Funktion
       });
 
-      if (functionError || !functionResponse || functionResponse.error) {
+      if (functionError || !functionResponse || functionResponse.error || !functionResponse.orderId || !functionResponse.orderSlug) {
           const errorMessage = functionError?.message || functionResponse?.error || 'Unknown error invoking function';
           throw new Error(`Fehler beim Erstellen der Bestellung via Funktion: ${errorMessage}`);
       }
       
       const orderId = functionResponse.orderId;
+      const orderSlug = functionResponse.orderSlug;
       const orderFolderPath = `order_${orderId}`;
 
       // 3. Lade jetzt alle Dateien in den bestellungs-spezifischen Ordner hoch
@@ -2155,16 +2156,29 @@ const MemoryUploader = () => {
         previewFilePath = previewUploadData.path;
       }
       
-      // 5. Aktualisiere den Datenbank-Eintrag mit den Dateipfaden
-      const { error: updateError } = await supabase
-        .from('orders')
-        .update({
-          uploaded_files: uploadedFilePaths,
-          preview_file_path: previewFilePath
-        })
-        .eq('id', orderId);
+      // 5. Finalisiere die Bestellung über die neue Edge Function
+      toast.info("Bestellung wird abgeschlossen...");
+      const { data: finalizeData, error: finalizeError } = await supabase.functions.invoke(
+        'finalize-order',
+        {
+          body: {
+            orderId: orderId,
+            uploadedFilePaths: uploadedFilePaths, // Das Array mit den Pfaden
+            previewFilePath: previewFilePath      // Der Pfad zur Vorschau (oder null)
+          }
+        }
+      );
 
-      if (updateError) throw new Error(`Fehler beim Speichern der Dateipfade: ${updateError.message}`);
+      // Fehlerbehandlung für den finalize-Aufruf
+      if (finalizeError || (finalizeData && finalizeData.error)) {
+        const errorMessage = finalizeError?.message || finalizeData?.error || "Unbekannter Fehler beim Abschliessen der Bestellung.";
+        // WICHTIG: Hier dem Nutzer mitteilen, dass etwas schiefging, obwohl Uploads evtl. klappten!
+        // Eventuell manuelle Nachverfolgung anbieten.
+        console.error("Fehler beim Finalisieren der Bestellung:", errorMessage);
+        toast.error(`Fehler beim Abschliessen der Bestellung: ${errorMessage}. Bitte kontaktiere den Support mit der Order ID ${orderId}.`);
+        // setIsSubmitting(false); // Ist im finally Block
+        return; // Prozess hier abbrechen
+      }
 
       // 6. Erfolg!
       toast.success("Vielen Dank! Deine Bestellung wurde erfolgreich übermittelt.");

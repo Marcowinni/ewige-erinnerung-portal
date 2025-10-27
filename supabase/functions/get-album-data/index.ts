@@ -8,82 +8,56 @@ const corsHeaders = {
 console.log(`Function "get-album-data" up and running!`);
 
 Deno.serve(async (req) => {
-  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
   }
 
   try {
-    // 1. Empfange die albumId aus dem Request Body
-    const { albumId } = await req.json();
+    // 1. Empfange den 'albumSlug' (umbenannt von albumId für Klarheit)
+    const { albumSlug } = await req.json(); // Erwartet jetzt 'albumSlug'
 
-    if (!albumId) {
-      throw new Error("albumId is required in the request body.");
+    if (!albumSlug) {
+      throw new Error("albumSlug is required in the request body.");
     }
 
-    // 2. Erstelle Supabase Admin Client (mit Service Role Key)
-    // Dieser umgeht RLS-Policies für den anon key.
     const supabaseAdmin = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
-      { auth: { persistSession: false } } // Wichtig für Server-seitige Clients
+      Deno.env.get('SUPABASE_URL') ?? '', // Holt URL aus Umgebungsvariablen
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '', // Holt Key aus Umgebungsvariablen
+      { auth: { persistSession: false } }
     );
 
-    // 3. Frage NUR die benötigten Daten sicher ab
+    // 3. Frage über die 'slug'-Spalte ab
     const { data, error } = await supabaseAdmin
       .from('orders')
-      .select('canva_link, subject_details, music_choice') // Nur diese Spalten
-      .eq('id', albumId) // Filtere nach der ID
-      .single(); // Erwarte genau ein Ergebnis (oder null)
+      .select('canva_link, subject_details, music_choice')
+      .eq('slug', albumSlug) // Suche nach dem Slug
+      .single();
 
-    // 4. Fehlerbehandlung (z.B. wenn Album nicht gefunden)
-    if (error) {
-      // Spezifischer Fehler für "nicht gefunden"
-      if (error.code === 'PGRST116') { // PostgREST code for "Resource not found"
-         return new Response(JSON.stringify({ error: "Album not found." }), {
-           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-           status: 404,
-         });
-      }
-      // Andere Datenbankfehler
-      throw error;
+    // 4. Fehlerbehandlung (bleibt ähnlich)
+    if (error || !data) {
+      const status = (error && error.code === 'PGRST116') || !data ? 404 : 500;
+      const message = status === 404 ? "Album not found." : (error?.message || "Failed to fetch album data.");
+      console.error(`Error fetching album for slug ${albumSlug}:`, error || "Not found");
+      return new Response(JSON.stringify({ error: message }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: status,
+      });
     }
 
-    if (!data) {
-       return new Response(JSON.stringify({ error: "Album data not found." }), {
-           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-           status: 404,
-         });
-    }
-
-    // 5. Gib die erlaubten Daten zurück
+    // 5. Gib die Daten zurück
     return new Response(JSON.stringify(data), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
     });
 
-  } catch (err) { // err is 'unknown' here
-    console.error('Error fetching album data:', err);
-
-    // Safely determine the error message and status
-    let errorMessage = 'An unknown error occurred.';
-    let status = 500; // Default to Internal Server Error
-
-    if (err instanceof Error) {
-      errorMessage = err.message;
-      // Set status to 400 only if it's an Error and the message matches
-      if (err.message.includes("albumId is required")) {
-        status = 400; // Bad Request
-      }
-    } else if (typeof err === 'string') {
-      // Handle cases where a string might be thrown
-      errorMessage = err;
-    }
-    // You could add more checks here for other types if needed (e.g., objects)
-
+  } catch (error) {
+    console.error('Error creating order:', error);
+    
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    
     return new Response(JSON.stringify({ error: errorMessage }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      status: status, // Use the determined status
+      status: 400,
     });
   }
 });

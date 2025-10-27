@@ -52,7 +52,7 @@ const App = () => (
         <Route path="/datenschutz" element={<Datenschutz />} />
         <Route path="/agb" element={<AGB />} />
         <Route path="/impressum" element={<Impressum />} />
-        <Route path="/album/:albumId" element={<Album />} />
+        <Route path="/album/:albumSlug" element={<Album />} />
         {/* Fügt den RouteChangeTracker hinzu */}
         <Route path="*" element={<NotFound />} />
       </Routes>

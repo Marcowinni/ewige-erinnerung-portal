@@ -24,7 +24,7 @@ const ErrorDisplay = ({ message }: { message: string }) => (
 );
 
 const Album = () => {
-  const { albumId } = useParams<{ albumId: string }>();
+  const { albumSlug } = useParams<{albumSlug: string }>();
   const { sharedContent } = useContent();
   const isMobile = useIsMobile();
   const [albumData, setAlbumData] = useState<any>(null);
@@ -48,7 +48,7 @@ const Album = () => {
   }, [albumData?.canva_link]);
 
   useEffect(() => {
-    if (!albumId) {
+    if (!albumSlug) {
       setError("Keine Album-ID in der URL gefunden.");
       setLoading(false);
       return;
@@ -58,7 +58,7 @@ const Album = () => {
       const { data: functionData, error: functionError } = await supabase.functions.invoke(
         'get-album-data', // Name der Funktion
         {
-          body: { albumId: albumId } // Sende die ID im Body
+          body: { albumSlug: albumSlug } // Sende die ID im Body
         }
       );
 
@@ -83,7 +83,7 @@ const Album = () => {
       setLoading(false);
     };
     fetchAlbumData();
-  }, [albumId]);
+  }, [albumSlug]);
 
   useEffect(() => {
     const audio = audioRef.current;
