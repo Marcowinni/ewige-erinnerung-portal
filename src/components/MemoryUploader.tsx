@@ -2120,7 +2120,7 @@ const MemoryUploader = () => {
           throw new Error(`Fehler beim Erstellen der Bestellung via Funktion: ${errorMessage}`);
       }
       
-      const orderId = functionResponse.orderData.id;
+      const orderId = functionResponse.order.id;
       const orderFolderPath = `order_${orderId}`;
 
       // 3. Lade jetzt alle Dateien in den bestellungs-spezifischen Ordner hoch
