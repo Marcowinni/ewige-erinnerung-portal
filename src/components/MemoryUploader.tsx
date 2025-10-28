@@ -33,7 +33,7 @@ function calculatePrice(form: FormState, mode: Mode): number {
 
   switch (form.product) {
     case "basic":
-      price = 49;
+      price = 59;
       if (mode === 'pet') {
         if (form.pet_tag_keychain) {
           price += 7; // Aufpreis Schlüsselanhänger
@@ -44,10 +44,10 @@ function calculatePrice(form: FormState, mode: Mode): number {
       }
       break;
     case "premium":
-      price = 79;
+      price = 89;
       break;
     case "deluxe":
-      price = 129;
+      price = 149;
       break;
     default:
       price = 0;

@@ -326,9 +326,9 @@ export const itContent: ContentData = {
     products: {
       title: "I nostri Memora:",
       subtitle: "I classici prodotti Memora.",
-      basic: { title: "Memora Tag", desc: "Una semplice Smart-Tag che dà vita ai ricordi tramite un album fotografico digitale – discreto e senza tempo.", price: "49 CHF" },
-      premium: { title: "Memora Frame", desc: "Una cornice classica unita alla tecnologia moderna. Ogni foto diventa una porta verso ricordi commoventi.", price: "79 CHF" },
-      deluxe: { title: "Memora Deluxe", desc: "Un’opera di alta qualità che mantiene vivo il passato e tocca il futuro.", price: "129 CHF" },
+      basic: { title: "Memora Tag", desc: "Una semplice Smart-Tag che dà vita ai ricordi tramite un album fotografico digitale – discreto e senza tempo.", price: "59 CHF" },
+      premium: { title: "Memora Frame", desc: "Una cornice classica unita alla tecnologia moderna. Ogni foto diventa una porta verso ricordi commoventi.", price: "89 CHF" },
+      deluxe: { title: "Memora Deluxe", desc: "Un’opera di alta qualità che mantiene vivo il passato e tocca il futuro.", price: "149 CHF" },
       features: {
         tag1: "Smart-Tag 6×6 cm o ⌀ 3 cm",
         tag2: "Sfoglia l’album fotografico digitale personale direttamente con un tap",
@@ -519,9 +519,9 @@ export const itContent: ContentData = {
     products: {
       title: "Prodotti per animali",
       subtitle: "Ricordi per compagni fedeli.",
-      basic: { title: "Memora Pet Tag", desc: "Una semplice Smart-Tag che dà vita ai ricordi del tuo animale con un album fotografico digitale", price: "da 49 CHF" },
-      premium: { title: "Memora Pet Frame", desc: "Una cornice elegante che collega la tua foto preferita a un album fotografico digitale – ideale per casa.", price: "79 CHF" },
-      deluxe: { title: "Memora Pet Deluxe", desc: "Una piastra in plexiglass esclusiva con supporto – per un ricordo duraturo e dignitoso.", price: "129 CHF" },
+      basic: { title: "Memora Pet Tag", desc: "Una semplice Smart-Tag che dà vita ai ricordi del tuo animale con un album fotografico digitale", price: "da 59 CHF" },
+      premium: { title: "Memora Pet Frame", desc: "Una cornice elegante che collega la tua foto preferita a un album fotografico digitale – ideale per casa.", price: "89 CHF" },
+      deluxe: { title: "Memora Pet Deluxe", desc: "Una piastra in plexiglass esclusiva con supporto – per un ricordo duraturo e dignitoso.", price: "149 CHF" },
       features: {
         tag1: "Smart-Tag 6×6 cm o ⌀ 2.5 cm",
         tag2: "Sfoglia l’album fotografico digitale personale direttamente con un tap",
@@ -714,9 +714,9 @@ export const itContent: ContentData = {
     products: {
       title: "Prodotti Sorpresa",
       subtitle: "Scegli il tuo stile.",
-      basic: { title: "Memora Surprise Tag", desc: "Una Smart-Tag che collega un album fotografico digitale – originale e unica.", price: "49 CHF" },
-      premium: { title: "Memora Surprise Frame", desc: "Una cornice elegante che collega la tua foto preferita a un album fotografico digitale – ideale come regalo.", price: "79 CHF" },
-      deluxe: { title: "Memora Surprise Deluxe", desc: "Una piastra in plexiglass esclusiva con tecnologia integrata – il regalo premium elegante per ricordi duraturi.", price: "129 CHF" },
+      basic: { title: "Memora Surprise Tag", desc: "Una Smart-Tag che collega un album fotografico digitale – originale e unica.", price: "59 CHF" },
+      premium: { title: "Memora Surprise Frame", desc: "Una cornice elegante che collega la tua foto preferita a un album fotografico digitale – ideale come regalo.", price: "89 CHF" },
+      deluxe: { title: "Memora Surprise Deluxe", desc: "Una piastra in plexiglass esclusiva con tecnologia integrata – il regalo premium elegante per ricordi duraturi.", price: "149 CHF" },
       features: {
         tag1: "Smart-Tag 6×6 cm o ⌀ 3 cm",
         tag2: "Sfoglia l’album fotografico digitale personale direttamente con un tap",

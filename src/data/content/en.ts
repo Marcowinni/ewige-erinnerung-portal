@@ -326,9 +326,9 @@ export const enContent: ContentData = {
     products: {
       title: "Our Memoras:",
       subtitle: "The classic Memora products.",
-      basic: { title: "Memora Tag", desc: "A simple Smart-Tag that brings memories to life via a digital photo album – discreet and everlasting.", price: "49 CHF" },
-      premium: { title: "Memora Frame", desc: "A classic picture frame combined with modern technology. This turns every photo into a gateway to moving memories.", price: "79 CHF" },
-      deluxe: { title: "Memora Deluxe", desc: "A high-quality work of art that keeps the past alive and touches the future.", price: "129 CHF" },
+      basic: { title: "Memora Tag", desc: "A simple Smart-Tag that brings memories to life via a digital photo album – discreet and everlasting.", price: "59 CHF" },
+      premium: { title: "Memora Frame", desc: "A classic picture frame combined with modern technology. This turns every photo into a gateway to moving memories.", price: "89 CHF" },
+      deluxe: { title: "Memora Deluxe", desc: "A high-quality work of art that keeps the past alive and touches the future.", price: "149 CHF" },
       features: {
         tag1: "6×6 cm or 3 cm ⌀ Smart-Tag",
         tag2: "Browse personal digital photo album directly via tap",
@@ -519,9 +519,9 @@ export const enContent: ContentData = {
     products: {
       title: "Pet Products",
       subtitle: "Memories for loyal companions.",
-      basic: { title: "Memora Pet Tag", desc: "A simple Smart-Tag that brings memories of your pet to life with a digital photo album", price: "from 49 CHF" },
-      premium: { title: "Memora Pet Frame", desc: "A stylish picture frame that connects your favorite photo with a digital photo album – ideal for home.", price: "79 CHF" },
-      deluxe: { title: "Memora Pet Deluxe", desc: "An exclusive plexiglass plate with a holder – for a lasting, dignified memento.", price: "129 CHF" },
+      basic: { title: "Memora Pet Tag", desc: "A simple Smart-Tag that brings memories of your pet to life with a digital photo album", price: "from 59 CHF" },
+      premium: { title: "Memora Pet Frame", desc: "A stylish picture frame that connects your favorite photo with a digital photo album – ideal for home.", price: "89 CHF" },
+      deluxe: { title: "Memora Pet Deluxe", desc: "An exclusive plexiglass plate with a holder – for a lasting, dignified memento.", price: "149 CHF" },
       features: {
         tag1: "6×6 cm or 2.5 cm ⌀ Smart-Tag",
         tag2: "Browse personal digital photo album directly via tap",
@@ -714,9 +714,9 @@ export const enContent: ContentData = {
     products: {
       title: "Surprise Products",
       subtitle: "Choose your style.",
-      basic: { title: "Memora Surprise Tag", desc: "A small Smart-Tag that connects a digital photo album – original and unique.", price: "49 CHF" },
-      premium: { title: "Memora Surprise Frame", desc: "A stylish picture frame that connects your favorite photo with a digital photo album – ideal as a gift.", price: "79 CHF" },
-      deluxe: { title: "Memora Surprise Deluxe", desc: "An exclusive plexiglass plate with integrated technology – the elegant premium gift for lasting memories.", price: "129 CHF" },
+      basic: { title: "Memora Surprise Tag", desc: "A small Smart-Tag that connects a digital photo album – original and unique.", price: "59 CHF" },
+      premium: { title: "Memora Surprise Frame", desc: "A stylish picture frame that connects your favorite photo with a digital photo album – ideal as a gift.", price: "89 CHF" },
+      deluxe: { title: "Memora Surprise Deluxe", desc: "An exclusive plexiglass plate with integrated technology – the elegant premium gift for lasting memories.", price: "149 CHF" },
       features: {
         tag1: "6×6 cm or 3 cm ⌀ Smart-Tag",
         tag2: "Browse personal digital photo album directly via tap",

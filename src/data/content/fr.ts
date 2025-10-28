@@ -283,9 +283,9 @@ export const frContent: ContentData = {
     products: {
       title: "Nos Memoras :",
       subtitle: "Les produits Memora classiques.",
-      basic: { title: "Memora Tag", desc: "Une simple Smart-Tag qui donne vie aux souvenirs via un album photo numérique – discret et impérissable.", price: "49 CHF" },
-      premium: { title: "Memora Frame", desc: "Un cadre photo classique, associé à la technologie moderne. Ainsi, chaque photo devient une porte vers des souvenirs émouvants.", price: "79 CHF" },
-      deluxe: { title: "Memora Deluxe", desc: "Une œuvre d'art de haute qualité qui maintient le passé en vie et touche l'avenir.", price: "129 CHF" },
+      basic: { title: "Memora Tag", desc: "Une simple Smart-Tag qui donne vie aux souvenirs via un album photo numérique – discret et impérissable.", price: "59 CHF" },
+      premium: { title: "Memora Frame", desc: "Un cadre photo classique, associé à la technologie moderne. Ainsi, chaque photo devient une porte vers des souvenirs émouvants.", price: "89 CHF" },
+      deluxe: { title: "Memora Deluxe", desc: "Une œuvre d'art de haute qualité qui maintient le passé en vie et touche l'avenir.", price: "149 CHF" },
       features: {
         tag1: "Smart-Tag de 6×6 cm ou 3 cm ⌀",
         tag2: "Parcourez l'album photo numérique personnel directement d'un simple toucher",
@@ -481,9 +481,9 @@ export const frContent: ContentData = {
     products: {
       title: "Produits pour animaux de compagnie",
       subtitle: "Souvenirs pour de fidèles compagnons.",
-      basic: { title: "Memora Pet Tag", desc: "Une simple Smart-Tag qui donne vie aux souvenirs de votre animal de compagnie avec un album photo numérique", price: "dès 49 CHF" },
-      premium: { title: "Memora Pet Frame", desc: "Un cadre photo élégant qui relie votre photo préférée à un album photo numérique – idéal pour la maison.", price: "79 CHF" },
-      deluxe: { title: "Memora Pet Deluxe", desc: "Une plaque en plexiglas exclusive avec support – pour un souvenir durable et digne.", price: "129 CHF" },
+      basic: { title: "Memora Pet Tag", desc: "Une simple Smart-Tag qui donne vie aux souvenirs de votre animal de compagnie avec un album photo numérique", price: "dès 59 CHF" },
+      premium: { title: "Memora Pet Frame", desc: "Un cadre photo élégant qui relie votre photo préférée à un album photo numérique – idéal pour la maison.", price: "89 CHF" },
+      deluxe: { title: "Memora Pet Deluxe", desc: "Une plaque en plexiglas exclusive avec support – pour un souvenir durable et digne.", price: "149 CHF" },
       features: {
         tag1: "Smart-Tag de 6×6 cm ou 2.5 cm ⌀",
         tag2: "Parcourez l'album photo numérique personnel directement d'un simple toucher",
@@ -673,9 +673,9 @@ export const frContent: ContentData = {
     products: {
       title: "Produits Surprise",
       subtitle: "Choisissez votre style.",
-      basic: { title: "Memora Surprise Tag", desc: "Une Smart-Tag qui relie un album photo numérique – original et unique.", price: "49 CHF" },
-      premium: { title: "Memora Surprise Frame", desc: "Un cadre photo élégant qui relie votre photo préférée à un album photo numérique – idéal comme cadeau.", price: "79 CHF" },
-      deluxe: { title: "Memora Surprise Deluxe", desc: "Une plaque en plexiglas exclusive avec technologie intégrée – le cadeau premium élégant pour des souvenirs durables.", price: "129 CHF" },
+      basic: { title: "Memora Surprise Tag", desc: "Une Smart-Tag qui relie un album photo numérique – original et unique.", price: "59 CHF" },
+      premium: { title: "Memora Surprise Frame", desc: "Un cadre photo élégant qui relie votre photo préférée à un album photo numérique – idéal comme cadeau.", price: "89 CHF" },
+      deluxe: { title: "Memora Surprise Deluxe", desc: "Une plaque en plexiglas exclusive avec technologie intégrée – le cadeau premium élégant pour des souvenirs durables.", price: "149 CHF" },
       features: {
         tag1: "Smart-Tag de 6×6 cm ou 3 cm ⌀",
         tag2: "Parcourez l'album photo numérique personnel directement d'un simple toucher",

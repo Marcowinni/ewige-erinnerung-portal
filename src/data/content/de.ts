@@ -336,9 +336,9 @@ export const deContent: ContentData = {
     products: {
       title: "Unsere Memoras:",
       subtitle: "Die klassischen Memora-Produkte.",
-      basic: { title: "Memora Tag", desc: "Ein schlichter Smart-Tag, der Erinnerungen per digitalem Fotoalbum zum Leben erweckt – dezent und unvergänglich.", price: "49 CHF" },
-      premium: { title: "Memora Frame", desc: "Ein klassischer Bilderrahmen, verbunden mit moderner Technologie. So wird jedes Foto zum Tor zu bewegenden Erinnerungen.", price: "79 CHF" },
-      deluxe: { title: "Memora Deluxe", desc: "Ein hochwertiges Kunstwerk, das die Vergangenheit lebendig hält und Zukunft berührt.", price: "129 CHF" },
+      basic: { title: "Memora Tag", desc: "Ein schlichter Smart-Tag, der Erinnerungen per digitalem Fotoalbum zum Leben erweckt – dezent und unvergänglich.", price: "59 CHF" },
+      premium: { title: "Memora Frame", desc: "Ein klassischer Bilderrahmen, verbunden mit moderner Technologie. So wird jedes Foto zum Tor zu bewegenden Erinnerungen.", price: "89 CHF" },
+      deluxe: { title: "Memora Deluxe", desc: "Ein hochwertiges Kunstwerk, das die Vergangenheit lebendig hält und Zukunft berührt.", price: "149 CHF" },
       features: {
         tag1: "6×6 cm oder 3 cm ⌀ Smart-Tag",
         tag2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
@@ -533,9 +533,9 @@ export const deContent: ContentData = {
     products: {
       title: "Haustier-Produkte",
       subtitle: "Erinnerungen für treue Begleiter.",
-      basic: { title: "Memora Pet Tag", desc: "Ein schlichter Smart-Tag, der mit einem digitalen Fotoalbum Erinnerungen an Ihr Haustier zum Leben erweckt", price: "ab 49 CHF" },
-      premium: { title: "Memora Pet Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Fotoalbum verbindet – ideal für Zuhause.", price: "79 CHF" },
-      deluxe: { title: "Memora Pet Deluxe", desc: "Eine exklusive Plexiglasplatte mit Halterung – für ein bleibendes, würdiges Erinnerungsstück.", price: "129 CHF" },
+      basic: { title: "Memora Pet Tag", desc: "Ein schlichter Smart-Tag, der mit einem digitalen Fotoalbum Erinnerungen an Ihr Haustier zum Leben erweckt", price: "ab 59 CHF" },
+      premium: { title: "Memora Pet Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Fotoalbum verbindet – ideal für Zuhause.", price: "89 CHF" },
+      deluxe: { title: "Memora Pet Deluxe", desc: "Eine exklusive Plexiglasplatte mit Halterung – für ein bleibendes, würdiges Erinnerungsstück.", price: "149 CHF" },
       features: {
         tag1: "6×6 cm oder 2.5 cm ⌀ Smart-Tag",
         tag2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
@@ -731,9 +731,9 @@ export const deContent: ContentData = {
     products: {
       title: "Surprise-Produkte",
       subtitle: "Wählen Sie Ihren Stil.",
-      basic: { title: "Memora Surprise Tag", desc: "Ein Smart-Tag, der ein digitales Fotoalbum verbindet – originell und einzigartig.", price: "49 CHF" },
-      premium: { title: "Memora Surprise Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Fotoalbum verbindet – ideal als Geschenk.", price: "79 CHF" },
-      deluxe: { title: "Memora Surprise Deluxe", desc: "Eine exklusive Plexiglasplatte mit integrierter Technologie – das elegante Premium-Geschenk für bleibende Erinnerungen.", price: "129 CHF" },
+      basic: { title: "Memora Surprise Tag", desc: "Ein Smart-Tag, der ein digitales Fotoalbum verbindet – originell und einzigartig.", price: "59 CHF" },
+      premium: { title: "Memora Surprise Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Fotoalbum verbindet – ideal als Geschenk.", price: "89 CHF" },
+      deluxe: { title: "Memora Surprise Deluxe", desc: "Eine exklusive Plexiglasplatte mit integrierter Technologie – das elegante Premium-Geschenk für bleibende Erinnerungen.", price: "149 CHF" },
       features: {
         tag1: "6×6 cm oder 3 cm ⌀ Smart-Tag",
         tag2: "Persönliches digitales Fotoalbum direkt per Tap durchblättern",
