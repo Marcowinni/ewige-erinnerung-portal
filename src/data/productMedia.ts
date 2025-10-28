@@ -68,27 +68,27 @@ export const humanMedia: ProductMedia = {
   images: [
     {
       src: "/produktbilder/Human Media/Memora Frame/memora_frame_1.png",
-      alt: "Eleganter Memora Frame in einem Wohnzimmer",
-    },
-    {
-      src: "/produktbilder/Human Media/Memora Frame/memora_frame_2.png",
-      alt: "Memora Frame auf einem Beistelltisch neben einer Pflanze",
-    },
-    {
-      src: "/produktbilder/Human Media/Memora Frame/memora_frame_3.png",
       alt: "Nahaufnahme eines personalisierten Memora Frame",
     },
     {
-      src: "/produktbilder/Human Media/Memora Frame/memora_frame_4.png",
-      alt: "Memora Frame auf einer Kommode in einem hellen Raum",
+      src: "/produktbilder/Human Media/Memora Frame/memora_frame_2.png",
+      alt: "Eleganter Memora Frame in einem Wohnzimmer",
+    },
+    {
+      src: "/produktbilder/Human Media/Memora Frame/memora_frame_3.png",
+      alt: "Memora Frame auf einem Beistelltisch neben einer Pflanze",
     },
   ],
 },
   deluxeProduct: {
     images: [
-      {
-      src: "/produktbilder/Human Media/Memora Deluxe/memora_coming_soon.jpg",
-      alt: "Coming Soon: Memora Deluxe Produkt",
+    {
+      src: "/produktbilder/Human Media/Memora Deluxe/memora_deluxe_1.png",
+      alt: "Nahaufnahme Memora Deluxe Produkt",
+    },
+    {
+      src: "/produktbilder/Human Media/Memora Deluxe/memora_deluxe_2.png",
+      alt: "Memora Deluxe Produkt in Wohnzimmerumgebung",
     },
     ],
   },
@@ -162,10 +162,6 @@ export const petMedia: ProductMedia = {
       },
       {
         src: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_4.png",
-        alt: "Memora Pet Frame in einem Wohnzimmer auf einem Tisch",
-      },
-      {
-        src: "/produktbilder/Pet Media/Pet Frame/memora_pet_frame_5.png",
         alt: "Memora Pet Frame an einer Wand in einem Raum",
       },
     ],
@@ -232,27 +228,47 @@ export const surpriseMedia: ProductMedia = {
     images: [
       {
         src: "/produktbilder/Surprise Media/Surprise Frame/memora_surprise_frame_1.png",
-        alt: "Memora Surprise Frame auf einem Tisch",
+        alt: "Memora Surprise Frame Paar in einem hellen Raum",
       },
       {
         src: "/produktbilder/Surprise Media/Surprise Frame/memora_surprise_frame_2.png",
-        alt: "Memora Surprise Frame in einem hellen Raum",
+        alt: "Memora Surprise Frame Kind in einem hellen Raum",
       },
       {
         src: "/produktbilder/Surprise Media/Surprise Frame/memora_surprise_frame_3.png",
-        alt: "Memora Surprise Frame in einem modernen Wohnzimmer",
+        alt: "Memora Surprise Frame Paar in einem Schlafzimmer",
       },
       {
         src: "/produktbilder/Surprise Media/Surprise Frame/memora_surprise_frame_4.png",
-        alt: "Nahaufnahme des Memora Surprise Frame",
+        alt: "Memora Surprise Frame Kind in einem Kinderzimmer",
+      },
+      {
+        src: "/produktbilder/Surprise Media/Surprise Frame/memora_surprise_frame_5.png",
+        alt: "Memora Surprise Frame in einem modernen Wohnzimmer",
+      },
+      {
+        src: "/produktbilder/Surprise Media/Surprise Frame/memora_surprise_frame_6.png",
+        alt: "Nahaufnahme des Memora Surprise Frame neben Blumen",
       },
     ],
   },
   deluxeProduct: {
     images: [
       {
-        src: "/produktbilder/Surprise Media/Surprise Deluxe/surprise_coming_soon.jpg",
-        alt: "Memora Surprise Deluxe - Coming Soon",
+        src: "/produktbilder/Surprise Media/Surprise Deluxe/surprise_deluxe_1.png",
+        alt: "Memora Surprise Deluxe Produkt Paar in einem hellen Raum",
+      },
+      {
+        src: "/produktbilder/Surprise Media/Surprise Deluxe/surprise_deluxe_2.png",
+        alt: "Memora Surprise Deluxe Produkt Kind in einem hellen Raum",
+      },
+      {
+        src: "/produktbilder/Surprise Media/Surprise Deluxe/surprise_deluxe_3.png",
+        alt: "Memora Surprise Deluxe Produkt Paar in einem Schlafzimmer",
+      },
+      {
+        src: "/produktbilder/Surprise Media/Surprise Deluxe/surprise_deluxe_4.png",
+        alt: "Memora Surprise Deluxe Produkt Kind in einem Kinderzimmer",
       },
     ],
   },
