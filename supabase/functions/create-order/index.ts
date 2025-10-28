@@ -37,7 +37,7 @@ function calculateOriginalPriceFromServer(payload: PriceCalculationPayload): num
 
     switch (product) {
         case "basic":
-            price = 49;
+            price = 59;
             if (mode === 'pet') {
                 if (pet_tag_keychain) {
                     price += 7;
@@ -48,10 +48,10 @@ function calculateOriginalPriceFromServer(payload: PriceCalculationPayload): num
             }
             break;
         case "premium":
-            price = 79;
+            price = 89;
             break;
         case "deluxe":
-            price = 129;
+            price = 149;
             break;
         default:
             console.error("Unknown product type received in payload for price calculation:", product);
