@@ -55,6 +55,42 @@ function calculatePrice(form: FormState, mode: Mode): number {
   return price;
 }
 
+const SHIPPING_COSTS = {
+  CH: 0.00,
+  INTL: 25.00, // Beispiel: Pauschale 25 CHF für International
+};
+
+/**
+ * Ermittelt die Versandzone basierend auf dem Land.
+ */
+function getShippingZone(country: string | undefined): 'CH' | 'INTL' {
+  if (!country) return 'CH'; // Standard (Schweiz)
+  const normalizedCountry = country.trim().toUpperCase();
+  
+  // Liste gängiger Bezeichnungen für die Schweiz
+  const swissNames = [
+    'SCHWEIZ', 
+    'SWITZERLAND', 
+    'SUISSE', 
+    'SVIZZERA', 
+    'CH'
+  ];
+  
+  if (swissNames.includes(normalizedCountry)) {
+    return 'CH';
+  }
+  // Alle anderen Länder gelten als International
+  return 'INTL';
+}
+
+/**
+ * Berechnet die Versandkosten basierend auf dem Land.
+ */
+function calculateShippingCost(country: string | undefined): number {
+    const zone = getShippingZone(country);
+    return SHIPPING_COSTS[zone];
+}
+
 /* -------------------- Types & Helpers -------------------- */
 type ProductKey = "basic" | "premium" | "deluxe";
 const productKeyOrder: ProductKey[] = ["basic", "premium", "deluxe"];
@@ -67,12 +103,15 @@ type MediaFile = {
   id: string; // Eindeutige ID für die Bearbeitung und als React-Key
 };
 
+
 // Hilfsfunktion, um DataURL in Blob zu konvertieren
 const dataUrlToBlob = async (dataUrl: string): Promise<Blob> => {
     const res = await fetch(dataUrl);
     const blob = await res.blob();
     return blob;
   };
+
+
 
   // Hilfsfunktion, um Dateinamen sicher zu machen (Umlaute, Sonderzeichen etc. entfernen)
 function sanitizeFileName(filename: string): string {
@@ -1756,8 +1795,13 @@ function Step5InvoiceAndPayView(props: {
     discountError, setDiscountError, isApplyingDiscount, handleApplyDiscount
   } = props;
 
-  // Preisberechnung
+  // 1. Warenwert
   const originalPrice = useMemo(() => calculatePrice(form, mode as Mode), [form, mode]);
+  
+  // 2. NEU: Versandkosten berechnen (reagiert auf Länderänderung)
+  const shippingCost = useMemo(() => calculateShippingCost(form.invoice_country), [form.invoice_country]);
+
+  // 3. Rabatt (basiert auf Warenwert
   const discountAmount = useMemo(() => {
       if (!appliedDiscount) return 0;
       if (appliedDiscount.type === 'fixed') {
@@ -1768,7 +1812,11 @@ function Step5InvoiceAndPayView(props: {
       }
       return 0;
   }, [appliedDiscount, originalPrice]);
-  const finalPrice = useMemo(() => Math.max(0, originalPrice - discountAmount), [originalPrice, discountAmount]);
+
+  // 4. Endpreis = Warenwert - Rabatt + Versand
+  const finalPrice = useMemo(() => {
+      return Math.max(0, originalPrice - discountAmount + shippingCost);
+  }, [originalPrice, discountAmount, shippingCost]);
 
   const toggleSame = (checked: boolean) => {
     setForm((s) => ({
@@ -1842,12 +1890,11 @@ function Step5InvoiceAndPayView(props: {
             </div>
             <div className="md:col-span-2">
               <Label htmlFor="invoice_country">{copy.invoiceFields.country}</Label>
-              <Input id="invoice_country" value={form.invoice_country ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_country: e.target.value }))} placeholder="Schweiz" required />
+              <Input id="invoice_country" value={form.invoice_country ?? "CH"} onChange={(e) => setForm((s) => ({ ...s, invoice_country: e.target.value }))} placeholder="Schweiz" required />
             </div>
           </div>
         </div>
 
-        {/* --- NEU: Rabattcode-Eingabe --- */}
         <div className="mt-6 mb-8"> {/* Adjusted margin */}
           <Label htmlFor="discount_code">Rabattcode (optional)</Label>
           <div className="flex items-center gap-2 mt-1">
@@ -1888,7 +1935,6 @@ function Step5InvoiceAndPayView(props: {
           {discountError && <p className="text-sm text-red-500 mt-1">{discountError}</p>}
           {appliedDiscount && !discountError && <p className="text-sm text-green-600 mt-1">Code "{appliedDiscount.code}" angewendet!</p>}
         </div>
-        {/* --- ENDE RABATTCODE --- */}
 
         {/* Zusammenfassung */}
         <div className="border rounded-lg p-6">
@@ -1927,8 +1973,7 @@ function Step5InvoiceAndPayView(props: {
              {form.selectedLocalMusic && ( <li> <strong>Musik:</strong> <span className="text-foreground ml-1"> {form.selectedLocalMusic.replace('.mp3', '').replace(/-/g, ' ')} </span> </li> )}
              {form.pixabayMusicLink && ( <li> <strong>Pixabay Musik:</strong> <span className="text-foreground ml-1">{form.pixabayMusicLink}</span> </li> )}
 
-            {/* --- ANGEPASSTE PREISANZEIGE --- */}
-            <li className="pt-2 mt-2 border-t"> {/* Trennlinie vor Preisen */}
+            <li className="pt-2 mt-2 border-t"> 
               <span>Zwischensumme:</span>
               <span className="text-foreground ml-1 float-right">CHF {originalPrice.toFixed(2)}</span>
             </li>
@@ -1941,17 +1986,28 @@ function Step5InvoiceAndPayView(props: {
                 </span>
               </li>
             )}
-            <li className="font-bold text-lg pt-2 mt-2 border-t"> {/* Trennlinie vor Gesamtpreis */}
+
+            {/* NEU: Versandkosten anzeigen */}
+            <li>
+              <span>Versandkosten ({getShippingZone(form.invoice_country)}):</span>
+              <span className="text-foreground ml-1 float-right">
+                {shippingCost > 0 ? `CHF ${shippingCost.toFixed(2)}` : "Kostenlos"}
+              </span>
+            </li>
+
+            {/* Endpreis (Gesamt) */}
+            <li className="font-bold text-lg pt-2 mt-2 border-t">
               <div className="flex justify-between items-center text-foreground">
                 <span>{copy.summary.total}:</span>
                 <span>CHF {finalPrice.toFixed(2)}</span>
               </div>
             </li>
-            {/* --- ENDE ANGEPASSTE PREISANZEIGE --- */}
           </ul>
         </div>
 
-        {/* Checkbox für AGB und Datenschutz (unverändert) */}
+          
+
+        {/* Checkbox für AGB und Datenschutz */}
         <div className="mt-8 flex items-start space-x-3">
           <Checkbox
             id="terms"
@@ -1985,15 +2041,15 @@ function Step5InvoiceAndPayView(props: {
             <Button variant="ghost" onClick={onReset}>{copy.buttons.reset}</Button>
           </div>
           <Button size="lg" onClick={onPlaceOrder} disabled={invalid || isSubmitting || !form.agreedToTerms}>
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Bestellung wird verarbeitet...
-              </>
-            ) : (
-              `${copy.buttons.toPay} (CHF ${finalPrice.toFixed(2)})` // finalPrice verwenden
-            )}
-          </Button>
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Bestellung wird verarbeitet...
+            </>
+          ) : (
+            `${copy.buttons.toPay} (CHF ${finalPrice.toFixed(2)})`
+          )}
+        </Button>
         </div>
       </div>
     </div>
@@ -2174,26 +2230,40 @@ const MemoryUploader = () => {
         mode === 'pet' ? `Haustier: ${form.pet_name}` :
         `Anlass für: ${form.surprise_name}`;
       
-      const billingAddress = `${form.invoice_street}, ${form.invoice_zip} ${form.invoice_city}, ${form.invoice_country}`;
+      const billingAddressPayload = {
+              full_address: `${form.invoice_street}, ${form.invoice_zip} ${form.invoice_city}, ${form.invoice_country}`,
+              country: form.invoice_country || 'Schweiz'
+          };
+
 
       const musicChoice = form.selectedLocalMusic || form.pixabayMusicLink || "Keine Auswahl";
 
-      // 2. Erstelle einen ersten Datenbank-Eintrag, um eine ID zu bekommen
+      // Berechne den Warenwert (ohne Versand) für den Payload
+      const calculatedWarePrice = calculatePrice(form, mode as Mode);
+
       const initialOrderPayload = {
         product_type: selected ? productMap[selected].title : "N/A",
         options_summary: optionsSummary.join(', '),
-        total_price: calculatePrice(form, mode as Mode),
+        
+        // Sende den reinen Warenwert (Backend berechnet Versand selbst)
+        total_price: calculatedWarePrice, 
+        
         subject_details: subjectDetails,
         music_choice: musicChoice,
         contact_name: `${form.contact_firstName} ${form.contact_lastName}`,
         contact_email: form.contact_email,
         contact_phone: form.contact_phone || "N/A",
-        billing_address: billingAddress,
+        
+        // Sende das strukturierte Adressobjekt
+        billing_address: billingAddressPayload, 
+        
         notes: form.notes || "Keine Notizen",
+        applied_discount_code: appliedDiscount?.code || null, // Sende den Code
       };
 
+      // Sende an die 'create-order' Funktion
       const { data: functionResponse, error: functionError } = await supabase.functions.invoke('create-order', {
-        body: initialOrderPayload // Sende die Daten an die Funktion
+        body: initialOrderPayload 
       });
 
       if (functionError || !functionResponse || functionResponse.error || !functionResponse.orderId || !functionResponse.orderSlug) {
