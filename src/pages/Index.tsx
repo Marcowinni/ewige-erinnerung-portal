@@ -87,7 +87,7 @@ const Index = () => {
       </Dialog>
 
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden flex flex-col">
+      <section className="relative min-h-screen flex flex-col">
         <div
           className="absolute inset-0 bg-center bg-no-repeat bg-cover -z-10"
           style={{

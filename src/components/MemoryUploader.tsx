@@ -350,6 +350,7 @@ type UploaderCopy = {
     modeHuman: string;
     modePet: string;
     modeSurprise: string;
+    calendarStyle: string;
   };
   orderConfirmation: {
     prefix: string;
@@ -494,7 +495,8 @@ const DEFAULT_COPY: UploaderCopy = {
     optionLandscape: "Querformat",
     modeHuman: "Human",
     modePet: "Pet",
-    modeSurprise: "Surprise"
+    modeSurprise: "Surprise",
+    calendarStyle: "Album-Style"
   },
   orderConfirmation: {
         prefix: "Ich habe die",
@@ -1705,7 +1707,7 @@ function Step3View(props: {
               <div
                 onClick={() => setForm(s => ({ ...s, selectedCalendarStyle: 'modern' }))}
                 className={cn(
-                  "border-2 rounded-lg cursor-pointer transition-all",
+                  "border-2 rounded-lg cursor-pointer transition-all max-w-xs mx-auto",
                   form.selectedCalendarStyle === 'modern'
                     ? "border-primary ring-2 ring-primary/20" // Hervorgehoben
                     : "border-border hover:border-primary/40" // Standard
@@ -1740,7 +1742,7 @@ function Step3View(props: {
               <div
                 onClick={() => setForm(s => ({ ...s, selectedCalendarStyle: 'classic' }))}
                 className={cn(
-                  "border-2 rounded-lg cursor-pointer transition-all",
+                  "border-2 rounded-lg cursor-pointer transition-all max-w-xs mx-auto",
                   form.selectedCalendarStyle === 'classic'
                     ? "border-primary ring-2 ring-primary/20" // Hervorgehoben
                     : "border-border hover:border-primary/40" // Standard
@@ -2040,6 +2042,17 @@ function Step5InvoiceAndPayView(props: {
              {form.product === "basic" && (<li><strong>{copy.summary.format}:</strong> <span className="text-foreground">{(form.tag_format ?? "round_3cm") === "square_6cm" ? copy.summary.formatSquare : copy.summary.formatRound}</span></li>)}
              {options.length > 0 && (<li><strong>{copy.summary.options}:</strong> <span className="text-foreground">{options.join(", ")}</span></li>)}
 
+            {form.selectedCalendarStyle && copy.summary.calendarStyle && (
+               <li>
+                 <strong>{copy.summary.calendarStyle}:</strong>
+                 <span className="text-foreground ml-1">
+                   {form.selectedCalendarStyle === 'modern' 
+                     ? (copy.step3Fields.calendarStyleSelection?.modern || "Modern") 
+                     : (copy.step3Fields.calendarStyleSelection?.classic || "Klassisch")}
+                 </span>
+               </li>
+             )}
+
              {(form.pet_tag_custom?.previewDataUrl || form.frame_custom?.previewDataUrl || form.deluxe_custom?.previewDataUrl) && (
                <li className="mt-2">
                  <strong>{copy.summary.previewTitle}:</strong>
@@ -2081,7 +2094,7 @@ function Step5InvoiceAndPayView(props: {
               </li>
             )}
 
-            {/* NEU: Versandkosten anzeigen */}
+            {/*  Versandkosten anzeigen */}
             <li>
               <span>Versandkosten ({getShippingZone(form.invoice_country)}):</span>
               <span className="text-foreground ml-1 float-right">
@@ -2152,6 +2165,7 @@ function Step5InvoiceAndPayView(props: {
 
 /* -------------------- Parent: MemoryUploader -------------------- */
 const MemoryUploader = () => {
+  const uploaderRef = useRef<HTMLDivElement>(null);
   const { mode, modeContent } = useContent();
   const media = useMemo(() => getMediaForMode(mode as Mode), [mode]);
   const products = modeContent.products;
@@ -2162,6 +2176,9 @@ const MemoryUploader = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false); 
   const isInitialRender = useRef(true);
+
+
+  
   // Persisted Defaults laden
   const persistedInit = loadPersisted();
 
@@ -2209,6 +2226,17 @@ const MemoryUploader = () => {
     }
   }, [mode]); // Beobachtet Änderungen am Modus
 
+    useEffect(() => {
+    // Nicht scrollen, wenn die Seite das erste Mal lädt
+    if (isInitialRender.current) {
+      return;
+    }
+    // Scrolle das uploaderRef (das Div) an den Anfang des Bildschirms
+    if (uploaderRef.current) {
+      uploaderRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [step]);
+
   const productMap: Record<
     ProductKey,
     { title: string; desc: string; price: string; images: { src: string; alt: string }[]; features: string[] }
@@ -2236,42 +2264,27 @@ const MemoryUploader = () => {
     },
   };
 
-  const scrollToTop = () => {
-    const formTop = document.getElementById("memory-form-start");
-    if (formTop) {
-      formTop.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      // Fallback, falls die ID nicht gefunden wird
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
 
   // Navigation
   const nextFromStep1 = () => {
     if (!selected) return;
     setForm((s) => ({ ...s, product: selected }));
     setStep(2);
-    scrollToTop();
   };
   const backFromStep2 = () => {
     setStep(1);
-    scrollToTop();
   };
   const nextFromStep2 = () => {
     setStep(3);
-    scrollToTop();
   };
   const backFromStep3 = () => {
     setStep(2);
-    scrollToTop();
   };
   const nextFromStep3 = () => {
     setStep(4);
-    scrollToTop();
   };
   const backFromStep4 = () => {
     setStep(3);
-    scrollToTop();
   };
 
   //discount function
@@ -2452,7 +2465,7 @@ const MemoryUploader = () => {
   };
 
   return (
-    <div id="memory-form-start" className="space-y-10">
+    <div id="memory-form-start" ref={uploaderRef} className="space-y-10">
       <Dialog open={!!activeGallery} onOpenChange={(isOpen) => !isOpen && setActiveGallery(null)}>
         <DialogContent className="max-w-5xl p-2">
           <DialogTitle className="sr-only">Produktgalerie</DialogTitle>
@@ -2507,7 +2520,6 @@ const MemoryUploader = () => {
                 : s
             );
             setStep(5);
-            scrollToTop();
           }}
           copy={COPY}
         />

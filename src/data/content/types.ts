@@ -130,6 +130,7 @@ export interface UploaderCopy {
     modeHuman: string;
     modePet: string;
     modeSurprise: string;
+    calendarStyle: string;
   };
 
   orderConfirmation: {

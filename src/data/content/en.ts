@@ -476,6 +476,7 @@ export const enContent: ContentData = {
         modeHuman: "Human",
         modePet: "Pets",
         modeSurprise: "Surprise",
+        calendarStyle: "Album-Style"
       },
 
       orderConfirmation: {

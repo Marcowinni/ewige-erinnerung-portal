@@ -488,7 +488,8 @@ export const deContent: ContentData = {
         modeHuman: "Human",
         modePet: "Pet",
         modeSurprise: "Surprise",
-        total: "Gesamtpreis"
+        total: "Gesamtpreis",
+        calendarStyle: "Album-Stil"
       },
 
       orderConfirmation: {

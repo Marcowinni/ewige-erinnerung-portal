@@ -476,6 +476,7 @@ export const itContent: ContentData = {
         modeHuman: "Persona",
         modePet: "Animali",
         modeSurprise: "Sorpresa",
+        calendarStyle: "Stile dell'album"
       },
 
       orderConfirmation: {

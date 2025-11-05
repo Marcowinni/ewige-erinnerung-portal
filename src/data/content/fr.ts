@@ -440,6 +440,7 @@ export const frContent: ContentData = {
         modeHuman: "Personnes",
         modePet: "Animaux",
         modeSurprise: "Surprise",
+        calendarStyle: "Style de l'album"
       },
 
       orderConfirmation: {
