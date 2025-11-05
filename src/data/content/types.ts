@@ -312,6 +312,7 @@ export interface LegalContent {
       law: { title: string; content: string };
       final: { title: string; content: string };
       contact?: { title: string; content: string };
+      availability?: { title: string; content: string };
     };
   };
   imprint: {

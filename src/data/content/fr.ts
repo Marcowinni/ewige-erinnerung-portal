@@ -141,8 +141,8 @@ export const frContent: ContentData = {
         title: "Conditions générales de vente (CGV)",
         sections: {
           scope: {
-            title: "Préambule et contact",
-            content: "Ce site web est exploité par TW Projects GmbH. Sur l'ensemble du site, les termes \"nous\", \"notre\" et \"nos\" se réfèrent à TW Projects GmbH. TW Projects GmbH met à votre disposition ce site web, y compris toutes les informations, tous les outils et tous les services qui y sont disponibles, à vous, l'utilisateur, à condition que vous acceptiez toutes les conditions, dispositions, politiques et remarques mentionnées ici.\n\nVotre satisfaction est notre priorité absolue. Si vous avez des questions ou des suggestions, veuillez envoyer un e-mail à info.memora.moments@gmail.ch ou nous écrire un message via le formulaire de contact.\n\nTW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten CH\nE-mail : info.memora.moments@gmail.ch\nTéléphone : +41 79 407 56 99"
+            title: "Préambule et Contact",
+            content: "Ce site web est exploité par TW Projects GmbH. Sur l’ensemble du site, les termes « nous », « notre » et « nos » désignent TW Projects GmbH. TW Projects GmbH met ce site web à votre disposition, y compris toutes les informations, outils et services disponibles, à condition que vous acceptiez l’ensemble des conditions, politiques et avis indiqués ici.\n\nVotre satisfaction est notre priorité absolue. Pour toute question ou suggestion, veuillez nous écrire à info.memora.moments@gmail.ch ou utiliser le formulaire de contact.\n\nTW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten, Suisse\nE-Mail : info.memora.moments@gmail.ch\nTéléphone : +41 79 407 56 99\n\nAvis linguistique : Ces CGV sont disponibles en plusieurs langues. En cas de divergence ou de contradiction, la version allemande fait foi juridiquement."
           },
           contract: {
             title: "1. Champ d'application et conclusion du contrat",
@@ -195,6 +195,10 @@ export const frContent: ContentData = {
           contact: {
             title: "13. Utilisations interdites",
             content: "Le site web ne doit pas être utilisé à des fins illégales, pour du spam, des logiciels malveillants ou des violations des droits de tiers.\n\nNous nous réservons le droit de bloquer l'accès en cas d'abus."
+          },
+          availability: {
+            title: "14. Disponibilité du contenu numérique",
+            content: "Les contenus numériques (par ex. albums photo ou vidéo) accessibles via tags NFC, codes QR ou liens externes sont hébergés par des prestataires tiers sélectionnés par nos soins. TW Projects GmbH garantit l’accès à ces contenus numériques pendant une période minimale de 12 mois à compter de la livraison, sauf indication contraire pour le produit concerné.\n\nL’accès peut se poursuivre au-delà de cette période, mais il n’est pas contractuellement garanti. Une disponibilité illimitée ou à vie ne peut pas être assurée.\n\nNous déclinons toute responsabilité en cas d’interruptions, de modifications ou d’arrêt de services tiers, ainsi qu’en cas de perte de données ou de problèmes d’accès indépendants de notre volonté. Nous nous réservons le droit de migrer les contenus vers d’autres services ou de modifier les modalités d’accès, sans qu’il en résulte un droit à un système d’hébergement spécifique."
           },
         },
       },

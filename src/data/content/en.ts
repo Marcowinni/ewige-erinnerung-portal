@@ -180,7 +180,7 @@ export const enContent: ContentData = {
         sections: {
           scope: {
             title: "Preamble and Contact",
-            content: "This website is operated by TW Projects GmbH. Throughout the site, the terms “we”, “us” and “our” refer to TW Projects GmbH. TW Projects GmbH offers this website, including all information, tools and services available from this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices stated here.\n\nYour satisfaction is our top priority. If you have any questions or suggestions, please send an email to info.memora.moments@gmail.ch or write us a message via the contact form.\n\nTW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten CH\nEmail: info.memora.moments@gmail.ch\nPhone: +41 79 407 56 99"
+            content: "This website is operated by TW Projects GmbH. Throughout the site, the terms \"we\", \"us\" and \"our\" refer to TW Projects GmbH. TW Projects GmbH offers this website, including all information, tools and services available from this site, to you as the user, on the condition that you accept all terms, conditions, policies and notices stated here.\n\nYour satisfaction is our top priority. If you have any questions or feedback, please email us at info.memora.moments@gmail.ch or contact us via the contact form.\n\nTW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten, Switzerland\nE-Mail: info.memora.moments@gmail.ch\nPhone: +41 79 407 56 99\n\nLanguage Notice: These Terms and Conditions are provided in multiple languages. In the event of discrepancies or interpretation conflicts, the German version shall be legally binding."
           },
           contract: {
             title: "1. Scope and Conclusion of Contract",
@@ -233,6 +233,10 @@ export const enContent: ContentData = {
           contact: {
             title: "13. Prohibited Uses",
             content: "The website may not be used for illegal purposes, spam, malware or infringement of third-party rights.\n\nWe reserve the right to block access in the event of misuse."
+          },
+          availability: {
+            title: "14. Availability of Digital Content",
+            content: "Digital content (e.g. photo or video albums) accessible via NFC tags, QR codes or external links is provided through third-party platforms selected by us. TW Projects GmbH ensures that access to such digital content is guaranteed for a minimum period of 12 months from the date of delivery, unless otherwise stated for the specific product.\n\nAccess may continue beyond this period, but ongoing availability is not contractually guaranteed. Permanent or lifetime availability cannot be assured.\n\nWe are not liable for outages, changes or discontinuation of external services, nor for data loss or access issues beyond our control. We reserve the right to migrate content to alternative services or adjust access methods without creating any entitlement to a specific hosting system."
           },
         },
       },

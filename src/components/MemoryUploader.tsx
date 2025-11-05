@@ -2237,8 +2237,13 @@ const MemoryUploader = () => {
   };
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
+    const formTop = document.getElementById("memory-form-start");
+    if (formTop) {
+      formTop.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      // Fallback, falls die ID nicht gefunden wird
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   // Navigation

@@ -189,7 +189,7 @@ export const deContent: ContentData = {
         sections: {
           scope: {
             title: "Präambel und Kontakt",
-            content: "Diese Website wird von TW Projects GmbH betrieben. Überall auf der Webseite beziehen sich die Begriffe \"wir\", \"uns\" und \"unsere/n\" auf TW Projects GmbH. TW Projects GmbH bietet diese Website, einschliesslich aller Informationen, Tools und Dienste, die auf dieser Website verfügbar sind, Ihnen, dem Benutzer, unter der Bedingung an, dass Sie alle hier angegebenen Bedingungen, Konditionen, Richtlinien und Hinweise akzeptieren.\n\nIhre Zufriedenheit ist unsere oberste Priorität. Sollten Sie Fragen oder Anregungen haben, so senden Sie eine E-Mail an info.memora.moments@gmail.ch oder schreiben Sie uns eine Nachricht über das Kontakt-Formular.\n\nTW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten CH\nE-Mail: info.memora.moments@gmail.ch\nTelefon: +41 79 407 56 99"
+            content: "Diese Website wird von TW Projects GmbH betrieben. Überall auf der Webseite beziehen sich die Begriffe \"wir\", \"uns\" und \"unsere/n\" auf TW Projects GmbH. TW Projects GmbH bietet diese Website, einschliesslich aller Informationen, Tools und Dienste, die auf dieser Website verfügbar sind, Ihnen, dem Benutzer, unter der Bedingung an, dass Sie alle hier angegebenen Bedingungen, Konditionen, Richtlinien und Hinweise akzeptieren.\n\nIhre Zufriedenheit ist unsere oberste Priorität. Sollten Sie Fragen oder Anregungen haben, so senden Sie eine E-Mail an info.memora.moments@gmail.ch oder schreiben Sie uns eine Nachricht über das Kontakt-Formular.\n\nTW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten CH\nE-Mail: info.memora.moments@gmail.ch\nTelefon: +41 79 407 56 99\n\nHinweis zur Sprachversion: Diese AGB stehen in mehreren Sprachen zur Verfügung. Bei Abweichungen oder Widersprüchen ist die deutschsprachige Fassung rechtlich verbindlich."
           },
           contract: {
             title: "1. Geltungsbereich und Vertragsabschluss",
@@ -243,6 +243,11 @@ export const deContent: ContentData = {
             title: "13. Verbotene Nutzungen",
             content: "Die Website darf nicht für rechtswidrige Zwecke, Spam, Malware oder Verstösse gegen Rechte Dritter genutzt werden.\n\nWir behalten uns vor, bei Missbrauch den Zugang zu sperren."
           },
+          availability: {
+            title: "14. Verfügbarkeit digitaler Inhalte",
+            content: "Die Bereitstellung digitaler Inhalte (z. B. Foto- oder Videoalben), die über NFC-Tags, QR-Codes oder externe Links abrufbar sind, erfolgt über von uns ausgewählte Drittanbieter. TW Projects GmbH stellt sicher, dass der Zugriff auf diese digitalen Inhalte für einen Zeitraum von mindestens 12 Monaten ab Auslieferung gewährleistet ist, sofern beim Produkt nichts anderes angegeben ist.\n\nDarüber hinaus kann die weitere Abrufbarkeit fortbestehen, sie ist jedoch nicht vertraglich zugesichert. Eine zeitlich unbegrenzte oder lebenslange Verfügbarkeit kann nicht garantiert werden.\n\nWir haften nicht für Unterbrüche, Änderungen oder Einstellungen externer Dienste sowie für Datenverluste oder Zugriffsprobleme, die ausserhalb unseres Einflussbereichs liegen. Wir behalten uns vor, Inhalte auf andere Dienste zu übertragen oder die Zugriffsform anzupassen, ohne dass daraus ein Anspruch auf ein bestimmtes Hosting-System entsteht."
+          },
+
         },
       },
       imprint: {

@@ -134,7 +134,7 @@ const Navbar = () => {
             onClick={closeMenu}
             aria-hidden
           />
-          <div className="absolute left-0 top-0 h-full w-80 max-w-[85vw] bg-background/95 backdrop-blur-md shadow-xl border-r">
+          <div className="absolute left-0 top-0 h-full w-80 max-w-[85vw] bg-background shadow-xl border-r">
             <div className="p-4 flex items-center justify-between border-b">
               <span className="font-serif text-lg">{nav.home}</span>
               <Button variant="ghost" size="icon" onClick={closeMenu} aria-label="Schließen">
