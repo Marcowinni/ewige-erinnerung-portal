@@ -87,7 +87,7 @@ const Index = () => {
       </Dialog>
 
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative h-screen overflow-hidden flex flex-col">
         <div
           className="absolute inset-0 bg-center bg-no-repeat bg-cover -z-10"
           style={{
@@ -97,8 +97,8 @@ const Index = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-background/90 -z-10" />
 
-        <div className="container mx-auto px-4 h-full flex items-center">
-          <div className="hero-content relative max-w-3xl">
+        <div className="container mx-auto px-4 flex-grow flex justify-center flex-col">
+          <div className="hero-content relative max-w-3xl pt-24 md:pt-32">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 text-shadow">
               {content.hero.title}
             </h1>

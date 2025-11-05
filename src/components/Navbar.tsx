@@ -54,7 +54,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between gap-2">
         <Link
           to="/"
-          className="flex items-center gap-2 text-primary hover:opacity-90 transition-opacity flex-shrink-0"
+          className="flex items-center gap-2 text-primary hover:opacity-90 transition-opacity min-w-0"          
           onClick={closeMenu}
         >
           <MemoraLogo className="w-8 h-8 flex-shrink-0 align-middle" />
