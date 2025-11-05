@@ -1716,7 +1716,7 @@ function Step3View(props: {
                 aria-checked={form.selectedCalendarStyle === 'modern'}
               >
                 {/* Video-Vorschau */}
-                <div className="rounded-t-lg overflow-hidden aspect-video bg-muted/30">
+                <div className="rounded-t-lg overflow-hidden aspect-[9/16] bg-muted/30">
                   <video
                     src="/kalender_vorschau/fotoalbum_modern.mp4"
                     autoPlay
@@ -1751,7 +1751,7 @@ function Step3View(props: {
                 aria-checked={form.selectedCalendarStyle === 'classic'}
               >
                 {/* Video-Vorschau */}
-                <div className="rounded-t-lg overflow-hidden aspect-video bg-muted/30">
+                <div className="rounded-t-lg overflow-hidden aspect-[9/16] bg-muted/30">
                   <video
                     src="/kalender_vorschau/fotoalbum_klassisch.mp4"
                     autoPlay
