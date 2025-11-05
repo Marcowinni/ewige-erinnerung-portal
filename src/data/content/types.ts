@@ -88,6 +88,11 @@ export interface UploaderCopy {
       pixabayPlaceholder: string;
       pixabayButton: string;
     };
+    calendarStyleSelection?: {
+        title: string;
+        modern: string;
+        classic: string;
+    };
   };
   contactFields: {
     firstName: string;
@@ -288,7 +293,6 @@ export interface LegalContent {
       rights: { title: string; content: string; list: string[] };
       cookies: { title: string; content: string };
       changes: { title: string; content: string };
-      // HINWEIS: imageProcessing wurde aus den Typen entfernt, da es in de.ts nicht mehr vorhanden ist.
     };
   };
   terms: {

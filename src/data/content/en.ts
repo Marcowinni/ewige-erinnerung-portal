@@ -430,6 +430,11 @@ export const enContent: ContentData = {
           pixabayPlaceholder: "Paste link from pixabay.com/music/...",
           pixabayButton: "Pixabay Music",
         },
+        calendarStyleSelection: {
+          title: "Choose Album Style",
+          modern: "Modern",
+          classic: "Classic",
+        },
       },
       contactFields: {
         firstName: "First Name *",

@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/carousel";
 import { set } from "date-fns";
 import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 // Preiskalkulation
 function calculatePrice(form: FormState, mode: Mode): number {
@@ -216,6 +217,8 @@ type FormState = {
   deluxe_custom?: CustomDesign;
 
   agreedToTerms?: boolean;
+
+  selectedCalendarStyle?: 'modern' | 'classic';
 };
 
 // --- Copy (Texte zentral) ---
@@ -304,6 +307,11 @@ type UploaderCopy = {
       moreMusic: string;
       pixabayPlaceholder: string;
       pixabayButton: string;
+    };
+    calendarStyleSelection?: {
+      title: string;
+      modern: string;
+      classic: string;
     };
   };
   contactFields: {
@@ -1683,7 +1691,93 @@ function Step3View(props: {
             </div>
           </div>
         </div>
+
+        {copy.step3Fields.calendarStyleSelection && (
+          <div className="md:col-span-2 mt-8"> {/* Nimmt die volle Breite ein */}
+            <h3 className="text-lg font-medium mb-4">
+              {copy.step3Fields.calendarStyleSelection.title}
+            </h3>
+            
+            {/* Grid für Mobile (untereinander) und Desktop (nebeneinander) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              {/* --- Option Modern --- */}
+              <div
+                onClick={() => setForm(s => ({ ...s, selectedCalendarStyle: 'modern' }))}
+                className={cn(
+                  "border-2 rounded-lg cursor-pointer transition-all",
+                  form.selectedCalendarStyle === 'modern'
+                    ? "border-primary ring-2 ring-primary/20" // Hervorgehoben
+                    : "border-border hover:border-primary/40" // Standard
+                )}
+                role="button"
+                tabIndex={0}
+                aria-label={copy.step3Fields.calendarStyleSelection.modern}
+                aria-checked={form.selectedCalendarStyle === 'modern'}
+              >
+                {/* Video-Vorschau */}
+                <div className="rounded-t-lg overflow-hidden aspect-video bg-muted/30">
+                  <video
+                    src="/kalender_vorschau/fotoalbum_modern.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline // Wichtig für iOS-Geräte
+                    className="w-full h-full object-cover"
+                  >
+                    Vorschau für modernen Stil.
+                  </video>
+                </div>
+                {/* Titel unter dem Video */}
+                <div className="p-4 text-center">
+                  <span className="font-medium text-lg">
+                    {copy.step3Fields.calendarStyleSelection.modern}
+                  </span>
+                </div>
+              </div>
+
+              {/* --- Option Klassisch --- */}
+              <div
+                onClick={() => setForm(s => ({ ...s, selectedCalendarStyle: 'classic' }))}
+                className={cn(
+                  "border-2 rounded-lg cursor-pointer transition-all",
+                  form.selectedCalendarStyle === 'classic'
+                    ? "border-primary ring-2 ring-primary/20" // Hervorgehoben
+                    : "border-border hover:border-primary/40" // Standard
+                )}
+                role="button"
+                tabIndex={0}
+                aria-label={copy.step3Fields.calendarStyleSelection.classic}
+                aria-checked={form.selectedCalendarStyle === 'classic'}
+              >
+                {/* Video-Vorschau */}
+                <div className="rounded-t-lg overflow-hidden aspect-video bg-muted/30">
+                  <video
+                    src="/kalender_vorschau/fotoalbum_klassisch.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline // Wichtig für iOS-Geräte
+                    className="w-full h-full object-cover"
+                  >
+                    Vorschau für klassischen Stil.
+                  </video>
+                </div>
+                {/* Titel unter dem Video */}
+                <div className="p-4 text-center">
+                  <span className="font-medium text-lg">
+                    {copy.step3Fields.calendarStyleSelection.classic}
+                  </span>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        )}
+
       </div>
+
+      
 
       <div className="mt-8 flex justify-between gap-3">
         <Button variant="outline" onClick={onBack}>
@@ -2083,6 +2177,8 @@ const MemoryUploader = () => {
     invoice_sameAsContact: true,
     frame_orientation: "portrait", // default Hochformat
     tag_format: "round_3cm", // default Rund Ø 3 cm
+
+    selectedCalendarStyle: 'modern', // Setzt 'Modern' als Standard
     ...(persistedInit?.form ?? {}),
   });
 
