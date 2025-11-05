@@ -25,3 +25,5 @@ dist-ssr
 
 # Grosse Mediendateien ignorieren
 *.mp4
+!public/kalender_vorschau/fotoalbum_modern.mp4
+!public/kalender_vorschau/fotoalbum_klassisch.mp4
