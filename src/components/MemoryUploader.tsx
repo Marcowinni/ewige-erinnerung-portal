@@ -1952,7 +1952,6 @@ function Step5InvoiceAndPayView(props: {
   copy: UploaderCopy;
   media: any; // Sollte spezifischer sein, z.B. ProductMedia
   onPreviewClick: (gallery: { images: { src: string; alt: string }[]; startIndex: number }) => void;
-  // --- NEUE PROPS FÜR RABATTCODE ---
   discountCodeInput: string;
   setDiscountCodeInput: (value: string) => void;
   appliedDiscount: { code: string; type: 'percentage' | 'fixed'; value: number } | null;
@@ -2569,6 +2568,33 @@ const MemoryUploader = () => {
             setIsApplyingDiscount(false);
         }
     };
+
+  const resetAll = () => {
+    clearPersisted(); // Löscht den LocalStorage
+    setStep(1); // Geht zu Schritt 1
+    setSelected(null); // Wählt kein Produkt aus
+    
+    // Setzt das Formular auf den Standardzustand zurück
+    setForm({ 
+      images: [], 
+      videos: [], 
+      invoice_sameAsContact: true, 
+      frame_orientation: 'portrait', 
+      tag_format: 'round_3cm', 
+      selectedCalendarStyle: 'modern' 
+    });
+    
+    setTouchedFields({}); 
+    if (uploaderRef.current) {
+      uploaderRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    
+    // Scrolle zum Anfang des Formulars
+    if (uploaderRef.current) {
+      uploaderRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   // placement of order
   const onPlaceOrder = async () => {
     setIsSubmitting(true);
@@ -2722,9 +2748,6 @@ const MemoryUploader = () => {
     }
   };
 
-  function resetAll(): void {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <div id="memory-form-start" ref={uploaderRef} className="space-y-10">
@@ -2820,6 +2843,3 @@ const MemoryUploader = () => {
 
 export default MemoryUploader;
 
-function resetAll() {
-  throw new Error("Function not implemented.");
-}
