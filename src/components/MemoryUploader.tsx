@@ -460,6 +460,11 @@ const DEFAULT_COPY: UploaderCopy = {
       pixabayPlaceholder: "Link von pixabay.com/music/ einfügen...",
       pixabayButton: "Pixabay Music",
     },
+    calendarStyleSelection: {
+      title: "Stil des Albums wählen", // (Fallback-Text)
+      modern: "Modern",               // (Fallback-Text)
+      classic: "Klassisch",             // (Fallback-Text)
+    },
   },
   contactFields: {
     firstName: "Vorname *",
@@ -2154,7 +2159,7 @@ function Step5InvoiceAndPayView(props: {
               <Label htmlFor="invoice_country">{copy.invoiceFields.country}</Label>
               <Input 
                 id="invoice_country" 
-                value={form.invoice_country ?? "Schweiz"} 
+                value={form.invoice_country ?? ""} 
                 onChange={(e) => setForm((s) => ({ ...s, invoice_country: e.target.value }))} 
                 placeholder="Schweiz" 
                 required 
