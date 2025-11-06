@@ -151,6 +151,7 @@ type EditorText = {
 
 type CustomDesign = {
   bgImageUrl?: string; // ObjectURL für Vorschau
+  originalFile?: File; // Originaldatei
   scale: number; // Zoom
   offsetX: number; // px relativ zum Canvas
   offsetY: number; // px
@@ -1124,7 +1125,7 @@ function Step1View(props: {
   const showTagFormat = selected === "basic"; // Format-Auswahl für alle Modi beim basic-Produkt
   const isRound = (form.tag_format ?? "round_3cm") === "round_3cm";
 
-  // NEU: Validierungslogik für den "Weiter"-Button
+  // Validierungslogik für den "Weiter"-Button
   const isImageUploadRequired =
     (selected === "premium" && !form.frame_custom?.bgImageUrl) ||
     (selected === "deluxe" && !form.deluxe_custom?.bgImageUrl) ||
@@ -2712,7 +2713,34 @@ const MemoryUploader = () => {
         previewFilePath = previewUploadData.path;
       }
       
-      // 5. Finalisiere die Bestellung (Dieser Teil ist schnell)
+      let designBaseImagePath: string | null = null;
+            
+      // Finde die originale Datei, die der Nutzer in Schritt 1 ausgewählt hat
+      const originalDesignFile = 
+          form.frame_custom?.originalFile || 
+          form.deluxe_custom?.originalFile || 
+          (form.pet_tag_customEnabled ? form.pet_tag_custom?.originalFile : null);
+
+      if (originalDesignFile) {
+          setUploadStatus("Lade Original-Designbild hoch...");
+          
+          // Bereinige den Dateinamen
+          const sanitizedName = sanitizeFileName(originalDesignFile.name);
+          
+          // Speichere es in den Ordner 'design_base/' (wie du es wolltest)
+          const designBasePath = `${orderFolderPath}/design_base/${sanitizedName}`;
+
+          const { data: designBaseData, error: designBaseError } = await supabase.storage
+            .from('uploads')
+            .upload(designBasePath, originalDesignFile, { 
+              upsert: true // Überschreiben erlauben
+            });
+
+          if (designBaseError) throw new Error(`Upload des Original-Designbilds fehlgeschlagen: ${designBaseError.message}`);
+          designBaseImagePath = designBaseData.path; // Speichere den Pfad
+      }
+
+      // 6. Finalisiere die Bestellung (Dieser Teil ist schnell)
       setUploadStatus("Bestellung wird abgeschlossen..."); // Status-Update
       const { data: finalizeData, error: finalizeError } = await supabase.functions.invoke(
         'finalize-order',

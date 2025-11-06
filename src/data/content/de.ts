@@ -432,8 +432,8 @@ export const deContent: ContentData = {
 
       },
       step3Fields: {
-        imagesLabel: "Bilder (mehrfach möglich)",
-        videosLabel: "Videos (mehrfach möglich)",
+        imagesLabel: "Bilder (max. 50MB pro Bild)",
+        videosLabel: "Videos (max. 50MB pro Video)",
         remove: "Entfernen",
         imageCaptionPlaceholder: "Kurztext zum Bild (optional)",
         videoCaptionPlaceholder: "Kurztext zum Video (optional)",
@@ -638,8 +638,8 @@ export const deContent: ContentData = {
         pet_notesPH: "Besondere Wünsche, Lieblingsgeräusche, Hinweise …",
       },
       step3Fields: {
-        imagesLabel: "Bilder (mehrfach möglich)",
-        videosLabel: "Videos (mehrfach möglich)",
+        imagesLabel: "Bilder (max. 50MB pro Bild)",
+        videosLabel: "Videos (max. 50MB pro Video)",
         remove: "Entfernen",
         imageCaptionPlaceholder: "Kurztext zum Bild (optional)",
         videoCaptionPlaceholder: "Kurztext zum Video (optional)",
@@ -831,8 +831,8 @@ export const deContent: ContentData = {
         surprise_notesPH: "Hochzeit, Geburtstag, Jubiläum … besondere Wünsche"
       },
       step3Fields: {
-        imagesLabel: "Bilder (mehrfach möglich)",
-        videosLabel: "Videos (mehrfach möglich)",
+        imagesLabel: "Bilder (max. 50MB pro Bild)",
+        videosLabel: "Videos (max. 50MB pro Video)",
         remove: "Entfernen",
         imageCaptionPlaceholder: "Kurztext zum Bild (optional)",
         videoCaptionPlaceholder: "Kurztext zum Video (optional)",

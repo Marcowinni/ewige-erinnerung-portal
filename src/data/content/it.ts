@@ -419,8 +419,8 @@ export const itContent: ContentData = {
         human_notesPH: "Desideri speciali, citazioni, appunti sulla musica…",
       },
       step3Fields: {
-        imagesLabel: "Immagini (possibili multiple)",
-        videosLabel: "Video (possibili multiple)",
+        imagesLabel: "Immagini (max. 50MB per immagine)",
+        videosLabel: "Video (max. 50MB per video)",
         remove: "Rimuovi",
         imageCaptionPlaceholder: "Breve testo per l’immagine (facoltativo)",
         videoCaptionPlaceholder: "Breve testo per il video (facoltativo)",
@@ -621,8 +621,8 @@ export const itContent: ContentData = {
         pet_notesPH: "Desideri speciali, suoni preferiti, appunti…",
       },
       step3Fields: {
-        imagesLabel: "Immagini (possibili multiple)",
-        videosLabel: "Video (possibili multiple)",
+        imagesLabel: "Immagini (max. 50MB per immagine)",
+        videosLabel: "Video (max. 50MB per video)",
         remove: "Rimuovi",
         imageCaptionPlaceholder: "Breve testo per l’immagine (facoltativo)",
         videoCaptionPlaceholder: "Breve testo per il video (facoltativo)",
@@ -810,8 +810,8 @@ export const itContent: ContentData = {
         surprise_notesPH: "Matrimonio, compleanno, anniversario… desideri speciali…"
       },
       step3Fields: {
-        imagesLabel: "Immagini (possibili multiple)",
-        videosLabel: "Video (possibili multiple)",
+        imagesLabel: "Immagini (max. 50MB per immagine)",
+        videosLabel: "Video (max. 50MB per video)",
         remove: "Rimuovi",
         imageCaptionPlaceholder: "Breve testo per l’immagine (facoltativo)",
         videoCaptionPlaceholder: "Breve testo per il video (facoltativo)",

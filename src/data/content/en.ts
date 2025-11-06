@@ -419,8 +419,8 @@ export const enContent: ContentData = {
         human_notesPH: "Special wishes, quotes, music notes…",
       },
       step3Fields: {
-        imagesLabel: "Pictures (multiple possible)",
-        videosLabel: "Videos (multiple possible)",
+        imagesLabel: "Pictures (max. 50MB each)",
+        videosLabel: "Videos (max. 50MB each)",
         remove: "Remove",
         imageCaptionPlaceholder: "Short text for the picture (optional)",
         videoCaptionPlaceholder: "Short text for the video (optional)",
@@ -621,8 +621,8 @@ export const enContent: ContentData = {
         pet_notesPH: "Special wishes, favorite sounds, notes…",
       },
       step3Fields: {
-        imagesLabel: "Pictures (multiple possible)",
-        videosLabel: "Videos (multiple possible)",
+        imagesLabel: "Pictures (max. 50MB each)",
+        videosLabel: "Videos (max. 50MB each)",
         remove: "Remove",
         imageCaptionPlaceholder: "Short text for the picture (optional)",
         videoCaptionPlaceholder: "Short text for the video (optional)",
@@ -810,8 +810,8 @@ export const enContent: ContentData = {
         surprise_notesPH: "Wedding, birthday, anniversary… special wishes…"
       },
       step3Fields: {
-        imagesLabel: "Pictures (multiple possible)",
-        videosLabel: "Videos (multiple possible)",
+        imagesLabel: "Pictures (max. 50MB each)",
+        videosLabel: "Videos (max. 50MB each)",
         remove: "Remove",
         imageCaptionPlaceholder: "Short text for the picture (optional)",
         videoCaptionPlaceholder: "Short text for the video (optional)",

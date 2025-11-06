@@ -193,6 +193,8 @@ Deno.serve(async (req) => {
 
       subject_details: payload.subject_details || '',
       music_choice: payload.music_choice || 'Keine Auswahl',
+      album_style: payload.selectedCalendarStyle || 'modern',
+
       contact_name: payload.contact_name,
       contact_email: payload.contact_email,
       contact_phone: payload.contact_phone || 'N/A',
@@ -204,7 +206,6 @@ Deno.serve(async (req) => {
       applied_discount_code: validatedDiscountCode,
       created_at: now.toISOString(),
       
-      album_style: payload.selectedCalendarStyle || 'modern'
     };
 
     const { data: insertedData, error: insertError } = await supabaseAdmin

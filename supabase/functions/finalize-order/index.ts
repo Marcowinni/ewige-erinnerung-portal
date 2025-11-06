@@ -15,7 +15,8 @@ Deno.serve(async (req) => {
 
   try {
     // 1. Daten vom Frontend empfangen
-    const { orderId, uploadedFilePaths, previewFilePath } = await req.json();
+    // KORREKTUR 1: Stelle sicher, dass 'designBaseImagePath' hier empfangen wird
+    const { orderId, uploadedFilePaths, previewFilePath, designBaseImagePath } = await req.json();
 
     if (!orderId || !Array.isArray(uploadedFilePaths)) {
       throw new Error("orderId and uploadedFilePaths (array) are required.");
@@ -28,28 +29,27 @@ Deno.serve(async (req) => {
       { auth: { persistSession: false } }
     );
 
-    // 3. Datenbankeintrag aktualisieren (nur Dateipfade)
+    // 3. Datenbankeintrag aktualisieren
     const { error: updateError } = await supabaseAdmin
       .from('orders')
       .update({
         uploaded_files: uploadedFilePaths,
-        preview_file_path: previewFilePath || null // Setze auf null, falls nicht vorhanden
+        preview_file_path: previewFilePath || null,
+        design_base_image_path: designBaseImagePath || null 
       })
       .eq('id', orderId) // Nur den spezifischen Eintrag
-      .select() // Optional: Um zu prüfen, ob der Eintrag existiert/aktualisiert wurde
-      .single(); // Erwarte genau einen Treffer
+      .select() 
+      .single(); 
 
     // 4. Fehlerbehandlung
     if (updateError) {
        console.error("Error updating order:", updateError);
-       // Spezifischer Fehler, falls die orderId nicht gefunden wurde
        if (updateError.code === 'PGRST116') {
            return new Response(JSON.stringify({ error: `Order with ID ${orderId} not found.` }), {
                headers: { ...corsHeaders, 'Content-Type': 'application/json' },
                status: 404, // Not Found
            });
        }
-       // Andere Datenbankfehler
        throw updateError;
     }
 
@@ -61,8 +61,7 @@ Deno.serve(async (req) => {
     });
 
   } catch (error) {
-    console.error('Error creating order:', error);
-    
+    console.error('Error in finalize-order:', error); // Geändert von 'Error creating order:'
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
     
     return new Response(JSON.stringify({ error: errorMessage }), {

@@ -384,8 +384,8 @@ export const frContent: ContentData = {
         surprise_notesPH: "Mariage, anniversaire, jubilé… souhaits particuliers"
       },
       step3Fields: {
-        imagesLabel: "Images (plusieurs possibles)",
-        videosLabel: "Vidéos (plusieurs possibles)",
+        imagesLabel: "Images (max. 50MB pour image)",
+        videosLabel: "Vidéos (max. 50MB pour vidéo)",
         remove: "Supprimer",
         imageCaptionPlaceholder: "Court texte pour l'image (facultatif)",
         videoCaptionPlaceholder: "Court texte pour la vidéo (facultatif)",
@@ -582,8 +582,8 @@ export const frContent: ContentData = {
         pet_notesPH: "Souhaits particuliers, bruits préférés, notes…",
       },
       step3Fields: {
-        imagesLabel: "Images (plusieurs possibles)",
-        videosLabel: "Vidéos (plusieurs possibles)",
+        imagesLabel: "Images (max. 50MB pour image)",
+        videosLabel: "Vidéos (max. 50MB pour vidéo)",
         remove: "Supprimer",
         imageCaptionPlaceholder: "Court texte pour l'image (facultatif)",
         videoCaptionPlaceholder: "Court texte pour la vidéo (facultatif)",
@@ -768,8 +768,8 @@ export const frContent: ContentData = {
         surprise_notesPH: "Mariage, anniversaire, jubilé… souhaits particuliers…"
       },
       step3Fields: {
-        imagesLabel: "Images (plusieurs possibles)",
-        videosLabel: "Vidéos (plusieurs possibles)",
+        imagesLabel: "Images (max. 50MB pour image)",
+        videosLabel: "Vidéos (max. 50MB pour vidéo)",
         remove: "Supprimer",
         imageCaptionPlaceholder: "Court texte pour l'image (facultatif)",
         videoCaptionPlaceholder: "Court texte pour la vidéo (facultatif)",
