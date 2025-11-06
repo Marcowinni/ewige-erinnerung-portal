@@ -1611,63 +1611,22 @@ function Step3View(props: {
 
   return (
     <div>
+      {/* Verstecktes Audio-Element für die Musik-Vorschau */}
       <audio ref={audioRef} />
+      
+      {/* --- 1. Header --- */}
       <h2 className="text-2xl md:text-3xl font-serif mb-3">{copy.headings.step3Title}</h2>
       <p className="text-muted-foreground mb-8">{copy.headings.step3Subtitle}</p>
 
+      {/* --- 2. Haupt-Grid (Layout) --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Bilder */}
-        <div>
-          <Label htmlFor="images">{copy.step3Fields.imagesLabel}</Label>
-          <Input id="images" type="file" accept="image/*" multiple onChange={(e) => addImages(e.target.files)} />
-          {form.images.length > 0 && (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-              {form.images.map((mediaFile) => {
-                const url = URL.createObjectURL(mediaFile.file);
-                return (
-                  <div key={mediaFile.id} className="relative space-y-2">
-                    <img src={url} alt={mediaFile.file.name} className="w-full h-32 object-cover rounded-md border" />
-                    <Button size="sm" variant="destructive" className="absolute top-2 right-2 h-7 w-auto px-2 py-1 text-xs" onClick={() => removeImage(mediaFile.id)}>
-                      {copy.step3Fields.remove}
-                    </Button>
-                    <Input type="text" placeholder={copy.step3Fields.imageCaptionPlaceholder} value={mediaFile.caption ?? ""} onChange={(e) => handleImageCaptionChange(mediaFile.id, e.target.value)} className="h-10 text-base" />
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
 
-        {/* Videos */}
-        <div>
-          <Label htmlFor="videos">{copy.step3Fields.videosLabel}</Label>
-          <Input id="videos" type="file" accept="video/*" multiple onChange={(e) => addVideos(e.target.files)} />
-          {form.videos.length > 0 && (
-            <div className="space-y-4 mt-4">
-              {form.videos.map((mediaFile) => {
-                const url = URL.createObjectURL(mediaFile.file);
-                return (
-                  <div key={mediaFile.id} className="relative border rounded-md p-3 space-y-2">
-                    <div className="relative">
-                      <video src={url} className="w-full rounded" controls />
-                      <Button size="sm" variant="destructive" className="absolute top-2 right-2 h-7 w-auto px-2 py-1 text-xs" onClick={() => removeVideo(mediaFile.id)}>
-                        {copy.step3Fields.remove}
-                      </Button>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-muted-foreground truncate flex-1">{mediaFile.file.name}</span>
-                    </div>
-                    <Input type="text" placeholder={copy.step3Fields.videoCaptionPlaceholder} value={mediaFile.caption ?? ""} onChange={(e) => handleVideoCaptionChange(mediaFile.id, e.target.value)} className="h-10 text-base" />
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
 
-        {/* Music Selection */}
+        {/* --- 3. Musik-Auswahl --- */}
         <div className="md:col-span-2">
           <h3 className="text-lg font-medium mb-4">{copy.step3Fields.musicSelection?.title}</h3>
+          
+          {/* Verfügbare Tracks (interne Musik) */}
           <div className="mb-6">
             <h4 className="text-md font-medium text-muted-foreground mb-3">{copy.step3Fields.musicSelection?.availableMusic}</h4>
             <div className="space-y-2">
@@ -1681,12 +1640,14 @@ function Step3View(props: {
                       isSelected ? "border-primary bg-primary/10" : "border-border"
                     }`}
                   >
+                    {/* Play/Pause Button */}
                     <Button variant="ghost" size="icon" className="h-9 w-9 flex-shrink-0" onClick={() => handlePlayToggle(track.src)}>
                       {isCurrentlyPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
                     </Button>
                     <div className="flex-grow min-w-0">
                       <p className="font-medium truncate">{track.title}</p>
                     </div>
+                    {/* Auswählen Button */}
                     <Button 
                       size="sm" 
                       onClick={() => setForm(s => ({ ...s, selectedLocalMusic: track.id, pixabayMusicLink: "" }))} // Setzt Pixabay-Link zurück
@@ -1701,7 +1662,7 @@ function Step3View(props: {
             </div>
           </div>
 
-          {/* Pixabay Music Link */}
+          {/* Pixabay Music Link (externe Musik) */}
           <div>
             <h4 className="text-md font-medium text-muted-foreground mb-3">{copy.step3Fields.musicSelection?.moreMusic}</h4>
             <div className="flex gap-2">
@@ -1719,6 +1680,7 @@ function Step3View(props: {
           </div>
         </div>
 
+        {/* --- 4. Album-Stil Auswahl --- */}
         {copy.step3Fields.calendarStyleSelection && (
           <div className="md:col-span-2 mt-8"> {/* Nimmt die volle Breite ein */}
             <h3 className="text-lg font-medium mb-4">
@@ -1742,8 +1704,8 @@ function Step3View(props: {
                 aria-label={copy.step3Fields.calendarStyleSelection.modern}
                 aria-checked={form.selectedCalendarStyle === 'modern'}
               >
-                {/* Video-Vorschau */}
-                <div className="rounded-t-lg overflow-hidden bg-muted/30 flex justify-center items-center py-4">                  
+                {/* Video-Vorschau (Modern) */}
+                <div className="rounded-t-lg overflow-hidden bg-muted/30 flex justify-center items-center py-4">
                   <video
                     src="/kalender_vorschau/fotoalbum_modern.mp4"
                     autoPlay
@@ -1777,7 +1739,7 @@ function Step3View(props: {
                 aria-label={copy.step3Fields.calendarStyleSelection.classic}
                 aria-checked={form.selectedCalendarStyle === 'classic'}
               >
-                {/* Video-Vorschau */}
+                {/* Video-Vorschau (Klassisch) */}
                 <div className="rounded-t-lg overflow-hidden bg-muted/30 flex justify-center items-center py-4">
                   <video
                     src="/kalender_vorschau/fotoalbum_klassisch.mp4"
@@ -1802,10 +1764,61 @@ function Step3View(props: {
           </div>
         )}
 
+        
+        {/* --- 5. Bilder-Upload & Vorschau --- */}
+        <div>
+          <Label htmlFor="images">{copy.step3Fields.imagesLabel}</Label>
+          <Input id="images" type="file" accept="image/*" multiple onChange={(e) => addImages(e.target.files)} />
+          {form.images.length > 0 && (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+              {form.images.map((mediaFile) => {
+                const url = URL.createObjectURL(mediaFile.file);
+                return (
+                  <div key={mediaFile.id} className="relative space-y-2">
+                    <img src={url} alt={mediaFile.file.name} className="w-full h-32 object-cover rounded-md border" />
+                    <Button size="sm" variant="destructive" className="absolute top-2 right-2 h-7 w-auto px-2 py-1 text-xs" onClick={() => removeImage(mediaFile.id)}>
+                      {copy.step3Fields.remove}
+                    </Button>
+                    {/* Input für Bildunterschrift (verhindert iPhone Zoom) */}
+                    <Input type="text" placeholder={copy.step3Fields.imageCaptionPlaceholder} value={mediaFile.caption ?? ""} onChange={(e) => handleImageCaptionChange(mediaFile.id, e.target.value)} className="h-10 text-base" />
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* --- 6. Video-Upload & Vorschau --- */}
+        <div>
+          <Label htmlFor="videos">{copy.step3Fields.videosLabel}</Label>
+          <Input id="videos" type="file" accept="video/*" multiple onChange={(e) => addVideos(e.target.files)} />
+          {form.videos.length > 0 && (
+            <div className="space-y-4 mt-4">
+              {form.videos.map((mediaFile) => {
+                const url = URL.createObjectURL(mediaFile.file);
+                return (
+                  <div key={mediaFile.id} className="relative border rounded-md p-3 space-y-2">
+                    <div className="relative">
+                      <video src={url} className="w-full rounded" controls />
+                      <Button size="sm" variant="destructive" className="absolute top-2 right-2 h-7 w-auto px-2 py-1 text-xs" onClick={() => removeVideo(mediaFile.id)}>
+                        {copy.step3Fields.remove}
+                      </Button>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground truncate flex-1">{mediaFile.file.name}</span>
+                    </div>
+                    {/* Input für Videounterschrift (verhindert iPhone Zoom) */}
+                    <Input type="text" placeholder={copy.step3Fields.videoCaptionPlaceholder} value={mediaFile.caption ?? ""} onChange={(e) => handleVideoCaptionChange(mediaFile.id, e.target.value)} className="h-10 text-base" />
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
       </div>
 
-      
-
+      {/* --- 7. Navigations-Buttons --- */}
       <div className="mt-8 flex justify-between gap-3">
         <Button variant="outline" onClick={onBack}>
           {copy.buttons.back}
@@ -1991,13 +2004,18 @@ function Step5InvoiceAndPayView(props: {
   const validationErrors = useMemo(() => {
     const errors: { [key: string]: string } = {};
 
+    if (!form.invoice_sameAsContact) {
+      if (!form.invoice_firstName) errors.firstName = "First name is required.";
+      if (!form.invoice_lastName) errors.lastName = "Last name is required.";
+    }
+
     // Pflichtfelder 
-    if (!form.invoice_firstName) errors.firstName = "First name is required.";
-    if (!form.invoice_lastName) errors.lastName = "Last name is required.";
     if (!form.invoice_street) errors.street = "Street & No. is required.";
     if (!form.invoice_zip) errors.zip = "ZIP/Postal code is required.";
     if (!form.invoice_city) errors.city = "City is required.";
     if (!form.invoice_country) errors.country = "Country is required.";
+
+
 
     
     return errors;
@@ -2007,7 +2025,8 @@ function Step5InvoiceAndPayView(props: {
     form.invoice_street, 
     form.invoice_zip, 
     form.invoice_city, 
-    form.invoice_country
+    form.invoice_country,
+    form.invoice_sameAsContact
   ]);
 
   const toggleSame = (checked: boolean) => {
@@ -2017,7 +2036,16 @@ function Step5InvoiceAndPayView(props: {
       invoice_firstName: checked ? s.contact_firstName : s.invoice_firstName,
       invoice_lastName: checked ? s.contact_lastName : s.invoice_lastName,
     }));
+
+    if (checked) {
+      setTouchedFields(prev => ({ 
+        ...prev, 
+        invoice_firstName: false, 
+        invoice_lastName: false 
+      }));
+    }
   };
+  
 
   //  'invalid' Logik
   const invalid = Object.keys(validationErrors).length > 0;
@@ -2056,33 +2084,38 @@ function Step5InvoiceAndPayView(props: {
               <Input id="invoice_company" value={form.invoice_company ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_company: e.target.value }))} />
             </div>
 
-            {/* Vorname */}
-            <div>
-              <Label htmlFor="invoice_firstName">{copy.invoiceFields.firstName}</Label>
-              <Input 
-                id="invoice_firstName" 
-                value={form.invoice_firstName ?? ""} 
-                onChange={(e) => setForm((s) => ({ ...s, invoice_firstName: e.target.value }))} 
-                required 
-                onBlur={() => handleBlur('invoice_firstName')} 
-                className={cn(validationErrors.firstName && touchedFields.invoice_firstName && "border-destructive focus-visible:ring-destructive")} // NEU
-              />
-              {validationErrors.firstName && touchedFields.invoice_firstName && <p className="text-sm text-destructive mt-1">{validationErrors.firstName}</p>} {/* NEU */}
-            </div>
+            {/* Logik zum Ausblenden der Namensfelder */}
+          {!form.invoice_sameAsContact && (
+            <>
+              {/* Vorname */}
+              <div>
+                <Label htmlFor="invoice_firstName">{copy.invoiceFields.firstName}</Label>
+                <Input 
+                  id="invoice_firstName" 
+                  value={form.invoice_firstName ?? ""} 
+                  onChange={(e) => setForm((s) => ({ ...s, invoice_firstName: e.target.value }))} 
+                  required 
+                  onBlur={() => handleBlur('invoice_firstName')}
+                  className={cn(validationErrors.firstName && touchedFields.invoice_firstName && "border-destructive focus-visible:ring-destructive")}
+                />
+                {validationErrors.firstName && touchedFields.invoice_firstName && <p className="text-sm text-destructive mt-1">{validationErrors.firstName}</p>}
+              </div>
 
-            {/* Nachname */}
-            <div>
-              <Label htmlFor="invoice_lastName">{copy.invoiceFields.lastName}</Label>
-              <Input 
-                id="invoice_lastName" 
-                value={form.invoice_lastName ?? ""} 
-                onChange={(e) => setForm((s) => ({ ...s, invoice_lastName: e.target.value }))} 
-                required 
-                onBlur={() => handleBlur('invoice_lastName')} 
-                className={cn(validationErrors.lastName && touchedFields.invoice_lastName && "border-destructive focus-visible:ring-destructive")} // NEU
-              />
-              {validationErrors.lastName && touchedFields.invoice_lastName && <p className="text-sm text-destructive mt-1">{validationErrors.lastName}</p>} {/* NEU */}
-            </div>
+              {/* Nachname */}
+              <div>
+                <Label htmlFor="invoice_lastName">{copy.invoiceFields.lastName}</Label>
+                <Input 
+                  id="invoice_lastName" 
+                  value={form.invoice_lastName ?? ""} 
+                  onChange={(e) => setForm((s) => ({ ...s, invoice_lastName: e.target.value }))} 
+                  required 
+                  onBlur={() => handleBlur('invoice_lastName')}
+                  className={cn(validationErrors.lastName && touchedFields.invoice_lastName && "border-destructive focus-visible:ring-destructive")}
+                />
+                {validationErrors.lastName && touchedFields.invoice_lastName && <p className="text-sm text-destructive mt-1">{validationErrors.lastName}</p>}
+              </div>
+            </>
+          )}
 
             {/* Strasse */}
             <div className="md:col-span-2">
