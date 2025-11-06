@@ -1725,7 +1725,7 @@ function Step3View(props: {
                     loop
                     muted
                     playsInline // Wichtig für iOS-Geräte
-                    className="w-full h-full object-cover"
+                    className="max-w-[80%] mx-auto block"
                   >
                     Vorschau für modernen Stil.
                   </video>
@@ -1760,7 +1760,7 @@ function Step3View(props: {
                     loop
                     muted
                     playsInline // Wichtig für iOS-Geräte
-                    className="w-full h-full object-cover"
+                    className="max-w-[80%] mx-auto block"
                   >
                     Vorschau für klassischen Stil.
                   </video>
@@ -1803,6 +1803,19 @@ function Step4ContactView(props: {
   copy: UploaderCopy;
 }) {
   const { form, setForm, onBack, onNext, copy } = props;
+
+  // E-Mail-Validierung
+  const emailError = useMemo(() => {
+    if (!form.contact_email) return "E-Mail is required.";
+    // Einfache Regex für E-Mail-Format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.contact_email)) {
+      return "Wrong E-Mail-Format (z.B. name@example.ch)";
+    }
+    return null; // Kein Fehler
+
+  }, [form.contact_email]);
+
   const invalid = !form.contact_firstName || !form.contact_lastName || !form.contact_email;
 
   return (
@@ -1837,7 +1850,11 @@ function Step4ContactView(props: {
             value={form.contact_email ?? ""}
             onChange={(e) => setForm((s) => ({ ...s, contact_email: e.target.value }))}
             required
+            className={cn(emailError && "border-destructive focus-visible:ring-destructive")}
           />
+          {emailError && (
+          <p className="text-sm text-destructive mt-1">{emailError}</p>
+        )}
         </div>
         <div className="md:col-span-2">
           <Label htmlFor="contact_phone">{copy.contactFields.phoneOpt}</Label>
@@ -1914,6 +1931,29 @@ function Step5InvoiceAndPayView(props: {
       return Math.max(0, originalPrice - discountAmount + shippingCost);
   }, [originalPrice, discountAmount, shippingCost]);
 
+  // Adress-Validierung 
+  const validationErrors = useMemo(() => {
+    const errors: { [key: string]: string } = {};
+
+    // Pflichtfelder 
+    if (!form.invoice_firstName) errors.firstName = "First name is required.";
+    if (!form.invoice_lastName) errors.lastName = "Last name is required.";
+    if (!form.invoice_street) errors.street = "Street & No. is required.";
+    if (!form.invoice_zip) errors.zip = "ZIP/Postal code is required.";
+    if (!form.invoice_city) errors.city = "City is required.";
+    if (!form.invoice_country) errors.country = "Country is required.";
+
+    
+    return errors;
+  }, [
+    form.invoice_firstName, 
+    form.invoice_lastName, 
+    form.invoice_street, 
+    form.invoice_zip, 
+    form.invoice_city, 
+    form.invoice_country
+  ]);
+
   const toggleSame = (checked: boolean) => {
     setForm((s) => ({
       ...s,
@@ -1923,15 +1963,10 @@ function Step5InvoiceAndPayView(props: {
     }));
   };
 
-  const invalid =
-    !form.invoice_firstName ||
-    !form.invoice_lastName ||
-    !form.invoice_street ||
-    !form.invoice_zip ||
-    !form.invoice_city ||
-    !form.invoice_country;
+  //  'invalid' Logik
+  const invalid = Object.keys(validationErrors).length > 0;
 
-  // Options-Logik (unverändert)
+  // Options-Logik 
   const options: string[] = [];
   if (form.product === 'basic' && mode === 'pet' && (form.tag_format ?? "round_3cm") === "round_3cm" && form.pet_tag_keychain) {
     options.push(copy.products.keychainLabel);
@@ -1953,7 +1988,7 @@ function Step5InvoiceAndPayView(props: {
       </p>
 
       <div className="space-y-10">
-        {/* Rechnungsadresse (unverändert) */}
+        {/* Rechnungsadresse */}
         <div>
           <div className="flex items-center gap-2 mb-4">
             <Checkbox id="same" checked={!!form.invoice_sameAsContact} onCheckedChange={(v) => toggleSame(!!v)} />
@@ -1964,35 +1999,90 @@ function Step5InvoiceAndPayView(props: {
               <Label htmlFor="invoice_company">{copy.invoiceFields.companyOpt}</Label>
               <Input id="invoice_company" value={form.invoice_company ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_company: e.target.value }))} />
             </div>
+
+            {/* Vorname */}
             <div>
               <Label htmlFor="invoice_firstName">{copy.invoiceFields.firstName}</Label>
-              <Input id="invoice_firstName" value={form.invoice_firstName ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_firstName: e.target.value }))} required />
+              <Input 
+                id="invoice_firstName" 
+                value={form.invoice_firstName ?? ""} 
+                onChange={(e) => setForm((s) => ({ ...s, invoice_firstName: e.target.value }))} 
+                required 
+                className={cn(validationErrors.firstName && "border-destructive focus-visible:ring-destructive")}
+              />
+              {validationErrors.firstName && <p className="text-sm text-destructive mt-1">{validationErrors.firstName}</p>}
             </div>
+
+            {/* Nachname */}
             <div>
               <Label htmlFor="invoice_lastName">{copy.invoiceFields.lastName}</Label>
-              <Input id="invoice_lastName" value={form.invoice_lastName ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_lastName: e.target.value }))} required />
+              <Input 
+                id="invoice_lastName" 
+                value={form.invoice_lastName ?? ""} 
+                onChange={(e) => setForm((s) => ({ ...s, invoice_lastName: e.target.value }))} 
+                required 
+                className={cn(validationErrors.lastName && "border-destructive focus-visible:ring-destructive")}
+              />
+              {validationErrors.lastName && <p className="text-sm text-destructive mt-1">{validationErrors.lastName}</p>}
             </div>
+
+            {/* Strasse */}
             <div className="md:col-span-2">
               <Label htmlFor="invoice_street">{copy.invoiceFields.street}</Label>
-              <Input id="invoice_street" value={form.invoice_street ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_street: e.target.value }))} required />
+              <Input 
+                id="invoice_street" 
+                value={form.invoice_street ?? ""} 
+                onChange={(e) => setForm((s) => ({ ...s, invoice_street: e.target.value }))} 
+                required 
+                className={cn(validationErrors.street && "border-destructive focus-visible:ring-destructive")}
+              />
+              {validationErrors.street && <p className="text-sm text-destructive mt-1">{validationErrors.street}</p>}
             </div>
+
+            {/* PLZ */}
             <div>
               <Label htmlFor="invoice_zip">{copy.invoiceFields.zip}</Label>
-              <Input id="invoice_zip" value={form.invoice_zip ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_zip: e.target.value }))} required />
+              <Input 
+                id="invoice_zip" 
+                value={form.invoice_zip ?? ""} 
+                onChange={(e) => setForm((s) => ({ ...s, invoice_zip: e.target.value }))} 
+                required 
+                className={cn(validationErrors.zip && "border-destructive focus-visible:ring-destructive")}
+              />
+              {validationErrors.zip && <p className="text-sm text-destructive mt-1">{validationErrors.zip}</p>}
             </div>
+
+            {/* Ort */}
             <div>
               <Label htmlFor="invoice_city">{copy.invoiceFields.city}</Label>
-              <Input id="invoice_city" value={form.invoice_city ?? ""} onChange={(e) => setForm((s) => ({ ...s, invoice_city: e.target.value }))} required />
+              <Input 
+                id="invoice_city" 
+                value={form.invoice_city ?? ""} 
+                onChange={(e) => setForm((s) => ({ ...s, invoice_city: e.target.value }))} 
+                required 
+                className={cn(validationErrors.city && "border-destructive focus-visible:ring-destructive")}
+              />
+              {validationErrors.city && <p className="text-sm text-destructive mt-1">{validationErrors.city}</p>}
             </div>
+
+            {/* Land */}
             <div className="md:col-span-2">
               <Label htmlFor="invoice_country">{copy.invoiceFields.country}</Label>
-              <Input id="invoice_country" value={form.invoice_country ?? "CH"} onChange={(e) => setForm((s) => ({ ...s, invoice_country: e.target.value }))} placeholder="Schweiz" required />
+              <Input 
+                id="invoice_country" 
+                value={form.invoice_country ?? "Schweiz"} // "Schweiz" als Standardwert für die Versandberechnung
+                onChange={(e) => setForm((s) => ({ ...s, invoice_country: e.target.value }))} 
+                placeholder="Schweiz" 
+                required 
+                className={cn(validationErrors.country && "border-destructive focus-visible:ring-destructive")}
+              />
+              {validationErrors.country && <p className="text-sm text-destructive mt-1">{validationErrors.country}</p>}
             </div>
           </div>
         </div>
 
         <div className="mt-6 mb-8"> {/* Adjusted margin */}
-          <Label htmlFor="discount_code">Rabattcode (optional)</Label>
+          <Label htmlFor="discount_code">Discount Code (optional)</Label>
           <div className="flex items-center gap-2 mt-1">
             <Input
               id="discount_code"
@@ -2373,6 +2463,8 @@ const MemoryUploader = () => {
         
         notes: form.notes || "Keine Notizen",
         applied_discount_code: appliedDiscount?.code || null, // Sende den Code
+
+        selectedCalendarStyle: form.selectedCalendarStyle || 'modern'
       };
 
       // Sende an die 'create-order' Funktion

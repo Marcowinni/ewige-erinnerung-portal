@@ -97,8 +97,8 @@ const Index = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-background/90 -z-10" />
 
-        <div className="container mx-auto px-4 flex-grow flex justify-center flex-col">
-          <div className="hero-content relative max-w-3xl pt-24 md:pt-32">
+        <div className="container mx-auto px-4 py-24 md:py-32">
+          <div className="hero-content relative max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 text-shadow">
               {content.hero.title}
             </h1>

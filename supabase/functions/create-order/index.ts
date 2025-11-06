@@ -203,7 +203,8 @@ Deno.serve(async (req) => {
       notes: payload.notes || 'Keine Notizen',
       applied_discount_code: validatedDiscountCode,
       created_at: now.toISOString(),
-      // 'slug' wird im nächsten Schritt gesetzt
+      
+      album_style: payload.selectedCalendarStyle || 'modern'
     };
 
     const { data: insertedData, error: insertError } = await supabaseAdmin
