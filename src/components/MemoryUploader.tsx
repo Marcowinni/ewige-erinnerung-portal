@@ -2003,29 +2003,20 @@ function Step5InvoiceAndPayView(props: {
   const validationErrors = useMemo(() => {
     const errors: { [key: string]: string } = {};
 
-    if (!form.invoice_sameAsContact) {
-      if (!form.invoice_firstName) errors.firstName = "First name is required.";
-      if (!form.invoice_lastName) errors.lastName = "Last name is required.";
-    }
-
-    // Pflichtfelder 
+    // Pflichtfelder (Required fields)
     if (!form.invoice_street) errors.street = "Street & No. is required.";
     if (!form.invoice_zip) errors.zip = "ZIP/Postal code is required.";
     if (!form.invoice_city) errors.city = "City is required.";
     if (!form.invoice_country) errors.country = "Country is required.";
 
-
-
     
     return errors;
   }, [
-    form.invoice_firstName, 
-    form.invoice_lastName, 
+    // Abhängigkeiten auf die 4 Adressfelder
     form.invoice_street, 
     form.invoice_zip, 
     form.invoice_city, 
-    form.invoice_country,
-    form.invoice_sameAsContact
+    form.invoice_country
   ]);
 
   const toggleSame = (checked: boolean) => {
@@ -2588,7 +2579,7 @@ const MemoryUploader = () => {
     if (uploaderRef.current) {
       uploaderRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-    
+
     // Scrolle zum Anfang des Formulars
     if (uploaderRef.current) {
       uploaderRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
