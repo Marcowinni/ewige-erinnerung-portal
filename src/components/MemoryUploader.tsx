@@ -25,6 +25,7 @@ import {
 import { set } from "date-fns";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import imageCompression from 'browser-image-compression';
 
 // Preiskalkulation
 function calculatePrice(form: FormState, mode: Mode): number {
@@ -1530,10 +1531,34 @@ function Step3View(props: {
     { src: "/music/soft-calm-music.mp3", title: "Soft Calm Music", id: "soft-calm-music.mp3" },
   ];
 
-  const addImages = (files: FileList | null) => {
+  const addImages = async (files: FileList | null) => {
     if (files) {
-      const newMediaFiles: MediaFile[] = Array.from(files).map(f => ({ file: f, caption: "", id: crypto.randomUUID() }));
+      toast.info("Komprimiere Bilder, bitte warten...");
+      
+      // Komprimierungs-Optionen
+      const options = {
+        maxSizeMB: 1,          // Maximale Grösse 1 MB
+        maxWidthOrHeight: 1920, // Maximale Auflösung (Full HD)
+        useWebWorker: true,    // Nutzt Multi-Threading für Performance
+      };
+      
+      const newMediaFiles: MediaFile[] = [];
+      
+      // Gehe durch jede Datei und komprimiere sie
+      for (const file of Array.from(files)) {
+        try {
+          // Versuche, das Bild zu komprimieren
+          const compressedFile = await imageCompression(file, options);
+          newMediaFiles.push({ file: compressedFile, caption: "", id: crypto.randomUUID() });
+        } catch (error) {
+          console.error("Komprimierung fehlgeschlagen, verwende Original:", error);
+          // Falls Komprimierung fehlschlägt (z.B. kein Bild), nimm Originaldatei
+          newMediaFiles.push({ file: file, caption: "", id: crypto.randomUUID() });
+        }
+      }
+      
       setForm((s) => ({ ...s, images: [...s.images, ...newMediaFiles] }));
+      toast.success("Bilder hinzugefügt!");
     }
   };
   const addVideos = (files: FileList | null) => {
@@ -1605,7 +1630,7 @@ function Step3View(props: {
                     <Button size="sm" variant="destructive" className="absolute top-2 right-2 h-7 w-auto px-2 py-1 text-xs" onClick={() => removeImage(mediaFile.id)}>
                       {copy.step3Fields.remove}
                     </Button>
-                    <Input type="text" placeholder={copy.step3Fields.imageCaptionPlaceholder} value={mediaFile.caption ?? ""} onChange={(e) => handleImageCaptionChange(mediaFile.id, e.target.value)} className="h-9 text-xs" />
+                    <Input type="text" placeholder={copy.step3Fields.imageCaptionPlaceholder} value={mediaFile.caption ?? ""} onChange={(e) => handleImageCaptionChange(mediaFile.id, e.target.value)} className="h-10 text-base" />
                   </div>
                 );
               })}
@@ -1632,7 +1657,7 @@ function Step3View(props: {
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-muted-foreground truncate flex-1">{mediaFile.file.name}</span>
                     </div>
-                    <Input type="text" placeholder={copy.step3Fields.videoCaptionPlaceholder} value={mediaFile.caption ?? ""} onChange={(e) => handleVideoCaptionChange(mediaFile.id, e.target.value)} className="h-9 text-xs" />
+                    <Input type="text" placeholder={copy.step3Fields.videoCaptionPlaceholder} value={mediaFile.caption ?? ""} onChange={(e) => handleVideoCaptionChange(mediaFile.id, e.target.value)} className="h-10 text-base" />
                   </div>
                 );
               })}
@@ -1718,7 +1743,7 @@ function Step3View(props: {
                 aria-checked={form.selectedCalendarStyle === 'modern'}
               >
                 {/* Video-Vorschau */}
-                <div className="rounded-t-lg overflow-hidden aspect-[9/16] bg-muted/30">
+                <div className="rounded-t-lg overflow-hidden bg-muted/30 flex justify-center items-center py-4">                  
                   <video
                     src="/kalender_vorschau/fotoalbum_modern.mp4"
                     autoPlay
@@ -1753,7 +1778,7 @@ function Step3View(props: {
                 aria-checked={form.selectedCalendarStyle === 'classic'}
               >
                 {/* Video-Vorschau */}
-                <div className="rounded-t-lg overflow-hidden aspect-[9/16] bg-muted/30">
+                <div className="rounded-t-lg overflow-hidden bg-muted/30 flex justify-center items-center py-4">
                   <video
                     src="/kalender_vorschau/fotoalbum_klassisch.mp4"
                     autoPlay
@@ -1801,8 +1826,14 @@ function Step4ContactView(props: {
   onBack: () => void;
   onNext: () => void;
   copy: UploaderCopy;
+  touchedFields: { [key: string]: boolean };
+  setTouchedFields: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>;
 }) {
-  const { form, setForm, onBack, onNext, copy } = props;
+  const { form, setForm, onBack, onNext, copy, touchedFields, setTouchedFields } = props;
+
+  const handleBlur = (fieldName: string) => {
+    setTouchedFields(prev => ({ ...prev, [fieldName]: true }));
+  };
 
   // E-Mail-Validierung
   const emailError = useMemo(() => {
@@ -1824,6 +1855,7 @@ function Step4ContactView(props: {
       <p className="text-muted-foreground mb-8">{copy.headings.step4Subtitle}</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Vorname */}
         <div>
           <Label htmlFor="contact_firstName">{copy.contactFields.firstName}</Label>
           <Input
@@ -1831,8 +1863,15 @@ function Step4ContactView(props: {
             value={form.contact_firstName ?? ""}
             onChange={(e) => setForm((s) => ({ ...s, contact_firstName: e.target.value }))}
             required
+            onBlur={() => handleBlur('contact_firstName')} // NEU
+            className={cn(!form.contact_firstName && touchedFields.contact_firstName && "border-destructive focus-visible:ring-destructive")} // NEU
           />
+          {!form.contact_firstName && touchedFields.contact_firstName && ( // NEU
+            <p className="text-sm text-destructive mt-1">Vorname wird benötigt.</p> // (Text anpassen bei Bedarf)
+          )}
         </div>
+        
+        {/* Nachname */}
         <div>
           <Label htmlFor="contact_lastName">{copy.contactFields.lastName}</Label>
           <Input
@@ -1840,8 +1879,15 @@ function Step4ContactView(props: {
             value={form.contact_lastName ?? ""}
             onChange={(e) => setForm((s) => ({ ...s, contact_lastName: e.target.value }))}
             required
+            onBlur={() => handleBlur('contact_lastName')} // NEU
+            className={cn(!form.contact_lastName && touchedFields.contact_lastName && "border-destructive focus-visible:ring-destructive")} // NEU
           />
+          {!form.contact_lastName && touchedFields.contact_lastName && ( // NEU
+            <p className="text-sm text-destructive mt-1">Nachname wird benötigt.</p> // (Text anpassen bei Bedarf)
+          )}
         </div>
+        
+        {/* E-Mail */}
         <div className="md:col-span-2">
           <Label htmlFor="contact_email">{copy.contactFields.email}</Label>
           <Input
@@ -1850,11 +1896,12 @@ function Step4ContactView(props: {
             value={form.contact_email ?? ""}
             onChange={(e) => setForm((s) => ({ ...s, contact_email: e.target.value }))}
             required
-            className={cn(emailError && "border-destructive focus-visible:ring-destructive")}
+            onBlur={() => handleBlur('contact_email')} // NEU
+            className={cn(emailError && touchedFields.contact_email && "border-destructive focus-visible:ring-destructive")} // NEU
           />
-          {emailError && (
-          <p className="text-sm text-destructive mt-1">{emailError}</p>
-        )}
+          {emailError && touchedFields.contact_email && ( // NEU
+            <p className="text-sm text-destructive mt-1">{emailError}</p>
+          )}
         </div>
         <div className="md:col-span-2">
           <Label htmlFor="contact_phone">{copy.contactFields.phoneOpt}</Label>
@@ -1901,12 +1948,21 @@ function Step5InvoiceAndPayView(props: {
   setDiscountError: (error: string | null) => void;
   isApplyingDiscount: boolean;
   handleApplyDiscount: () => Promise<void>;
+  touchedFields: { [key: string]: boolean };
+  setTouchedFields: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>;
+  uploadStatus: string | null;
 }) {
   const {
     mode, form, setForm, productLabel, onBack, onPlaceOrder, isSubmitting, onReset, copy, media, onPreviewClick,
     discountCodeInput, setDiscountCodeInput, appliedDiscount, setAppliedDiscount,
-    discountError, setDiscountError, isApplyingDiscount, handleApplyDiscount
+    discountError, setDiscountError, isApplyingDiscount, handleApplyDiscount,
+    touchedFields, setTouchedFields,
+    uploadStatus
   } = props;
+
+  const handleBlur = (fieldName: string) => {
+    setTouchedFields(prev => ({ ...prev, [fieldName]: true }));
+  };
 
   // 1. Warenwert
   const originalPrice = useMemo(() => calculatePrice(form, mode as Mode), [form, mode]);
@@ -2008,9 +2064,10 @@ function Step5InvoiceAndPayView(props: {
                 value={form.invoice_firstName ?? ""} 
                 onChange={(e) => setForm((s) => ({ ...s, invoice_firstName: e.target.value }))} 
                 required 
-                className={cn(validationErrors.firstName && "border-destructive focus-visible:ring-destructive")}
+                onBlur={() => handleBlur('invoice_firstName')} 
+                className={cn(validationErrors.firstName && touchedFields.invoice_firstName && "border-destructive focus-visible:ring-destructive")} // NEU
               />
-              {validationErrors.firstName && <p className="text-sm text-destructive mt-1">{validationErrors.firstName}</p>}
+              {validationErrors.firstName && touchedFields.invoice_firstName && <p className="text-sm text-destructive mt-1">{validationErrors.firstName}</p>} {/* NEU */}
             </div>
 
             {/* Nachname */}
@@ -2021,9 +2078,10 @@ function Step5InvoiceAndPayView(props: {
                 value={form.invoice_lastName ?? ""} 
                 onChange={(e) => setForm((s) => ({ ...s, invoice_lastName: e.target.value }))} 
                 required 
-                className={cn(validationErrors.lastName && "border-destructive focus-visible:ring-destructive")}
+                onBlur={() => handleBlur('invoice_lastName')} 
+                className={cn(validationErrors.lastName && touchedFields.invoice_lastName && "border-destructive focus-visible:ring-destructive")} // NEU
               />
-              {validationErrors.lastName && <p className="text-sm text-destructive mt-1">{validationErrors.lastName}</p>}
+              {validationErrors.lastName && touchedFields.invoice_lastName && <p className="text-sm text-destructive mt-1">{validationErrors.lastName}</p>} {/* NEU */}
             </div>
 
             {/* Strasse */}
@@ -2034,9 +2092,10 @@ function Step5InvoiceAndPayView(props: {
                 value={form.invoice_street ?? ""} 
                 onChange={(e) => setForm((s) => ({ ...s, invoice_street: e.target.value }))} 
                 required 
-                className={cn(validationErrors.street && "border-destructive focus-visible:ring-destructive")}
+                onBlur={() => handleBlur('invoice_street')} 
+                className={cn(validationErrors.street && touchedFields.invoice_street && "border-destructive focus-visible:ring-destructive")} // NEU
               />
-              {validationErrors.street && <p className="text-sm text-destructive mt-1">{validationErrors.street}</p>}
+              {validationErrors.street && touchedFields.invoice_street && <p className="text-sm text-destructive mt-1">{validationErrors.street}</p>} {/* NEU */}
             </div>
 
             {/* PLZ */}
@@ -2047,9 +2106,10 @@ function Step5InvoiceAndPayView(props: {
                 value={form.invoice_zip ?? ""} 
                 onChange={(e) => setForm((s) => ({ ...s, invoice_zip: e.target.value }))} 
                 required 
-                className={cn(validationErrors.zip && "border-destructive focus-visible:ring-destructive")}
+                onBlur={() => handleBlur('invoice_zip')} 
+                className={cn(validationErrors.zip && touchedFields.invoice_zip && "border-destructive focus-visible:ring-destructive")} // NEU
               />
-              {validationErrors.zip && <p className="text-sm text-destructive mt-1">{validationErrors.zip}</p>}
+              {validationErrors.zip && touchedFields.invoice_zip && <p className="text-sm text-destructive mt-1">{validationErrors.zip}</p>} {/* NEU */}
             </div>
 
             {/* Ort */}
@@ -2060,9 +2120,10 @@ function Step5InvoiceAndPayView(props: {
                 value={form.invoice_city ?? ""} 
                 onChange={(e) => setForm((s) => ({ ...s, invoice_city: e.target.value }))} 
                 required 
-                className={cn(validationErrors.city && "border-destructive focus-visible:ring-destructive")}
+                onBlur={() => handleBlur('invoice_city')} 
+                className={cn(validationErrors.city && touchedFields.invoice_city && "border-destructive focus-visible:ring-destructive")} // NEU
               />
-              {validationErrors.city && <p className="text-sm text-destructive mt-1">{validationErrors.city}</p>}
+              {validationErrors.city && touchedFields.invoice_city && <p className="text-sm text-destructive mt-1">{validationErrors.city}</p>} {/* NEU */}
             </div>
 
             {/* Land */}
@@ -2070,13 +2131,14 @@ function Step5InvoiceAndPayView(props: {
               <Label htmlFor="invoice_country">{copy.invoiceFields.country}</Label>
               <Input 
                 id="invoice_country" 
-                value={form.invoice_country ?? "Schweiz"} // "Schweiz" als Standardwert für die Versandberechnung
+                value={form.invoice_country ?? "Schweiz"} 
                 onChange={(e) => setForm((s) => ({ ...s, invoice_country: e.target.value }))} 
                 placeholder="Schweiz" 
                 required 
-                className={cn(validationErrors.country && "border-destructive focus-visible:ring-destructive")}
+                onBlur={() => handleBlur('invoice_country')} 
+                className={cn(validationErrors.country && touchedFields.invoice_country && "border-destructive focus-visible:ring-destructive")} // NEU
               />
-              {validationErrors.country && <p className="text-sm text-destructive mt-1">{validationErrors.country}</p>}
+              {validationErrors.country && touchedFields.invoice_country && <p className="text-sm text-destructive mt-1">{validationErrors.country}</p>} {/* NEU */}
             </div>
           </div>
         </div>
@@ -2231,22 +2293,34 @@ function Step5InvoiceAndPayView(props: {
           </div>
         </div>
 
-        {/* Buttons (angepasst für finalPrice) */}
+        {/* Buttons */}
         <div className="mt-2 flex flex-wrap justify-between gap-3">
           <div className="flex gap-3">
-            <Button variant="outline" onClick={onBack}>{copy.buttons.back}</Button>
-            <Button variant="ghost" onClick={onReset}>{copy.buttons.reset}</Button>
+            {/* Buttons deaktivieren, wenn ein Ladevorgang läuft */}
+            <Button variant="outline" onClick={onBack} disabled={isSubmitting || !!uploadStatus}>{copy.buttons.back}</Button>
+            <Button variant="ghost" onClick={onReset} disabled={isSubmitting || !!uploadStatus}>{copy.buttons.reset}</Button>
           </div>
-          <Button size="lg" onClick={onPlaceOrder} disabled={invalid || isSubmitting || !form.agreedToTerms}>
-          {isSubmitting ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Bestellung wird verarbeitet...
-            </>
-          ) : (
-            `${copy.buttons.toPay} (CHF ${finalPrice.toFixed(2)})`
-          )}
-        </Button>
+          
+          {/* Dieser Button prüft jetzt beide Ladezustände */}
+          <Button 
+            size="lg" 
+            onClick={onPlaceOrder} 
+            disabled={invalid || isSubmitting || !!uploadStatus || !form.agreedToTerms}
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Bestellung wird erstellt...
+              </>
+            ) : uploadStatus ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {uploadStatus} {/* Zeigt z.B. "Lade Datei 3 von 29 hoch..." */}
+              </>
+            ) : (
+              `${copy.buttons.toPay} (CHF ${finalPrice.toFixed(2)})`
+            )}
+          </Button>
         </div>
       </div>
     </div>
@@ -2265,6 +2339,7 @@ const MemoryUploader = () => {
   const COPY: UploaderCopy = mergeCopy(DEFAULT_COPY, contentCopy ?? {});
 
   const [isSubmitting, setIsSubmitting] = useState(false); 
+  const [uploadStatus, setUploadStatus] = useState<string | null>(null);
   const isInitialRender = useRef(true);
 
 
@@ -2288,6 +2363,8 @@ const MemoryUploader = () => {
     selectedCalendarStyle: 'modern', // Setzt 'Modern' als Standard
     ...(persistedInit?.form ?? {}),
   });
+
+  const [touchedFields, setTouchedFields] = useState<{ [key: string]: boolean }>({});
 
   const [selected, setSelected] = useState<ProductKey | null>(
     (persistedInit?.form?.product ?? null) as ProductKey | null
@@ -2419,6 +2496,7 @@ const MemoryUploader = () => {
   // placement of order
   const onPlaceOrder = async () => {
     setIsSubmitting(true);
+    setUploadStatus(null);
     toast.info("Bestellung wird verarbeitet...");
 
     try {
@@ -2468,60 +2546,83 @@ const MemoryUploader = () => {
       };
 
       // Sende an die 'create-order' Funktion
+      // 1. Bestellung erstellen (Dieser Teil ist schnell)
       const { data: functionResponse, error: functionError } = await supabase.functions.invoke('create-order', {
         body: initialOrderPayload 
       });
 
       if (functionError || !functionResponse || functionResponse.error || !functionResponse.orderId || !functionResponse.orderSlug) {
-          const errorMessage = functionError?.message || functionResponse?.error || 'Unknown error invoking function';
-          throw new Error(`Fehler beim Erstellen der Bestellung via Funktion: ${errorMessage}`);
+        const errorMessage = functionError?.message || functionResponse?.error || 'Unknown error invoking function';
+        throw new Error(`Fehler beim Erstellen der Bestellung via Funktion: ${errorMessage}`);
       }
       
       const orderId = functionResponse.orderId;
-      const orderSlug = functionResponse.orderSlug;
       const orderFolderPath = `order_${orderId}`;
 
-      // 3. Lade jetzt alle Dateien in den bestellungs-spezifischen Ordner hoch
-      toast.info("Lade Dateien hoch...");
-      const uploadPromises = [
-        ...form.images.map(f => supabase.storage.from('uploads').upload(`${orderFolderPath}/${sanitizeFileName(f.file.name)}`, f.file)),
-        ...form.videos.map(f => supabase.storage.from('uploads').upload(`${orderFolderPath}/${sanitizeFileName(f.file.name)}`, f.file))
+      // 2. Spinner (isSubmitting) stoppen und Upload-Status starten
+      setIsSubmitting(false);
+      toast.success("Bestellung erstellt! Starte Datei-Upload...");
+
+      // Alle Dateien sammeln
+      const allFiles = [
+        ...form.images.map(f => ({ file: f.file, type: 'Bild' })),
+        ...form.videos.map(f => ({ file: f.file, type: 'Video' }))
       ];
-
-      const uploadResults = await Promise.all(uploadPromises);
-
+      const totalFiles = allFiles.length;
       const uploadedFilePaths: string[] = [];
-      for (const result of uploadResults) {
-        if (result.error) throw new Error(`Datei-Upload fehlgeschlagen: ${result.error.message}`);
-        uploadedFilePaths.push(result.data.path);
-      }
 
+      // 3. Dateien nacheinander hochladen (damit der Nutzer Feedback sieht)
+      for (let i = 0; i < totalFiles; i++) {
+        const fileItem = allFiles[i];
+        
+        // Status-Update für den Nutzer
+        setUploadStatus(`Lade Datei ${i + 1} von ${totalFiles} hoch... (${fileItem.type})`);
+
+        // Dein Code für einzigartige Dateinamen (Lösung B für "Resource already exists")
+        const uniqueFileName = `${crypto.randomUUID()}-${sanitizeFileName(fileItem.file.name)}`;
+        const filePath = `${orderFolderPath}/${uniqueFileName}`;
+
+        const { data, error: uploadError } = await supabase.storage
+          .from('uploads')
+          .upload(filePath, fileItem.file, { 
+            upsert: true // Verhindert "resource already exists" Fehler
+          });
+
+        if (uploadError) {
+          throw new Error(`Datei-Upload fehlgeschlagen: ${uploadError.message}`);
+        }
+        uploadedFilePaths.push(data.path);
+      }
+      
       // 4. Lade das erstellte Vorschau-Bild hoch
       let previewFilePath: string | null = null;
       const previewDataUrl = form.frame_custom?.previewDataUrl || form.deluxe_custom?.previewDataUrl || form.pet_tag_custom?.previewDataUrl;
       
       if (previewDataUrl) {
-        toast.info("Lade Vorschau hoch...");
+        setUploadStatus("Lade Vorschau hoch..."); // Status-Update
         const previewBlob = await dataUrlToBlob(previewDataUrl);
         const previewPath = `${orderFolderPath}/previews/custom_design_preview.png`;
         
         const { data: previewUploadData, error: previewUploadError } = await supabase.storage
           .from('uploads')
-          .upload(previewPath, previewBlob, { contentType: 'image/png' });
+          .upload(previewPath, previewBlob, { 
+            contentType: 'image/png', 
+            upsert: true // WICHTIG
+          });
 
         if (previewUploadError) throw new Error(`Vorschau-Upload fehlgeschlagen: ${previewUploadError.message}`);
         previewFilePath = previewUploadData.path;
       }
       
-      // 5. Finalisiere die Bestellung über die neue Edge Function
-      toast.info("Bestellung wird abgeschlossen...");
+      // 5. Finalisiere die Bestellung (Dieser Teil ist schnell)
+      setUploadStatus("Bestellung wird abgeschlossen..."); // Status-Update
       const { data: finalizeData, error: finalizeError } = await supabase.functions.invoke(
         'finalize-order',
         {
           body: {
             orderId: orderId,
-            uploadedFilePaths: uploadedFilePaths, // Das Array mit den Pfaden
-            previewFilePath: previewFilePath      // Der Pfad zur Vorschau (oder null)
+            uploadedFilePaths: uploadedFilePaths,
+            previewFilePath: previewFilePath
           }
         }
       );
@@ -2529,32 +2630,25 @@ const MemoryUploader = () => {
       // Fehlerbehandlung für den finalize-Aufruf
       if (finalizeError || (finalizeData && finalizeData.error)) {
         const errorMessage = finalizeError?.message || finalizeData?.error || "Unbekannter Fehler beim Abschliessen der Bestellung.";
-        // WICHTIG: Hier dem Nutzer mitteilen, dass etwas schiefging, obwohl Uploads evtl. klappten!
-        // Eventuell manuelle Nachverfolgung anbieten.
-        console.error("Fehler beim Finalisieren der Bestellung:", errorMessage);
-        toast.error(`Fehler beim Abschliessen der Bestellung: ${errorMessage}. Bitte kontaktiere den Support mit der Order ID ${orderId}.`);
-        // setIsSubmitting(false); // Ist im finally Block
-        return; // Prozess hier abbrechen
+        throw new Error(`Fehler beim Abschliessen der Bestellung: ${errorMessage}. Bitte kontaktiere den Support mit der Order ID ${orderId}.`);
       }
 
       // 6. Erfolg!
+      setUploadStatus(null); // Status zurücksetzen
       toast.success("Vielen Dank! Deine Bestellung wurde erfolgreich übermittelt.");
-      resetAll();
+      resetAll(); // Formular leeren
 
     } catch (error) {
       console.error("Ein Fehler ist im Bestellprozess aufgetreten:", error);
-      toast.error(`Fehler bei der Bestellung: ${error instanceof Error ? error.message : "Ein unbekannter Fehler ist aufgetreten."}`);
-    } finally {
-      setIsSubmitting(false);
+      toast.error(error instanceof Error ? error.message : "Ein unbekannter Fehler ist aufgetreten.");
+      setIsSubmitting(false);  // Spinner "Erstellen" stoppen
+      setUploadStatus(null);  // Spinner "Upload" stoppen
     }
   };
-  const resetAll = () => {
-    clearPersisted();
-    setStep(1);
-    setSelected(null);
-    setForm({ images: [], videos: [], invoice_sameAsContact: true, frame_orientation: 'portrait', tag_format: 'round_3cm' });
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+
+  function resetAll(): void {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <div id="memory-form-start" ref={uploaderRef} className="space-y-10">
@@ -2614,6 +2708,8 @@ const MemoryUploader = () => {
             setStep(5);
           }}
           copy={COPY}
+          touchedFields={touchedFields}
+          setTouchedFields={setTouchedFields}
         />
       )}
       {step === 5 && (
@@ -2637,6 +2733,9 @@ const MemoryUploader = () => {
           setDiscountError={setDiscountError}
           isApplyingDiscount={isApplyingDiscount}
           handleApplyDiscount={handleApplyDiscount}
+          touchedFields={touchedFields}
+          setTouchedFields={setTouchedFields}
+          uploadStatus={uploadStatus}
         />
       )}
     </div>
@@ -2644,3 +2743,7 @@ const MemoryUploader = () => {
 };
 
 export default MemoryUploader;
+
+function resetAll() {
+  throw new Error("Function not implemented.");
+}
