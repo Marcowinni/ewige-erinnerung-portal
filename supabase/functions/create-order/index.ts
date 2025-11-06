@@ -186,8 +186,6 @@ Deno.serve(async (req) => {
       
       // Setzt den serverseitig berechneten Endpreis
       total_price: finalPrice, 
-      // Speichert die Versandkosten separat
-      shipping_cost: shippingCost, 
       // Speichert das Land separat
       billing_country: country, 
 
