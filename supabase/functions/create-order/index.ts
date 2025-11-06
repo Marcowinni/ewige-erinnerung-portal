@@ -172,22 +172,19 @@ Deno.serve(async (req) => {
       }
     }
 
-    // 4. Endpreis berechnen: (Warenwert - Rabatt + Versand)
-    finalPrice = Math.max(0, originalPrice - discountAmount + shippingCost);
-    console.log(`Finale Preisberechnung (Server): Warenwert ${originalPrice} - Rabatt ${discountAmount} + Versand ${shippingCost} = ${finalPrice}`);
+    // 4. Endpreis berechnen: (Warenwert - Rabatt)
+    finalPrice = Math.max(0, originalPrice - discountAmount);
+    console.log(`Finale Preisberechnung (Server): Warenwert ${originalPrice} - Rabatt ${discountAmount} = ${finalPrice}`);
     
     // --- ENDE PREISBERECHNUNG ---
 
     // 1. Daten in 'orders'-Tabelle einfügen
-    // (Stelle sicher, dass die Spalten 'shipping_cost' und 'billing_country' in deiner Tabelle existieren)
     const orderDataToInsert = {
       product_type: payload.product_type,
       options_summary: payload.options_summary || '',
       
       // Setzt den serverseitig berechneten Endpreis
       total_price: finalPrice, 
-      // Speichert das Land separat
-      billing_country: country, 
 
       subject_details: payload.subject_details || '',
       music_choice: payload.music_choice || 'Keine Auswahl',
