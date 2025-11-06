@@ -15,8 +15,8 @@ Deno.serve(async (req) => {
 
   try {
     // 1. Daten vom Frontend empfangen
-    // KORREKTUR 1: Stelle sicher, dass 'designBaseImagePath' hier empfangen wird
-    const { orderId, uploadedFilePaths, previewFilePath, designBaseImagePath } = await req.json();
+    // 'designBaseImagePath' wird hier nicht mehr erwartet
+    const { orderId, uploadedFilePaths, previewFilePath } = await req.json();
 
     if (!orderId || !Array.isArray(uploadedFilePaths)) {
       throw new Error("orderId and uploadedFilePaths (array) are required.");
@@ -34,8 +34,7 @@ Deno.serve(async (req) => {
       .from('orders')
       .update({
         uploaded_files: uploadedFilePaths,
-        preview_file_path: previewFilePath || null,
-        design_base_image_path: designBaseImagePath || null 
+        preview_file_path: previewFilePath || null
       })
       .eq('id', orderId) // Nur den spezifischen Eintrag
       .select() 
@@ -61,7 +60,7 @@ Deno.serve(async (req) => {
     });
 
   } catch (error) {
-    console.error('Error in finalize-order:', error); // Geändert von 'Error creating order:'
+    console.error('Error in finalize-order:', error);
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
     
     return new Response(JSON.stringify({ error: errorMessage }), {

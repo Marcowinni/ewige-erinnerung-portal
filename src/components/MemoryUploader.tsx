@@ -2721,26 +2721,7 @@ const MemoryUploader = () => {
           form.deluxe_custom?.originalFile || 
           (form.pet_tag_customEnabled ? form.pet_tag_custom?.originalFile : null);
 
-      if (originalDesignFile) {
-          setUploadStatus("Lade Original-Designbild hoch...");
-          
-          // Bereinige den Dateinamen
-          const sanitizedName = sanitizeFileName(originalDesignFile.name);
-          
-          // Speichere es in den Ordner 'design_base/' (wie du es wolltest)
-          const designBasePath = `${orderFolderPath}/design_base/${sanitizedName}`;
-
-          const { data: designBaseData, error: designBaseError } = await supabase.storage
-            .from('uploads')
-            .upload(designBasePath, originalDesignFile, { 
-              upsert: true // Überschreiben erlauben
-            });
-
-          if (designBaseError) throw new Error(`Upload des Original-Designbilds fehlgeschlagen: ${designBaseError.message}`);
-          designBaseImagePath = designBaseData.path; // Speichere den Pfad
-      }
-
-      // 6. Finalisiere die Bestellung (Dieser Teil ist schnell)
+      // 5. Finalisiere die Bestellung (Dieser Teil ist schnell)
       setUploadStatus("Bestellung wird abgeschlossen..."); // Status-Update
       const { data: finalizeData, error: finalizeError } = await supabase.functions.invoke(
         'finalize-order',
