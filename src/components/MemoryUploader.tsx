@@ -2188,50 +2188,93 @@ function Step5InvoiceAndPayView(props: {
         <div className="border rounded-lg p-6">
           <h3 className="text-xl font-serif mb-4">{copy.headings.summary}</h3>
           <ul className="space-y-1 text-sm text-muted-foreground">
-            {/* ... (Andere Listeneinträge wie Modus, Produkt, Optionen, Vorschau etc. bleiben wie sie waren) ... */}
-             <li><strong>{copy.summary.mode}:</strong> <span className="text-foreground">{mode === "pet" ? copy.summary.modePet : mode === "surprise" ? copy.summary.modeSurprise : copy.summary.modeHuman}</span></li>
-             <li><strong>{copy.summary.product}:</strong> <span className="text-foreground">{productLabel || "-"}</span></li>
-             {form.product === "basic" && (<li><strong>{copy.summary.format}:</strong> <span className="text-foreground">{(form.tag_format ?? "round_3cm") === "square_6cm" ? copy.summary.formatSquare : copy.summary.formatRound}</span></li>)}
-             {options.length > 0 && (<li><strong>{copy.summary.options}:</strong> <span className="text-foreground">{options.join(", ")}</span></li>)}
+            
+            {/* --- Basis-Informationen (Modus, Produkt, Format, Optionen) --- */}
+            <li><strong>{copy.summary.mode}:</strong> <span className="text-foreground">{mode === "pet" ? copy.summary.modePet : mode === "surprise" ? copy.summary.modeSurprise : copy.summary.modeHuman}</span></li>
+            <li><strong>{copy.summary.product}:</strong> <span className="text-foreground">{productLabel || "-"}</span></li>
+            {form.product === "basic" && (<li><strong>{copy.summary.format}:</strong> <span className="text-foreground">{(form.tag_format ?? "round_3cm") === "square_6cm" ? copy.summary.formatSquare : copy.summary.formatRound}</span></li>)}
+            {options.length > 0 && (<li><strong>{copy.summary.options}:</strong> <span className="text-foreground">{options.join(", ")}</span></li>)}
 
+            {/* --- Album-Stil (Modern/Klassisch) --- */}
             {form.selectedCalendarStyle && copy.summary.calendarStyle && (
-               <li>
-                 <strong>{copy.summary.calendarStyle}:</strong>
-                 <span className="text-foreground ml-1">
-                   {form.selectedCalendarStyle === 'modern' 
-                     ? (copy.step3Fields.calendarStyleSelection?.modern || "Modern") 
-                     : (copy.step3Fields.calendarStyleSelection?.classic || "Klassisch")}
-                 </span>
-               </li>
-             )}
+              <li>
+                <strong>{copy.summary.calendarStyle}:</strong>
+                <span className="text-foreground ml-1">
+                  {form.selectedCalendarStyle === 'modern' 
+                    ? (copy.step3Fields.calendarStyleSelection?.modern || "Modern") 
+                    : (copy.step3Fields.calendarStyleSelection?.classic || "Klassisch")}
+                </span>
+              </li>
+            )}
 
-             {(form.pet_tag_custom?.previewDataUrl || form.frame_custom?.previewDataUrl || form.deluxe_custom?.previewDataUrl) && (
-               <li className="mt-2">
-                 <strong>{copy.summary.previewTitle}:</strong>
-                 <div className="mt-2 flex items-center gap-4">
-                   {form.pet_tag_custom?.previewDataUrl && ( <img src={form.pet_tag_custom.previewDataUrl} alt="Tag Vorschau" className="w-20 h-20 rounded-full border cursor-pointer hover:opacity-80 transition-opacity" onClick={() => onPreviewClick({ images: [{ src: form.pet_tag_custom!.previewDataUrl!, alt: 'Tag Vorschau' }], startIndex: 0 })} /> )}
-                   {form.frame_custom?.previewDataUrl && ( <img src={form.frame_custom.previewDataUrl} alt="Frame Vorschau" className="w-28 h-auto rounded-xl border cursor-pointer hover:opacity-80 transition-opacity" onClick={() => onPreviewClick({ images: [{ src: form.frame_custom!.previewDataUrl!, alt: 'Frame Vorschau' }], startIndex: 0 })} /> )}
-                   {form.deluxe_custom?.previewDataUrl && ( <img src={form.deluxe_custom.previewDataUrl} alt="Deluxe Vorschau" className="w-28 h-auto rounded-xl border cursor-pointer hover:opacity-80 transition-opacity" onClick={() => onPreviewClick({ images: [{ src: form.deluxe_custom!.previewDataUrl!, alt: 'Deluxe Vorschau' }], startIndex: 0 })} /> )}
-                 </div>
-               </li>
-             )}
+            {/* --- Vorschau des Produkts --- */}
+            <li className="mt-2">
+              <strong>{copy.summary.previewTitle}:</strong>
+              <div className="mt-2 flex items-center gap-4">
+                
+                {/* Fall 1: Produkt DELUXE (Individuell) */}
+                {form.product === 'deluxe' && form.deluxe_custom?.previewDataUrl ? (
+                  <img 
+                    src={form.deluxe_custom.previewDataUrl} 
+                    alt="Deluxe Vorschau" 
+                    className="w-28 h-auto rounded-xl border cursor-pointer hover:opacity-80 transition-opacity" 
+                    onClick={() => onPreviewClick({ images: [{ src: form.deluxe_custom!.previewDataUrl!, alt: 'Deluxe Vorschau' }], startIndex: 0 })} 
+                  />
+                
+                /* Fall 2: Produkt PREMIUM (Individuell) */
+                ) : form.product === 'premium' && form.frame_custom?.previewDataUrl ? (
+                  <img 
+                    src={form.frame_custom.previewDataUrl} 
+                    alt="Frame Vorschau" 
+                    className="w-28 h-auto rounded-xl border cursor-pointer hover:opacity-80 transition-opacity" 
+                    onClick={() => onPreviewClick({ images: [{ src: form.frame_custom!.previewDataUrl!, alt: 'Frame Vorschau' }], startIndex: 0 })} 
+                  />
 
-             {form.product === 'basic' && !(mode === 'pet' && form.pet_tag_customEnabled) && (() => {
-               const isRound = (form.tag_format ?? "round_3cm") === "round_3cm";
-               const mediaData = getMediaForMode(mode);
-               const defaultImageSrc = isRound ? mediaData.tagDefaults?.round : mediaData.tagDefaults?.square;
-               if (!defaultImageSrc) return null;
-               return ( <li className="mt-2"> <strong>{copy.summary.previewTitle}:</strong> <div className="mt-2 flex items-center gap-4"> <img src={defaultImageSrc} alt="Standard Tag Vorschau" className={`w-20 h-20 border cursor-pointer hover:opacity-80 transition-opacity ${isRound ? 'rounded-full' : 'rounded-xl'}`} onClick={() => onPreviewClick({ images: [{ src: defaultImageSrc, alt: 'Standard Tag Vorschau' }], startIndex: 0 })} /> </div> </li> );
-             })()}
+                /* Fall 3: Produkt BASIC (Individuell Gestaltet, z.B. Pet-Mode) */
+                ) : form.product === 'basic' && form.pet_tag_customEnabled && form.pet_tag_custom?.previewDataUrl ? (
+                  <img 
+                    src={form.pet_tag_custom.previewDataUrl} 
+                    alt="Tag Vorschau" 
+                    className="w-20 h-20 rounded-full border cursor-pointer hover:opacity-80 transition-opacity" 
+                    onClick={() => onPreviewClick({ images: [{ src: form.pet_tag_custom!.previewDataUrl!, alt: 'Tag Vorschau' }], startIndex: 0 })} 
+                  />
+                  
+                /* Fall 4: Produkt BASIC (Standard-Vorschau) */
+                /* Wird nur angezeigt, wenn 1, 2 und 3 nicht zutreffen */
+                ) : form.product === 'basic' ? (
+                  (() => {
+                    const isRound = (form.tag_format ?? "round_3cm") === "round_3cm";
+                    const mediaData = getMediaForMode(mode);
+                    const defaultImageSrc = isRound ? mediaData.tagDefaults?.round : mediaData.tagDefaults?.square;
+                    if (!defaultImageSrc) return null;
+                    
+                    return (
+                      <img 
+                        src={defaultImageSrc} 
+                        alt="Standard Tag Vorschau" 
+                        className={`w-20 h-20 border cursor-pointer hover:opacity-80 transition-opacity ${isRound ? 'rounded-full' : 'rounded-xl'}`} 
+                        onClick={() => onPreviewClick({ images: [{ src: defaultImageSrc, alt: 'Standard Tag Vorschau' }], startIndex: 0 })} 
+                      />
+                    );
+                  })()
 
-             {mode === "human" && (<li><strong>{copy.summary.person}:</strong> <span className="text-foreground">{form.human_firstName} {form.human_lastName}{" "}{form.human_deathDate ? `(${form.human_deathDate})` : ""}</span></li>)}
-             {mode === "pet" && (<li><strong>{copy.summary.pet}:</strong> <span className="text-foreground">{form.pet_name} {form.pet_deathDate ? `(${form.pet_deathDate})` : ""}</span></li>)}
-             {mode === "surprise" && (<li><strong>{copy.summary.recipient}:</strong> <span className="text-foreground">{form.surprise_name}</span></li>)}
-             {form.notes && (<li><strong>{copy.summary.notes}:</strong> <span className="text-foreground">{form.notes}</span></li>)}
-             <li><strong>{copy.summary.counts(form.images.length, form.videos.length)}</strong></li>
-             {form.selectedLocalMusic && ( <li> <strong>Musik:</strong> <span className="text-foreground ml-1"> {form.selectedLocalMusic.replace('.mp3', '').replace(/-/g, ' ')} </span> </li> )}
-             {form.pixabayMusicLink && ( <li> <strong>Pixabay Musik:</strong> <span className="text-foreground ml-1">{form.pixabayMusicLink}</span> </li> )}
+                /* Fall 5: Keine Vorschau (Sicherheits-Fallback) */
+                ) : (
+                  <span className="text-xs text-muted-foreground">Keine Vorschau verfügbar</span>
+                )}
+              </div>
+            </li>
 
+            {/* --- Restliche Zusammenfassung (Person, Notizen, Uploads) --- */}
+            {mode === "human" && (<li><strong>{copy.summary.person}:</strong> <span className="text-foreground">{form.human_firstName} {form.human_lastName}{" "}{form.human_deathDate ? `(${form.human_deathDate})` : ""}</span></li>)}
+            {mode === "pet" && (<li><strong>{copy.summary.pet}:</strong> <span className="text-foreground">{form.pet_name} {form.pet_deathDate ? `(${form.pet_deathDate})` : ""}</span></li>)}
+            {mode === "surprise" && (<li><strong>{copy.summary.recipient}:</strong> <span className="text-foreground">{form.surprise_name}</span></li>)}
+            {form.notes && (<li><strong>{copy.summary.notes}:</strong> <span className="text-foreground">{form.notes}</span></li>)}
+            <li><strong>{copy.summary.counts(form.images.length, form.videos.length)}</strong></li>
+            {form.selectedLocalMusic && ( <li> <strong>Musik:</strong> <span className="text-foreground ml-1"> {form.selectedLocalMusic.replace('.mp3', '').replace(/-/g, ' ')} </span> </li> )}
+            {form.pixabayMusicLink && ( <li> <strong>Pixabay Musik:</strong> <span className="text-foreground ml-1">{form.pixabayMusicLink}</span> </li> )}
+
+            {/* --- Preisberechnung --- */}
             <li className="pt-2 mt-2 border-t"> 
               <span>Zwischensumme:</span>
               <span className="text-foreground ml-1 float-right">CHF {originalPrice.toFixed(2)}</span>
@@ -2246,7 +2289,7 @@ function Step5InvoiceAndPayView(props: {
               </li>
             )}
 
-            {/*  Versandkosten anzeigen */}
+            {/* Versandkosten anzeigen */}
             <li>
               <span>Versandkosten ({getShippingZone(form.invoice_country)}):</span>
               <span className="text-foreground ml-1 float-right">
