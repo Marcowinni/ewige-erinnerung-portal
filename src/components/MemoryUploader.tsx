@@ -1940,7 +1940,11 @@ function Step3View(props: {
           
           {/* Zeigt das Video im Modal an */}
           {editingVideo && (
-            <video src={URL.createObjectURL(editingVideo.file)} className="w-full rounded" controls />
+            <video 
+              src={URL.createObjectURL(editingVideo.file)} 
+              className="w-full rounded max-h-80" 
+              controls 
+            />
           )}
 
           {/* Textarea (mit 16px Schriftgrösse, um iPhone-Zoom zu verhindern) */}
