@@ -60,14 +60,16 @@ Deno.serve(async (req) => {
       ],
       mode: 'payment',
       customer_email: orderData.contact_email,
-      success_url: `${Deno.env.get('SITE_URL')}/bestellung-erfolgreich?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${Deno.env.get('SITE_URL')}/gedenken`, // Zurück zum Uploader
+
+
+      success_url: `${Deno.env.get('SITE_URL')}/bestellung-erfolgreich`,
+      cancel_url: `${Deno.env.get('SITE_URL')}/gedenken`,
       metadata: {
-        orderId: orderId, // WICHTIG: Um die Bestellung im Webhook zuzuordnen
+        orderId: orderId, 
       },
     });
 
-    return new Response(JSON.stringify({ sessionId: session.id }), {
+    return new Response(JSON.stringify({ url: session.url }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
     });

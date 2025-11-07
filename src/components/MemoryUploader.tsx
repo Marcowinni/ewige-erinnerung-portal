@@ -2890,19 +2890,12 @@ const MemoryUploader = () => {
           } 
         }
       );
-      if (checkoutError || !checkoutData?.sessionId) {
-        throw new Error(`Fehler beim Erstellen der Bezahl-Sitzung: ${checkoutError?.message || 'Keine Session-ID erhalten'}`);
+      if (checkoutError || !checkoutData?.url) {
+        throw new Error(`Fehler beim Erstellen der Bezahl-Sitzung: ${checkoutError?.message || 'Keine URL erhalten'}`);
       }
 
       // 8. Zu Stripe weiterleiten
-      const { error: stripeError } = await stripe.redirectToCheckout({
-        sessionId: checkoutData.sessionId,
-      });
-
-      if (stripeError) {
-        throw new Error(`Fehler bei der Stripe-Weiterleitung: ${stripeError.message}`);
-      }
-      
+      window.location.href = checkoutData.url;
 
         } catch (error) {
       console.error("Ein Fehler ist im Bestellprozess aufgetreten:", error);
