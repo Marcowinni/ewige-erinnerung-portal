@@ -37,7 +37,16 @@ Deno.serve(async (req) => {
     if (orderError) throw new Error(`Order not found: ${orderError.message}`);
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card', 'twint'],
+      payment_method_types: [
+        'card',         // Für "Karten" und "Cartes Bancaires"
+        'twint',        // Aktiviert
+        'klarna',       // Aktiviert
+        'link',         // Aktiviert
+        'bancontact',   // Aktiviert
+        'eps',          // Aktiviert
+        'paypal'        // Aktiviert
+      ],
+
       line_items: [
         {
           price_data: {
