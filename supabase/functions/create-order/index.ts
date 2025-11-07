@@ -57,24 +57,71 @@ function calculateOriginalPriceFromServer(payload: PriceCalculationPayload): num
 }
 
 // --- Hilfsfunktion: Versandkostenberechnung ---
+
+// Definiert den Produkttyp-Schlüssel (wird für die Logik benötigt)
+type ProductKey = 'basic' | 'premium' | 'deluxe';
+
+// 1. Definiert die neuen gestaffelten Preise
 const SHIPPING_COSTS = {
-  CH: 0.00,
-  INTL: 15.00, // Dein internationaler Preis
+  CH: {
+    basic: 0.00,
+    premium: 0.00,
+    deluxe: 0.00,
+  },
+  EU: {
+    basic: 3.10,   // Tag Europa
+    premium: 6.00,  // Frame Europa
+    deluxe: 15.00,  // Deluxe Europa
+  },
+  WORLD: {
+    basic: 4.20,   // Tag Welt
+    premium: 12.00, // Frame Welt
+    deluxe: 27.00,  // Deluxe Welt
+  }
 };
 
-function getShippingZone(country: string | undefined): 'CH' | 'INTL' {
-  if (!country) return 'CH'; 
-  const normalizedCountry = country.trim().toUpperCase();
-  const swissNames = ['SCHWEIZ', 'SWITZERLAND', 'SUISSE', 'SVIZZERA', 'CH'];
-  if (swissNames.includes(normalizedCountry)) {
+/**
+ * Ermittelt die Versandzone (CH, EU oder Welt) 
+ */
+function getShippingZone(countryCode: string | undefined): 'CH' | 'EU' | 'WORLD' {
+  // Standard-Fallback
+  if (!countryCode) return 'CH';
+
+  const code = countryCode.toUpperCase();
+
+  // 1. Zone CH
+  if (code === 'CH') {
     return 'CH';
   }
-  return 'INTL';
+
+  // 2. Zone EU (Prüft nur noch Kürzel)
+  const euCodes = [
+    'DE', 'FR', 'IT', 'AT', 'ES', 'PT', 'NL', 'BE', 'LU', 'DK', 'SE', 'FI', 'PL', 'CZ', 
+    'SK', 'HU', 'SI', 'HR', 'GR', 'IE', 'LT', 'LV', 'EE', 'MT', 'CY', 'RO', 'BG', 
+    'NO', 'GB', 'LI' 
+  ];
+  if (euCodes.includes(code)) {
+    return 'EU';
+  }
+
+  // 3. Zone WORLD (Alles andere)
+  return 'WORLD';
 }
 
-function calculateShippingCost(country: string | undefined): number {
+/**
+ * Berechnet die finalen Versandkosten basierend auf Land UND Produkttyp.
+ */
+function calculateShippingCost(country: string | undefined, product: ProductKey | undefined): number {
     const zone = getShippingZone(country);
-    return SHIPPING_COSTS[zone];
+    
+    if (!product) {
+        // Fallback, falls Produkt aus irgendeinem Grund nicht übergeben wurde
+        console.warn("calculateShippingCost: Produkt-Typ fehlt, verwende 'basic' als Fallback.");
+        return SHIPPING_COSTS[zone]['basic']; 
+    }
+    
+    // Greift auf die verschachtelte Preisstruktur zu (z.B. SHIPPING_COSTS['EU']['premium'])
+    return SHIPPING_COSTS[zone][product];
 }
 
 // Startmeldung der Supabase Function
@@ -111,7 +158,7 @@ Deno.serve(async (req) => {
     
     // 2. Versandkosten berechnen
     const country = payload.billing_address.country;
-    const shippingCost = calculateShippingCost(country);
+    const shippingCost = calculateShippingCost(country, payload.product);
     
     // 3. Rabatt validieren und berechnen
     let discountAmount = 0;

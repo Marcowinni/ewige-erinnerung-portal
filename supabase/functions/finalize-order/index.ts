@@ -33,7 +33,7 @@ Deno.serve(async (req) => {
     const { error: updateError } = await supabaseAdmin
       .from('orders')
       .update({
-        uploaded_files: uploadedFilePaths,
+        uploaded_files: uploadedFilePaths, 
         preview_file_path: previewFilePath || null
       })
       .eq('id', orderId) // Nur den spezifischen Eintrag

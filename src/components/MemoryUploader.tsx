@@ -26,6 +26,7 @@ import { set } from "date-fns";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import imageCompression from 'browser-image-compression';
+import { countryList } from "@/data/countries";
 
 // Preiskalkulation
 function calculatePrice(form: FormState, mode: Mode): number {
@@ -58,39 +59,59 @@ function calculatePrice(form: FormState, mode: Mode): number {
 }
 
 const SHIPPING_COSTS = {
-  CH: 0.00,
-  INTL: 25.00, // Beispiel: Pauschale 25 CHF für International
+  CH: {
+    basic: 0.00,
+    premium: 0.00,
+    deluxe: 0.00,
+  },
+  EU: {
+    basic: 3.10,   
+    premium: 6.00,  
+    deluxe: 15.00,  
+  },
+  WORLD: {
+    basic: 4.20,   
+    premium: 12.00, 
+    deluxe: 27.00,  
+  }
 };
 
 /**
  * Ermittelt die Versandzone basierend auf dem Land.
  */
-function getShippingZone(country: string | undefined): 'CH' | 'INTL' {
-  if (!country) return 'CH'; // Standard (Schweiz)
-  const normalizedCountry = country.trim().toUpperCase();
-  
-  // Liste gängiger Bezeichnungen für die Schweiz
-  const swissNames = [
-    'SCHWEIZ', 
-    'SWITZERLAND', 
-    'SUISSE', 
-    'SVIZZERA', 
-    'CH'
-  ];
-  
-  if (swissNames.includes(normalizedCountry)) {
+function getShippingZone(countryCode: string | undefined): 'CH' | 'EU' | 'WORLD' {
+  // Standard-Fallback
+  if (!countryCode) return 'CH';
+
+  const code = countryCode.toUpperCase();
+
+  // 1. Zone CH
+  if (code === 'CH') {
     return 'CH';
   }
-  // Alle anderen Länder gelten als International
-  return 'INTL';
+
+  // 2. Zone EU (Prüft nur noch Kürzel)
+  const euCodes = [
+    'DE', 'FR', 'IT', 'AT', 'ES', 'PT', 'NL', 'BE', 'LU', 'DK', 'SE', 'FI', 'PL', 'CZ', 
+    'SK', 'HU', 'SI', 'HR', 'GR', 'IE', 'LT', 'LV', 'EE', 'MT', 'CY', 'RO', 'BG', 
+    'NO', 'GB', 'LI' 
+  ];
+  if (euCodes.includes(code)) {
+    return 'EU';
+  }
+
+  // 3. Zone WORLD (Alles andere)
+  return 'WORLD';
 }
 
-/**
- * Berechnet die Versandkosten basierend auf dem Land.
- */
-function calculateShippingCost(country: string | undefined): number {
+//berechnet die Versandkosten basierend auf Land und Produkt
+function calculateShippingCost(country: string | undefined, product: ProductKey | undefined): number {
     const zone = getShippingZone(country);
-    return SHIPPING_COSTS[zone];
+    if (!product) {
+        // Sollte im Backend nicht passieren, aber als Fallback
+        return SHIPPING_COSTS[zone]['basic']; 
+    }
+    return SHIPPING_COSTS[zone][product];
 }
 
 /* -------------------- Types & Helpers -------------------- */
@@ -1986,7 +2007,7 @@ function Step5InvoiceAndPayView(props: {
   const originalPrice = useMemo(() => calculatePrice(form, mode as Mode), [form, mode]);
   
   // 2. NEU: Versandkosten berechnen (reagiert auf Länderänderung)
-  const shippingCost = useMemo(() => calculateShippingCost(form.invoice_country), [form.invoice_country]);
+  const shippingCost = useMemo(() => calculateShippingCost(form.invoice_country, form.product), [form.invoice_country, form.product]);
 
   // 3. Rabatt (basiert auf Warenwert
   const discountAmount = useMemo(() => {
@@ -2158,22 +2179,32 @@ function Step5InvoiceAndPayView(props: {
             {/* Land */}
             <div className="md:col-span-2">
               <Label htmlFor="invoice_country">{copy.invoiceFields.country}</Label>
-              <Input 
-                id="invoice_country" 
-                value={form.invoice_country ?? ""} 
-                onChange={(e) => setForm((s) => ({ ...s, invoice_country: e.target.value }))} 
-                placeholder="Schweiz" 
-                required 
-                onBlur={() => handleBlur('invoice_country')} 
-                className={cn(validationErrors.country && touchedFields.invoice_country && "border-destructive focus-visible:ring-destructive")} // NEU
-              />
-              {validationErrors.country && touchedFields.invoice_country && <p className="text-sm text-destructive mt-1">{validationErrors.country}</p>} {/* NEU */}
+              {/* Wir verwenden ein natives <select> für Einfachheit und Barrierefreiheit */}
+              <select
+                id="invoice_country"
+                value={form.invoice_country ?? "CH"}
+                onChange={(e) => setForm((s) => ({ ...s, invoice_country: e.target.value }))}
+                onBlur={() => handleBlur('invoice_country')}
+                required
+                className={cn(
+                  "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+                  validationErrors.country && touchedFields.invoice_country && "border-destructive focus-visible:ring-destructive"
+                )}
+              >
+                {/* Iteriere über die importierte Länderliste */}
+                {countryList.map((country) => (
+                  <option key={country.code} value={country.code}>
+                    {country.name}
+                  </option>
+                ))}
+              </select>
+              {validationErrors.country && touchedFields.invoice_country && <p className="text-sm text-destructive mt-1">{validationErrors.country}</p>}
             </div>
           </div>
         </div>
 
         <div className="mt-6 mb-8"> {/* Adjusted margin */}
-          <Label htmlFor="discount_code">Discount Code (optional)</Label>
+          <Label htmlFor="discount_code">Discount Code</Label>
           <div className="flex items-center gap-2 mt-1">
             <Input
               id="discount_code"
@@ -2432,7 +2463,8 @@ const MemoryUploader = () => {
     frame_orientation: "portrait", // default Hochformat
     tag_format: "round_3cm", // default Rund Ø 3 cm
 
-    selectedCalendarStyle: 'modern', // Setzt 'Modern' als Standard
+    selectedCalendarStyle: 'modern', 
+    invoice_country: "CH", 
     ...(persistedInit?.form ?? {}),
   });
 
@@ -2578,7 +2610,8 @@ const MemoryUploader = () => {
       invoice_sameAsContact: true, 
       frame_orientation: 'portrait', 
       tag_format: 'round_3cm', 
-      selectedCalendarStyle: 'modern' 
+      selectedCalendarStyle: 'modern', 
+      invoice_country: 'CH',
     });
     
     setTouchedFields({}); 
@@ -2611,9 +2644,12 @@ const MemoryUploader = () => {
         mode === 'pet' ? `Haustier: ${form.pet_name}` :
         `Anlass für: ${form.surprise_name}`;
       
+      const selectedCountryObject = countryList.find(c => c.code === form.invoice_country);
+      const selectedCountryName = selectedCountryObject ? selectedCountryObject.name : form.invoice_country;
+
       const billingAddressPayload = {
               full_address: `${form.invoice_street}, ${form.invoice_zip} ${form.invoice_city}, ${form.invoice_country}`,
-              country: form.invoice_country || 'Schweiz'
+              country: form.invoice_country || 'CH'
           };
 
 
@@ -2664,33 +2700,38 @@ const MemoryUploader = () => {
 
       // Alle Dateien sammeln
       const allFiles = [
-        ...form.images.map(f => ({ file: f.file, type: 'Bild' })),
-        ...form.videos.map(f => ({ file: f.file, type: 'Video' }))
+        ...form.images.map(f => ({ file: f.file, type: 'Bild', caption: f.caption || "" })),
+        ...form.videos.map(f => ({ file: f.file, type: 'Video', caption: f.caption || "" })) 
       ];
       const totalFiles = allFiles.length;
-      const uploadedFilePaths: string[] = [];
+      
+      // Variable 1: Umbenannt zu uploadedFileObjects und Typ geändert
+      const uploadedFileObjects: { path: string, caption: string }[] = []; 
 
-      // 3. Dateien nacheinander hochladen (damit der Nutzer Feedback sieht)
+      // 3. Dateien nacheinander hochladen
       for (let i = 0; i < totalFiles; i++) {
         const fileItem = allFiles[i];
         
-        // Status-Update für den Nutzer
         setUploadStatus(`Lade Datei ${i + 1} von ${totalFiles} hoch... (${fileItem.type})`);
 
-        // Dein Code für einzigartige Dateinamen (Lösung B für "Resource already exists")
         const uniqueFileName = `${crypto.randomUUID()}-${sanitizeFileName(fileItem.file.name)}`;
         const filePath = `${orderFolderPath}/${uniqueFileName}`;
 
         const { data, error: uploadError } = await supabase.storage
           .from('uploads')
           .upload(filePath, fileItem.file, { 
-            upsert: true // Verhindert "resource already exists" Fehler
+            upsert: true 
           });
 
         if (uploadError) {
           throw new Error(`Datei-Upload fehlgeschlagen: ${uploadError.message}`);
         }
-        uploadedFilePaths.push(data.path);
+        
+        // Variable 2: Speichere das Objekt (Pfad + Kurztext)
+        uploadedFileObjects.push({
+          path: data.path,
+          caption: fileItem.caption // <-- Speichert den Kurztext
+        });
       }
       
       // 4. Lade das erstellte Vorschau-Bild hoch
@@ -2728,7 +2769,7 @@ const MemoryUploader = () => {
         {
           body: {
             orderId: orderId,
-            uploadedFilePaths: uploadedFilePaths,
+            uploadedFilePaths: uploadedFileObjects,
             previewFilePath: previewFilePath
           }
         }
