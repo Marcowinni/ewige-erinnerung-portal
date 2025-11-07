@@ -856,12 +856,36 @@ function DesignEditor({
     lines.forEach((line, i) => ctx.fillText(line, x, startY + i * lineHeight));
   };
   
-  const onUpload = (files: FileList | null) => {
+  // Dies ist die onUpload-Funktion INNERHALB des DesignEditors
+  const onUpload = async (files: FileList | null) => { // 1. 'async' hinzufügen
     if (files && files[0]) {
+      const file = files[0]; 
+
+      // 2. Komprimierungs-Optionen (dieselben wie in addImages)
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+
+      let compressedFile: File;
+      try {
+        toast.info("Komprimiere Design-Bild...");
+        compressedFile = await imageCompression(file, options);
+        toast.success("Bild bereit!");
+      } catch (error) {
+        console.error("Komprimierung des Design-Bilds fehlgeschlagen:", error);
+        toast.error("Komprimierung fehlgeschlagen, verwende Original.");
+        compressedFile = file; // Fallback auf Original, falls Komprimierung fehlschlägt
+      }
+      
+      // 3. Alte Vorschau-URL (falls vorhanden) freigeben
       if (local.bgImageUrl && local.bgImageUrl.startsWith("blob:")) {
         URL.revokeObjectURL(local.bgImageUrl);
       }
-      const url = URL.createObjectURL(files[0]);
+      
+      // 4. Neue Vorschau-URL von der komprimierten Datei erstellen
+      const url = URL.createObjectURL(compressedFile); 
       
       const tempImg = new Image();
       tempImg.src = url;
@@ -872,9 +896,11 @@ function DesignEditor({
         const scaleY = canvasHeight / tempImg.height;
         const initialScale = Math.max(scaleX, scaleY);
 
+        // 5. Komprimierte Datei im State speichern
         setLocal((s) => ({
           ...s,
           bgImageUrl: url,
+          originalFile: compressedFile, // 4. Komprimierte Datei speichern
           scale: initialScale,
           offsetX: 0,
           offsetY: 0,
@@ -1548,6 +1574,10 @@ function Step3View(props: {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  // States für das Bearbeitungs-Modal
+  const [editingVideo, setEditingVideo] = useState<MediaFile | null>(null);
+  const [modalCaption, setModalCaption] = useState("");
+
   // Liste der verfügbaren Musikstücke
   const musicTracks = [
     { src: "/music/ambient-piano-music.mp3", title: "Ambient Piano Music", id: "ambient-piano-music.mp3" },
@@ -1557,6 +1587,9 @@ function Step3View(props: {
     { src: "/music/relaxed-music.mp3", title: "Relaxed Music", id: "relaxed-music.mp3" },
     { src: "/music/soft-calm-music.mp3", title: "Soft Calm Music", id: "soft-calm-music.mp3" },
   ];
+
+  // Definiere das Supabase Free-Tier Limit (50MB)
+  const MAX_VIDEO_SIZE_BYTES = 50 * 1024 * 1024; // 52,428,800 Bytes
 
   const addImages = async (files: FileList | null) => {
     if (files) {
@@ -1589,9 +1622,35 @@ function Step3View(props: {
     }
   };
   const addVideos = (files: FileList | null) => {
-    if (files) {
-      const newMediaFiles: MediaFile[] = Array.from(files).map(f => ({ file: f, caption: "", id: crypto.randomUUID() }));
-      setForm((s) => ({ ...s, videos: [...s.videos, ...newMediaFiles] }));
+    if (!files) return;
+
+    const validMediaFiles: MediaFile[] = [];
+    const rejectedFiles: string[] = [];
+
+    // Gehe jede ausgewählte Datei durch
+    Array.from(files).forEach(file => {
+      
+      // Prüfe die Dateigrösse
+      if (file.size > MAX_VIDEO_SIZE_BYTES) {
+        // Datei ist zu gross, merke dir den Namen für die Fehlermeldung
+        rejectedFiles.push(file.name);
+      } else {
+        // Datei ist gültig, bereite sie für den State vor
+        validMediaFiles.push({ file: file, caption: "", id: crypto.randomUUID() });
+      }
+    });
+
+    // Füge nur die gültigen Dateien dem Formular-State hinzu
+    if (validMediaFiles.length > 0) {
+      setForm((s) => ({ ...s, videos: [...s.videos, ...validMediaFiles] }));
+    }
+
+    // Zeige eine sofortige Fehlermeldung, falls Dateien abgelehnt wurden
+    if (rejectedFiles.length > 0) {
+      toast.error(`Datei-Limit (50MB) überschritten:`, {
+        description: `Folgende Videos wurden nicht hinzugefügt: ${rejectedFiles.join(", ")}`,
+        duration: 8000 // Zeige die Meldung länger an
+      });
     }
   };
   const removeImage = (id: string) => setForm((s) => ({ ...s, images: s.images.filter(img => img.id !== id) }));
@@ -1834,8 +1893,28 @@ function Step3View(props: {
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-muted-foreground truncate flex-1">{mediaFile.file.name}</span>
                     </div>
-                    {/* Input für Videounterschrift (verhindert iPhone Zoom) */}
-                    <Input type="text" placeholder={copy.step3Fields.videoCaptionPlaceholder} value={mediaFile.caption ?? ""} onChange={(e) => handleVideoCaptionChange(mediaFile.id, e.target.value)} className="h-10 text-base" />
+                    
+                    {/* NEU: Zeigt Kurztext an oder einen "Hinzufügen"-Button */}
+                    {mediaFile.caption ? (
+                      <div className="bg-muted/50 rounded-md p-2 text-sm text-foreground">
+                        <p className="line-clamp-2">{mediaFile.caption}</p>
+                      </div>
+                    ) : (
+                      <p className="text-sm text-muted-foreground italic">
+                        {copy.step3Fields.videoCaptionPlaceholder}
+                      </p>
+                    )}
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full" 
+                      onClick={() => {
+                        setModalCaption(mediaFile.caption || ""); // Text für Modal setzen
+                        setEditingVideo(mediaFile); // Modal öffnen
+                      }}
+                    >
+                      {mediaFile.caption ? "Kurztext bearbeiten" : "Kurztext hinzufügen"}
+                    </Button>
                   </div>
                 );
               })}
@@ -1844,6 +1923,48 @@ function Step3View(props: {
         </div>
 
       </div>
+
+      <Dialog 
+        open={!!editingVideo} 
+        onOpenChange={(isOpen) => {
+          if (!isOpen) {
+            setEditingVideo(null); // Modal schliessen
+          }
+        }}
+      >
+        <DialogContent className="max-w-md">
+          <DialogTitle>Kurztext für Video</DialogTitle>
+          <DialogDescription>
+            Füge eine Beschreibung für das Video im digitalen Album hinzu.
+          </DialogDescription>
+          
+          {/* Zeigt das Video im Modal an */}
+          {editingVideo && (
+            <video src={URL.createObjectURL(editingVideo.file)} className="w-full rounded" controls />
+          )}
+
+          {/* Textarea (mit 16px Schriftgrösse, um iPhone-Zoom zu verhindern) */}
+          <Textarea 
+            placeholder={copy.step3Fields.videoCaptionPlaceholder}
+            value={modalCaption}
+            onChange={(e) => setModalCaption(e.target.value)}
+            className="h-24 text-base" // text-base (16px) ist wichtig!
+          />
+          
+          <Button 
+            className="w-full" 
+            onClick={() => {
+              if (editingVideo) {
+                // Speichere den Text aus dem Modal in den Haupt-Form-State
+                handleVideoCaptionChange(editingVideo.id, modalCaption);
+              }
+              setEditingVideo(null); // Modal schliessen
+            }}
+          >
+            Speichern
+          </Button>
+        </DialogContent>
+      </Dialog>
 
       {/* --- 7. Navigations-Buttons --- */}
       <div className="mt-8 flex justify-between gap-3">
