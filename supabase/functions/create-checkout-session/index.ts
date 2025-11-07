@@ -41,10 +41,8 @@ Deno.serve(async (req) => {
         'card',         // Für "Karten" und "Cartes Bancaires"
         'twint',        // Aktiviert
         'klarna',       // Aktiviert
-        'link',         // Aktiviert
         'bancontact',   // Aktiviert
         'eps',          // Aktiviert
-        'paypal'        // Aktiviert
       ],
 
       line_items: [
