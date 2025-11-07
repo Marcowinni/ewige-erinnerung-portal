@@ -17,6 +17,8 @@ import Datenschutz from "./pages/Datenschutz";
 import AGB from "./pages/AGB";
 import Impressum from "./pages/Impressum";
 import NotFound from "./pages/NotFound";
+import BestellungErfolgreich from "./pages/BestellungErfolgreich";
+import BestellungAbgebrochen from "./pages/BestellungAbgebrochen";
 
 import Album from "./pages/Album";
 
@@ -53,6 +55,8 @@ const App = () => (
         <Route path="/agb" element={<AGB />} />
         <Route path="/impressum" element={<Impressum />} />
         <Route path="/album/:albumSlug" element={<Album />} />
+        <Route path="/bestellung-erfolgreich" element={<BestellungErfolgreich />} />
+        <Route path="/bestellung-abgebrochen" element={<BestellungAbgebrochen />} />
         {/* Fügt den RouteChangeTracker hinzu */}
         <Route path="*" element={<NotFound />} />
       </Routes>

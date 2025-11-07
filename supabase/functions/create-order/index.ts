@@ -224,12 +224,14 @@ Deno.serve(async (req) => {
       
       // Adress-Spalten
       billing_address: payload.billing_address.full_address, 
-      billing_country: country, // <-- Benötigt Spalte 'billing_country' (text)
+      billing_country: country, 
       
       notes: payload.notes || 'Keine Notizen',
       created_at: now.toISOString(),
+
+      payment_status: 'pending', // Anfangsstatus
       
-      // (slug, uploaded_files, etc. werden später gesetzt)
+      
     };
 
     const { data: insertedData, error: insertError } = await supabaseAdmin
@@ -285,7 +287,7 @@ Deno.serve(async (req) => {
     } else {
         console.log(`Slug-Update für Order ${orderId} erfolgreich: ${finalSlug}`);
     }
-
+    /*
     // 4. Rabattcode-Nutzung erhöhen (falls einer verwendet wurde)
     if (validatedDiscountCode) {
         console.log(`Erhöhe Nutzung für Code: ${validatedDiscountCode}`);
@@ -298,11 +300,12 @@ Deno.serve(async (req) => {
             console.log(`Nutzung für Code ${validatedDiscountCode} erfolgreich erhöht.`);
         }
     }
-
+    */
     // 5. Erfolg!
     return new Response(JSON.stringify({ 
       orderId: orderId, 
-      orderSlug: finalSlug || baseSlug
+      orderSlug: finalSlug || baseSlug,
+      finalPrice: finalPrice
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
@@ -314,7 +317,7 @@ Deno.serve(async (req) => {
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
     return new Response(JSON.stringify({ error: errorMessage, orderIdAttempted: orderId }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      status: 500, // Sende 500, was der Frontend-Fehlermeldung "non-2xx" entspricht
+      status: 500, 
     });
   }
 });

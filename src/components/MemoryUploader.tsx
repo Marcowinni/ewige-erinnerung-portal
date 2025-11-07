@@ -27,6 +27,7 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import imageCompression from 'browser-image-compression';
 import { countryList } from "@/data/countries";
+import { useStripe } from '@stripe/react-stripe-js';
 
 // Preiskalkulation
 function calculatePrice(form: FormState, mode: Mode): number {
@@ -2558,6 +2559,7 @@ function Step5InvoiceAndPayView(props: {
 /* -------------------- Parent: MemoryUploader -------------------- */
 const MemoryUploader = () => {
   const uploaderRef = useRef<HTMLDivElement>(null);
+  const stripe = useStripe();
   const { mode, modeContent } = useContent();
   const media = useMemo(() => getMediaForMode(mode as Mode), [mode]);
   const products = modeContent.products;
@@ -2752,13 +2754,21 @@ const MemoryUploader = () => {
 
   // placement of order
   const onPlaceOrder = async () => {
+    // 1. Stripe-Check
+    if (!stripe || !uploaderRef.current) {
+      toast.error("Stripe ist noch nicht geladen. Bitte warten Sie einen Moment.");
+      return;
+    }
+
     setIsSubmitting(true);
     setUploadStatus(null);
-    toast.info("Bestellung wird verarbeitet...");
+    toast.info("Bestellung wird erstellt...");
+
+    let orderId; // Um die ID im catch-Block verfügbar zu haben
 
     try {
-      // 1. Bereite die strukturierten Daten für die Datenbank vor
-      const optionsSummary = [];
+      // --- Payload-Vorbereitung ---
+      const optionsSummary: string[] = [];
       if (form.product === 'basic' && form.tag_format) optionsSummary.push(`Format: ${form.tag_format}`);
       if (form.product === 'premium' && form.frame_orientation) optionsSummary.push(`Ausrichtung: ${form.frame_orientation}`);
       if (form.pet_tag_keychain) optionsSummary.push("Mit Schlüsselanhänger");
@@ -2769,153 +2779,136 @@ const MemoryUploader = () => {
         mode === 'pet' ? `Haustier: ${form.pet_name}` :
         `Anlass für: ${form.surprise_name}`;
       
+      // Finde den vollen Ländernamen basierend auf dem Code (CH -> Schweiz)
       const selectedCountryObject = countryList.find(c => c.code === form.invoice_country);
-      const selectedCountryName = selectedCountryObject ? selectedCountryObject.name : form.invoice_country;
+      const selectedCountryName = selectedCountryObject ? selectedCountryObject.name : (form.invoice_country || 'CH'); // Fallback
 
       const billingAddressPayload = {
-              full_address: `${form.invoice_street}, ${form.invoice_zip} ${form.invoice_city}, ${form.invoice_country}`,
-              country: form.invoice_country || 'CH'
-          };
-
+          full_address: `${form.invoice_street}, ${form.invoice_zip} ${form.invoice_city}, ${selectedCountryName}`, // Sendet den vollen Namen
+          country: form.invoice_country || 'CH' // Sendet den Ländercode (z.B. "CH")
+      };
 
       const musicChoice = form.selectedLocalMusic || form.pixabayMusicLink || "Keine Auswahl";
-
-      // Berechne den Warenwert (ohne Versand) für den Payload
       const calculatedWarePrice = calculatePrice(form, mode as Mode);
 
       const initialOrderPayload = {
         product_type: selected ? productMap[selected].title : "N/A",
+        product: form.product, // WICHTIG für Versandkosten im Backend (basic, premium, deluxe)
         options_summary: optionsSummary.join(', '),
-        
-        // Sende den reinen Warenwert (Backend berechnet Versand selbst)
         total_price: calculatedWarePrice, 
-        
         subject_details: subjectDetails,
         music_choice: musicChoice,
         contact_name: `${form.contact_firstName} ${form.contact_lastName}`,
         contact_email: form.contact_email,
         contact_phone: form.contact_phone || "N/A",
-        
-        // Sende das strukturierte Adressobjekt
         billing_address: billingAddressPayload, 
-        
         notes: form.notes || "Keine Notizen",
-        applied_discount_code: appliedDiscount?.code || null, // Sende den Code
-
-        selectedCalendarStyle: form.selectedCalendarStyle || 'modern'
+        applied_discount_code: appliedDiscount?.code || null,
+        selectedCalendarStyle: form.selectedCalendarStyle || 'modern',
+        // Sende die Namen für die Slug-Erstellung
+        human_firstName: form.human_firstName,
+        human_lastName: form.human_lastName
       };
+      // --- Ende Payload-Vorbereitung ---
 
-      // Sende an die 'create-order' Funktion
-      // 1. Bestellung erstellen (Dieser Teil ist schnell)
+      // 1. Bestellung erstellen (bekommt ID und finalPrice zurück)
       const { data: functionResponse, error: functionError } = await supabase.functions.invoke('create-order', {
         body: initialOrderPayload 
       });
 
-      if (functionError || !functionResponse || functionResponse.error || !functionResponse.orderId || !functionResponse.orderSlug) {
-        const errorMessage = functionError?.message || functionResponse?.error || 'Unknown error invoking function';
-        throw new Error(`Fehler beim Erstellen der Bestellung via Funktion: ${errorMessage}`);
+      if (functionError || !functionResponse || functionResponse.error || !functionResponse.orderId || !functionResponse.orderSlug || functionResponse.finalPrice === undefined) {
+        const errorMessage = functionError?.message || functionResponse?.error || 'Unknown error invoking create-order (missing orderId, slug, or finalPrice)';
+        throw new Error(`Fehler beim Erstellen der Bestellung: ${errorMessage}`);
       }
-      
-      const orderId = functionResponse.orderId;
-      const orderFolderPath = `order_${orderId}`;
 
-      // 2. Spinner (isSubmitting) stoppen und Upload-Status starten
+      orderId = functionResponse.orderId;
+      const orderFolderPath = `order_${orderId}`;
+      const finalPrice = functionResponse.finalPrice; // Holen den validierten Preis
+
+      // 2. Upload-Status starten
       setIsSubmitting(false);
       toast.success("Bestellung erstellt! Starte Datei-Upload...");
 
-      // Alle Dateien sammeln
+      // 3. Dateien hochladen (Bilder & Videos)
       const allFiles = [
         ...form.images.map(f => ({ file: f.file, type: 'Bild', caption: f.caption || "" })),
-        ...form.videos.map(f => ({ file: f.file, type: 'Video', caption: f.caption || "" })) 
+        ...form.videos.map(f => ({ file: f.file, type: 'Video', caption: f.caption || "" }))
       ];
       const totalFiles = allFiles.length;
-      
-      // Variable 1: Umbenannt zu uploadedFileObjects und Typ geändert
       const uploadedFileObjects: { path: string, caption: string }[] = []; 
 
-      // 3. Dateien nacheinander hochladen
       for (let i = 0; i < totalFiles; i++) {
         const fileItem = allFiles[i];
-        
         setUploadStatus(`Lade Datei ${i + 1} von ${totalFiles} hoch... (${fileItem.type})`);
-
         const uniqueFileName = `${crypto.randomUUID()}-${sanitizeFileName(fileItem.file.name)}`;
         const filePath = `${orderFolderPath}/${uniqueFileName}`;
-
-        const { data, error: uploadError } = await supabase.storage
-          .from('uploads')
-          .upload(filePath, fileItem.file, { 
-            upsert: true 
-          });
-
-        if (uploadError) {
-          throw new Error(`Datei-Upload fehlgeschlagen: ${uploadError.message}`);
-        }
-        
-        // Variable 2: Speichere das Objekt (Pfad + Kurztext)
-        uploadedFileObjects.push({
-          path: data.path,
-          caption: fileItem.caption // <-- Speichert den Kurztext
-        });
+        const { data, error: uploadError } = await supabase.storage.from('uploads').upload(filePath, fileItem.file, { upsert: true });
+        if (uploadError) throw new Error(`Datei-Upload fehlgeschlagen: ${uploadError.message}`);
+        uploadedFileObjects.push({ path: data.path, caption: fileItem.caption });
       }
-      
-      // 4. Lade das erstellte Vorschau-Bild hoch
+
+      // 4. Vorschau-Bild hochladen (das bearbeitete PNG)
       let previewFilePath: string | null = null;
       const previewDataUrl = form.frame_custom?.previewDataUrl || form.deluxe_custom?.previewDataUrl || form.pet_tag_custom?.previewDataUrl;
-      
       if (previewDataUrl) {
-        setUploadStatus("Lade Vorschau hoch..."); // Status-Update
+        setUploadStatus("Lade Vorschau hoch...");
         const previewBlob = await dataUrlToBlob(previewDataUrl);
         const previewPath = `${orderFolderPath}/previews/custom_design_preview.png`;
-        
-        const { data: previewUploadData, error: previewUploadError } = await supabase.storage
-          .from('uploads')
-          .upload(previewPath, previewBlob, { 
-            contentType: 'image/png', 
-            upsert: true // WICHTIG
-          });
-
+        const { data: previewUploadData, error: previewUploadError } = await supabase.storage.from('uploads').upload(previewPath, previewBlob, { contentType: 'image/png', upsert: true });
         if (previewUploadError) throw new Error(`Vorschau-Upload fehlgeschlagen: ${previewUploadError.message}`);
         previewFilePath = previewUploadData.path;
       }
-      
-      let designBaseImagePath: string | null = null;
-            
-      // Finde die originale Datei, die der Nutzer in Schritt 1 ausgewählt hat
-      const originalDesignFile = 
-          form.frame_custom?.originalFile || 
-          form.deluxe_custom?.originalFile || 
-          (form.pet_tag_customEnabled ? form.pet_tag_custom?.originalFile : null);
 
-      // 5. Finalisiere die Bestellung (Dieser Teil ist schnell)
-      setUploadStatus("Bestellung wird abgeschlossen..."); // Status-Update
+      // 5. Original-Designbild-Upload (ENTFERNT AUF DEINEN WUNSCH)
+
+      // 6. Bestellung finalisieren (Dateipfade speichern)
+      setUploadStatus("Bestellung wird abgeschlossen...");
       const { data: finalizeData, error: finalizeError } = await supabase.functions.invoke(
         'finalize-order',
-        {
-          body: {
-            orderId: orderId,
-            uploadedFilePaths: uploadedFileObjects,
-            previewFilePath: previewFilePath
-          }
+        { 
+          body: { 
+            orderId: orderId, 
+            uploadedFilePaths: uploadedFileObjects, // Sendet das Array mit {path, caption}
+            previewFilePath: previewFilePath 
+            // 'designBaseImagePath' wird nicht gesendet
+          } 
         }
       );
-
-      // Fehlerbehandlung für den finalize-Aufruf
       if (finalizeError || (finalizeData && finalizeData.error)) {
-        const errorMessage = finalizeError?.message || finalizeData?.error || "Unbekannter Fehler beim Abschliessen der Bestellung.";
-        throw new Error(`Fehler beim Abschliessen der Bestellung: ${errorMessage}. Bitte kontaktiere den Support mit der Order ID ${orderId}.`);
+        const errorMessage = finalizeError?.message || finalizeData?.error || "Fehler beim Abschliessen der Bestellung.";
+        throw new Error(`${errorMessage} Bitte kontaktiere den Support mit der Order ID ${orderId}.`);
       }
 
-      // 6. Erfolg!
-      setUploadStatus(null); // Status zurücksetzen
-      toast.success("Vielen Dank! Deine Bestellung wurde erfolgreich übermittelt.");
-      resetAll(); // Formular leeren
+      // 7. Stripe Checkout Session erstellen
+      setUploadStatus("Leite zur Zahlung weiter...");
+      const { data: checkoutData, error: checkoutError } = await supabase.functions.invoke(
+        'create-checkout-session',
+        { body: { 
+            orderId: orderId, 
+            productName: selected ? productMap[selected].title : "Memora Moments Bestellung",
+            unitAmount: finalPrice // Der validierte Preis aus create-order
+          } 
+        }
+      );
+      if (checkoutError || !checkoutData?.sessionId) {
+        throw new Error(`Fehler beim Erstellen der Bezahl-Sitzung: ${checkoutError?.message || 'Keine Session-ID erhalten'}`);
+      }
 
-    } catch (error) {
+      // 8. Zu Stripe weiterleiten
+      const { error: stripeError } = await stripe.redirectToCheckout({
+        sessionId: checkoutData.sessionId,
+      });
+
+      if (stripeError) {
+        throw new Error(`Fehler bei der Stripe-Weiterleitung: ${stripeError.message}`);
+      }
+      
+
+        } catch (error) {
       console.error("Ein Fehler ist im Bestellprozess aufgetreten:", error);
       toast.error(error instanceof Error ? error.message : "Ein unbekannter Fehler ist aufgetreten.");
-      setIsSubmitting(false);  // Spinner "Erstellen" stoppen
-      setUploadStatus(null);  // Spinner "Upload" stoppen
+      setIsSubmitting(false);
+      setUploadStatus(null);
     }
   };
 
