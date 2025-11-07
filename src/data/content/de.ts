@@ -288,6 +288,19 @@ export const deContent: ContentData = {
       }
     },
 
+    orderSuccessPage: {
+      title: "Bestellung erfolgreich - Memora Moments",
+      heading: "Vielen Dank für Ihre Bestellung!",
+      message1: "Wir haben Ihre Bestellung erhalten und werden sie so schnell wie möglich bearbeiten.",
+      buttonHome: "Zur Startseite"
+    },
+    orderCancelPage: {
+      title: "Bestellung abgebrochen - Memora Moments",
+      heading: "Bestellung abgebrochen",
+      message: "Der Bezahlvorgang wurde abgebrochen. Ihr Warenkorb wurde gespeichert.",
+      buttonBack: "Zurück zum Warenkorb"
+    },
+
     // Footer-Texte – gemäß deinem FooterContent-Typ
     footer: {
       brand: {

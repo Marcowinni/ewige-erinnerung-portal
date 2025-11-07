@@ -400,6 +400,19 @@ export interface SharedContent {
   legal: LegalContent;
   footer: FooterContent;
   albumPage: AlbumPageContent;
+
+  orderSuccessPage: {
+    title: string; // Für SEO/Browser-Tab
+    heading: string;
+    message1: string;
+    buttonHome: string;
+  };
+  orderCancelPage: {
+    title: string;
+    heading: string;
+    message: string;
+    buttonBack: string;
+  };
 }
 
 

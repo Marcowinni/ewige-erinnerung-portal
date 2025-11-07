@@ -279,6 +279,19 @@ export const enContent: ContentData = {
 
     },
 
+    orderSuccessPage: {
+      title: "Order Successful - Memora Moments",
+      heading: "Thank you for your order!",
+      message1: "We have received your order and will process it as soon as possible.",
+      buttonHome: "Back to Homepage"
+    },
+    orderCancelPage: {
+      title: "Order Canceled - Memora Moments",
+      heading: "Order Canceled",
+      message: "The payment process was canceled. Your cart has been saved.",
+      buttonBack: "Back to Cart"
+    },
+
     footer: {
       brand: {
         name: "Memora Moments",

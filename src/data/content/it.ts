@@ -279,6 +279,19 @@ export const itContent: ContentData = {
 
     },
 
+    orderSuccessPage: {
+      title: "Ordine riuscito - Memora Moments",
+      heading: "Grazie per il tuo ordine!",
+      message1: "Abbiamo ricevuto il tuo ordine e lo elaboreremo il prima possibile.",
+      buttonHome: "Torna alla homepage"
+    },
+    orderCancelPage: {
+      title: "Ordine annullato - Memora Moments",
+      heading: "Ordine annullato",
+      message: "Il processo di pagamento è stato annullato. Il tuo carrello è stato salvato.",
+      buttonBack: "Torna al carrello"
+    },
+
     footer: {
       brand: {
         name: "Memora Moments",
