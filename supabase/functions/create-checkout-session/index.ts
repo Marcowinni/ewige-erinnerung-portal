@@ -51,7 +51,7 @@ Deno.serve(async (req) => {
             currency: 'chf',
             product_data: {
               name: productName,
-              images: ['https://www.memora-moments.ch/logo.png'], // Optional: Dein Logo
+              images: ['https://www.memora-moments.ch/vorschaubilder_social_media/logo_memora_moments.png'], // Optional: Dein Logo
             },
             unit_amount: Math.round(unitAmount * 100), // Preis in Rappen
           },

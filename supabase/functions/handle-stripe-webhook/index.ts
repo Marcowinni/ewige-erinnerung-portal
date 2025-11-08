@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
-import { Resend } from 'resend'; // <-- Importiert Resend
+import { Resend } from 'resend'; 
 
 const corsHeaders = { 'Access-Control-Allow-Origin': '*' };
 
@@ -89,11 +89,13 @@ Deno.serve(async (req) => {
       // --- 3. E-Mails senden ---
       if (customerEmail && ADMIN_EMAIL && FROM_EMAIL) {
         try {
-          // --- NEU: Gestaltete HTML-E-Mail ---
+          // --- Gestaltete HTML-E-Mail ---
           const customerHtml = `
             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
               <div style="background-color: #f9f9f9; padding: 20px; text-align: center;">
-                <img src="https://www.memora-moments.ch/logo.png" alt="Memora Moments Logo" style="max-width: 150px; margin-bottom: 20px;">
+                
+                <img src="https://www.memora-moments.ch/vorschaubilder_social_media/logo_memora_moments.png" alt="Memora Moments Logo" style="max-width: 150px; margin-bottom: 20px;">
+                
               </div>
               <div style="padding: 30px;">
                 <h1 style="font-size: 24px; color: #222; margin-top: 0;">Vielen Dank für deine Bestellung!</h1>
@@ -113,10 +115,10 @@ Deno.serve(async (req) => {
             from: `Memora Moments <${FROM_EMAIL}>`,
             to: [customerEmail],
             subject: `Deine Bestellung #${orderId} bei Memora Moments`,
-            html: customerHtml // <-- Verwendet die neue HTML-Vorlage
+            html: customerHtml 
           });
 
-          // E-Mail an den Admin (bleibt einfach)
+          // E-Mail an den Admin
           await resend.emails.send({
             from: `System <${FROM_EMAIL}>`,
             to: [ADMIN_EMAIL],
@@ -132,7 +134,6 @@ Deno.serve(async (req) => {
       } else {
          console.warn(`Order ${orderId}: Emails not sent. Missing customerEmail, ADMIN_EMAIL, or FROM_EMAIL.`);
       }
-      // --- Ende E-Mail Senden ---
 
     } catch (dbError) {
       const dbErrorMessage = dbError instanceof Error ? dbError.message : "Unknown database error";
