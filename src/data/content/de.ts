@@ -106,7 +106,7 @@ export const deContent: ContentData = {
       responsible: {
         title: "1. Verantwortliche Stelle",
         content:
-          "TW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten\nE-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99\n\nWir sind verantwortlich für die Erhebung, Verarbeitung und Nutzung Ihrer personenbezogenen Daten im Sinne des Schweizer Datenschutzgesetzes (revDSG)."
+          "TW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten\nE-Mail: info@memora.moments.ch\nTelefon: +41 79 407 56 99\n\nWir sind verantwortlich für die Erhebung, Verarbeitung und Nutzung Ihrer personenbezogenen Daten im Sinne des Schweizer Datenschutzgesetzes (revDSG)."
       },
 
       dataCollection: {
@@ -217,7 +217,7 @@ export const deContent: ContentData = {
           },
           liability: {
             title: "7. Notice-&-Takedown-Verfahren",
-            content: "Berechtigte (z. B. Angehörige, Erben) können beanstanden, dass Inhalte Persönlichkeitsrechte verletzen.\n\nNach Erhalt einer begründeten Meldung nehmen wir betroffene Inhalte zeitnah offline. Meldungen richten Sie bitte an: [info.memora.moments@gmail.ch]."
+            content: "Berechtigte (z. B. Angehörige, Erben) können beanstanden, dass Inhalte Persönlichkeitsrechte verletzen.\n\nNach Erhalt einer begründeten Meldung nehmen wir betroffene Inhalte zeitnah offline. Meldungen richten Sie bitte an: [info@memora.moments.ch]."
           },
           ip: {
             title: "8. Gewährleistung und Haftung",
@@ -260,11 +260,11 @@ export const deContent: ContentData = {
           contact: {
             title: "Kontakt",
             content:
-              "E-Mail: info.memora.moments@gmail.com\nTelefon: +41 79 407 56 99"
+              "E-Mail: info@memora.moments.ch\nTelefon: +41 79 407 56 99"
           },
           responsible: {
             title: "Verantwortlichkeit",
-            content: "Memora Moments\nE-Mail: info.memora.moments@gmail.com"
+            content: "Memora Moments\nE-Mail: info@memora.moments.ch"
           },
           disclaimer: {
             title: "Haftungsausschluss",

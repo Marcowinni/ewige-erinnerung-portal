@@ -96,7 +96,7 @@ const Kontakt = () => {
                     <div>
                       <h3 className="font-medium text-lg">{t("contact.email")}</h3>
                       <p className="text-muted-foreground">
-                        info.memora.moments@gmail.com
+                        info@memora.moments.ch
                       </p>
                     </div>
                   </div>
