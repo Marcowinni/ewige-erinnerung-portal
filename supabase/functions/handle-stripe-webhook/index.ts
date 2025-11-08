@@ -82,7 +82,6 @@ Deno.serve(async (req) => {
       // await sendEmail(Deno.env.get('ADMIN_EMAIL'), `Neue Bestellung #${orderId}!`);
 
     } catch (dbError) {
-      // KORREKTUR 2 (auch hier): 'dbError' als 'unknown' behandeln.
       const dbErrorMessage = dbError instanceof Error ? dbError.message : "Unknown database error";
       console.error(`Failed to process order ${orderId}:`, dbErrorMessage);
       return new Response(JSON.stringify({ error: `Database error: ${dbErrorMessage}` }), { status: 500 });
