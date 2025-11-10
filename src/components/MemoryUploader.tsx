@@ -2923,8 +2923,12 @@ const MemoryUploader = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="left-2 md:-left-10" />
-              <CarouselNext className="right-2 md:-right-10" />
+              {activeGallery.images.length > 1 && (
+                <>
+                  <CarouselPrevious className="left-2 md:-left-10" />
+                  <CarouselNext className="right-2 md:-right-10" />
+                </>
+              )}
             </Carousel>
           )}
         </DialogContent>

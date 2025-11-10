@@ -726,7 +726,7 @@ export const deContent: ContentData = {
     hero: {
       title: "Ein Geschenk, das Herzen berührt",
       subtitle:
-        "Ob Hochzeit, Geburtstag oder Jubiläum – mit Memora Moments machen Sie Erinnerungen greifbar. Tippe mit dem Smartphone an das Geschenk, und das digitale Erinnerungsalbum öffnet sich. Eine Überraschung, die bleibt.",
+        "Ob Hochzeit, Geburtstag oder Jubiläum – mit Memora Moments machen Sie Erinnerungen greifbar. Ein Tipp mit dem Smartphone genügt, und das digitale Erinnerungsalbum öffnet sich – ein Geschenk, das Herzen berührt.",
       startButton: "Wie funktionierts?",
       learnButton: "Mehr erfahren"
     },

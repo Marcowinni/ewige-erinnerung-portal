@@ -1,4 +1,4 @@
-import { useRef} from "react";
+import { useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FeatureCard from "@/components/FeatureCard";
@@ -18,10 +18,10 @@ const Index = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
   const howItWorksRef = useRef<HTMLDivElement>(null);
   const productsRef = useRef<HTMLDivElement>(null);
-  const pricingRef = useRef<HTMLDivElement>(null);
+  const pricingRef = useRef<HTMLDivElement>(null); // (Dieser Ref wird in diesem Layout nicht mehr aktiv genutzt)
 
   const [activeGallery, setActiveGallery] = useState<{ images: { src: string; alt: string }[]; startIndex: number } | null>(null);
-  
+
   const { mode, isPetMode, modeContent, sharedContent } = useContent();
   const content = modeContent;
 
@@ -41,7 +41,7 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
 
-      {/* Meta Tags */}
+      {/* Meta Tags (SEO) */}
       <Helmet>
         <title>{sharedContent.navigation.home}</title>
         <meta name="description" content={content.hero.subtitle} />
@@ -64,6 +64,7 @@ const Index = () => {
 
       <Navbar />
 
+      {/* Pop-up Dialog für die Bildergalerien */}
       <Dialog open={!!activeGallery} onOpenChange={(isOpen) => !isOpen && setActiveGallery(null)}>
         <DialogContent className="max-w-5xl p-2">
           <DialogTitle className="sr-only">Productgalery</DialogTitle>
@@ -123,7 +124,8 @@ const Index = () => {
               </Button>
             </div>
 
-             <div className="mt-12 max-w-md">
+            {/* Spenden-Box */}
+            <div className="mt-12 max-w-md">
               <div className="rounded-xl border border-white/20 bg-black/20 p-6 backdrop-blur-md shadow-lg">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 pt-1">
@@ -138,11 +140,11 @@ const Index = () => {
                     </p>
                     <Button asChild variant="link" className="p-0 h-auto text-sm text-white mt-3 underline-offset-4 hover:underline">
                       <a
-                          href={isPetMode ? "https://www.trd.ch/de/" : "https://makeawish.ch/en/"}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        href={isPetMode ? "https://www.trd.ch/de/" : "https://makeawish.ch/en/"}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
-                          {content.donation.linkText}
+                        {content.donation.linkText}
                       </a>
                     </Button>
                   </div>
@@ -208,48 +210,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How it Works */}
-      <section ref={howItWorksRef} className="py-20 bg-secondary/50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif mb-4">{content.howitworks.title}</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{content.howitworks.subtitle}</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-card rounded-lg p-8 border border-border">
-              <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-6 mx-auto">
-                <span className="text-2xl font-bold text-primary">1</span>
-              </div>
-              <h3 className="text-xl font-serif text-center mb-4">{content.howitworks.step1.title}</h3>
-              <p className="text-muted-foreground text-center">{content.howitworks.step1.desc}</p>
-            </div>
-            <div className="bg-card rounded-lg p-8 border border-border">
-              <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-6 mx-auto">
-                <span className="text-2xl font-bold text-primary">2</span>
-              </div>
-              <h3 className="text-xl font-serif text-center mb-4">{content.howitworks.step2.title}</h3>
-              <p className="text-muted-foreground text-center">{content.howitworks.step2.desc}</p>
-            </div>
-            <div className="bg-card rounded-lg p-8 border border-border">
-              <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-6 mx-auto">
-                <span className="text-2xl font-bold text-primary">3</span>
-              </div>
-              <h3 className="text-xl font-serif text-center mb-4">{content.howitworks.step3.title}</h3>
-              <p className="text-muted-foreground text-center">{content.howitworks.step3.desc}</p>
-            </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <Button asChild size="lg">
-              <Link to="/gedenken">{content.cta.create}</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Products Showcase */}
-      <section ref={productsRef} className="py-24 bg-background">
+      {/* Products Showcase Section */}
+      <section ref={productsRef} className="py-24 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif mb-4">{content.products.title}</h2>
@@ -284,6 +246,7 @@ const Index = () => {
           {/* Product Cards */}
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8">
+              
               {/* Basic */}
               <Card className="h-full border-2 border-border flex flex-col">
                 <CardHeader className="p-0 overflow-hidden rounded-t-lg">
@@ -309,9 +272,13 @@ const Index = () => {
                   </ul>
                   <p className="text-center text-muted-foreground">{content.products.basic.desc}</p>
                 </CardContent>
+                
+                {/* --- PREIS AUSGEBLENDET --- */}
+                {/*
                 <CardFooter className="flex justify-center">
                   <p className="text-3xl font-bold">{content.products.basic.price}</p>
                 </CardFooter>
+                */}
               </Card>
 
               {/* Premium */}
@@ -338,9 +305,13 @@ const Index = () => {
                   </ul>
                   <p className="text-center text-muted-foreground">{content.products.premium.desc}</p>
                 </CardContent>
+                
+                {/* --- PREIS AUSGEBLENDET --- */}
+                {/*
                 <CardFooter className="flex justify-center">
                   <p className="text-3xl font-bold">{content.products.premium.price}</p>
                 </CardFooter>
+                */}
               </Card>
 
               {/* Deluxe*/}
@@ -368,11 +339,56 @@ const Index = () => {
                   </ul>
                   <p className="text-center text-muted-foreground">{content.products.deluxe.desc}</p>
                 </CardContent>
+                
+                {/* --- PREIS AUSGEBLENDET --- */}
+                {/*
                 <CardFooter className="flex justify-center">
                   <p className="text-3xl font-bold">{content.products.deluxe.price}</p>
                 </CardFooter>
+                */}
               </Card>
             </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* How it Works */}
+      <section ref={howItWorksRef} className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-serif mb-4">{content.howitworks.title}</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{content.howitworks.subtitle}</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="bg-card rounded-lg p-8 border border-border">
+              <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-6 mx-auto">
+                <span className="text-2xl font-bold text-primary">1</span>
+              </div>
+              <h3 className="text-xl font-serif text-center mb-4">{content.howitworks.step1.title}</h3>
+              <p className="text-muted-foreground text-center">{content.howitworks.step1.desc}</p>
+            </div>
+            <div className="bg-card rounded-lg p-8 border border-border">
+              <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-6 mx-auto">
+                <span className="text-2xl font-bold text-primary">2</span>
+              </div>
+              <h3 className="text-xl font-serif text-center mb-4">{content.howitworks.step2.title}</h3>
+              <p className="text-muted-foreground text-center">{content.howitworks.step2.desc}</p>
+            </div>
+            <div className="bg-card rounded-lg p-8 border border-border">
+              <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-6 mx-auto">
+                <span className="text-2xl font-bold text-primary">3</span>
+              </div>
+              <h3 className="text-xl font-serif text-center mb-4">{content.howitworks.step3.title}</h3>
+              <p className="text-muted-foreground text-center">{content.howitworks.step3.desc}</p>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <Button asChild size="lg">
+              <Link to="/gedenken">{content.cta.create}</Link>
+            </Button>
           </div>
         </div>
       </section>

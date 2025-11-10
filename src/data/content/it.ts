@@ -708,7 +708,7 @@ export const itContent: ContentData = {
     hero: {
       title: "Un regalo che tocca il cuore – sorprese indimenticabili.",
       subtitle:
-        "Che sia un matrimonio, un compleanno o un anniversario – con Memora Moments rendi i ricordi tangibili. Tocca il regalo con lo smartphone, e si apre l’album digitale. Una sorpresa che rimane.",
+        "Che sia un matrimonio, un compleanno o un anniversario – con Memora Moments rendi i ricordi tangibili. Un semplice tocco con lo smartphone, e l’album dei ricordi digitali si apre – un regalo che tocca il cuore.",
       startButton: "Come funziona",
       learnButton: "Scopri di più"
     },

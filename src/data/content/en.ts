@@ -708,7 +708,7 @@ export const enContent: ContentData = {
     hero: {
       title: "A gift that touches hearts – unforgettable surprises.",
       subtitle:
-        "Whether it’s a wedding, birthday, or anniversary – with Memora Moments you make memories tangible. Tap the gift with your smartphone, and the digital memory album opens. A surprise that lasts.",
+        "Whether it’s a wedding, birthday, or anniversary – with Memora Moments you make memories tangible. A simple tap with your smartphone, and the digital memory album opens – a gift that touches the heart.",
       startButton: "How it works",
       learnButton: "Learn More"
     },

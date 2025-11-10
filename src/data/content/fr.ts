@@ -669,7 +669,7 @@ export const frContent: ContentData = {
   surprise: {
     hero: {
       title: "Un cadeau qui touche les cœurs – des surprises inoubliables.",
-      subtitle: "Mariage, anniversaire ou jubilé – avec Memora Moments, vous rendez les souvenirs tangibles. Touchez le cadeau avec votre smartphone, et l’album numérique s’ouvre. Une surprise qui demeure.",
+      subtitle: "Mariage, anniversaire ou jubilé – avec Memora Moments, vous rendez les souvenirs tangibles. Un simple geste avec votre smartphone, et l’album souvenir numérique s’ouvre – un cadeau qui touche le cœur.",
       startButton: "Comment ça marche ?",
       learnButton: "En savoir plus"
     },
