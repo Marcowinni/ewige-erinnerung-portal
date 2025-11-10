@@ -36,15 +36,15 @@ export const humanMedia: ProductMedia = {
     images: [ 
       {
         src: "/produktbilder/Human Media/Memora Tag/memora_tag_1.png",
-        alt: "Runder Memora Tag auf hellem Hintergrund",
+        alt: "quadratischer Memora Tag auf hellem Hintergrund",
       },
       {
         src: "/produktbilder/Human Media/Memora Tag/memora_tag_2.png",
-        alt: "Quadratischer Memora Tag auf hellem Hintergrund",
+        alt: "runder Memora Tag auf hellem Hintergrund",
       },
       {
         src: "/produktbilder/Human Media/Memora Tag/memora_tag_3.png",
-        alt: "Quadratischer Memora Tag in der Hand gehalten",
+        alt: "Quadratischer Memora Tag an einem Grabstein befestigt",
       },
       {
         src: "/produktbilder/Human Media/Memora Tag/memora_tag_4.png",
@@ -52,16 +52,9 @@ export const humanMedia: ProductMedia = {
       },
       {
         src: "/produktbilder/Human Media/Memora Tag/memora_tag_5.png",
-        alt: "Nahaufnahme des Memora Tags auf einem Grabstein mit roten Blumen",
+        alt: "memora tag auf urne",
       },
-      {
-        src: "/produktbilder/Human Media/Memora Tag/memora_tag_6.png",
-        alt: "Memora Tag auf einem Grabstein aus der Ferne",
-      },
-      {
-        src: "/produktbilder/Human Media/Memora Tag/memora_tag_7.png",
-        alt: "Runder Memora Tag neben einer schwarzen Urne",
-      },
+      
     ],
   },
   premiumProduct: {
@@ -129,10 +122,6 @@ export const petMedia: ProductMedia = {
         alt: "Runder Memora Pet Tag in einem hellen Raum",
       },
       {
-        src: "/produktbilder/Pet Media/Pet Tag/memora_pet_tag_rund_3.png",
-        alt: "Runder Memora Pet Tag neben einer kleinen Urne",
-      },
-      {
         src: "/produktbilder/Pet Media/Pet Tag/memora_pet_tag_square_1.png",
         alt: "Quadratischer Memora Pet Tag an einer Wand",
       },
@@ -140,10 +129,7 @@ export const petMedia: ProductMedia = {
         src: "/produktbilder/Pet Media/Pet Tag/memora_pet_tag_square_2.png",
         alt: "Schräger Blick auf den quadratischen Memora Pet Tag",
       },
-      {
-        src: "/produktbilder/Pet Media/Pet Tag/memora_pet_tag_square_3.png",
-        alt: "Quadratischer Memora Pet Tag neben einer Urne",
-      },
+
     ],
   },
   premiumProduct: {
@@ -204,23 +190,15 @@ export const surpriseMedia: ProductMedia = {
       },
       {
         src: "/produktbilder/Surprise Media/Surprise Tag/memora_surprise_tag_2.png",
-        alt: "Runder Memora Surprise Tag von vorne",
+        alt: "quadratischer Memora Surprise Tag von vorne",
       },
       {
         src: "/produktbilder/Surprise Media/Surprise Tag/memora_surprise_tag_3.png",
-        alt: "Runder Memora Surprise Tag in einer Geschenkbox",
+        alt: "Memora Surprise Tag in einem Notizbuch",
       },
       {
         src: "/produktbilder/Surprise Media/Surprise Tag/memora_surprise_tag_4.png",
         alt: "Memora Surprise Tag als Geschenk",
-      },
-      {
-        src: "/produktbilder/Surprise Media/Surprise Tag/memora_surprise_tag_5.png",
-        alt: "Memora Surprise Tag in einem Notizbuch",
-      },
-      {
-        src: "/produktbilder/Surprise Media/Surprise Tag/memora_surprise_tag_6.png",
-        alt: "Memora Surprise Tag als Weihnachtsgeschenk",
       },
     ],
   },

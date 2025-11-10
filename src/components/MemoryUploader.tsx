@@ -28,6 +28,7 @@ import { cn } from "@/lib/utils";
 import imageCompression from 'browser-image-compression';
 import { countryList } from "@/data/countries";
 import { useStripe } from '@stripe/react-stripe-js';
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Preiskalkulation
 function calculatePrice(form: FormState, mode: Mode): number {
@@ -1167,6 +1168,25 @@ function Step1View(props: {
 }) {
   const { mode, productMap, selected, setSelected, onNext, form, setForm, copy } = props;
 
+  const isMobile = useIsMobile();
+  const nextButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Neue Funktion, die das Produkt auswählt 
+  const handleProductSelect = (key: ProductKey) => {
+    setSelected(key); // Produkt auswählen
+
+    // Nur auf Mobilgeräten zum "Weiter"-Button scrollen
+    if (isMobile) {
+      // Kurzer Timeout, damit der Button-Text ("- Memora Tag") aktualisiert wird, bevor wir scrollen
+      setTimeout(() => {
+        nextButtonRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center' // Zentriert den Button im Bildschirm
+        });
+      }, 50);
+    }
+  };
+
   const showPetTagOptions = mode === "pet" && selected === "basic";
   const showFrameOptions = selected === "premium"; // Frames
   const showDeluxeEditor = selected === "deluxe"; // NEU: Deluxe
@@ -1202,7 +1222,7 @@ function Step1View(props: {
           return (
             <Card
               key={key}
-              onClick={() => setSelected(key)}
+              onClick={() => handleProductSelect(key)}
               className={`h-full border-2 cursor-pointer transition-all ${
                 active ? "border-primary ring-2 ring-primary/20" : "border-border hover:border-primary/40"
               }`}
@@ -1380,7 +1400,7 @@ function Step1View(props: {
         </div>
       )}
 
-      {/* NEU: Deluxe-Design (immer quadratisch 12×12 cm, keine Ausrichtung) */}
+      {/* Deluxe-Design (immer quadratisch 12×12 cm, keine Ausrichtung) */}
       {showDeluxeEditor && (
         <div className="mt-8 border rounded-lg p-6 space-y-6">
           <h3 className="text-xl font-serif">
@@ -1406,7 +1426,12 @@ function Step1View(props: {
       )}
 
       <div className="mt-8 text-center">
-        <Button size="lg" disabled={isNextButtonDisabled} onClick={onNext}>
+        <Button 
+          ref={nextButtonRef} 
+          size="lg" 
+          disabled={isNextButtonDisabled} 
+          onClick={onNext}
+        >
           {copy.buttons.next} {selected ? `– ${productMap[selected].title}` : ""}
         </Button>
         {isImageUploadRequired}
@@ -1783,8 +1808,8 @@ function Step3View(props: {
                 className={cn(
                   "border-2 rounded-lg cursor-pointer transition-all max-w-xs mx-auto",
                   form.selectedCalendarStyle === 'modern'
-                    ? "border-primary ring-2 ring-primary/20" // Hervorgehoben
-                    : "border-border hover:border-primary/40" // Standard
+                    ? "border-primary ring-4 ring-primary/20" 
+                    : "border-border hover:border-primary/40" 
                 )}
                 role="button"
                 tabIndex={0}
@@ -1818,8 +1843,8 @@ function Step3View(props: {
                 className={cn(
                   "border-2 rounded-lg cursor-pointer transition-all max-w-xs mx-auto",
                   form.selectedCalendarStyle === 'classic'
-                    ? "border-primary ring-2 ring-primary/20" // Hervorgehoben
-                    : "border-border hover:border-primary/40" // Standard
+                    ? "border-primary ring-4 ring-primary/20" 
+                    : "border-border hover:border-primary/40"
                 )}
                 role="button"
                 tabIndex={0}
