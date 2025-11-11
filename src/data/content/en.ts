@@ -228,7 +228,7 @@ export const enContent: ContentData = {
           },
           final: {
             title: "12. Donation Policy",
-            content: "We donate 10% of the net sales price of each product sold to charitable foundations (e.g. Make-A-Wish Switzerland).\n\nThe donations are paid out once a year, at the end of the year.\n\nTW Projects GmbH is responsible for selecting the foundation and processing the donations. The customer has no individual legal claim to the forwarding or earmarking of the donation."
+            content: "TW Projects GmbH donates 10% of the net sales price of each Memora Moments product purchased directly through the official website to charitable foundations (e.g., Make-A-Wish Switzerland or the Animal Rescue Service Foundation) to help people and animals in need.\n\nPurchases made through partner programs or collaborations (e.g., influencer links) are excluded from this donation policy.\n\nDonations are made once per year, at the end of the calendar year. The selection of the beneficiary foundation and the management of donations are solely at the discretion of TW Projects GmbH. Customers have no individual legal claim to the transfer or specific allocation of donations."
           },
           contact: {
             title: "13. Prohibited Uses",
@@ -329,7 +329,7 @@ export const enContent: ContentData = {
 
     donation: {
       title: "Doing Good Together",
-      description: "We donate 10% of every purchase of a Memora Moments product to Make-A-Wish to bring hope and joy.",
+      description: "For direct purchases made through our website, we donate 10% of the purchase amount of each Memora Moments product to the Make-A-Wish Foundation to bring hope and joy.",
       linkText: "Learn more about Make-A-Wish"
     },
 
@@ -528,7 +528,7 @@ export const enContent: ContentData = {
 
     donation: {
       title: "Help for Animals in Need",
-      description: "10% of every purchase of a Memora Pet product goes to the Animal Rescue Service Foundation to help animals in need.",
+      description: "For every Memora Moments product purchased directly through our website, we donate 10% of the purchase amount to the Animal Rescue Service Foundation to help animals in need.",
       linkText: "More about the Animal Rescue Service"
     },
 
@@ -723,7 +723,7 @@ export const enContent: ContentData = {
 
     donation: {
       title: "Giving a Smile",
-      description: "We donate 10% of every purchase of a Memora Surprise product to the Make-A-Wish Foundation to grant children their dearest wishes.",
+      description: "For direct purchases made through our website, we donate 10% of the purchase amount of each Memora Moments product to the Make-A-Wish Foundation to bring hope and joy.",
       linkText: "Learn more about Make-A-Wish"
     },
 

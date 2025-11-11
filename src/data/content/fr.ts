@@ -189,9 +189,10 @@ export const frContent: ContentData = {
             content: "Le traitement des données personnelles est régi par notre déclaration de protection des données.\n\nLe client prend note que des prestataires tiers peuvent être utilisés pour l'hébergement, le traitement des paiements ou d'autres prestations."
           },
           final: {
-            title: "12. Réglementation des dons",
-            content: "Nous faisons don de 10% du prix de vente net de chaque produit vendu à des fondations caritatives (p. ex. Make-A-Wish Suisse).\n\nLe versement des dons a lieu une fois par an, à la fin de l'année.\n\nLe choix de la fondation et le traitement des dons incombent à TW Projects GmbH. Le client n'a aucun droit individuel à la transmission ou à l'affectation des dons."
+            title: "12. Règlement des dons",
+            content: "TW Projects GmbH reverse 10 % du prix de vente net de chaque produit Memora Moments acheté directement sur le site officiel à des fondations caritatives (par exemple : Make-A-Wish Suisse ou la Fondation Service de Sauvetage des Animaux), afin d’aider les personnes et les animaux dans le besoin.\n\nLes achats effectués via des programmes partenaires ou des collaborations (par exemple des liens d’influenceurs) sont exclus de cette règle de don.\n\nLes dons sont versés une fois par an, à la fin de l’année civile. Le choix de la fondation bénéficiaire et la gestion des dons relèvent exclusivement de TW Projects GmbH. Le client ne dispose d’aucun droit individuel à la transmission ou à l’affectation spécifique du don."
           },
+
           contact: {
             title: "13. Utilisations interdites",
             content: "Le site web ne doit pas être utilisé à des fins illégales, pour du spam, des logiciels malveillants ou des violations des droits de tiers.\n\nNous nous réservons le droit de bloquer l'accès en cas d'abus."
@@ -288,7 +289,7 @@ export const frContent: ContentData = {
 
     donation: {
       title: "Faire le bien ensemble",
-      description: "Nous reversons 10% de chaque achat d'un produit Memora Moments à Make-A-Wish pour apporter espoir et joie.",
+      description: "Pour tout achat effectué directement sur notre site web, nous versons 10 % du montant d’achat de chaque produit Memora Moments à la Fondation Make-A-Wish, afin d’apporter espoir et joie.",
       linkText: "En savoir plus sur Make-A-Wish"
     },
 
@@ -492,7 +493,7 @@ export const frContent: ContentData = {
 
     donation: {
       title: "Aide pour les animaux en détresse",
-      description: "10% de chaque achat d'un produit Memora Pet sont reversés à la fondation Tierrettungsdienst pour aider les animaux dans le besoin.",
+      description: "Pour chaque produit Memora Moments acheté directement sur notre site web, nous versons 10 % du montant d’achat à la Fondation Service de Sauvetage des Animaux, afin d’aider les animaux dans le besoin.",
       linkText: "En savoir plus sur le Tierrettungsdienst"
     },
 
@@ -684,7 +685,7 @@ export const frContent: ContentData = {
 
     donation: {
       title: "Offrir un sourire",
-      description: "Nous reversons 10% de chaque achat d'un produit Memora Surprise à la fondation Make-A-Wish pour réaliser les vœux les plus chers des enfants.",
+      description: "Pour tout achat effectué directement sur notre site web, nous versons 10 % du montant d’achat de chaque produit Memora Moments à la Fondation Make-A-Wish, afin d’apporter espoir et joie.",
       linkText: "En savoir plus sur Make-A-Wish"
     },
 
