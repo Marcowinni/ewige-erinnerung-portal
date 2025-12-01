@@ -51,10 +51,10 @@ Deno.serve(async (req) => {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: [
         'card',         // Kreditkarten (OK für CHF)
-        'twint',        // TWINT (OK für CHF)
+        //'twint',        // TWINT (OK für CHF)
         'klarna',       // Klarna (OK für CHF)
-        // 'bancontact', // ENTFERNT: Unterstützt nur EUR!
-        // 'eps',        // ENTFERNT: Unterstützt nur EUR!
+         'bancontact', 
+         'eps',        
       ],
       line_items: [
         {
