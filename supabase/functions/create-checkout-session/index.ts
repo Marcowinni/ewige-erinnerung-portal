@@ -53,8 +53,8 @@ Deno.serve(async (req) => {
         'card',         // Kreditkarten (OK für CHF)
         //'twint',        // TWINT (OK für CHF)
         'klarna',       // Klarna (OK für CHF)
-         'bancontact', 
-         'eps',        
+        'bancontact', 
+        'eps',        
       ],
       line_items: [
         {
