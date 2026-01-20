@@ -19,6 +19,7 @@ import Impressum from "./pages/Impressum";
 import NotFound from "./pages/NotFound";
 import BestellungErfolgreich from "./pages/BestellungErfolgreich";
 import BestellungAbgebrochen from "./pages/BestellungAbgebrochen";
+import Partner from "./pages/Partner";
 
 import Album from "./pages/Album";
 
@@ -57,6 +58,7 @@ const App = () => (
         <Route path="/album/:albumSlug" element={<Album />} />
         <Route path="/bestellung-erfolgreich" element={<BestellungErfolgreich />} />
         <Route path="/bestellung-abgebrochen" element={<BestellungAbgebrochen />} />
+        <Route path="/upload" element={<Partner />} />
         {/* Fügt den RouteChangeTracker hinzu */}
         <Route path="*" element={<NotFound />} />
       </Routes>
