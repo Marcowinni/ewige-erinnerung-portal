@@ -61,3 +61,9 @@ enabled = true
 verify_jwt = false
 import_map = "./functions/create-partner-order/deno.json"
 entrypoint = "./functions/create-partner-order/index.ts"
+
+[functions.finalize-partner-order]
+enabled = true
+verify_jwt = false
+import_map = "./functions/finalize-partner-order/deno.json"
+entrypoint = "./functions/finalize-partner-order/index.ts"

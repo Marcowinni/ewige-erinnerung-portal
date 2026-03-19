@@ -49,6 +49,7 @@ export default function PartnerUploader() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [albumSlug, setAlbumSlug] = useState<string | null>(null);
 
   // --- MUSIK LISTE ---
   const musicTracks = [
@@ -151,42 +152,47 @@ export default function PartnerUploader() {
 
       if (error || !data.folderName) throw new Error("Fehler beim Erstellen der Bestellung.");
       const folderName = data.folderName;
+      const orderId = data.orderId;
 
-      // Dateien vorbereiten
+      // Dateien vorbereiten (Bilder + Videos)
       const allFiles = [
-        ...images.map(f => ({ ...f, type: 'Bild' })),
-        ...videos.map(f => ({ ...f, type: 'Video' }))
+        ...images.map(f => ({ ...f, type: 'Bild' as const })),
+        ...videos.map(f => ({ ...f, type: 'Video' as const }))
       ];
 
       setUploadStatus(`Lade ${allFiles.length} Dateien hoch...`);
 
-      // Paralleler Upload
+      // Paralleler Upload in uploads-Bucket
+      const uploadedFileObjects: { path: string; caption: string }[] = [];
       const uploadPromises = allFiles.map(async (item) => {
         const cleanName = sanitizeFileName(item.file.name);
-        const fileName = `${folderName}/${crypto.randomUUID()}-${cleanName}`;
+        const filePath = `${folderName}/${crypto.randomUUID()}-${cleanName}`;
         
-        const { error: upError } = await supabase.storage
-          .from('flueckiger')
-          .upload(fileName, item.file);
+        const { data: uploadData, error: upError } = await supabase.storage
+          .from('uploads')
+          .upload(filePath, item.file, { upsert: true });
 
         if (upError) {
-            console.error(`Fehler beim Upload von ${item.file.name}`, upError);
-            throw upError;
+          console.error(`Fehler beim Upload von ${item.file.name}`, upError);
+          throw upError;
+        }
+        if (uploadData?.path) {
+          uploadedFileObjects.push({ path: uploadData.path, caption: item.caption || '' });
         }
       });
 
       await Promise.all(uploadPromises);
 
-      // Info JSON
-      if (notes || allFiles.some(f => f.caption)) {
-        const infoContent = JSON.stringify({
-          name, music: finalMusic, style: selectedStyle, mainNotes: notes,
-          fileCaptions: allFiles.map(f => ({ file: f.file.name, caption: f.caption }))
-        }, null, 2);
-        
-        await supabase.storage.from('flueckiger').upload(`${folderName}/info.json`, new Blob([infoContent], {type: 'application/json'}));
+      // uploaded_files in DB speichern (für natives Album)
+      const { error: finalizeError } = await supabase.functions.invoke('finalize-partner-order', {
+        body: { orderId, uploadedFilePaths: uploadedFileObjects }
+      });
+      if (finalizeError) {
+        console.error('Fehler beim Speichern der Dateiliste:', finalizeError);
+        toast.warning('Dateien hochgeladen, aber Dateiliste konnte nicht gespeichert werden.');
       }
 
+      setAlbumSlug(data.slug ?? null);
       setIsSuccess(true);
       toast.success("Alles erfolgreich hochgeladen!");
 
@@ -200,11 +206,17 @@ export default function PartnerUploader() {
   };
 
   if (isSuccess) {
+    const albumUrl = albumSlug ? `${window.location.origin}/album/${albumSlug}` : null;
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-4">
         <div className="bg-green-100 p-6 rounded-full mb-6"><Check className="w-16 h-16 text-green-600" /></div>
         <h2 className="text-3xl font-serif mb-4">Vielen Dank!</h2>
         <p className="text-muted-foreground max-w-md">Die Daten wurden erfolgreich übertragen.</p>
+        {albumUrl && (
+          <a href={albumUrl} target="_blank" rel="noopener noreferrer" className="mt-4 text-primary hover:underline font-medium">
+            Album ansehen →
+          </a>
+        )}
         <Button className="mt-8" onClick={() => window.location.reload()}>Neue Erfassung</Button>
       </div>
     );

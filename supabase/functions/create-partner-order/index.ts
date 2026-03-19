@@ -66,8 +66,8 @@ Deno.serve(async (req) => {
       console.error("Fehler beim Slug-Update:", updateError)
     }
 
-    // 4. Ordnername zurückgeben
-    const folderName = `flue_${orderId}`
+    // 4. Ordnername für uploads-Bucket (order_{id})
+    const folderName = `order_${orderId}`
 
     return new Response(JSON.stringify({ folderName, orderId, slug }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

@@ -4,7 +4,8 @@ import { supabase } from '@/lib/supabase';
 import { useContent } from '@/contexts/ContentContext';
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
-import { Play, Pause, X, ExternalLink, Music4, BookOpen } from "lucide-react";
+import { Play, Pause, X, Music4, BookOpen } from "lucide-react";
+import { AlbumViewer } from "@/components/album";
 
 // Lade-Spinner Komponente
 const Spinner = () => (
@@ -36,7 +37,7 @@ const Album = () => {
   const [isAlbumOpen, setIsAlbumOpen] = useState(false);
 
   const embedLink = useMemo(() => {
-    if (!albumData?.canva_link) return null;
+    if (!albumData?.canva_link || albumData?.album_type !== 'canva') return null;
     try {
       const url = new URL(albumData.canva_link);
       url.searchParams.set('embed', '');
@@ -45,7 +46,9 @@ const Album = () => {
     } catch {
       return null;
     }
-  }, [albumData?.canva_link]);
+  }, [albumData?.canva_link, albumData?.album_type]);
+
+  const isNativeAlbum = albumData?.album_type === 'native';
 
   useEffect(() => {
     if (!albumSlug) {
@@ -72,11 +75,14 @@ const Album = () => {
          setError(functionData.error === "Album not found." || functionData.error === "Album data not found."
            ? "Dieses Album konnte nicht gefunden werden."
            : `Fehler: ${functionData.error}`);
-      } else if (!functionData.canva_link) {
-         // Gültige Antwort, aber kein Canva-Link vorhanden
+      } else if (functionData.album_type === 'canva' && !functionData.canva_link) {
+         // Canva-Legacy: kein Link vorhanden
          setError("Für diese Bestellung wurde noch kein Album erstellt.");
+      } else if (functionData.album_type === 'native' && (!functionData.image_sources || !functionData.album_layout)) {
+         // Natives Album: Daten unvollständig
+         setError("Album-Daten sind noch nicht vollständig. Bitte versuchen Sie es später erneut.");
       } else {
-         // Erfolg!
+         // Erfolg! (Canva oder nativ)
          setAlbumData(functionData);
       }
 
@@ -88,13 +94,14 @@ const Album = () => {
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    if (isAlbumOpen && albumData?.music_choice) {
-      audio.play().then(() => setIsPlaying(true)).catch(e => console.log("Autoplay blockiert", e));
+    const shouldPlay = albumData?.music_choice && (isAlbumOpen || !isMobile);
+    if (shouldPlay) {
+      audio.play().then(() => setIsPlaying(true)).catch(() => {});
     } else {
       audio.pause();
       setIsPlaying(false);
     }
-  }, [isAlbumOpen, albumData]);
+  }, [isAlbumOpen, albumData, isMobile]);
 
   const togglePlayPause = () => {
     const audio = audioRef.current;
@@ -149,28 +156,35 @@ const Album = () => {
                     <p className="text-xl font-semibold text-white">{sharedContent.albumPage.openAlbum || 'Album öffnen'}</p>
                 </div>
                 
-                <a href={albumData.canva_link} target="_blank" rel="noopener noreferrer" className="mt-8">
-                </a>
             </div>
             <audio ref={audioRef} src={musicSrc ?? ''} loop />
         </div>
 
         {isAlbumOpen && (
-            <div className="fixed inset-0 z-50 bg-black animate-in fade-in">
-                {embedLink ? (
-                    <iframe src={embedLink} className="absolute inset-0 w-full h-full border-0" allow="fullscreen; autoplay; clipboard-write;" allowFullScreen={true}></iframe>
+            <div className="fixed inset-0 z-50 bg-background animate-in fade-in flex flex-col">
+                {isNativeAlbum ? (
+                  <div className="flex-1 min-h-0 flex flex-col p-4 pt-14">
+                    <AlbumViewer
+                      albumLayout={albumData.album_layout}
+                      imageSources={albumData.image_sources}
+                      albumStyle={albumData.album_style || 'modern'}
+                      subjectName={subjectName}
+                    />
+                  </div>
+                ) : embedLink ? (
+                  <iframe src={embedLink} className="absolute inset-0 w-full h-full border-0" allow="fullscreen; autoplay; clipboard-write;" allowFullScreen={true} />
                 ) : (
-                    <div className="w-full h-full flex items-center justify-center"><ErrorDisplay message="Der Canva-Link ist ungültig." /></div>
+                  <div className="w-full h-full flex items-center justify-center"><ErrorDisplay message="Der Canva-Link ist ungültig." /></div>
                 )}
                 <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
-                     {musicSrc && (
-                        <Button onClick={togglePlayPause} variant="outline" size="icon" className="rounded-full h-10 w-10 bg-black/30 text-white border-white/50 backdrop-blur-sm" title={isPlaying ? sharedContent.albumPage.pauseButton : sharedContent.albumPage.playButton}>
-                            {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
-                        </Button>
-                    )}
-                    <Button variant="outline" size="icon" className="rounded-full h-10 w-10 bg-black/30 text-white border-white/50 backdrop-blur-sm" onClick={() => setIsAlbumOpen(false)}>
-                      <X className="h-5 w-5" />
+                  {musicSrc && (
+                    <Button onClick={togglePlayPause} variant="outline" size="icon" className="rounded-full h-10 w-10 bg-black/30 text-white border-white/50 backdrop-blur-sm" title={isPlaying ? sharedContent.albumPage.pauseButton : sharedContent.albumPage.playButton}>
+                      {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
                     </Button>
+                  )}
+                  <Button variant="outline" size="icon" className="rounded-full h-10 w-10 bg-black/30 text-white border-white/50 backdrop-blur-sm" onClick={() => setIsAlbumOpen(false)}>
+                    <X className="h-5 w-5" />
+                  </Button>
                 </div>
             </div>
         )}
@@ -199,10 +213,19 @@ const Album = () => {
         </div>
         <div className="album-spine"></div>
         <div className="album-page right-page">
-          <div className="p-6 w-full h-full">
-            {embedLink ? (
-                <iframe loading="lazy" src={embedLink} className="w-full h-full border-0 rounded-lg shadow-md" allow="fullscreen; autoplay; clipboard-write;" allowFullScreen={true}></iframe>
-            ) : <ErrorDisplay message="Der Canva-Link ist ungültig." />}
+          <div className="p-6 w-full h-full min-h-0 flex flex-col">
+            {isNativeAlbum ? (
+              <AlbumViewer
+                albumLayout={albumData.album_layout}
+                imageSources={albumData.image_sources}
+                albumStyle={albumData.album_style || 'modern'}
+                subjectName={subjectName}
+              />
+            ) : embedLink ? (
+              <iframe loading="lazy" src={embedLink} className="w-full h-full border-0 rounded-lg shadow-md" allow="fullscreen; autoplay; clipboard-write;" allowFullScreen={true} />
+            ) : (
+              <ErrorDisplay message="Der Canva-Link ist ungültig." />
+            )}
           </div>
         </div>
       </div>
