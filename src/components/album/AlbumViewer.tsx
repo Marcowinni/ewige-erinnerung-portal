@@ -1,16 +1,55 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { AlbumPage } from './AlbumPage'
-import type { AlbumLayout, ImageSource } from './types'
+import type { AlbumLayout, AlbumLayoutPage, ImageSource } from './types'
 import { useAlbumImages } from '@/hooks/useAlbumImages'
+import { useImageAspectRatios } from '@/hooks/useImageAspectRatios'
+import { useAlbumMediaDimensions, countReadyDimensions, countUrls } from '@/hooks/useAlbumMediaDimensions'
+import { buildEngineBlocks } from '@/lib/album-engine/engine'
+import { engineItemsFromSources } from '@/lib/album-engine/media'
 
 interface AlbumViewerProps {
   albumLayout: AlbumLayout
   imageSources: ImageSource
-  albumStyle: 'modern' | 'classic'
+  albumStyle: 'modern' | 'classic' | 'vintage'
   subjectName: string
+  /** Feste Bild-URLs für lokale Stil-Vorschau (ohne Supabase) */
+  previewImageUrls?: string[]
+}
+
+function buildResolvedPages(args: {
+  albumLayout: AlbumLayout
+  subjectName: string
+  files: { path: string; caption?: string }[]
+  urlList: (string | null)[]
+  dimensions: Map<number, { width: number; height: number }>
+  albumStyle: 'modern' | 'classic' | 'vintage'
+}): AlbumLayoutPage[] {
+  const { albumLayout, subjectName, files, urlList, dimensions, albumStyle } = args
+  const engineMode = albumStyle === 'classic' ? 'classic' : albumStyle === 'vintage' ? 'vintage' : 'modern'
+  const introFromLayout = albumLayout.pages?.find((p) => p.type === 'intro')
+  const intro: AlbumLayoutPage = introFromLayout
+    ? { ...introFromLayout, name: introFromLayout.name ?? subjectName }
+    : { type: 'intro', name: subjectName }
+  const outro: AlbumLayoutPage = albumLayout.pages?.find((p) => p.type === 'outro') ?? { type: 'outro' }
+
+  if (files.length === 0) {
+    return [intro, outro]
+  }
+
+  const engineItems = engineItemsFromSources(files, urlList, dimensions)
+  const blocks = buildEngineBlocks(engineItems, engineMode)
+  const blockPages: AlbumLayoutPage[] = blocks.map((b) => {
+    return {
+      type: 'block' as const,
+      mediaIndices: b.items.map((it) => it.sourceIndex),
+      engineBlock: b,
+    }
+  })
+
+  return [intro, ...blockPages, outro]
 }
 
 export function AlbumViewer({
@@ -18,12 +57,70 @@ export function AlbumViewer({
   imageSources,
   albumStyle,
   subjectName,
+  previewImageUrls,
 }: AlbumViewerProps) {
-  const { getUrl, getCaption, loading } = useAlbumImages(
+  const { urls, getUrl: supaGetUrl, getCaption: supaGetCaption, loading: supaLoading } = useAlbumImages(
     imageSources.bucket,
-    imageSources.files
+    previewImageUrls?.length ? [] : imageSources.files
   )
-  const pages = albumLayout.pages ?? []
+
+  const files = useMemo(
+    () =>
+      previewImageUrls?.length
+        ? previewImageUrls.map((_, i) => ({ path: `preview:${i}.jpg`, caption: undefined as string | undefined }))
+        : imageSources.files,
+    [previewImageUrls, imageSources.files]
+  )
+
+  const getUrl = previewImageUrls?.length ? (i: number) => previewImageUrls[i] ?? null : supaGetUrl
+  const getCaption = previewImageUrls?.length ? () => '' : supaGetCaption
+  const loading = previewImageUrls?.length ? false : supaLoading
+  const fileCount = previewImageUrls?.length ?? imageSources.files.length
+
+  const urlList = useMemo<(string | null)[]>(() => {
+    if (previewImageUrls?.length) return previewImageUrls.map((u) => u ?? null)
+    return Array.from({ length: fileCount }, (_, i) => urls.get(i) ?? null)
+  }, [previewImageUrls, fileCount, urls])
+
+  const paths = useMemo(() => files.map((f) => f.path), [files])
+  const { dimensions } = useAlbumMediaDimensions(urlList, paths)
+
+  const [metaTimeout, setMetaTimeout] = useState(false)
+  useEffect(() => {
+    if (fileCount === 0) return
+    const t = window.setTimeout(() => setMetaTimeout(true), 2200)
+    return () => window.clearTimeout(t)
+  }, [fileCount, paths.join('|')])
+
+  const urlN = countUrls(urlList)
+  const readyN = countReadyDimensions(urlList, dimensions)
+  const metaReady = fileCount === 0 || readyN >= urlN || metaTimeout
+
+  const resolvedPages = useMemo(
+    () =>
+      buildResolvedPages({
+        albumLayout,
+        subjectName,
+        files,
+        urlList,
+        dimensions,
+        albumStyle,
+      }),
+    [albumLayout, subjectName, files, urlList, dimensions, albumStyle]
+  )
+
+  const pages = metaReady ? resolvedPages : []
+  const getAspectFromImages = useImageAspectRatios(urlList)
+  const getAspectCombined = useCallback(
+    (i: number) => {
+      const d = dimensions.get(i)
+      if (d) return d.width / d.height
+      return getAspectFromImages(i)
+    },
+    [dimensions, getAspectFromImages]
+  )
+  const getMediaPath = useCallback((index: number) => files[index]?.path ?? '', [files])
+
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -51,7 +148,12 @@ export function AlbumViewer({
     return () => emblaApi.off('select', onSelect)
   }, [emblaApi, onSelect])
 
-  if (loading) {
+  useEffect(() => {
+    setSelectedIndex(0)
+    emblaApi?.scrollTo(0)
+  }, [resolvedPages.length, emblaApi])
+
+  if (loading || (fileCount > 0 && !metaReady)) {
     return (
       <div className="flex items-center justify-center h-full w-full">
         <div className="w-12 h-12 border-4 border-dashed rounded-full animate-spin border-primary" />
@@ -68,22 +170,28 @@ export function AlbumViewer({
   }
 
   return (
-    <div className="album-viewer-wrapper flex flex-col h-full w-full">
-      {/* Embla viewport – Touch/Swipe wie PowerPoint/Canva */}
-      <div className="flex-1 min-h-0 overflow-hidden cursor-grab active:cursor-grabbing select-none" ref={emblaRef}>
-        <div className="flex h-full">
+    <div className="album-viewer-wrapper flex flex-col h-full w-full min-h-0">
+      <div
+        className="flex-1 min-h-0 overflow-hidden cursor-grab active:cursor-grabbing select-none sm:min-h-[min(64dvh,640px)]"
+        ref={emblaRef}
+      >
+        <div className="flex h-full min-h-0 touch-pan-y">
           {pages.map((page, index) => (
             <div
-              key={index}
-              className="embla-slide flex-[0_0_100%] min-w-0 h-full flex items-center justify-center"
+              key={`${page.type}-${index}-${page.type === 'block' ? `${page.engineBlock?.layoutId ?? 'block'}-${page.engineBlock?.variant ?? 0}` : ''}`}
+              className="embla-slide flex-[0_0_100%] min-w-0 min-h-0 h-full flex items-center justify-center px-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-5 sm:min-h-[min(68dvh,680px)]"
             >
-              <div className={`album-page-surface album-${albumStyle} h-full w-full overflow-hidden`}>
+              <div
+                className={`album-page-surface album-page-frame album-${albumStyle} overflow-hidden shadow-xl`}
+              >
                 <AlbumPage
                   page={page}
                   getImageUrl={getUrl}
                   getCaption={getCaption}
+                  getAspect={getAspectCombined}
+                  getMediaPath={getMediaPath}
                   albumStyle={albumStyle}
-                  className="h-full w-full"
+                  className="h-full w-full min-h-0"
                 />
               </div>
             </div>
@@ -91,7 +199,6 @@ export function AlbumViewer({
         </div>
       </div>
 
-      {/* Navigation */}
       <div className="flex items-center justify-between gap-4 py-4 px-6 shrink-0">
         <Button
           variant="outline"

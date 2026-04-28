@@ -6,7 +6,6 @@ import { useTheme } from "@/components/ThemeProvider";
 import { useContent } from "@/contexts/ContentContext";
 import MemoraLogo from "@/components/MemoraLogo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import PetModeToggle from "@/components/PetModeToggle";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -46,7 +45,9 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background shadow-md py-2" : "py-4"
+        scrolled
+          ? "bg-[hsl(var(--memorial-canvas))]/90 backdrop-blur-md shadow-sm border-b border-memorial-line py-2"
+          : "py-4"
       }`}
       role="navigation"
       aria-label="Hauptnavigation"
@@ -54,12 +55,12 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between gap-2">
         <Link
           to="/"
-          className="flex items-center gap-2 text-primary hover:opacity-90 transition-opacity min-w-0"          
+          className="flex items-center gap-2 text-memorial-ink hover:opacity-90 transition-opacity min-w-0"
           onClick={closeMenu}
         >
           <MemoraLogo className="w-8 h-8 flex-shrink-0 align-middle" />
           <span
-            className="font-serif text-lg sm:text-xl font-medium leading-none align-middle relative"
+            className="font-display text-lg sm:text-xl font-medium leading-none align-middle relative tracking-wide"
             style={{ top: "2px" }}
           >
             {nav.home}
@@ -67,16 +68,15 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-4">
-          <PetModeToggle size="sm" />
+        <div className="hidden md:flex items-center space-x-5">
           <LanguageSwitcher />
-          <Link to="/gedenken" className="text-foreground hover:text-primary transition-colors">
-            {nav.gedenken}
+          <Link to="/erstellen" className="text-memorial-ink hover:text-memorial-bronze-deep transition-colors text-sm">
+            Erstellen
           </Link>
-          <Link to="/ueber" className="text-foreground hover:text-primary transition-colors">
+          <Link to="/ueber" className="text-memorial-ink hover:text-memorial-bronze-deep transition-colors text-sm">
             {nav.about}
           </Link>
-          <Link to="/kontakt" className="text-foreground hover:text-primary transition-colors">
+          <Link to="/kontakt" className="text-memorial-ink hover:text-memorial-bronze-deep transition-colors text-sm">
             {nav.contact}
           </Link>
           <Button
@@ -88,14 +88,16 @@ const Navbar = () => {
           >
             {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
-          <Button asChild className="bg-primary text-primary-foreground">
-            <Link to="/gedenken?product=premium">{nav.start}</Link>
-          </Button>
+          <Link
+            to="/erstellen"
+            className="memorial-cta memorial-cta-primary inline-flex items-center rounded-full px-5 py-2 text-sm font-medium"
+          >
+            {nav.start}
+          </Link>
         </div>
 
         {/* Mobile Right-Side Controls */}
         <div className="flex items-center md:hidden space-x-1.5">
-          <PetModeToggle size="icon" />
           <LanguageSwitcher />
           <Button
             variant="outline"
@@ -134,9 +136,9 @@ const Navbar = () => {
             onClick={closeMenu}
             aria-hidden
           />
-          <div className="absolute left-0 top-0 h-full w-80 max-w-[85vw] bg-background shadow-xl border-r">
-            <div className="p-4 flex items-center justify-between border-b">
-              <span className="font-serif text-lg">{nav.home}</span>
+          <div className="absolute left-0 top-0 h-full w-80 max-w-[85vw] bg-[hsl(var(--memorial-canvas))] text-memorial-ink shadow-xl border-r border-memorial-line">
+            <div className="p-4 flex items-center justify-between border-b border-memorial-line">
+              <span className="font-display text-lg tracking-wide">{nav.home}</span>
               <Button variant="ghost" size="icon" onClick={closeMenu} aria-label="Schließen">
                 <X className="h-6 w-6" />
               </Button>
@@ -144,35 +146,39 @@ const Navbar = () => {
             <nav className="p-4 flex flex-col space-y-2">
               <Link
                 to="/"
-                className="text-foreground hover:text-primary transition-colors py-2"
+                className="text-memorial-ink hover:text-memorial-bronze-deep transition-colors py-2"
                 onClick={closeMenu}
               >
                 {nav.home}
               </Link>
               <Link
-                to="/gedenken"
-                className="text-foreground hover:text-primary transition-colors py-2"
+                to="/erstellen"
+                className="text-memorial-ink hover:text-memorial-bronze-deep transition-colors py-2"
                 onClick={closeMenu}
               >
-                {nav.gedenken}
+                Erstellen
               </Link>
               <Link
                 to="/ueber"
-                className="text-foreground hover:text-primary transition-colors py-2"
+                className="text-memorial-ink hover:text-memorial-bronze-deep transition-colors py-2"
                 onClick={closeMenu}
               >
                 {nav.about}
               </Link>
               <Link
                 to="/kontakt"
-                className="text-foreground hover:text-primary transition-colors py-2"
+                className="text-memorial-ink hover:text-memorial-bronze-deep transition-colors py-2"
                 onClick={closeMenu}
               >
                 {nav.contact}
               </Link>
-              <Button asChild className="bg-primary text-primary-foreground w-full mt-4" onClick={closeMenu}>
-                <Link to="/gedenken?product=premium">{nav.start}</Link>
-              </Button>
+              <Link
+                to="/erstellen"
+                className="memorial-cta memorial-cta-primary inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-medium mt-4"
+                onClick={closeMenu}
+              >
+                {nav.start}
+              </Link>
             </nav>
           </div>
         </div>

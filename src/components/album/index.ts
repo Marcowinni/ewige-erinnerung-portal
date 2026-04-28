@@ -1,3 +1,5 @@
 export { AlbumPage } from './AlbumPage'
+export { AlbumBlockPage } from './AlbumBlockPage'
+export { AlbumSpread } from './AlbumSpread'
 export { AlbumViewer } from './AlbumViewer'
-export type { AlbumLayout, AlbumLayoutPage, AlbumPageType, ImageSource } from './types'
+export type { AlbumLayout, AlbumLayoutPage, AlbumPageType, ImageSource, LayoutType } from './types'

@@ -1,0 +1,1437 @@
+/* ClassicPhotoAlbum — Mobile-First Rewrite
+   Structure: === MOBILE BASE === → === DESKTOP OVERRIDES (min-width: 900px) ===
+   Fonts: Caveat, Homemade Apple, Libre Caslon Text, Cormorant Garamond
+*/
+
+/* ═══════════════════════════════════════════════════════════════
+   CUSTOM PROPERTIES
+═══════════════════════════════════════════════════════════════ */
+.cpa {
+  --cpa-paper:      #e8dcc2;
+  --cpa-paper-dark: #d6c4a1;
+  --cpa-paper-edge: #b89c72;
+  --cpa-ink:        #2a2118;
+  --cpa-ink-soft:   #4a3a28;
+  --cpa-muted:      #6b5a42;
+  --cpa-accent:     #8b6b46;
+  --cpa-photo-bg:   #3a3128;
+  --cpa-spine:      #2a1f14;
+  --cpa-corner:     #1a140e;
+  --cpa-dark-room:  #1a0f08;
+
+  --cpa-f-hand:    'Caveat', cursive;
+  --cpa-f-pen:     'Homemade Apple', cursive;
+  --cpa-f-serif:   'Libre Caslon Text', 'Times New Roman', serif;
+  --cpa-f-display: 'Cormorant Garamond', 'Times New Roman', serif;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, #2a1f14 0%, #0f0806 85%);
+  color: var(--cpa-ink);
+  font-family: var(--cpa-f-serif);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  /* hide scrollbars globally for this viewer */
+  scrollbar-width: none;
+}
+.cpa ::-webkit-scrollbar { display: none; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE BASE
+═══════════════════════════════════════════════════════════════ */
+
+/* Stage */
+.cpa-stage {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  perspective: 2400px;
+  perspective-origin: 50% 50%;
+}
+
+.cpa-book {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Spine hidden on mobile — no book metaphor in single-column */
+.cpa-spine { display: none; }
+
+/* Spread — mobile: single-column, fixed height, NO scroll */
+.cpa-spread {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .55s ease, transform .65s cubic-bezier(.5,0,.2,1), filter .55s ease;
+  transform: translateX(0) scale(1);
+  filter: blur(0);
+  overflow: hidden;
+  scrollbar-width: none;
+}
+.cpa-spread::-webkit-scrollbar { display: none; }
+.cpa-spread.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.cpa-spread.leaving-forward {
+  opacity: 0; transform: translateX(-5vw) scale(.97); filter: blur(4px);
+  will-change: transform, opacity, filter;
+}
+.cpa-spread.leaving-back {
+  opacity: 0; transform: translateX(5vw) scale(.97); filter: blur(4px);
+  will-change: transform, opacity, filter;
+}
+
+/* Leaf — mobile: stacked vertically, full width, fill available height equally */
+.cpa-leaf {
+  position: relative;
+  width: 100%;
+  /* flex: 1 1 0 so both leaves share the spread height evenly */
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--cpa-paper);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(139,107,70,.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(101,78,50,.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255,245,220,.15) 0%, transparent 60%);
+  box-shadow:
+    inset 0 0 60px rgba(101,78,50,.2),
+    inset 0 0 20px rgba(60,40,20,.15);
+}
+.cpa-leaf::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.012) 0px, transparent 1px, transparent 3px, rgba(0,0,0,.02) 4px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.012) 0px, transparent 1px, transparent 5px);
+  opacity: .9; pointer-events: none; z-index: 1;
+}
+.cpa-leaf::after {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 85%, rgba(120,80,40,.18) 0%, transparent 35%),
+    radial-gradient(ellipse at 85% 20%, rgba(140,100,50,.12) 0%, transparent 40%),
+    linear-gradient(135deg, rgba(180,140,90,.08) 0%, transparent 50%);
+  pointer-events: none; z-index: 2;
+}
+/* No left/right shadow asymmetry on mobile */
+.cpa-leaf.left  { transform-origin: right center; }
+.cpa-leaf.right { transform-origin: left center; }
+
+/* Photo component — mobile: relative flow, centered */
+.cpa-photo {
+  /* Mobile: all photos use relative flow, not absolute */
+  position: relative;
+  left: auto; top: auto; right: auto; bottom: auto;
+  width: 85%;
+  margin: 20px auto;
+  background: #fff;
+  padding: 8px 8px 34px 8px;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,.25),
+    0 10px 22px -8px rgba(0,0,0,.35),
+    0 20px 40px -18px rgba(0,0,0,.45);
+  transition: transform .4s ease;
+  z-index: 5;
+}
+.cpa-photo .cpa-frame {
+  position: relative; width: 100%; overflow: hidden;
+  background: var(--cpa-photo-bg);
+}
+.cpa-photo .cpa-frame img {
+  width: 100%; height: 100%; display: block;
+  object-fit: cover;
+  filter: sepia(.25) saturate(.75) brightness(.96) contrast(1.02);
+}
+.cpa-photo.bw    .cpa-frame img { filter: grayscale(1) sepia(.35) brightness(.92) contrast(1.08); }
+.cpa-photo.sepia .cpa-frame img { filter: sepia(.55) saturate(.8) brightness(.94); }
+
+/* Photo corners */
+.cpa-corner-decor {
+  position: absolute; width: 0; height: 0; z-index: 3; pointer-events: none;
+}
+.cpa-corner-tl { top: -2px; left: -2px; border-top: 16px solid var(--cpa-corner); border-right: 16px solid transparent; }
+.cpa-corner-tr { top: -2px; right: -2px; border-top: 16px solid var(--cpa-corner); border-left: 16px solid transparent; }
+.cpa-corner-bl { bottom: -2px; left: -2px; border-bottom: 16px solid var(--cpa-corner); border-right: 16px solid transparent; }
+.cpa-corner-br { bottom: -2px; right: -2px; border-bottom: 16px solid var(--cpa-corner); border-left: 16px solid transparent; }
+
+/* Masking tape variant */
+.cpa-photo.tape::before,
+.cpa-photo.tape::after {
+  content: ""; position: absolute;
+  width: 70px; height: 22px;
+  background: rgba(235,215,165,.7);
+  border: 1px solid rgba(180,150,100,.3);
+  box-shadow: 0 2px 4px rgba(0,0,0,.15);
+  transform: rotate(-4deg); z-index: 4;
+}
+.cpa-photo.tape::before { top: -12px; left: -14px; }
+.cpa-photo.tape::after  { top: -12px; right: -14px; transform: rotate(5deg); }
+
+/* Handwritten captions — mobile: normal flow, under photos */
+.cpa-caption {
+  position: relative;
+  left: auto; right: auto; top: auto; bottom: auto;
+  display: block;
+  margin: 8px auto 16px;
+  width: 85%;
+  font-family: var(--cpa-f-hand);
+  font-size: max(18px, 4.5vw);
+  color: var(--cpa-ink);
+  line-height: 1.2;
+  transform: rotate(-1deg);
+  max-width: none;
+  opacity: .92; z-index: 6;
+}
+.cpa-caption.pen { font-family: var(--cpa-f-pen); font-size: max(14px, 3.5vw); line-height: 1.5; }
+
+/* Folio & header marks — mobile: smaller, tighter */
+.cpa-folio {
+  position: absolute; bottom: 14px;
+  font-family: var(--cpa-f-serif); font-size: 10px;
+  letter-spacing: .28em; color: var(--cpa-muted);
+  text-transform: uppercase; z-index: 6;
+}
+.cpa-leaf.left  .cpa-folio { left: 16px; }
+.cpa-leaf.right .cpa-folio { right: 16px; }
+
+.cpa-header-mark {
+  position: absolute; top: 18px;
+  font-family: var(--cpa-f-display); font-style: italic;
+  font-size: 13px; color: var(--cpa-muted); letter-spacing: .08em; z-index: 6;
+}
+.cpa-leaf.left  .cpa-header-mark { left: 16px; }
+.cpa-leaf.right .cpa-header-mark { right: 16px; }
+
+/* Reveal animations */
+.cpa-fall {
+  opacity: 0;
+  transform: translateY(-28px) rotate(var(--rot, 0deg)) scale(.96);
+  transition: opacity .9s ease var(--d,0s), transform 1s cubic-bezier(.3,1.3,.5,1) var(--d,0s);
+}
+.cpa-spread.is-active .cpa-fall {
+  opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)) scale(1);
+}
+.cpa-fade { opacity: 0; transition: opacity 1s ease var(--d,0s); }
+.cpa-spread.is-active .cpa-fade { opacity: 1; }
+
+/* Fallback background */
+.cpa-bg-fallback {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(139,107,70,.3) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 80%, rgba(101,78,50,.25) 0%, transparent 50%),
+    linear-gradient(168deg, var(--cpa-paper-dark) 0%, var(--cpa-paper) 100%);
+  z-index: 3;
+}
+
+/* ── Chrome — top bar ─────────────────────────────────────────── */
+.cpa-chrome {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 14px;
+  padding-top: calc(6px + env(safe-area-inset-top));
+  pointer-events: none;
+  color: rgba(240,220,180,.95);
+  background: linear-gradient(to bottom, rgba(15,8,3,.55) 0%, rgba(15,8,3,0) 100%);
+}
+.cpa-chrome > * { pointer-events: auto; }
+.cpa-brand {
+  font-family: var(--cpa-f-display); font-style: italic; font-weight: 400;
+  font-size: 16px; letter-spacing: .02em;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+.cpa-tagline {
+  font-family: var(--cpa-f-display); font-style: italic;
+  font-size: 10px; letter-spacing: .04em;
+  max-width: 55%; text-align: right; line-height: 1.2;
+  color: rgba(240,220,180,.85);
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+/* Bottom chrome */
+.cpa-bottom {
+  position: fixed; inset: auto 0 0 0; z-index: 50;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  padding: 10px 16px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  pointer-events: none;
+  color: rgba(240,220,180,.8);
+}
+.cpa-bottom > * { pointer-events: auto; }
+.cpa-counter {
+  font-family: var(--cpa-f-display); font-style: italic; font-size: 14px;
+}
+.cpa-counter b { font-weight: 500; font-style: normal; }
+.cpa-counter .cpa-slash { margin: 0 8px; opacity: .5; }
+/* hint hidden on mobile */
+.cpa-hint { display: none; }
+.cpa-hint .cpa-line { width: 30px; height: 1px; background: currentColor; }
+
+/* Rail */
+.cpa-rail {
+  position: fixed; left: 16px; right: 16px;
+  bottom: calc(56px + env(safe-area-inset-bottom));
+  height: 1px; background: rgba(240,220,180,.18); z-index: 48;
+}
+.cpa-rail > span {
+  display: block; height: 100%;
+  background: rgba(240,220,180,.7);
+  width: 0%; transition: width .65s cubic-bezier(.5,0,.2,1);
+}
+
+/* Arrows — 44×44 touch targets */
+.cpa-arrows {
+  position: fixed; z-index: 55;
+  right: 12px;
+  bottom: calc(6px + env(safe-area-inset-bottom));
+  display: flex; gap: 4px;
+}
+.cpa-arrow {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(240,220,180,.3);
+  background: rgba(30,20,10,.4); color: rgba(240,220,180,.8);
+  cursor: pointer; display: grid; place-items: center;
+  border-radius: 50%; backdrop-filter: blur(4px);
+  transition: background .25s, color .25s, border-color .25s;
+}
+@media (max-width: 640px) {
+  .cpa-arrow { backdrop-filter: none; background: rgba(30,20,10,.72); }
+}
+.cpa-arrow:hover { background: rgba(240,220,180,.9); color: #2a1f14; border-color: rgba(240,220,180,.9); }
+.cpa-arrow svg { width: 12px; height: 12px; }
+.cpa-arrow:disabled { opacity: .3; cursor: default; }
+
+/* Splash */
+.cpa-splash {
+  position: absolute; inset: 0; z-index: 200;
+  background: #1a0f08; color: #e8d4a8;
+  display: grid; place-items: center;
+  transition: opacity .9s, visibility .9s;
+}
+.cpa-splash .cpa-s-brand {
+  font-family: var(--cpa-f-display); font-style: italic;
+  font-size: 30px; opacity: 0;
+  animation: cpaFade 1.2s ease .2s forwards; text-align: center;
+}
+.cpa-splash .cpa-s-sub {
+  margin-top: 14px; font-family: var(--cpa-f-serif);
+  font-size: 10px; letter-spacing: .45em; text-transform: uppercase;
+  opacity: 0; animation: cpaFade 1.2s ease .5s forwards; text-align: center;
+}
+@keyframes cpaFade { to { opacity: 1; } }
+.cpa-splash.gone { opacity: 0; visibility: hidden; }
+
+/* ══ TEXT ZONE — shared across all layouts ════════════════════════
+   When a page has showText=true, the parent leaf gets .has-text-zone
+   so images can shrink and a dedicated text band appears at the bottom.
+════════════════════════════════════════════════════════════════════ */
+
+/* Text zone block — appears below images when showText=true */
+.cpa-text-zone {
+  display: block;
+  width: 100%;
+  min-height: 64px;
+  padding: 14px 20px 10px;
+  background: transparent;
+  font-family: var(--cpa-f-hand);
+  font-size: clamp(18px, 4.8vw, 24px);
+  font-style: italic;
+  line-height: 1.25;
+  color: var(--cpa-ink);
+  text-align: center;
+  transform: rotate(-0.5deg);
+  z-index: 6;
+  position: relative;
+}
+
+/* ══ PAGE TYPES — Mobile layouts ════════════════════════════════ */
+
+/* HERO-BLEED — new single-leaf full-bleed layout (like Modern hero) */
+.cpa-spread.s-hero-bleed .cpa-leaf.right { display: none; }
+.cpa-spread.s-hero-bleed .cpa-leaf.left {
+  flex: 1 1 100%;
+  position: relative;
+  overflow: hidden;
+  background: #1a0f08;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cpa-hero-bleed::before,
+.cpa-hero-bleed::after { display: none; }
+.cpa-hero-bg {
+  position: absolute; inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.cpa-hero-bg img,
+.cpa-hero-bg video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: sepia(.55) contrast(1.05) brightness(.78) saturate(.75);
+  transform: scale(1.04);
+  transition: transform 14s ease-out;
+}
+.cpa-spread.s-hero-bleed.is-active .cpa-hero-bg img,
+.cpa-spread.s-hero-bleed.is-active .cpa-hero-bg video {
+  transform: scale(1.12);
+}
+.cpa-hero-overlay {
+  position: absolute; inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse at center, rgba(26,15,8,.35) 0%, rgba(26,15,8,.7) 100%),
+    linear-gradient(180deg, rgba(26,15,8,.35) 0%, rgba(26,15,8,.25) 50%, rgba(26,15,8,.65) 100%);
+  pointer-events: none;
+}
+.cpa-hero-center {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 28px;
+  color: #f5e5c0;
+  max-width: 88%;
+}
+.cpa-hero-brand {
+  font-family: var(--cpa-f-serif);
+  font-size: 10px;
+  letter-spacing: .48em;
+  text-transform: uppercase;
+  opacity: .75;
+  margin-bottom: 28px;
+  text-shadow: 0 1px 4px rgba(0,0,0,.6);
+}
+.cpa-hero-name {
+  font-family: var(--cpa-f-display);
+  font-weight: 400;
+  font-size: clamp(42px, 13vw, 72px);
+  line-height: .95;
+  margin: 0;
+  color: #faeed0;
+  text-shadow: 0 2px 8px rgba(0,0,0,.5);
+  letter-spacing: .01em;
+}
+.cpa-hero-name em {
+  font-style: italic;
+  font-weight: 400;
+  opacity: .95;
+}
+.cpa-hero-rule {
+  width: 56px;
+  height: 1px;
+  background: rgba(245,229,192,.6);
+  margin: 22px auto;
+}
+.cpa-hero-sub {
+  font-family: var(--cpa-f-display);
+  font-style: italic;
+  font-size: clamp(14px, 3.6vw, 18px);
+  letter-spacing: .08em;
+  opacity: .85;
+  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+}
+
+/* Desktop: center wider */
+@media (min-width: 900px) {
+  .cpa-hero-center { padding: 0 64px; }
+  .cpa-hero-name { font-size: clamp(64px, 6vw, 100px); }
+  .cpa-hero-brand { margin-bottom: 36px; }
+  .cpa-hero-rule { margin: 28px auto; }
+}
+
+/* HERO (legacy) — cover left leaf + photo right leaf, stacked */
+.cpa-spread.s-hero .cpa-leaf.left {
+  background: #5c3a1e;
+  background-image:
+    radial-gradient(ellipse at 30% 20%, rgba(255,220,160,.08) 0%, transparent 60%),
+    repeating-linear-gradient(35deg, rgba(255,240,210,.02) 0px, transparent 2px, transparent 4px);
+  box-shadow: inset 0 0 80px rgba(20,10,5,.4);
+  display: flex; align-items: center; justify-content: center;
+}
+.cpa-spread.s-hero .cpa-leaf.right {
+  background: var(--cpa-paper);
+  display: flex; align-items: center; justify-content: center;
+}
+.cpa-cover-frame {
+  position: relative; inset: auto;
+  width: 88%; padding: 6% 5%;
+  border: 2px double rgba(220,180,120,.45);
+  display: flex; flex-direction: column;
+  justify-content: space-between; align-items: center;
+  text-align: center; color: #e8d4a8; z-index: 5;
+}
+.cpa-cover-top {
+  font-family: var(--cpa-f-serif); font-size: 10px;
+  letter-spacing: .45em; text-transform: uppercase; opacity: .7; margin-top: 8%;
+}
+.cpa-cover-title {
+  font-family: var(--cpa-f-display); font-weight: 400;
+  font-size: clamp(26px, 9vw, 44px); font-style: italic;
+  line-height: .95; color: #f2deb0; text-shadow: 0 1px 2px rgba(0,0,0,.5);
+}
+.cpa-cover-rule {
+  width: 60%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220,180,120,.6), transparent);
+  margin: 12px 0;
+}
+.cpa-cover-sub {
+  font-family: var(--cpa-f-display); font-style: italic;
+  font-size: 16px; letter-spacing: .1em; opacity: .75;
+}
+.cpa-cover-foot {
+  font-family: var(--cpa-f-serif); font-size: 10px;
+  letter-spacing: .35em; text-transform: uppercase; opacity: .55; margin-bottom: 6%;
+}
+/* Hero right: photo centered */
+.cpa-spread.s-hero .cpa-ph-hero {
+  /* override absolute: center in flow */
+  left: auto; top: auto; width: 75%;
+  transform: rotate(-2deg); --rot: -2deg;
+}
+.cpa-spread.s-hero .cpa-ph-hero .cpa-frame { aspect-ratio: 4/5; }
+.cpa-spread.s-hero .cpa-hero-caption {
+  position: relative; right: auto; bottom: auto;
+  display: block; margin: 0 auto 20px; text-align: center;
+  font-family: var(--cpa-f-hand); font-size: 24px;
+  line-height: 1.1; color: var(--cpa-ink); transform: rotate(-1deg); z-index: 6;
+}
+.cpa-spread.s-hero .cpa-hero-caption .cpa-yr {
+  display: block; font-family: var(--cpa-f-display); font-style: italic;
+  font-size: 16px; opacity: .6; margin-top: 4px; letter-spacing: .1em;
+}
+
+/* DUO — two big photos stacked */
+.cpa-spread.s-duo .cpa-ph-a {
+  width: 82%; transform: rotate(-1deg); --rot: -1deg;
+}
+.cpa-spread.s-duo .cpa-ph-a .cpa-frame { aspect-ratio: 4/3; }
+.cpa-spread.s-duo .cpa-ph-b {
+  right: auto; width: 82%; transform: rotate(1.5deg); --rot: 1.5deg;
+}
+.cpa-spread.s-duo .cpa-ph-b .cpa-frame { aspect-ratio: 3/4; }
+.cpa-spread.s-duo .cpa-cap-a { left: auto; bottom: auto; font-size: 20px; transform: rotate(-1.5deg); }
+.cpa-spread.s-duo .cpa-cap-b { right: auto; bottom: auto; text-align: left; font-size: 20px; transform: rotate(1deg); }
+
+/* HERALD — big portrait top, two stacked bottom */
+.cpa-spread.s-herald .cpa-ph-hero-l {
+  /* full leaf photo — relative, margin auto */
+  position: relative; inset: auto;
+  width: 80%; margin: 16px auto;
+  transform: rotate(-1deg); --rot: -1deg;
+}
+.cpa-spread.s-herald .cpa-ph-hero-l .cpa-frame { aspect-ratio: 3/4; }
+.cpa-spread.s-herald .cpa-ph-r1 {
+  left: auto; top: auto; width: 80%;
+  transform: rotate(1.5deg); --rot: 1.5deg;
+}
+.cpa-spread.s-herald .cpa-ph-r1 .cpa-frame { aspect-ratio: 4/3; }
+.cpa-spread.s-herald .cpa-ph-r2 {
+  left: auto; bottom: auto; top: auto; width: 80%;
+  transform: rotate(-1.5deg); --rot: -1.5deg;
+}
+.cpa-spread.s-herald .cpa-ph-r2 .cpa-frame { aspect-ratio: 4/3; }
+.cpa-spread.s-herald .cpa-cap-hero {
+  position: relative; left: auto; bottom: auto;
+  font-size: 20px; transform: rotate(-1.5deg);
+}
+
+/* POLAROIDS — large polaroid pair, stacked */
+.cpa-spread.s-polaroids .cpa-ph-pol {
+  left: auto; top: auto; width: 68%;
+  transform: rotate(-2deg); --rot: -2deg;
+}
+.cpa-spread.s-polaroids .cpa-photo { padding: 10px 10px 48px 10px; }
+.cpa-spread.s-polaroids .cpa-photo .cpa-frame { aspect-ratio: 1/1; }
+.cpa-spread.s-polaroids .cpa-pol-label {
+  position: relative; left: auto; right: auto; bottom: auto;
+  display: block; text-align: center; margin-top: 4px;
+  font-family: var(--cpa-f-hand); font-size: 22px; color: var(--cpa-ink); z-index: 4;
+}
+.cpa-spread.s-polaroids .cpa-pol-a { transform: rotate(-2deg); --rot: -2deg; }
+.cpa-spread.s-polaroids .cpa-pol-b { transform: rotate(2deg);  --rot:  2deg; }
+
+/* BLEED — full photo top leaf, text bottom leaf */
+.cpa-spread.s-bleed .cpa-leaf.left {
+  overflow: hidden;
+}
+.cpa-spread.s-bleed .cpa-leaf.right {
+  background: rgba(232,220,196,0.95);
+  display: flex; align-items: center; justify-content: center;
+}
+.cpa-spread.s-bleed .cpa-bleed-img {
+  position: absolute; inset: 0; overflow: hidden;
+}
+.cpa-spread.s-bleed .cpa-bleed-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: sepia(.55) saturate(.75) brightness(.92);
+}
+.cpa-spread.s-bleed .cpa-bleed-img::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(40,25,15,.15), transparent 50%); pointer-events: none;
+}
+.cpa-spread.s-bleed .cpa-bleed-stamp {
+  position: relative; left: auto; bottom: auto;
+  display: block; margin: 0 auto;
+  color: var(--cpa-ink); font-family: var(--cpa-f-hand);
+  font-size: 32px; line-height: 1; transform: rotate(-2deg);
+  text-shadow: none; z-index: 6; text-align: center;
+}
+.cpa-spread.s-bleed .cpa-bleed-stamp .cpa-stamp-sub {
+  display: block; font-family: var(--cpa-f-serif);
+  font-size: 10px; letter-spacing: .38em; text-transform: uppercase; margin-top: 8px; opacity: .75;
+}
+.cpa-spread.s-bleed .cpa-bleed-quote,
+.cpa-spread.s-bleed .cpa-bleed-text {
+  position: relative; top: auto; left: auto; transform: rotate(-1.5deg);
+  text-align: center; width: 88%; margin: 16px auto;
+}
+.cpa-spread.s-bleed .cpa-bleed-quote .cpa-q,
+.cpa-spread.s-bleed .cpa-bleed-text .cpa-q {
+  font-family: var(--cpa-f-hand);
+  font-size: clamp(22px, 6vw, 36px);
+  line-height: 1.25; color: var(--cpa-ink);
+}
+.cpa-spread.s-bleed .cpa-bleed-quote .cpa-by,
+.cpa-spread.s-bleed .cpa-bleed-text .cpa-by {
+  margin-top: 14px; font-family: var(--cpa-f-display); font-style: italic;
+  font-size: 16px; letter-spacing: .1em; color: var(--cpa-muted);
+}
+.cpa-spread.s-bleed .cpa-bleed-quote .cpa-rule,
+.cpa-spread.s-bleed .cpa-bleed-text .cpa-rule {
+  width: 40%; height: 1px; background: var(--cpa-muted); opacity: .4; margin: 12px auto;
+}
+/* Center text block in right leaf on mobile */
+@media (max-width: 640px) {
+  .cpa-spread.s-bleed .cpa-leaf.right {
+    display: flex; align-items: center; justify-content: center;
+  }
+}
+
+/* STRIP — row of 3 top + big below */
+.cpa-spread.s-strip .cpa-strip-row {
+  position: relative; left: auto; right: auto; top: auto;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 5px; margin: calc(env(safe-area-inset-top) + 56px) 10px 6px;
+}
+.cpa-spread.s-strip .cpa-strip-row .cpa-photo {
+  position: relative; left: auto; top: auto; width: auto; margin: 0;
+  padding: 4px 4px 4px 4px;
+}
+.cpa-spread.s-strip .cpa-strip-row .cpa-photo:nth-child(1) { transform: rotate(-2deg); --rot: -2deg; }
+.cpa-spread.s-strip .cpa-strip-row .cpa-photo:nth-child(2) { transform: rotate(1deg); --rot: 1deg; margin-top: 8px; }
+.cpa-spread.s-strip .cpa-strip-row .cpa-photo:nth-child(3) { transform: rotate(-1deg); --rot: -1deg; }
+.cpa-spread.s-strip .cpa-strip-row .cpa-photo .cpa-frame { aspect-ratio: 1/1; }
+.cpa-spread.s-strip .cpa-cap-strip {
+  position: relative; left: auto; top: auto;
+  display: block; margin: 6px 12px; font-size: 20px; transform: rotate(-1deg);
+}
+.cpa-spread.s-strip .cpa-strip-big {
+  position: relative; left: auto; right: auto; bottom: auto; top: auto;
+  width: 88%; margin: 6px auto 20px;
+  transform: rotate(1deg); --rot: 1deg;
+}
+.cpa-spread.s-strip .cpa-strip-big .cpa-frame { aspect-ratio: 4/3; }
+.cpa-spread.s-strip .cpa-cap-big {
+  position: relative; right: auto; bottom: auto;
+  display: block; margin: 0 12px 12px; text-align: right;
+  font-size: 20px; transform: rotate(-1.5deg);
+}
+
+/* TAPE — tape-fixed photos, stacked. Mobile: center photo+caption inside leaf */
+.cpa-spread.s-tape .cpa-leaf.left,
+.cpa-spread.s-tape .cpa-leaf.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+}
+.cpa-spread.s-tape .cpa-ph-ta {
+  left: auto; top: auto; width: 75%; margin: 0;
+  transform: rotate(-2deg); --rot: -2deg;
+}
+.cpa-spread.s-tape .cpa-ph-ta .cpa-frame { aspect-ratio: 4/5; }
+.cpa-spread.s-tape .cpa-ph-td {
+  right: auto; bottom: auto; width: 72%; margin: 0;
+  transform: rotate(2deg); --rot: 2deg;
+}
+.cpa-spread.s-tape .cpa-ph-td .cpa-frame { aspect-ratio: 4/5; }
+.cpa-spread.s-tape .cpa-cap-ta { right: auto; bottom: auto; font-size: 18px; transform: rotate(1.5deg); }
+.cpa-spread.s-tape .cpa-cap-td { left: auto; top: auto; font-size: 18px; transform: rotate(-1.5deg); }
+
+/* DIAGONAL — 3 photos stacked column */
+.cpa-spread.s-diagonal .cpa-ph-t1 {
+  left: auto; top: auto; z-index: 6; width: 78%;
+  transform: rotate(-2deg); --rot: -2deg;
+}
+.cpa-spread.s-diagonal .cpa-ph-t1 .cpa-frame { aspect-ratio: 4/3; }
+.cpa-spread.s-diagonal .cpa-ph-t2 {
+  left: auto; top: auto; z-index: 7; width: 74%;
+  transform: rotate(1.5deg); --rot: 1.5deg;
+}
+.cpa-spread.s-diagonal .cpa-ph-t2 .cpa-frame { aspect-ratio: 3/4; }
+.cpa-spread.s-diagonal .cpa-ph-t3 {
+  right: auto; bottom: auto; z-index: 5; width: 80%;
+  transform: rotate(-1deg); --rot: -1deg;
+}
+.cpa-spread.s-diagonal .cpa-ph-t3 .cpa-frame { aspect-ratio: 4/3; }
+.cpa-spread.s-diagonal .cpa-cap-diag {
+  right: auto; top: auto; text-align: left;
+  font-size: 20px; transform: rotate(1.5deg);
+}
+
+/* CLOSE — centered message, full width */
+.cpa-spread.s-close {
+  align-items: center; justify-content: center;
+}
+.cpa-spread.s-close .cpa-leaf.left {
+  width: 100%;
+  display: flex; align-items: center; justify-content: center;
+}
+.cpa-spread.s-close .cpa-leaf.right { display: none; flex: 0 0 0; }
+.cpa-spread.s-close .cpa-leaf.left::after { background: none; }
+
+.cpa-env {
+  width: 88%;
+  background: transparent; padding: 36px 24px;
+  border: none; box-shadow: none; transform: none;
+  position: relative; text-align: center; z-index: 5;
+}
+.cpa-env-label {
+  font-family: var(--cpa-f-serif); font-size: 10px;
+  letter-spacing: .4em; text-transform: uppercase;
+  color: var(--cpa-muted); margin-bottom: 18px;
+}
+.cpa-env h2 {
+  font-family: var(--cpa-f-display); font-style: italic;
+  font-size: clamp(26px, 7vw, 40px);
+  line-height: 1.05; color: var(--cpa-ink); margin-bottom: 16px;
+}
+.cpa-env .cpa-env-hand {
+  font-family: var(--cpa-f-hand); font-size: 22px;
+  color: var(--cpa-accent); transform: rotate(-2deg);
+  display: inline-block; margin-top: 8px;
+}
+.cpa-env .cpa-env-rule {
+  width: 40%; height: 1px; background: rgba(120,90,50,.4); margin: 20px auto;
+}
+.cpa-env .cpa-env-sub {
+  font-family: var(--cpa-f-display); font-style: italic;
+  font-size: clamp(15px, 4vw, 18px);
+  color: var(--cpa-ink-soft); line-height: 1.5;
+  margin-top: 18px; max-width: 320px; margin-left: auto; margin-right: auto;
+}
+.cpa-env .cpa-env-dates {
+  font-family: var(--cpa-f-serif); font-size: 10px;
+  letter-spacing: .4em; text-transform: uppercase;
+  color: var(--cpa-muted); margin-top: 18px; opacity: .6;
+}
+@media (min-width: 900px) {
+  .cpa-env .cpa-env-sub,
+  .cpa-env .cpa-env-dates { display: none; }
+}
+
+.cpa-close-right {
+  display: flex; align-items: center; justify-content: center;
+}
+.cpa-close-right-inner {
+  text-align: center; padding: 10%;
+  color: var(--cpa-ink-soft);
+}
+.cpa-close-sub {
+  font-family: var(--cpa-f-display); font-style: italic;
+  font-size: clamp(22px, 3vw, 36px); line-height: 1.4;
+}
+.cpa-close-dates {
+  margin-top: 24px;
+  font-family: var(--cpa-f-serif); font-size: 11px;
+  letter-spacing: .4em; text-transform: uppercase; opacity: .5;
+}
+.cpa-spread.s-close .cpa-ph-close {
+  width: 60%; margin: 0 auto;
+  transform: rotate(2deg); --rot: 2deg; z-index: 5;
+}
+.cpa-spread.s-close .cpa-ph-close .cpa-frame { aspect-ratio: 4/5; }
+.cpa-spread.s-close .cpa-cap-close {
+  position: relative; bottom: auto; right: auto;
+  display: block; text-align: center;
+  transform: rotate(-2deg); font-size: 20px; z-index: 6;
+  margin: 8px auto 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DESKTOP OVERRIDES (min-width: 900px)
+═══════════════════════════════════════════════════════════════ */
+@media (min-width: 900px) {
+
+  .cpa-stage { height: 100%; }
+  .cpa-spine { display: block; }
+
+  /* Spread — desktop: absolute + 2-col grid */
+  .cpa-spread {
+    inset: 5vh 5vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex-direction: unset;
+    overflow: visible;
+  }
+
+  /* Leaf — desktop: full height sides */
+  .cpa-leaf {
+    min-height: unset;
+    overflow: hidden;
+  }
+  .cpa-leaf.left {
+    box-shadow:
+      inset -30px 0 40px -20px rgba(40,25,15,.55),
+      inset 10px 0 20px rgba(255,245,220,.1),
+      inset 0 0 100px rgba(101,78,50,.25);
+  }
+  .cpa-leaf.right {
+    box-shadow:
+      inset 30px 0 40px -20px rgba(40,25,15,.55),
+      inset -10px 0 20px rgba(255,245,220,.1),
+      inset 0 0 100px rgba(101,78,50,.25);
+  }
+
+  /* Photos — desktop: absolute positioning restored */
+  .cpa-photo {
+    position: absolute;
+    width: auto; margin: 0;
+    padding: 8px 8px 34px 8px;
+    box-shadow:
+      0 2px 4px rgba(0,0,0,.25),
+      0 14px 28px -10px rgba(0,0,0,.4),
+      0 30px 50px -25px rgba(0,0,0,.5);
+  }
+
+  /* Captions — desktop: absolute floating */
+  .cpa-caption {
+    position: absolute;
+    width: auto; margin: 0;
+    font-size: 26px;
+    max-width: 260px;
+  }
+  .cpa-caption.pen { font-size: 17px; }
+
+  /* Corners */
+  .cpa-corner-tl { border-top-width: 22px; border-right-width: 22px; }
+  .cpa-corner-tr { border-top-width: 22px; border-left-width: 22px; }
+  .cpa-corner-bl { border-bottom-width: 22px; border-right-width: 22px; }
+  .cpa-corner-br { border-bottom-width: 22px; border-left-width: 22px; }
+
+  /* Folio */
+  .cpa-folio { bottom: 28px; font-size: 11px; }
+  .cpa-leaf.left  .cpa-folio { left: 32px; }
+  .cpa-leaf.right .cpa-folio { right: 32px; }
+  .cpa-header-mark { top: 36px; font-size: 14px; }
+  .cpa-leaf.left  .cpa-header-mark { left: 40px; }
+  .cpa-leaf.right .cpa-header-mark { right: 40px; }
+
+  /* Chrome */
+  .cpa-chrome { padding: 22px 40px; }
+  .cpa-brand  { font-size: 22px; }
+  .cpa-tagline {
+    display: block; font-family: var(--cpa-f-serif);
+    font-size: 11px; letter-spacing: .35em; text-transform: uppercase; opacity: .75;
+  }
+  .cpa-bottom { padding: 22px 40px 26px; }
+  .cpa-counter { font-size: 16px; }
+  .cpa-hint { display: flex; font-family: var(--cpa-f-serif); font-size: 10px; letter-spacing: .35em; text-transform: uppercase; opacity: .6; gap: 10px; align-items: center; }
+  .cpa-rail { left: 40px; right: 40px; bottom: 72px; }
+  .cpa-arrows { right: 40px; bottom: 54px; }
+  .cpa-arrow  { width: 40px; height: 40px; }
+
+  /* Splash */
+  .cpa-splash .cpa-s-brand { font-size: 42px; }
+
+  /* Text zone — desktop: reset to let .cpa-caption absolute rules take over */
+  .cpa-text-zone {
+    position: static;
+    min-height: 0;
+    padding: 0;
+    font-size: inherit;
+    text-align: left;
+    transform: none;
+    display: block;
+  }
+
+  /* HERO desktop */
+  .cpa-spread.s-hero .cpa-leaf.left {
+    display: block; min-height: unset;
+    box-shadow:
+      inset -30px 0 40px -20px rgba(20,10,5,.8),
+      inset 0 0 120px rgba(20,10,5,.4);
+  }
+  .cpa-spread.s-hero .cpa-leaf.left::after {
+    background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,.35) 100%);
+  }
+  .cpa-spread.s-hero .cpa-leaf.right {
+    display: block; min-height: unset; background: var(--cpa-paper);
+  }
+  .cpa-cover-frame { position: absolute; inset: 8%; padding: 6%; }
+  .cpa-cover-title { font-size: clamp(36px, 6vw, 80px); }
+  .cpa-cover-sub   { font-size: 20px; }
+  .cpa-spread.s-hero .cpa-ph-hero {
+    position: absolute; left: 8%; top: 10%; width: 72%;
+    transform: rotate(-2deg); --rot: -2deg; margin: 0;
+  }
+  .cpa-spread.s-hero .cpa-hero-caption {
+    position: absolute; right: 10%; bottom: 8%;
+    display: block; margin: 0; text-align: right;
+    font-size: 36px; transform: rotate(-2deg);
+  }
+  .cpa-spread.s-hero .cpa-hero-caption .cpa-yr { font-size: 18px; }
+
+  /* DUO desktop */
+  .cpa-spread.s-duo .cpa-leaf.left,
+  .cpa-spread.s-duo .cpa-leaf.right { min-height: unset; }
+  .cpa-spread.s-duo .cpa-ph-a {
+    position: absolute; left: 8%; top: 8%; width: 84%;
+    transform: rotate(-2deg); --rot: -2deg;
+  }
+  .cpa-spread.s-duo .cpa-ph-a .cpa-frame { aspect-ratio: 4/3; }
+  .cpa-spread.s-duo .cpa-ph-b {
+    position: absolute; right: 8%; top: 10%; width: 84%;
+    transform: rotate(2deg); --rot: 2deg;
+  }
+  .cpa-spread.s-duo .cpa-ph-b .cpa-frame { aspect-ratio: 3/4; }
+  .cpa-spread.s-duo .cpa-cap-a { left: 14%; bottom: 6%; font-size: 32px; transform: rotate(-2deg); }
+  .cpa-spread.s-duo .cpa-cap-b { right: 10%; bottom: 6%; text-align: right; font-size: 32px; transform: rotate(1deg); }
+
+  /* HERALD desktop */
+  .cpa-spread.s-herald .cpa-leaf.left,
+  .cpa-spread.s-herald .cpa-leaf.right { min-height: unset; }
+  .cpa-spread.s-herald .cpa-ph-hero-l {
+    position: absolute; inset: 8% 8% 10% 8%; width: auto; margin: 0;
+    transform: rotate(-1deg); --rot: -1deg;
+  }
+  .cpa-spread.s-herald .cpa-ph-hero-l .cpa-frame { aspect-ratio: unset; width: 100%; height: 100%; }
+  .cpa-spread.s-herald .cpa-ph-r1 {
+    position: absolute; left: 8%; top: 8%; width: 84%;
+    transform: rotate(2deg); --rot: 2deg;
+  }
+  .cpa-spread.s-herald .cpa-ph-r1 .cpa-frame { aspect-ratio: 4/3; }
+  .cpa-spread.s-herald .cpa-ph-r2 {
+    position: absolute; left: 8%; bottom: 8%; top: auto; width: 84%;
+    transform: rotate(-2deg); --rot: -2deg;
+  }
+  .cpa-spread.s-herald .cpa-ph-r2 .cpa-frame { aspect-ratio: 4/3; }
+  .cpa-spread.s-herald .cpa-cap-hero {
+    position: absolute; left: 12%; bottom: 4%; margin: 0;
+    font-size: 32px; transform: rotate(-2deg);
+  }
+
+  /* POLAROIDS desktop */
+  .cpa-spread.s-polaroids .cpa-leaf.left,
+  .cpa-spread.s-polaroids .cpa-leaf.right { min-height: unset; }
+  .cpa-spread.s-polaroids .cpa-ph-pol {
+    position: absolute; left: 12%; top: 10%; width: 76%; margin: 0;
+  }
+  .cpa-spread.s-polaroids .cpa-photo { padding: 14px 14px 60px 14px; }
+  .cpa-spread.s-polaroids .cpa-photo .cpa-frame { aspect-ratio: 1/1; }
+  .cpa-spread.s-polaroids .cpa-pol-label {
+    position: absolute; left: 0; right: 0; bottom: 18px; margin: 0;
+    font-size: 26px;
+  }
+  .cpa-spread.s-polaroids .cpa-pol-a { transform: rotate(-3deg); --rot: -3deg; }
+  .cpa-spread.s-polaroids .cpa-pol-b { transform: rotate(3deg);  --rot:  3deg; }
+
+  /* BLEED desktop */
+  .cpa-spread.s-bleed .cpa-leaf.left {
+    min-height: unset; overflow: hidden;
+  }
+  .cpa-spread.s-bleed .cpa-leaf.right {
+    min-height: unset; background: var(--cpa-paper);
+    display: flex; align-items: center; justify-content: flex-start;
+    flex-direction: column;
+  }
+  .cpa-spread.s-bleed .cpa-bleed-stamp {
+    position: absolute; left: 8%; bottom: 8%; margin: 0; text-align: left;
+    color: rgba(240,220,180,.9); font-size: 46px; transform: rotate(-3deg);
+    text-shadow: 0 2px 6px rgba(0,0,0,.4);
+  }
+  .cpa-spread.s-bleed .cpa-bleed-quote {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%) rotate(-2deg);
+    width: 76%; margin: 0;
+  }
+  .cpa-spread.s-bleed .cpa-bleed-quote .cpa-q { font-size: clamp(32px, 5vw, 62px); }
+  .cpa-spread.s-bleed .cpa-bleed-quote .cpa-by { font-size: 18px; }
+
+  /* STRIP desktop */
+  .cpa-spread.s-strip .cpa-leaf.left,
+  .cpa-spread.s-strip .cpa-leaf.right { min-height: unset; }
+  .cpa-spread.s-strip .cpa-strip-row {
+    position: absolute; left: 6%; right: 6%; top: 8%; margin: 0; gap: 16px;
+  }
+  .cpa-spread.s-strip .cpa-strip-row .cpa-photo { padding: 8px 8px 8px 8px; }
+  .cpa-spread.s-strip .cpa-strip-row .cpa-photo:nth-child(1) { transform: rotate(-3deg); --rot: -3deg; }
+  .cpa-spread.s-strip .cpa-strip-row .cpa-photo:nth-child(2) { transform: rotate(1.5deg); --rot: 1.5deg; margin-top: 12px; }
+  .cpa-spread.s-strip .cpa-strip-row .cpa-photo:nth-child(3) { transform: rotate(-1deg); --rot: -1deg; }
+  .cpa-spread.s-strip .cpa-strip-row .cpa-photo .cpa-frame { aspect-ratio: 3/4; }
+  .cpa-spread.s-strip .cpa-cap-strip {
+    position: absolute; left: 8%; top: 42%; margin: 0; font-size: 28px; transform: rotate(-1deg);
+  }
+  .cpa-spread.s-strip .cpa-strip-big {
+    position: absolute; left: 8%; right: 8%; bottom: 6%; top: 52%; width: auto; margin: 0;
+    transform: rotate(1deg); --rot: 1deg;
+  }
+  .cpa-spread.s-strip .cpa-strip-big .cpa-frame { aspect-ratio: unset; width: 100%; height: 100%; }
+  .cpa-spread.s-strip .cpa-cap-big {
+    position: absolute; right: 12%; bottom: -2%; margin: 0; text-align: right;
+    font-size: 30px; transform: rotate(-2deg);
+  }
+
+  /* TAPE desktop */
+  .cpa-spread.s-tape .cpa-leaf.left,
+  .cpa-spread.s-tape .cpa-leaf.right { min-height: unset; }
+  .cpa-spread.s-tape .cpa-ph-ta {
+    position: absolute; left: 12%; top: 8%; width: 72%; margin: 0;
+    transform: rotate(-4deg); --rot: -4deg;
+  }
+  .cpa-spread.s-tape .cpa-ph-td {
+    position: absolute; right: 8%; bottom: 10%; top: auto; width: 64%; margin: 0;
+    transform: rotate(3deg); --rot: 3deg;
+  }
+  .cpa-spread.s-tape .cpa-cap-ta { right: 8%; bottom: 6%; font-size: 28px; transform: rotate(2deg); text-align: right; }
+  .cpa-spread.s-tape .cpa-cap-td { left: 10%; top: 6%; font-size: 28px; transform: rotate(-2deg); }
+
+  /* DIAGONAL desktop */
+  .cpa-spread.s-diagonal .cpa-leaf.left,
+  .cpa-spread.s-diagonal .cpa-leaf.right { min-height: unset; }
+  .cpa-spread.s-diagonal .cpa-ph-t1 {
+    position: absolute; left: 6%; top: 4%; width: 72%; z-index: 6; margin: 0;
+    transform: rotate(-5deg); --rot: -5deg;
+  }
+  .cpa-spread.s-diagonal .cpa-ph-t1 .cpa-frame { aspect-ratio: 4/3; }
+  .cpa-spread.s-diagonal .cpa-ph-t2 {
+    position: absolute; left: 18%; top: 38%; width: 68%; z-index: 7; margin: 0;
+    transform: rotate(3deg); --rot: 3deg;
+  }
+  .cpa-spread.s-diagonal .cpa-ph-t2 .cpa-frame { aspect-ratio: 3/4; }
+  .cpa-spread.s-diagonal .cpa-ph-t3 {
+    position: absolute; right: 6%; bottom: 4%; top: auto; width: 90%; z-index: 5; margin: 0;
+    transform: rotate(-1.5deg); --rot: -1.5deg;
+  }
+  .cpa-spread.s-diagonal .cpa-ph-t3 .cpa-frame { aspect-ratio: 4/3; }
+  .cpa-spread.s-diagonal .cpa-cap-diag {
+    right: 10%; top: 6%; font-size: 32px; transform: rotate(2deg); text-align: right;
+  }
+
+  /* CLOSE desktop */
+  .cpa-spread.s-close .cpa-leaf.left {
+    min-height: unset; background: var(--cpa-paper);
+  }
+  .cpa-spread.s-close .cpa-leaf.right { display: block; min-height: unset; }
+  .cpa-spread.s-close .cpa-leaf { display: flex; align-items: center; justify-content: center; }
+  .cpa-env { width: 76%; padding: 50px 40px; }
+  .cpa-env h2 { font-size: clamp(32px, 4vw, 52px); }
+  .cpa-env .cpa-env-hand { font-size: 28px; }
+  .cpa-spread.s-close .cpa-ph-close {
+    position: absolute; width: 60%; margin: 0;
+    transform: rotate(2deg); --rot: 2deg;
+  }
+  .cpa-spread.s-close .cpa-ph-close .cpa-frame { aspect-ratio: 4/5; }
+  .cpa-spread.s-close .cpa-cap-close {
+    position: absolute; bottom: 12%; right: 10%;
+    transform: rotate(-3deg); text-align: right; font-size: 24px; margin: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE LAYOUT FIXES (max-width: 640px)
+   Alle Page-Types: einheitliche Höhen, kein abgeschnittener Content
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+
+  /* Root: Paper-BG statt dunkler Gradient, damit nie dunkler Balken durchscheint */
+  .cpa {
+    background: var(--cpa-paper);
+  }
+  .cpa-spread {
+    background: var(--cpa-paper);
+    min-height: 100dvh;
+  }
+
+  /* Header auf beigem Paper lesbar: dunkle Tinte + leichter Schatten */
+  .cpa-chrome {
+    background: linear-gradient(to bottom, rgba(232,220,194,.85) 0%, rgba(232,220,194,0) 100%);
+    color: var(--cpa-ink);
+  }
+  .cpa-brand {
+    color: var(--cpa-ink);
+    text-shadow: 0 1px 2px rgba(255,245,225,.7);
+  }
+  .cpa-tagline {
+    color: var(--cpa-ink-soft);
+    text-shadow: 0 1px 2px rgba(255,245,225,.7);
+  }
+
+  /* Bottom-Counter + Arrows ebenfalls dunkle Tinte auf Paper */
+  .cpa-bottom { color: var(--cpa-ink-soft); }
+  .cpa-arrow {
+    background: rgba(255,250,235,.7);
+    color: var(--cpa-ink);
+    border-color: rgba(120,90,50,.3);
+  }
+
+  /* ── Globale Mobile — Leaves teilen sich die Spread-Höhe ──────
+     Kein min-height mehr — flex: 1 1 0 sorgt dafür dass beide
+     Leaves zusammen exakt in 100dvh passen (minus Chrome).
+     Der Stage ist overflow:hidden, Spread auch → kein Scroll.
+  ────────────────────────────────────────────────────────────── */
+  .cpa-leaf {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+  /* Fotos etwas kleinere Margin damit mehr auf Screen passt */
+  .cpa-photo {
+    margin: 10px auto;
+  }
+  /* Bilder füllen den Leaf-Bereich aus */
+  .cpa-photo .cpa-frame img,
+  .cpa-photo .cpa-frame video {
+    max-height: 100%;
+  }
+
+  /* ── HERO ─────────────────────────────────────────────────────
+     Left: Cover-Leaf etwas grösser (55%), right: Photo-Leaf kleiner (45%)
+  ────────────────────────────────────────────────────────────── */
+  .cpa-spread.s-hero .cpa-leaf.left  { flex: 55 1 0; }
+  .cpa-spread.s-hero .cpa-leaf.right { flex: 45 1 0; }
+  .cpa-spread.s-hero .cpa-ph-hero .cpa-frame { aspect-ratio: 3/2; }
+
+  /* ── DUO ──────────────────────────────────────────────────────
+     Zwei Bilder gestapelt: vertikal zentriert im Leaf, kein leerer Raum
+  ────────────────────────────────────────────────────────────── */
+  .cpa-spread.s-duo .cpa-leaf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+  }
+  .cpa-spread.s-duo .cpa-ph-a,
+  .cpa-spread.s-duo .cpa-ph-b {
+    width: 86%;
+    margin: 0 auto;
+  }
+  .cpa-spread.s-duo .cpa-ph-a .cpa-frame { aspect-ratio: 3/2; }
+  .cpa-spread.s-duo .cpa-ph-b .cpa-frame { aspect-ratio: 3/2; }
+  /* Caption inside leaf: not absolute */
+  .cpa-spread.s-duo .cpa-cap-a,
+  .cpa-spread.s-duo .cpa-cap-b {
+    position: relative;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  /* ── HERALD ───────────────────────────────────────────────────
+     3 Bilder → r2 ausblenden; hero-l gross, r1 kleiner
+  ────────────────────────────────────────────────────────────── */
+  .cpa-spread.s-herald .cpa-ph-r2 { display: none; }
+  .cpa-spread.s-herald .cpa-leaf.left  { flex: 55 1 0; }
+  .cpa-spread.s-herald .cpa-leaf.right { flex: 45 1 0; }
+  .cpa-spread.s-herald .cpa-leaf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+  }
+  .cpa-spread.s-herald .cpa-ph-hero-l,
+  .cpa-spread.s-herald .cpa-ph-r1 {
+    width: 86%;
+    margin: 0 auto;
+  }
+  .cpa-spread.s-herald .cpa-ph-hero-l .cpa-frame { aspect-ratio: 3/2; }
+  .cpa-spread.s-herald .cpa-ph-r1 .cpa-frame     { aspect-ratio: 3/2; }
+  .cpa-spread.s-herald .cpa-cap-hero {
+    position: relative;
+    left: auto; top: auto; right: auto; bottom: auto;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  /* ── POLAROIDS ────────────────────────────────────────────────
+     Beide Polaroids vertikal zentriert im Leaf, Polaroid-Label nicht abgeschnitten
+  ────────────────────────────────────────────────────────────── */
+  .cpa-spread.s-polaroids .cpa-leaf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 0;
+    overflow: visible;
+  }
+  .cpa-spread.s-polaroids .cpa-ph-pol {
+    width: 78%;
+    margin: 0 auto;
+  }
+  .cpa-spread.s-polaroids .cpa-ph-pol .cpa-frame { aspect-ratio: 3/2; }
+  .cpa-spread.s-polaroids .cpa-photo { padding: 8px 8px 36px 8px; }
+
+  /* ── BLEED ────────────────────────────────────────────────────
+     Top: Foto-Leaf grösser, Bottom: Quote-Leaf kleiner
+  ────────────────────────────────────────────────────────────── */
+  .cpa-spread.s-bleed .cpa-leaf.left  { flex: 55 1 0; }
+  .cpa-spread.s-bleed .cpa-leaf.right { flex: 45 1 0; }
+
+  /* ── STRIP ────────────────────────────────────────────────────
+     4 Bilder → s2 + s3 ausblenden; s1 Fullwidth + big
+  ────────────────────────────────────────────────────────────── */
+  .cpa-spread.s-strip .cpa-strip-row .cpa-photo:nth-child(2),
+  .cpa-spread.s-strip .cpa-strip-row .cpa-photo:nth-child(3) { display: none; }
+  .cpa-spread.s-strip .cpa-strip-row {
+    grid-template-columns: 1fr;
+    margin-top: calc(env(safe-area-inset-top) + 48px);
+  }
+  .cpa-spread.s-strip .cpa-strip-row .cpa-photo:nth-child(1) {
+    width: 80%; margin: 0 auto;
+  }
+  .cpa-spread.s-strip .cpa-strip-row .cpa-photo:nth-child(1) .cpa-frame { aspect-ratio: 3/2; }
+  .cpa-spread.s-strip .cpa-strip-big .cpa-frame { aspect-ratio: 3/2; }
+
+  /* ── TAPE ─────────────────────────────────────────────────────
+     Zwei Bilder gestapelt, kompakte aspect-ratio
+  ────────────────────────────────────────────────────────────── */
+  .cpa-spread.s-tape .cpa-ph-ta .cpa-frame { aspect-ratio: 3/2; }
+  .cpa-spread.s-tape .cpa-ph-td .cpa-frame { aspect-ratio: 3/2; }
+
+  /* ── DIAGONAL ─────────────────────────────────────────────────
+     Mobile: beide Leaves je ein Bild. t3 ausblenden.
+     Kompakte 16/9 Frames + kleinere Margins → kein Crop.
+  ────────────────────────────────────────────────────────────── */
+  .cpa-spread.s-diagonal .cpa-ph-t3 { display: none; }
+  .cpa-spread.s-diagonal .cpa-leaf.right { display: none; }
+  .cpa-spread.s-diagonal .cpa-leaf.left {
+    flex: 1 1 100%;
+    position: relative;
+    overflow: visible;
+    min-height: 100dvh;
+  }
+  /* Versetzt: t1 oben-links gekippt, t2 unten-rechts gekippt — richtige Diagonale */
+  .cpa-spread.s-diagonal .cpa-ph-t1 {
+    position: absolute;
+    left: 6%;
+    top: 6%;
+    width: 62%;
+    margin: 0;
+    transform: rotate(-4deg);
+    --rot: -4deg;
+    z-index: 5;
+    box-shadow:
+      0 6px 18px rgba(0,0,0,.28),
+      0 16px 36px -12px rgba(0,0,0,.4);
+  }
+  .cpa-spread.s-diagonal .cpa-ph-t2 {
+    position: absolute;
+    right: 6%;
+    bottom: 12%;
+    top: auto;
+    left: auto;
+    width: 64%;
+    margin: 0;
+    transform: rotate(5deg);
+    --rot: 5deg;
+    z-index: 6;
+    box-shadow:
+      0 6px 18px rgba(0,0,0,.3),
+      0 18px 40px -14px rgba(0,0,0,.45);
+  }
+  .cpa-spread.s-diagonal .cpa-ph-t1 .cpa-frame { aspect-ratio: 4/3; }
+  .cpa-spread.s-diagonal .cpa-ph-t2 .cpa-frame { aspect-ratio: 3/4; }
+  .cpa-spread.s-diagonal .cpa-ph-t1 { padding-bottom: 28px; }
+  .cpa-spread.s-diagonal .cpa-ph-t2 { padding-bottom: 32px; }
+  .cpa-spread.s-diagonal .cpa-cap-diag {
+    position: absolute;
+    left: 8%;
+    bottom: 4%;
+    font-size: 17px;
+    margin: 0;
+    transform: rotate(-2deg);
+    z-index: 7;
+  }
+
+  /* ── CLOSE ────────────────────────────────────────────────────
+     Single leaf zentriert, kein leerer Raum
+  ────────────────────────────────────────────────────────────── */
+  .cpa-spread.s-close .cpa-leaf.left {
+    flex: 1 1 100%;
+    display: flex; align-items: center; justify-content: center;
+    padding: calc(env(safe-area-inset-top) + 72px) 0 calc(env(safe-area-inset-bottom) + 72px);
+  }
+  .cpa-env {
+    width: 90%;
+    padding: 24px 20px;
+  }
+
+  /* ── has-text: leicht kleinere Bilder für Text-Zone ──────────── */
+  .cpa-spread.has-text .cpa-photo {
+    margin-bottom: 6px;
+  }
+
+  /* ── Reduce filter stack on mobile — 2 filters instead of 4 ─── */
+  .cpa-photo .cpa-frame img {
+    filter: sepia(.2) saturate(.85);
+  }
+  .cpa-photo.bw    .cpa-frame img { filter: grayscale(1) sepia(.2); }
+  .cpa-photo.sepia .cpa-frame img { filter: sepia(.45) saturate(.8); }
+}
+
+/* ── PAGE: ENVELOPE-LETTER (1 slot) ─────────────────────────────
+   Mobile: photo top 55%, handwriting text bottom 45%
+   Desktop: photo left 50%, handwriting right 50%
+────────────────────────────────────────────────────────────── */
+.cpa-spread.s-envelope-letter .cpa-leaf {
+  background: var(--cpa-paper);
+}
+/* Mobile: envelope-letter uses full-width single leaf */
+.cpa-env-letter-leaf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(env(safe-area-inset-top) + 60px) 20px 12px;
+}
+.cpa-env-letter-frame {
+  position: relative;
+  width: 90%;
+  max-width: 340px;
+  background: var(--cpa-paper-dark);
+  border: 1px solid var(--cpa-paper-edge);
+  box-shadow: 0 4px 18px rgba(0,0,0,.18);
+}
+/* V-shaped envelope flap at top */
+.cpa-env-letter-flap {
+  width: 100%;
+  height: 36px;
+  background: var(--cpa-paper-edge);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  position: relative; z-index: 2;
+}
+.cpa-env-letter-photo {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+.cpa-env-letter-photo img,
+.cpa-env-letter-photo video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.cpa-env-letter-text-leaf {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12px 28px calc(env(safe-area-inset-bottom) + 68px) 28px;
+  gap: 12px;
+  background: var(--cpa-paper);
+}
+.cpa-env-letter-handwriting {
+  font-family: var(--cpa-f-hand);
+  font-size: clamp(20px, 5.5vw, 28px);
+  color: var(--cpa-ink);
+  line-height: 1.35;
+  text-align: center;
+  width: 100%;
+}
+.cpa-env-letter-lines {
+  display: flex; flex-direction: column; gap: 10px; width: 100%;
+}
+.cpa-env-letter-line {
+  height: 1px; background: var(--cpa-paper-edge); opacity: .5;
+}
+
+/* ── PAGE: PINNED (2 slots, pushpin deco) ───────────────────────
+   Mobile: two photos stacked with rotations + pushpin
+   Desktop: side by side
+────────────────────────────────────────────────────────────── */
+.cpa-spread.s-pinned .cpa-leaf {
+  background: var(--cpa-paper);
+}
+.cpa-pinned-leaf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(env(safe-area-inset-top) + 56px) 20px 20px;
+}
+.cpa-pinned-item {
+  position: relative;
+  width: 80%;
+  max-width: 280px;
+  background: #fafaf4;
+  padding: 10px 10px 34px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15), 0 8px 24px -6px rgba(0,0,0,.18);
+}
+.cpa-pinned-item .cpa-frame {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+.cpa-pinned-item .cpa-frame img,
+.cpa-pinned-item .cpa-frame video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+/* Mobile rotations */
+.cpa-pinned-a { transform: rotate(-3deg); margin-bottom: 16px; }
+.cpa-pinned-b { transform: rotate(2.5deg); }
+/* Pushpin — CSS circle + shadow */
+.cpa-pin {
+  position: absolute;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #e05555 0%, #a02020 100%);
+  box-shadow: 0 2px 6px rgba(0,0,0,.35);
+  z-index: 5;
+}
+.cpa-pin-a { top: -5px; left: 50%; transform: translateX(-50%); }
+.cpa-pin-b { top: -5px; right: 20px; }
+.cpa-cap-pinned {
+  margin-top: 8px;
+  font-family: var(--cpa-f-hand);
+  font-size: clamp(16px, 4.5vw, 22px);
+  color: var(--cpa-ink);
+  text-align: center;
+}
+
+/* ─── Desktop overrides for new Classic layouts ──────────────── */
+@media (min-width: 900px) {
+  /* Envelope-letter: photo left leaf, text right leaf */
+  .cpa-env-letter-leaf {
+    padding: 10vh 4vw;
+    flex: 1;
+  }
+  .cpa-env-letter-text-leaf {
+    padding: 10vh 5vw;
+    flex: 1;
+    justify-content: center;
+  }
+  .cpa-env-letter-handwriting { font-size: clamp(22px, 2.8vw, 38px); text-align: left; }
+  .cpa-env-letter-frame { width: 100%; max-width: none; }
+
+  /* Pinned: two items side by side with overlapping effect */
+  .cpa-pinned-leaf { padding: 8vh 3vw; flex: 1; }
+  .cpa-pinned-item { width: 90%; max-width: none; }
+  .cpa-pinned-a { transform: rotate(-4deg) translateY(10px); margin-bottom: 0; }
+  .cpa-pinned-b { transform: rotate(3deg) translateY(-10px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   REDUCED MOTION
+═══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .cpa-fall, .cpa-fade, .cpa-spread { transition: none !important; animation: none !important; }
+}

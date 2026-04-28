@@ -124,7 +124,7 @@ export const enContent: ContentData = {
               "Your data is used exclusively for the following purposes:",
             list: [
               "Processing of orders and fulfillment of contracts",
-              "Creation, editing, and provision of memorial videos as well as configuration of NFC tags",
+              "Creation, editing, and provision of memorial videos as well as configuration of Smart Tags",
               "Processing of payments and invoicing",
               "Communication with you (e.g., order confirmation, inquiries, support)",
               "Operation, security, and improvement of our services"
@@ -192,7 +192,7 @@ export const enContent: ContentData = {
           },
           prices: {
             title: "3. Assortment, Prices and Payment",
-            content: "Our products consist in particular of personalized memorial plaques, NFC tags and associated digital content (e.g. digital photo album).\n\nPersonalized products and digital content are created individually according to customer specifications and are excluded from exchange or return.\n\nNon-personalized products can be returned in accordance with the statutory provisions.\n\nOur product range is constantly being adapted to technical developments. Our prices and the shipping costs charged to you may change from time to time.\n\nWe cover the delivery costs for orders within Switzerland. Delivery costs for shipments outside of Switzerland will be invoiced to the recipient subsequently.\n\nAll prices are in Swiss Francs (CHF), incl. statutory value-added tax (where applicable).\n\nPayment is made before delivery or before the creation of the digital content.\n\nFor online orders, you have the option of paying with the following payment methods: Credit card, TWINT, advance payment. These may change from time to time and may vary from country to country. Your choice of a payment method authorizes us to collect or receive payments in the corresponding way. In the event of chargebacks, we are entitled to reimbursement of the associated costs and bank processing fees."
+            content: "Our products consist in particular of personalized memorial plaques, Smart Tags and associated digital content (e.g. digital photo album).\n\nPersonalized products and digital content are created individually according to customer specifications and are excluded from exchange or return.\n\nNon-personalized products can be returned in accordance with the statutory provisions.\n\nOur product range is constantly being adapted to technical developments. Our prices and the shipping costs charged to you may change from time to time.\n\nWe cover the delivery costs for orders within Switzerland. Delivery costs for shipments outside of Switzerland will be invoiced to the recipient subsequently.\n\nAll prices are in Swiss Francs (CHF), incl. statutory value-added tax (where applicable).\n\nPayment is made before delivery or before the creation of the digital content.\n\nFor online orders, you have the option of paying with the following payment methods: Credit card, TWINT, advance payment. These may change from time to time and may vary from country to country. Your choice of a payment method authorizes us to collect or receive payments in the corresponding way. In the event of chargebacks, we are entitled to reimbursement of the associated costs and bank processing fees."
           },
           delivery: {
             title: "4. Order, Delivery, Transfer of Risk and Retention of Title",
@@ -236,7 +236,7 @@ export const enContent: ContentData = {
           },
           availability: {
             title: "14. Availability of Digital Content",
-            content: "Digital content (e.g. photo or video albums) accessible via NFC tags, QR codes or external links is provided through third-party platforms selected by us. TW Projects GmbH ensures that access to such digital content is guaranteed for a minimum period of 12 months from the date of delivery, unless otherwise stated for the specific product.\n\nAccess may continue beyond this period, but ongoing availability is not contractually guaranteed. Permanent or lifetime availability cannot be assured.\n\nWe are not liable for outages, changes or discontinuation of external services, nor for data loss or access issues beyond our control. We reserve the right to migrate content to alternative services or adjust access methods without creating any entitlement to a specific hosting system."
+            content: "Digital content (e.g. photo or video albums) accessible via Smart Tags, QR codes or external links is provided through third-party platforms selected by us. TW Projects GmbH ensures that access to such digital content is guaranteed for a minimum period of 12 months from the date of delivery, unless otherwise stated for the specific product.\n\nAccess may continue beyond this period, but ongoing availability is not contractually guaranteed. Permanent or lifetime availability cannot be assured.\n\nWe are not liable for outages, changes or discontinuation of external services, nor for data loss or access issues beyond our control. We reserve the right to migrate content to alternative services or adjust access methods without creating any entitlement to a specific hosting system."
           },
         },
       },

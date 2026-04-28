@@ -9,6 +9,8 @@ import Cookies from 'js-cookie';
 import { logPageView } from "@/lib/analytics";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 
+import Landing from "./pages/Landing";
+import SelfService from "./pages/SelfService";
 import Index from "./pages/Index";
 import Gedenken from "./pages/Gedenken";
 import Ueber from "./pages/Ueber";
@@ -20,8 +22,14 @@ import NotFound from "./pages/NotFound";
 import BestellungErfolgreich from "./pages/BestellungErfolgreich";
 import BestellungAbgebrochen from "./pages/BestellungAbgebrochen";
 import Partner from "./pages/Partner";
+import Admin from "./pages/Admin";
+import AdminAlbum from "./pages/AdminAlbum";
+import AdminTags from "./pages/AdminTags";
 
 import Album from "./pages/Album";
+import AlbumStylePreview from "./pages/AlbumStylePreview";
+import AlbumPreviewMobile from "./pages/AlbumPreviewMobile";
+import AlbumShowcaseFrame from "./pages/AlbumShowcaseFrame";
 
 const queryClient = new QueryClient();
 
@@ -48,7 +56,9 @@ const App = () => (
       <Sonner />
       <RouteChangeTracker />
       <Routes>
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/erstellen" element={<SelfService />} />
+        <Route path="/legacy-shop" element={<Index />} />
         <Route path="/gedenken" element={<Gedenken />} />
         <Route path="/ueber" element={<Ueber />} />
         <Route path="/kontakt" element={<Kontakt />} />
@@ -56,10 +66,15 @@ const App = () => (
         <Route path="/agb" element={<AGB />} />
         <Route path="/impressum" element={<Impressum />} />
         <Route path="/album/:albumSlug" element={<Album />} />
+        <Route path="/album-stil-vorschau" element={<AlbumStylePreview />} />
+        <Route path="/preview/mobile" element={<AlbumPreviewMobile />} />
+        <Route path="/showcase/:theme" element={<AlbumShowcaseFrame />} />
         <Route path="/bestellung-erfolgreich" element={<BestellungErfolgreich />} />
         <Route path="/bestellung-abgebrochen" element={<BestellungAbgebrochen />} />
         <Route path="/upload" element={<Partner />} />
-        {/* Fügt den RouteChangeTracker hinzu */}
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/album/:id" element={<AdminAlbum />} />
+        <Route path="/admin/tags" element={<AdminTags />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <CookieConsentBanner />

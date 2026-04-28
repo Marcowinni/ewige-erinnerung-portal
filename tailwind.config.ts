@@ -21,6 +21,9 @@ export default {
 			fontFamily: {
 				serif: ['Playfair Display', 'serif'],
 				sans: ['Inter', 'sans-serif'],
+				display: ['Cormorant Garamond', 'Playfair Display', 'serif'],
+				editorial: ['Playfair Display', 'serif'],
+				handwritten: ['Dancing Script', 'cursive'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -65,6 +68,18 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				memorial: {
+					canvas: 'hsl(var(--memorial-canvas))',
+					ink: 'hsl(var(--memorial-ink))',
+					'ink-soft': 'hsl(var(--memorial-ink-soft))',
+					bronze: 'hsl(var(--memorial-bronze))',
+					'bronze-deep': 'hsl(var(--memorial-bronze-deep))',
+					sage: 'hsl(var(--memorial-sage))',
+					'sage-deep': 'hsl(var(--memorial-sage-deep))',
+					'sepia-light': 'hsl(var(--memorial-sepia-light))',
+					'sepia-dark': 'hsl(var(--memorial-sepia-dark))',
+					line: 'hsl(var(--memorial-line))'
 				}
 			},
 			borderRadius: {

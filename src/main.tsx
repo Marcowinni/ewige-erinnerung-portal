@@ -20,7 +20,7 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <HelmetProvider>
         <ContentProvider>
-          <ThemeProvider defaultTheme="dark" storageKey="memora-theme">
+          <ThemeProvider defaultTheme="light" storageKey="memora-theme">
             <Elements stripe={stripePromise}>
               <App />
             </Elements>

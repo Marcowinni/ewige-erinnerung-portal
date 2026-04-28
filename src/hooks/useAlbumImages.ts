@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
+import { isVideoPath } from '@/lib/album/paths'
 
 const SIGNED_URL_EXPIRY = 3600 // 1 hour
 
@@ -17,8 +18,12 @@ export function useAlbumImages(bucket: string, files: { path: string; caption?: 
     let cancelled = false
     setLoading(true)
     setError(null)
+    // Note: image transforms require Supabase Pro plan. On Free tier they return 400.
+    // Fallback: plain signed URLs. Upload-time client compression handles size.
     Promise.all(
-      files.map((f) => supabase.storage.from(bucket).createSignedUrl(f.path, SIGNED_URL_EXPIRY))
+      files.map((f) =>
+        supabase.storage.from(bucket).createSignedUrl(f.path, SIGNED_URL_EXPIRY)
+      )
     )
       .then((results) => {
         if (cancelled) return
