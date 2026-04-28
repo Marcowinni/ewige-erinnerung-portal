@@ -250,6 +250,7 @@ export interface NavigationContent {
   about: string;
   contact: string;
   start: string;
+  create: string;
   mode: {
     human: string;
     pet: string;
@@ -412,6 +413,190 @@ export interface SharedContent {
     heading: string;
     message: string;
     buttonBack: string;
+  };
+
+  /* New i18n slices for the redesigned landing page + customer wizard */
+  landing: {
+    hero: {
+      eyebrow: string;
+      titleLine1: string;
+      titleLine2: string;
+      subtitle1: string;
+      subtitle2: string;
+      ctaCreate: string;
+    };
+    pathChoice: {
+      eyebrow: string;
+      titleLine1: string;
+      titleLine2: string;
+      ctaCreate: string;
+    };
+    audience: {
+      eyebrow: string;
+      titleLine1: string;
+      titleLine2: string;
+      human: { eyebrow: string; headline: string; body: string };
+      pet: { eyebrow: string; headline: string; body: string };
+    };
+    styleShowcase: {
+      eyebrow: string;
+      titleLine1: string;
+      titleLine2: string;
+      hint: string;
+      ctaPickStyle: string;
+      previewTitle: (style: string) => string;
+      navBack: string;
+      navForward: string;
+      themes: { modern: string; classic: string; timeless: string };
+    };
+    partner: {
+      eyebrow: string;
+      titleLine1: string;
+      titleLine2: string;
+      body: string;
+      cta: string;
+    };
+  };
+
+  customerWizard: {
+    stepLabels: [string, string, string, string];
+    progress: (current: number, total: number) => string;
+    nav: { back: string; next: string; toStep4: string };
+    step1: {
+      title: string;
+      subtitle: string;
+      optionHuman: string;
+      optionPet: string;
+      nameLabel: string;
+      namePlaceholderHuman: string;
+      namePlaceholderPet: string;
+      birthDate: string;
+      deathDateHuman: string;
+      deathDatePet: string;
+      dedicationLabel: string;
+      dedicationPlaceholder: string;
+    };
+    step2: {
+      title: string;
+      subtitle: string;
+      modernLabel: string;
+      modernDesc: string;
+      classicLabel: string;
+      classicDesc: string;
+      timelessLabel: string;
+      timelessDesc: string;
+      selected: string;
+      previewIframeTitle: (style: string) => string;
+    };
+    step3: {
+      title: string;
+      countLabel: (count: number, max: number) => string;
+      intro: (min: number, max: number) => string;
+      moreNeeded: (n: number, min: number) => string;
+      dropZoneTitle: string;
+      dropZoneOr: string;
+      dropZoneSelect: string;
+      dropZoneRange: (min: number, max: number) => string;
+      compressing: string;
+      removeAria: string;
+      musicTitle: string;
+      pause: string;
+      play: string;
+      selected: string;
+      select: string;
+      pixabayPlaceholder: string;
+      pixabayLabel: string;
+      pixabayOpen: string;
+      noSelection: string;
+    };
+    step4: {
+      title: string;
+      subtitle: string;
+      contactSection: string;
+      nameLabel: string;
+      namePlaceholder: string;
+      emailLabel: string;
+      emailPlaceholder: string;
+      phoneLabel: string;
+      phonePlaceholder: string;
+      addressSection: string;
+      shippingPrefix: string;
+      streetLabel: string;
+      streetPlaceholder: string;
+      postalLabel: string;
+      cityLabel: string;
+      cityPlaceholder: string;
+      countryLabel: string;
+      summaryTitle: string;
+      summaryFor: string;
+      summaryStyle: string;
+      summaryImagesLabel: string;
+      summaryImages: (count: number) => string;
+      summaryMusic: string;
+      summaryShipping: string;
+      summaryNoSelection: string;
+      totalLabel: string;
+      processing: string;
+      payCta: (price: string) => string;
+      testCta: string;
+    };
+    validation: {
+      pickAudience: string;
+      pickStyle: string;
+      uploadMin: (min: number) => string;
+      fillRequired: string;
+      emailRequired: string;
+      nameRequired: string;
+      addressRequired: string;
+      completeAllSteps: string;
+      minMediaError: (min: number) => string;
+    };
+    toasts: {
+      uploading: (count: number) => string;
+      errorGeneric: string;
+      orderCreatedNoPayment: string;
+      filesAdded: (count: number) => string;
+      maxReached: (max: number) => string;
+      videoTooBig: (filename: string) => string;
+    };
+    shippingZones: { ch: string; eu: string; world: string };
+    styleNames: { modern: string; classic: string; timeless: string };
+    success: { title: string; message: string };
+  };
+
+  cookieBanner: {
+    text: string;
+    learnMore: string;
+    accept: string;
+    decline: string;
+  };
+
+  navAria: {
+    main: string;
+    theme: string;
+    menu: string;
+    close: string;
+    closePreview: string;
+  };
+
+  notFoundPage: {
+    title: string;
+    message: string;
+    ctaHome: string;
+  };
+
+  meta: {
+    landing: { title: string; description: string };
+    selfService: { title: string };
+    partner: { title: string };
+  };
+
+  selfServicePage: {
+    back: string;
+    eyebrow: string;
+    titleLine1: string;
+    titleLine2: string;
+    subtitle: string;
   };
 }
 

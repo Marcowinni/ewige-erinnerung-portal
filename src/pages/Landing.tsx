@@ -7,16 +7,16 @@ import AudienceSection from "@/components/landing/AudienceSection";
 import StyleShowcase from "@/components/landing/StyleShowcase";
 import HomepageCarousel from "@/components/landing/HomepageCarousel";
 import PartnerSection from "@/components/landing/PartnerSection";
+import { useContent } from "@/contexts/ContentContext";
 
 export default function Landing() {
+  const { sharedContent } = useContent();
+  const meta = sharedContent.meta.landing;
   return (
     <div className="memorial-canvas min-h-screen">
       <Helmet>
-        <title>Memora Moments — Ein Moment. Für immer.</title>
-        <meta
-          name="description"
-          content="Ein würdevoller Smart Tag und ein lebendiges digitales Fotoalbum. Für Menschen und Tiere, die in Erinnerung bleiben."
-        />
+        <title>{meta.title}</title>
+        <meta name="description" content={meta.description} />
       </Helmet>
       <Navbar />
       <main>

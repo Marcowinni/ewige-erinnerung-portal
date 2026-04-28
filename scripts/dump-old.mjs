@@ -1,7 +1,12 @@
 import pg from 'pg'
 import fs from 'node:fs'
 
-const CONN = 'postgresql://postgres.btwzspkoyusxajcchapn:S*Adje7NsBQ.kgV@aws-1-eu-central-2.pooler.supabase.com:5432/postgres'
+// SECURITY: read connection string from env. Never hardcode credentials.
+const CONN = process.env.OLD_DB_CONN
+if (!CONN) {
+  console.error('Set env var OLD_DB_CONN with the old project connection string.')
+  process.exit(1)
+}
 
 const client = new pg.Client({ connectionString: CONN, ssl: { rejectUnauthorized: false } })
 await client.connect()

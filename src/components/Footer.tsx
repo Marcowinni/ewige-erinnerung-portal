@@ -84,7 +84,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/erstellen" className="hover:underline">
-                  Album erstellen
+                  {nav.create}
                 </Link>
               </li>
               <li>

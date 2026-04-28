@@ -1,8 +1,11 @@
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { useContent } from "@/contexts/ContentContext";
 
 export default function PathChoice() {
+  const { sharedContent } = useContent();
+  const t = sharedContent.landing.pathChoice;
   return (
     <section className="relative py-28 sm:py-36 memorial-canvas overflow-hidden">
       <div
@@ -28,12 +31,12 @@ export default function PathChoice() {
         >
           <div className="memorial-hairline" />
           <p className="mt-6 text-[11px] uppercase tracking-[0.3em] text-memorial-ink-soft">
-            So funktionierts!
+            {t.eyebrow}
           </p>
           <h2 className="font-display mt-4 text-4xl text-memorial-ink sm:text-5xl">
-            Jeder Moment
+            {t.titleLine1}
             <br />
-            <span className="font-display-italic">verdient seinen Platz.</span>
+            <span className="font-display-italic">{t.titleLine2}</span>
           </h2>
         </motion.div>
 
@@ -68,7 +71,7 @@ export default function PathChoice() {
             to="/erstellen"
             className="memorial-cta memorial-cta-primary inline-flex items-center justify-center gap-2 rounded-full px-10 py-4 text-sm font-medium"
           >
-            Album erstellen
+            {t.ctaCreate}
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </motion.div>

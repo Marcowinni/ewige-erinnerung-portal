@@ -5,12 +5,16 @@ import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomerUpload from "@/components/CustomerUpload";
+import { useContent } from "@/contexts/ContentContext";
 
 export default function SelfService() {
+  const { sharedContent } = useContent();
+  const t = sharedContent.selfServicePage;
+  const meta = sharedContent.meta.selfService;
   return (
     <div className="memorial-canvas min-h-screen">
       <Helmet>
-        <title>Bilder hochladen — Memora Moments</title>
+        <title>{meta.title}</title>
       </Helmet>
       <Navbar />
       <main className="pt-24 pb-24">
@@ -20,7 +24,7 @@ export default function SelfService() {
             className="mb-10 inline-flex items-center gap-2 text-sm text-memorial-ink-soft transition-colors hover:text-memorial-ink"
           >
             <ArrowLeft className="h-4 w-4" />
-            Zurück
+            {t.back}
           </Link>
 
           <motion.div
@@ -31,14 +35,14 @@ export default function SelfService() {
           >
             <div className="memorial-hairline" />
             <p className="mt-6 text-[11px] uppercase tracking-[0.3em] text-memorial-ink-soft">
-              Ihr Album beginnt hier
+              {t.eyebrow}
             </p>
             <h1 className="font-display mt-4 text-5xl text-memorial-ink sm:text-6xl">
-              Ihr Album beginnt{" "}
-              <span className="font-display-italic">hier.</span>
+              {t.titleLine1}{" "}
+              <span className="font-display-italic">{t.titleLine2}</span>
             </h1>
             <p className="mt-6 text-base leading-relaxed text-memorial-ink-soft sm:text-lg">
-              Sie laden Ihre Fotos hoch — wir gestalten Ihr Album mit Sorgfalt.
+              {t.subtitle}
             </p>
           </motion.div>
 

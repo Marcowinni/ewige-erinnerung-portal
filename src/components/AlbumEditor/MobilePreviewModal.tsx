@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef } from 'react'
 import { X } from 'lucide-react'
 import type { AlbumMode } from '@/lib/album-engine/types'
 import { PREVIEW_STORAGE_PREFIX, PREVIEW_MESSAGE_TYPE } from '@/pages/AlbumPreviewMobile'
+import { useContent } from '@/contexts/ContentContext'
 
 interface Props {
   open: boolean
@@ -32,6 +33,8 @@ export function MobilePreviewModal({
 }: Props) {
   const storageKey = useMemo(() => (open ? makeKey() : null), [open])
   const iframeRef = useRef<HTMLIFrameElement>(null)
+  const { sharedContent } = useContent()
+  const aria = sharedContent.navAria
 
   // Build payload — also pushed via postMessage on every change for realtime sync
   const payload = useMemo(
@@ -108,7 +111,7 @@ export function MobilePreviewModal({
           <iframe
             ref={iframeRef}
             src={iframeSrc}
-            title="Mobile Vorschau"
+            title={aria.closePreview}
             style={{
               width: '100%',
               height: '100%',
@@ -128,7 +131,7 @@ export function MobilePreviewModal({
 
       <button
         onClick={onClose}
-        aria-label="Vorschau schliessen"
+        aria-label={aria.closePreview}
         className="fixed top-4 right-4 z-[210] w-11 h-11 rounded-full flex items-center justify-center bg-white/10 backdrop-blur border border-white/20 text-white hover:bg-white/20 transition-colors"
       >
         <X className="w-5 h-5" />

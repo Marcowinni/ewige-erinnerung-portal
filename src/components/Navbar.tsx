@@ -14,6 +14,7 @@ const Navbar = () => {
 
   const { sharedContent } = useContent();
   const nav = sharedContent.navigation;
+  const aria = sharedContent.navAria;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -50,7 +51,7 @@ const Navbar = () => {
           : "py-4"
       }`}
       role="navigation"
-      aria-label="Hauptnavigation"
+      aria-label={aria.main}
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between gap-2">
         <Link
@@ -71,7 +72,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-5">
           <LanguageSwitcher />
           <Link to="/erstellen" className="text-memorial-ink hover:text-memorial-bronze-deep transition-colors text-sm">
-            Erstellen
+            {nav.create}
           </Link>
           <Link to="/ueber" className="text-memorial-ink hover:text-memorial-bronze-deep transition-colors text-sm">
             {nav.about}
@@ -83,8 +84,8 @@ const Navbar = () => {
             variant="outline"
             size="icon"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            aria-label="Theme"
-            title="Theme"
+            aria-label={aria.theme}
+            title={aria.theme}
           >
             {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
@@ -104,8 +105,8 @@ const Navbar = () => {
             size="icon"
             className="h-9 w-9"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            aria-label="Theme"
-            title="Theme"
+            aria-label={aria.theme}
+            title={aria.theme}
           >
             {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
@@ -114,7 +115,7 @@ const Navbar = () => {
             size="icon"
             className="h-9 w-9"
             onClick={() => setIsMenuOpen((v) => !v)}
-            aria-label="Menu"
+            aria-label={aria.menu}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
           >
@@ -139,7 +140,7 @@ const Navbar = () => {
           <div className="absolute left-0 top-0 h-full w-80 max-w-[85vw] bg-[hsl(var(--memorial-canvas))] text-memorial-ink shadow-xl border-r border-memorial-line">
             <div className="p-4 flex items-center justify-between border-b border-memorial-line">
               <span className="font-display text-lg tracking-wide">{nav.home}</span>
-              <Button variant="ghost" size="icon" onClick={closeMenu} aria-label="Schließen">
+              <Button variant="ghost" size="icon" onClick={closeMenu} aria-label={aria.close}>
                 <X className="h-6 w-6" />
               </Button>
             </div>
@@ -156,7 +157,7 @@ const Navbar = () => {
                 className="text-memorial-ink hover:text-memorial-bronze-deep transition-colors py-2"
                 onClick={closeMenu}
               >
-                Erstellen
+                {nav.create}
               </Link>
               <Link
                 to="/ueber"

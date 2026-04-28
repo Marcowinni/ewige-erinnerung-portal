@@ -2,13 +2,15 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PartnerUploader from "@/components/PartnerUploader";
 import { Helmet } from "react-helmet-async";
+import { useContent } from "@/contexts/ContentContext";
 
 const Partner = () => {
+  const { sharedContent } = useContent();
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>
-        <title>Partner Upload - Memora Moments</title>
-        <meta name="robots" content="noindex" /> 
+        <title>{sharedContent.meta.partner.title}</title>
+        <meta name="robots" content="noindex" />
       </Helmet>
 
       <Navbar />

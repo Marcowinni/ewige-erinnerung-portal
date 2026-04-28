@@ -1,8 +1,11 @@
 import { motion } from "motion/react";
 import { ExternalLink } from "lucide-react";
 import MemoraLogo from "@/components/MemoraLogo";
+import { useContent } from "@/contexts/ContentContext";
 
 export default function PartnerSection() {
+  const { sharedContent } = useContent();
+  const t = sharedContent.landing.partner;
   return (
     <section className="relative overflow-hidden py-28 sm:py-32 memorial-canvas">
       <div
@@ -28,20 +31,17 @@ export default function PartnerSection() {
         >
           <div className="memorial-card rounded-[32px] p-10 text-center sm:p-16">
             <p className="text-[11px] uppercase tracking-[0.3em] text-memorial-ink-soft">
-              Im Verbund
+              {t.eyebrow}
             </p>
             <h2 className="font-display mt-4 text-3xl text-memorial-ink sm:text-5xl">
-              Gemeinsam mit
+              {t.titleLine1}
               <br />
               <span className="font-serif italic text-memorial-bronze-deep">
-                Zeichnungsverlag
+                {t.titleLine2}
               </span>
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-[15px] leading-relaxed text-memorial-ink-soft">
-              Unser Tag lässt sich sanft auf Grabsteine, Urnen und auf die
-              handgefertigten Produkte des Zeichnungsverlags anbringen. So
-              verbindet sich bleibendes Kunsthandwerk mit lebendigen
-              Erinnerungen.
+              {t.body}
             </p>
 
             <div className="mx-auto mt-10 flex flex-col items-center justify-center gap-6 sm:flex-row sm:gap-12">
@@ -68,7 +68,7 @@ export default function PartnerSection() {
                 rel="noopener noreferrer"
                 className="memorial-cta memorial-cta-ghost inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm font-medium"
               >
-                Zeichnungsverlag besuchen
+                {t.cta}
                 <ExternalLink className="h-4 w-4" aria-hidden />
               </a>
             </div>

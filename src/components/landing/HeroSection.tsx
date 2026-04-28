@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useContent } from "@/contexts/ContentContext";
 
 const fadeUp = {
   initial: { opacity: 0, y: 18 },
@@ -8,6 +9,8 @@ const fadeUp = {
 };
 
 export default function HeroSection() {
+  const { sharedContent } = useContent();
+  const t = sharedContent.landing.hero;
   return (
     <section className="relative isolate min-h-[100dvh] w-full overflow-hidden memorial-canvas">
       {/* Subtle warm gradient backdrop — memorial tones (theme-aware) */}
@@ -50,7 +53,7 @@ export default function HeroSection() {
           className="flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-memorial-ink-soft"
         >
           <span className="h-px w-8 bg-memorial-ink-soft/50" />
-          <span>Memora Moments</span>
+          <span>{t.eyebrow}</span>
           <span className="h-px w-8 bg-memorial-ink-soft/50" />
         </motion.div>
 
@@ -61,10 +64,10 @@ export default function HeroSection() {
           transition={{ duration: 0.9, ease: [0.2, 0.8, 0.2, 1], delay: 0.08 }}
           className="font-display mt-8 text-[clamp(3rem,9vw,7.5rem)] leading-[0.98] text-memorial-ink"
         >
-          Ein Moment.
+          {t.titleLine1}
           <br />
           <span className="font-serif italic text-memorial-bronze-deep">
-            Für immer.
+            {t.titleLine2}
           </span>
         </motion.h1>
 
@@ -75,9 +78,9 @@ export default function HeroSection() {
           transition={{ duration: 0.9, ease: [0.2, 0.8, 0.2, 1], delay: 0.2 }}
           className="mt-8 max-w-xl text-base leading-relaxed text-memorial-ink-soft sm:text-lg"
         >
-          Ein würdevoller Smart Tag. Ein lebendiges digitales Fotoalbum.
+          {t.subtitle1}
           <br className="hidden sm:block" />
-          Für die Menschen und Tiere, die bleiben.
+          {t.subtitle2}
         </motion.p>
 
         <motion.div
@@ -92,7 +95,7 @@ export default function HeroSection() {
             className="memorial-cta memorial-cta-primary inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-sm font-medium"
           >
             <Sparkles className="h-4 w-4" aria-hidden />
-            Album selbst erstellen
+            {t.ctaCreate}
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </motion.div>

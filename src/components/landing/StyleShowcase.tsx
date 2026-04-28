@@ -5,6 +5,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { ModernPhotoAlbum, type PageConfig } from "@/components/album-viewer/modern/ModernPhotoAlbum";
 import { ClassicPhotoAlbum, type ClassicPageConfig } from "@/components/album-viewer/classic/ClassicPhotoAlbum";
 import { TimelessPhotoAlbum, type TimelessPageConfig } from "@/components/album-viewer/timeless/TimelessPhotoAlbum";
+import { useContent } from "@/contexts/ContentContext";
 
 const SAMPLE_IMAGES = [
   "/dog_pics/2.jpeg",
@@ -90,6 +91,9 @@ interface AlbumShowcaseProps {
 function AlbumShowcase({ theme }: AlbumShowcaseProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [hovering, setHovering] = useState(false);
+  const { sharedContent } = useContent();
+  const t = sharedContent.landing.styleShowcase;
+  const themeLabel = t.themes[theme];
 
   const fireKey = (key: string) => {
     const win = iframeRef.current?.contentWindow;
@@ -122,7 +126,7 @@ function AlbumShowcase({ theme }: AlbumShowcaseProps) {
         <iframe
           ref={iframeRef}
           src={`/showcase/${theme}`}
-          title={`${THEME_LABELS[theme]} Album Vorschau`}
+          title={t.previewTitle(themeLabel)}
           style={{
             width: '100%',
             height: '100%',
@@ -137,14 +141,14 @@ function AlbumShowcase({ theme }: AlbumShowcaseProps) {
             <button
               onClick={handleBack}
               className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/85 shadow-md backdrop-blur-sm transition-opacity hover:bg-white"
-              aria-label="Zurück"
+              aria-label={t.navBack}
             >
               <ChevronLeft className="h-5 w-5 text-memorial-ink" />
             </button>
             <button
               onClick={handleForward}
               className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/85 shadow-md backdrop-blur-sm transition-opacity hover:bg-white"
-              aria-label="Weiter"
+              aria-label={t.navForward}
             >
               <ChevronRight className="h-5 w-5 text-memorial-ink" />
             </button>
@@ -153,13 +157,15 @@ function AlbumShowcase({ theme }: AlbumShowcaseProps) {
       </div>
 
       <p className="mt-5 font-serif italic text-base text-memorial-ink-soft">
-        {THEME_LABELS[theme]}
+        {themeLabel}
       </p>
     </div>
   );
 }
 
 export default function StyleShowcase() {
+  const { sharedContent } = useContent();
+  const t = sharedContent.landing.styleShowcase;
   return (
     <section className="relative overflow-hidden py-28 sm:py-36">
       <div
@@ -188,15 +194,15 @@ export default function StyleShowcase() {
         >
           <div className="memorial-hairline" />
           <p className="mt-6 text-[11px] uppercase tracking-[0.3em] text-memorial-ink-soft">
-            Drei Stile
+            {t.eyebrow}
           </p>
           <h2 className="font-display mt-4 text-4xl text-memorial-ink sm:text-5xl">
-            Jede Geschichte
+            {t.titleLine1}
             <br />
-            <span className="font-serif italic text-memorial-bronze-deep">verdient ihren Ton.</span>
+            <span className="font-serif italic text-memorial-bronze-deep">{t.titleLine2}</span>
           </h2>
           <p className="mt-4 text-sm text-memorial-ink-soft">
-            Fahren Sie über ein Album, um es selbst zu steuern.
+            {t.hint}
           </p>
         </motion.div>
 
@@ -229,7 +235,7 @@ export default function StyleShowcase() {
             to="/erstellen"
             className="group inline-flex items-center gap-2 text-sm font-medium tracking-wide text-memorial-ink underline decoration-memorial-ink/30 underline-offset-[6px] transition-all hover:decoration-memorial-ink"
           >
-            Ihren Stil wählen
+            {t.ctaPickStyle}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </motion.div>
