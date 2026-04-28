@@ -13,6 +13,9 @@ const IMAGES = [
 
 const TRACK = [...IMAGES, ...IMAGES];
 
+// Vary card width via aspect-ratio per slot — same image looks different in each
+const ASPECTS = ['3 / 4', '4 / 3', '1 / 1', '5 / 7', '16 / 10', '4 / 5'];
+
 export default function HomepageCarousel() {
   const [openSrc, setOpenSrc] = useState<string | null>(null);
 
@@ -72,6 +75,7 @@ export default function HomepageCarousel() {
                 type="button"
                 key={i}
                 className="hpc-item"
+                style={{ aspectRatio: ASPECTS[i % ASPECTS.length] }}
                 onClick={() => setOpenSrc(src)}
                 aria-label="Bild vergrössern"
               >
@@ -152,9 +156,8 @@ export default function HomepageCarousel() {
         }
         .hpc-item {
           flex: 0 0 auto;
-          width: clamp(180px, 22vw, 260px);
+          height: clamp(240px, 32vh, 360px);
           margin-right: 24px;
-          aspect-ratio: 3 / 4;
           border-radius: 14px;
           overflow: hidden;
           box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10), 0 0 0 1px rgba(0, 0, 0, 0.04);
