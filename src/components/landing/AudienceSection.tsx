@@ -1,26 +1,29 @@
 import { motion } from "motion/react";
 import { Heart, PawPrint } from "lucide-react";
-
-const audiences = [
-  {
-    icon: Heart,
-    eyebrow: "Für Menschen",
-    headline: "Wenn Worte fehlen,\nbleiben Bilder.",
-    body: "Für Familien — ein stiller, würdevoller Weg, Erinnerungen in die Gegenwart zu tragen.",
-    wrapClass: "bg-memorial-bronze/10 text-memorial-bronze-deep",
-    bgImage: "/lovable-uploads/background_human.png",
-  },
-  {
-    icon: PawPrint,
-    eyebrow: "Für Tiere",
-    headline: "Ein Leben voller Liebe,\nauf kleinstem Raum.",
-    body: "Für alle, die einen treuen Gefährten verloren haben. Weil auch Pfotenabdrücke bleiben dürfen.",
-    wrapClass: "bg-memorial-sage/10 text-memorial-sage-deep",
-    bgImage: "/lovable-uploads/background_pet.png",
-  },
-];
+import { useContent } from "@/contexts/ContentContext";
 
 export default function AudienceSection() {
+  const { sharedContent } = useContent();
+  const t = sharedContent.landing.audience;
+  const audiences = [
+    {
+      icon: Heart,
+      eyebrow: t.human.eyebrow,
+      headline: t.human.headline,
+      body: t.human.body,
+      wrapClass: "bg-memorial-bronze/10 text-memorial-bronze-deep",
+      bgImage: "/lovable-uploads/background_human.png",
+    },
+    {
+      icon: PawPrint,
+      eyebrow: t.pet.eyebrow,
+      headline: t.pet.headline,
+      body: t.pet.body,
+      wrapClass: "bg-memorial-sage/10 text-memorial-sage-deep",
+      bgImage: "/lovable-uploads/background_pet.png",
+    },
+  ];
+
   return (
     <section className="relative py-28 sm:py-32">
       <div
@@ -41,12 +44,12 @@ export default function AudienceSection() {
         >
           <div className="memorial-hairline" />
           <p className="mt-6 text-[11px] uppercase tracking-[0.3em] text-memorial-ink-soft">
-            Für alle, die uns begleitet haben
+            {t.eyebrow}
           </p>
           <h2 className="font-display mt-4 text-4xl text-memorial-ink sm:text-5xl">
-            Für jeden
+            {t.titleLine1}
             <br />
-            <span className="font-display-italic">geliebten Begleiter.</span>
+            <span className="font-display-italic">{t.titleLine2}</span>
           </h2>
         </motion.div>
 

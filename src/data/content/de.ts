@@ -8,6 +8,7 @@ export const deContent: ContentData = {
       about: "Über uns",
       contact: "Kontakt",
       start: "Gedenken starten",
+      create: "Erstellen",
       mode: { human: "Menschen", pet: "Haustiere", surprise: "Surprise" }
     },
 
@@ -317,6 +318,203 @@ export const deContent: ContentData = {
         imprint: "Impressum"
       },
       copyright: "Alle Rechte vorbehalten."
+    },
+
+    landing: {
+      hero: {
+        eyebrow: "Memora Moments",
+        titleLine1: "Ein Moment.",
+        titleLine2: "Für immer.",
+        subtitle1: "Ein würdevoller Smart Tag. Ein lebendiges digitales Fotoalbum.",
+        subtitle2: "Für die Menschen und Tiere, die bleiben.",
+        ctaCreate: "Album erstellen"
+      },
+      pathChoice: {
+        eyebrow: "So funktionierts!",
+        titleLine1: "Jeder Moment",
+        titleLine2: "verdient seinen Platz.",
+        ctaCreate: "Album erstellen"
+      },
+      audience: {
+        eyebrow: "Für alle, die uns begleitet haben",
+        titleLine1: "Für jeden",
+        titleLine2: "geliebten Begleiter.",
+        human: {
+          eyebrow: "Für Menschen",
+          headline: "Wenn Worte fehlen,\nbleiben Bilder.",
+          body: "Für Familien — ein stiller, würdevoller Weg, Erinnerungen in die Gegenwart zu tragen."
+        },
+        pet: {
+          eyebrow: "Für Tiere",
+          headline: "Ein Leben voller Liebe,\nauf kleinstem Raum.",
+          body: "Für alle, die einen treuen Gefährten verloren haben. Weil auch Pfotenabdrücke bleiben dürfen."
+        }
+      },
+      styleShowcase: {
+        eyebrow: "Drei Stile",
+        titleLine1: "Jede Geschichte",
+        titleLine2: "verdient ihren Ton.",
+        hint: "Fahren Sie über ein Album, um es selbst zu steuern.",
+        ctaPickStyle: "Ihren Stil wählen",
+        previewTitle: (style: string) => `${style} Album Vorschau`,
+        navBack: "Zurück",
+        navForward: "Weiter",
+        themes: { modern: "Modern", classic: "Klassisch", timeless: "Zeitlos" }
+      },
+      partner: {
+        eyebrow: "Im Verbund",
+        titleLine1: "Gemeinsam mit",
+        titleLine2: "Zeichnungsverlag",
+        body: "Unser Tag lässt sich sanft auf Grabsteine, Urnen und auf die handgefertigten Produkte des Zeichnungsverlags anbringen. So verbindet sich bleibendes Kunsthandwerk mit lebendigen Erinnerungen.",
+        cta: "Zeichnungsverlag besuchen"
+      }
+    },
+
+    customerWizard: {
+      stepLabels: ["Für wen", "Stil", "Fotos", "Bestellen"],
+      progress: (current: number, total: number) => `Schritt ${current} von ${total}`,
+      nav: { back: "Zurück", next: "Weiter", toStep4: "Weiter zur Bestellung" },
+      step1: {
+        title: "Für wen gestalten wir das Album?",
+        subtitle: "Wählen Sie und füllen Sie die Details aus.",
+        optionHuman: "Für einen Menschen",
+        optionPet: "Für ein Tier",
+        nameLabel: "Name *",
+        namePlaceholderHuman: "Name der Person",
+        namePlaceholderPet: "Name des Tieres",
+        birthDate: "Geburtsdatum (optional)",
+        deathDateHuman: "Sterbedatum (optional)",
+        deathDatePet: "Todesdatum (optional)",
+        dedicationLabel: "Widmung (optional)",
+        dedicationPlaceholder: "Eine kurze Nachricht, die das Album begleitet…"
+      },
+      step2: {
+        title: "Welchen Stil soll Ihr Album haben?",
+        subtitle: "Der Stil prägt das Erscheinungsbild aller Seiten.",
+        modernLabel: "Modern",
+        modernDesc: "Klar, zeitlos, minimalistisch",
+        classicLabel: "Klassisch",
+        classicDesc: "Warm, würdevoll, traditionell",
+        timelessLabel: "Zeitlos",
+        timelessDesc: "Klar, ruhig, grosse Bilder",
+        selected: "Ausgewählt",
+        previewIframeTitle: (style: string) => `${style} Vorschau`
+      },
+      step3: {
+        title: "Ihre Fotos & Videos",
+        countLabel: (count: number, max: number) => `${count} / ${max}`,
+        intro: (min: number, max: number) => `Laden Sie mindestens ${min} Bilder hoch (max. ${max}). Wir gestalten Ihr Album daraus.`,
+        moreNeeded: (n: number, min: number) => `Noch ${n} weitere Bilder nötig (Minimum: ${min}).`,
+        dropZoneTitle: "Dateien hier ablegen",
+        dropZoneOr: "oder",
+        dropZoneSelect: "Dateien auswählen",
+        dropZoneRange: (min: number, max: number) => `Bilder & Videos · min. ${min}, max. ${max} Dateien`,
+        compressing: "Bilder werden komprimiert…",
+        removeAria: "Entfernen",
+        musicTitle: "Begleitende Musik (optional)",
+        pause: "Pause",
+        play: "Abspielen",
+        selected: "Ausgewählt",
+        select: "Auswählen",
+        pixabayPlaceholder: "Pixabay-Link (optional)",
+        pixabayLabel: "Pixabay-Link",
+        pixabayOpen: "Öffnen",
+        noSelection: "Keine Auswahl"
+      },
+      step4: {
+        title: "Kontakt & Bezahlung",
+        subtitle: "Fast geschafft — wir kümmern uns um den Rest.",
+        contactSection: "Kontakt",
+        nameLabel: "Ihr Name *",
+        namePlaceholder: "Vor- und Nachname",
+        emailLabel: "E-Mail *",
+        emailPlaceholder: "ihre@email.ch",
+        phoneLabel: "Telefon (optional)",
+        phonePlaceholder: "+41 79 000 00 00",
+        addressSection: "Lieferadresse (für Smart Tag)",
+        shippingPrefix: "Versand:",
+        streetLabel: "Strasse & Nr. *",
+        streetPlaceholder: "Musterstrasse 12",
+        postalLabel: "PLZ *",
+        cityLabel: "Ort *",
+        cityPlaceholder: "Zürich",
+        countryLabel: "Land *",
+        summaryTitle: "Zusammenfassung",
+        summaryFor: "Für",
+        summaryStyle: "Stil",
+        summaryImagesLabel: "Bilder",
+        summaryImages: (count: number) => `${count} Dateien`,
+        summaryMusic: "Musik",
+        summaryShipping: "Versand",
+        summaryNoSelection: "Keine Auswahl",
+        totalLabel: "Gesamtpreis",
+        processing: "Wird verarbeitet…",
+        payCta: (price: string) => `Zahlungspflichtig bestellen — ${price}`,
+        testCta: "🧪 Test-Bestellung (ohne Zahlung)"
+      },
+      validation: {
+        pickAudience: "Bitte Zielgruppe wählen und Namen eingeben.",
+        pickStyle: "Bitte einen Stil wählen.",
+        uploadMin: (min: number) => `Bitte mindestens ${min} Bilder hochladen.`,
+        fillRequired: "Bitte alle Pflichtfelder ausfüllen.",
+        emailRequired: "Bitte E-Mail-Adresse eingeben.",
+        nameRequired: "Bitte Namen eingeben.",
+        addressRequired: "Bitte Lieferadresse vollständig ausfüllen.",
+        completeAllSteps: "Bitte alle Schritte abschliessen.",
+        minMediaError: (min: number) => `Mindestens ${min} Bilder erforderlich.`
+      },
+      toasts: {
+        uploading: (count: number) => `Lade ${count} Dateien hoch…`,
+        errorGeneric: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+        orderCreatedNoPayment: "Bestellung erstellt. Zahlung bitte per Rechnung.",
+        filesAdded: (count: number) => `${count} Dateien hinzugefügt.`,
+        maxReached: (max: number) => `Maximum ${max} Bilder erreicht.`,
+        videoTooBig: (filename: string) => `${filename} zu groß (max 200 MB).`
+      },
+      shippingZones: { ch: "Schweiz", eu: "Europa", world: "Weltweit" },
+      styleNames: { modern: "Modern", classic: "Klassisch", timeless: "Zeitlos" },
+      success: {
+        title: "Bestellung eingegangen",
+        message: "Vielen Dank. Wir erstellen Ihr Album mit Sorgfalt innert 48 Stunden und senden Ihnen den Link per E-Mail."
+      }
+    },
+
+    cookieBanner: {
+      text: "Diese Webseite verwendet Cookies, um die Nutzererfahrung zu verbessern.",
+      learnMore: "Mehr erfahren",
+      accept: "Akzeptieren",
+      decline: "Ablehnen"
+    },
+
+    navAria: {
+      main: "Hauptnavigation",
+      theme: "Theme",
+      menu: "Menu",
+      close: "Schliessen",
+      closePreview: "Vorschau schliessen"
+    },
+
+    notFoundPage: {
+      title: "Seite nicht gefunden",
+      message: "Diese Seite existiert nicht.",
+      ctaHome: "Zur Startseite"
+    },
+
+    meta: {
+      landing: {
+        title: "Memora Moments — Ein Moment. Für immer.",
+        description: "Ein würdevoller Smart Tag und ein lebendiges digitales Fotoalbum. Für Menschen und Tiere, die in Erinnerung bleiben."
+      },
+      selfService: { title: "Bilder hochladen — Memora Moments" },
+      partner: { title: "Partner Upload - Memora Moments" }
+    },
+
+    selfServicePage: {
+      back: "Zurück",
+      eyebrow: "Ihr Album beginnt hier",
+      titleLine1: "Ihr Album beginnt",
+      titleLine2: "hier.",
+      subtitle: "Sie laden Ihre Fotos hoch — wir gestalten Ihr Album mit Sorgfalt."
     }
   },
 
