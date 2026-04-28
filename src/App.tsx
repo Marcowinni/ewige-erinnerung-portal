@@ -49,6 +49,14 @@ const RouteChangeTracker = () => {
   return null;
 };
 
+const ConditionalCookieBanner = () => {
+  const { pathname } = useLocation();
+  // Hide on iframe-embedded preview routes — the parent page already shows the banner
+  const isEmbeddedRoute = pathname.startsWith('/preview/') || pathname.startsWith('/showcase/');
+  if (isEmbeddedRoute) return null;
+  return <CookieConsentBanner />;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -77,7 +85,7 @@ const App = () => (
         <Route path="/admin/tags" element={<AdminTags />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <CookieConsentBanner />
+      <ConditionalCookieBanner />
     </TooltipProvider>
   </QueryClientProvider>
 );
