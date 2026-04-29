@@ -55,13 +55,6 @@
   filter: none;
 }
 
-/* Showcase mode (homepage iframe previews) — hide chrome + bottom UI */
-.album-showcase-wrap .tpa-chrome,
-.album-showcase-wrap .tpa-bottom,
-.album-showcase-wrap .tpa-rail {
-  display: none !important;
-}
-
 /* ═══════════════════════════════════════════════════════════════
    CHROME — top bar
 ═══════════════════════════════════════════════════════════════ */
