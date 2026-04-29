@@ -105,11 +105,8 @@ const Kontakt = () => {
                 <p className="text-[11px] uppercase tracking-[0.3em] text-memorial-ink-soft">
                   Memora Moments
                 </p>
-                <h2 className="font-display mt-2 text-2xl text-memorial-ink">
-                  Direkter Draht
-                </h2>
 
-                <div className="mt-7 space-y-5">
+                <div className="mt-6 space-y-5">
                   <a
                     href="mailto:info@memora-moments.ch"
                     className="flex items-start gap-4 group"
