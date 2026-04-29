@@ -390,7 +390,7 @@ export const deContent: ContentData = {
         namePlaceholderPet: "Name des Tieres",
         birthDate: "Geburtsdatum (optional)",
         deathDateHuman: "Sterbedatum (optional)",
-        deathDatePet: "Todesdatum (optional)",
+        deathDatePet: "Sterbedatum (optional)",
         dedicationLabel: "Widmung (optional)",
         dedicationPlaceholder: "Eine kurze Nachricht, die das Album begleitet…"
       },
