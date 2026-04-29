@@ -129,17 +129,15 @@ export default function HomepageCarousel() {
         .hpc-track {
           display: flex;
           width: max-content;
-          animation: hpc-scroll 60s linear infinite;
+          animation: hpc-scroll 80s linear infinite;
           will-change: transform;
         }
-        .hpc-marquee:hover .hpc-track,
         .hpc-paused .hpc-track {
           animation-play-state: paused;
         }
         .hpc-item {
           flex: 0 0 auto;
-          width: clamp(220px, 26vw, 300px);
-          aspect-ratio: 4 / 5;
+          height: clamp(240px, 32vh, 360px);
           margin-right: 24px;
           border-radius: 14px;
           overflow: hidden;
@@ -161,9 +159,9 @@ export default function HomepageCarousel() {
           outline-offset: 3px;
         }
         .hpc-item img {
-          width: 100%;
+          width: auto;
           height: 100%;
-          object-fit: cover;
+          max-width: none;
           display: block;
           filter: saturate(0.92) contrast(0.98);
         }
