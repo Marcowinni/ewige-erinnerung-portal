@@ -178,9 +178,9 @@ export default function HomepageCarousel() {
           outline-offset: 3px;
         }
         .hpc-item img {
-          width: 100%;
+          width: auto;
           height: 100%;
-          object-fit: cover;
+          max-width: none;
           display: block;
           filter: saturate(0.92) contrast(0.98);
         }
