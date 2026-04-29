@@ -263,7 +263,7 @@ function StylePhoneFrame({ theme, selected, iframeTitle }: { theme: AlbumStyle; 
       }}
     >
       <iframe
-        src={`/showcase/${theme}`}
+        src={`/showcase/${theme}?auto=1`}
         title={iframeTitle}
         style={{
           width: VIEWPORT_W,

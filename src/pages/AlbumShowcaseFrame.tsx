@@ -1,5 +1,5 @@
-import { useMemo } from 'react'
-import { useParams } from 'react-router-dom'
+import { useEffect, useMemo } from 'react'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { ModernPhotoAlbum, type PageConfig } from '@/components/album-viewer/modern/ModernPhotoAlbum'
 import { ClassicPhotoAlbum, type ClassicPageConfig } from '@/components/album-viewer/classic/ClassicPhotoAlbum'
 import { TimelessPhotoAlbum, type TimelessPageConfig } from '@/components/album-viewer/timeless/TimelessPhotoAlbum'
@@ -73,6 +73,33 @@ function buildTimelessPages(imgs: string[]): TimelessPageConfig[] {
 
 export default function AlbumShowcaseFrame() {
   const { theme } = useParams<{ theme: string }>()
+  const [params] = useSearchParams()
+  const auto = params.get('auto') === '1'
+
+  // Auto-advance only when ?auto=1 is set (e.g. wizard step 2 iframes).
+  // Homepage StyleShowcase loads without the query and stays manual.
+  useEffect(() => {
+    if (!auto) return
+    const tick = () => {
+      const next = document.querySelector<HTMLButtonElement>('[aria-label="Weiter"], [aria-label="Next"], [aria-label="Suivant"], [aria-label="Avanti"]')
+      if (next && !next.disabled) {
+        next.click()
+        return
+      }
+      // Reached end — wrap back to first page via repeated back-clicks
+      let i = 0
+      const wrap = () => {
+        const back = document.querySelector<HTMLButtonElement>('[aria-label="Zurück"], [aria-label="Back"], [aria-label="Retour"], [aria-label="Indietro"]')
+        if (back && !back.disabled && i++ < 30) {
+          back.click()
+          setTimeout(wrap, 80)
+        }
+      }
+      wrap()
+    }
+    const id = setInterval(tick, 4500)
+    return () => clearInterval(id)
+  }, [auto])
 
   const modernPages = useMemo(() => buildModernPages(SAMPLE_IMAGES), [])
   const classicPages = useMemo(() => buildClassicPages(SAMPLE_IMAGES), [])
