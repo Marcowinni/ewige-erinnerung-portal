@@ -354,7 +354,7 @@ export const itContent: ContentData = {
         eyebrow: "In collaborazione",
         titleLine1: "Insieme a",
         titleLine2: "Zeichnungsverlag",
-        body: "Il nostro tag si applica delicatamente su lapidi, urne e sui prodotti artigianali di Zeichnungsverlag. Così l'artigianato durevole si unisce ai ricordi vivi.",
+        body: "Il nostro tag si applica discretamente su lapidi, urne e sui prodotti di Zeichnungsverlag — creando connessioni sottili tra i luoghi fisici del ricordo e i contenuti digitali.",
         cta: "Visita Zeichnungsverlag"
       }
     },

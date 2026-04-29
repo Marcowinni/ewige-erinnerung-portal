@@ -317,7 +317,7 @@ export const frContent: ContentData = {
         eyebrow: "En partenariat",
         titleLine1: "Ensemble avec",
         titleLine2: "Zeichnungsverlag",
-        body: "Notre Tag s'appose délicatement sur les pierres tombales, les urnes et sur les produits artisanaux du Zeichnungsverlag. Ainsi, l'artisanat d'art durable s'unit aux souvenirs vivants.",
+        body: "Notre Tag se pose discrètement sur les pierres tombales, les urnes et sur les produits du Zeichnungsverlag — créant des liens subtils entre les lieux physiques du souvenir et les contenus numériques.",
         cta: "Visiter Zeichnungsverlag"
       }
     },

@@ -354,7 +354,7 @@ export const enContent: ContentData = {
         eyebrow: "Together",
         titleLine1: "In partnership with",
         titleLine2: "Zeichnungsverlag",
-        body: "Our tag attaches gently to gravestones, urns, and the handcrafted pieces of Zeichnungsverlag. So enduring craftsmanship joins with living memories.",
+        body: "Our tag fits discreetly onto gravestones, urns, and the products of Zeichnungsverlag — creating subtle bridges between physical places of remembrance and digital memories.",
         cta: "Visit Zeichnungsverlag"
       }
     },

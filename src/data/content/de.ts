@@ -365,7 +365,7 @@ export const deContent: ContentData = {
         eyebrow: "Im Verbund",
         titleLine1: "Gemeinsam mit",
         titleLine2: "Zeichnungsverlag",
-        body: "Unser Tag lässt sich sanft auf Grabsteine, Urnen und auf die handgefertigten Produkte des Zeichnungsverlags anbringen. So verbindet sich bleibendes Kunsthandwerk mit lebendigen Erinnerungen.",
+        body: "Unser Tag lässt sich unauffällig auf Grabsteinen, Urnen sowie auf den Produkten des Zeichnungsverlag anbringen. So entstehen dezente Verbindungen zwischen physischen Erinnerungsorten und digitalen Inhalten.",
         cta: "Zeichnungsverlag besuchen"
       }
     },
