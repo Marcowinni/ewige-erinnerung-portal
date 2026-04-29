@@ -108,7 +108,7 @@
 /* First leaf only — buffer at top so its first photo doesn't slide under
    the fixed .cpa-chrome bar. Second leaf untouched, layout otherwise unchanged. */
 .cpa-spread .cpa-leaf:first-child {
-  padding-top: 40px;
+  padding-top: 64px;
 }
 .cpa-leaf::before {
   content: "";
