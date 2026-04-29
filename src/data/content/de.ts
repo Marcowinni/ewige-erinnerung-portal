@@ -425,7 +425,8 @@ export const deContent: ContentData = {
         pixabayPlaceholder: "Pixabay-Link (optional)",
         pixabayLabel: "Pixabay-Link",
         pixabayOpen: "Öffnen",
-        noSelection: "Keine Auswahl"
+        noSelection: "Keine Auswahl",
+        captionPlaceholder: "Text zu diesem Bild (optional)"
       },
       step4: {
         title: "Kontakt & Bezahlung",

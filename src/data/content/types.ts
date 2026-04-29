@@ -508,6 +508,7 @@ export interface SharedContent {
       pixabayLabel: string;
       pixabayOpen: string;
       noSelection: string;
+      captionPlaceholder: string;
     };
     step4: {
       title: string;

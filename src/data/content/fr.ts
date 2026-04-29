@@ -399,7 +399,8 @@ export const frContent: ContentData = {
         pixabayPlaceholder: "Lien Pixabay (facultatif)",
         pixabayLabel: "Lien Pixabay",
         pixabayOpen: "Ouvrir",
-        noSelection: "Aucune sélection"
+        noSelection: "Aucune sélection",
+        captionPlaceholder: "Légende pour cette image (facultatif)"
       },
       step4: {
         title: "Contact & paiement",

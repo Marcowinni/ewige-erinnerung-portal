@@ -9,15 +9,9 @@ Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
 
   try {
-    const { orderId, uploadedFilePaths } = await req.json()
+    const { orderId, uploadedFilePaths, albumLayout } = await req.json()
     if (!orderId || !Array.isArray(uploadedFilePaths)) {
       throw new Error('orderId and uploadedFilePaths (array) are required.')
-    }
-    if (uploadedFilePaths.length === 0) {
-      return new Response(JSON.stringify({ success: true, orderId, count: 0 }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200,
-      })
     }
 
     const supabaseAdmin = createClient(
@@ -26,23 +20,37 @@ Deno.serve(async (req) => {
       { auth: { persistSession: false } }
     )
 
-    // Atomic append via Postgres function — avoids read/merge/write races
-    const { data, error } = await supabaseAdmin.rpc('append_customer_order_files', {
-      order_id: orderId,
-      new_files: uploadedFilePaths,
-    })
+    let finalCount = 0
+    if (uploadedFilePaths.length > 0) {
+      // Atomic append via Postgres function — avoids read/merge/write races
+      const { data, error } = await supabaseAdmin.rpc('append_customer_order_files', {
+        order_id: orderId,
+        new_files: uploadedFilePaths,
+      })
 
-    if (error) {
-      if (error.message?.includes('not found')) {
-        return new Response(JSON.stringify({ error: `Order ${orderId} not found.` }), {
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          status: 404,
-        })
+      if (error) {
+        if (error.message?.includes('not found')) {
+          return new Response(JSON.stringify({ error: `Order ${orderId} not found.` }), {
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+            status: 404,
+          })
+        }
+        throw error
       }
-      throw error
+
+      finalCount = Array.isArray(data) ? data.length : 0
     }
 
-    const finalCount = Array.isArray(data) ? data.length : 0
+    // Persist initial album layout (with user captions baked into page text)
+    if (albumLayout && typeof albumLayout === 'object') {
+      const { error: layoutErr } = await supabaseAdmin
+        .from('customer_orders')
+        .update({ album_layout: albumLayout })
+        .eq('id', orderId)
+      if (layoutErr) {
+        console.warn('album_layout update failed (non-fatal):', layoutErr.message)
+      }
+    }
 
     return new Response(JSON.stringify({ success: true, orderId, count: finalCount }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

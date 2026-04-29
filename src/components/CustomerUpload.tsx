@@ -19,6 +19,10 @@ import { cn } from '@/lib/utils'
 import { countryList } from '@/data/countries'
 import { useContent } from '@/contexts/ContentContext'
 import type { SharedContent } from '@/data/content/types'
+import { buildPages as buildModernPages } from '@/components/album-viewer/modern/ModernPhotoAlbum'
+import { buildClassicPages } from '@/components/album-viewer/classic/ClassicPhotoAlbum'
+import { buildTimelessPages } from '@/components/album-viewer/timeless/TimelessPhotoAlbum'
+import { applyCaptions } from '@/lib/album/applyCaptions'
 
 // ─── constants ───────────────────────────────────────────────────────────────
 
@@ -70,6 +74,7 @@ interface MediaFile {
   file: File
   previewUrl: string
   kind: 'image' | 'video'
+  caption: string
 }
 
 interface MusicChoice {
@@ -94,6 +99,29 @@ interface Step4Data {
   postalCode: string
   city: string
   countryCode: string
+}
+
+// Build initial album_layout from uploaded paths + per-item captions.
+// Pages are built using the chosen style's builder, then captions are applied
+// so each user-supplied caption overrides the auto-generated text on the page
+// where that image lives.
+function buildInitialAlbumLayout(
+  style: AlbumStyle,
+  pathsInOrder: string[],
+  captionsByPath: Record<string, string>,
+): { mode: AlbumStyle; pages: unknown[] } {
+  let pages: unknown[]
+  switch (style) {
+    case 'classic':
+      pages = buildClassicPages(pathsInOrder)
+      break
+    case 'timeless':
+      pages = buildTimelessPages(pathsInOrder)
+      break
+    default:
+      pages = buildModernPages(pathsInOrder)
+  }
+  return { mode: style, pages: applyCaptions(pages as Record<string, unknown>[], captionsByPath) }
 }
 
 function buildShippingAddress(d: Step4Data): string {
@@ -337,6 +365,7 @@ function Step3({
   items,
   onAdd,
   onRemove,
+  onCaptionChange,
   music,
   onMusicChange,
   t,
@@ -345,6 +374,7 @@ function Step3({
   items: MediaFile[]
   onAdd: (files: FileList) => Promise<void>
   onRemove: (id: string) => void
+  onCaptionChange: (id: string, caption: string) => void
   music: MusicChoice
   onMusicChange: (v: MusicChoice) => void
   t: CustomerWizardCopy['step3']
@@ -426,23 +456,33 @@ function Step3({
         <input ref={inputRef} type="file" accept="image/*,video/*" multiple className="hidden" onChange={(e) => handleFiles(e.target.files)} />
       </div>
 
-      {/* Thumbnail grid */}
+      {/* Media grid with per-item caption */}
       {count > 0 && (
-        <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
           {items.map((item) => (
-            <div key={item.id} className="relative aspect-square rounded-lg overflow-hidden group">
-              {item.kind === 'image' ? (
-                <img src={item.previewUrl} alt="" className="w-full h-full object-cover" />
-              ) : (
-                <video src={item.previewUrl} className="w-full h-full object-cover" />
-              )}
-              <button
-                onClick={() => onRemove(item.id)}
-                className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                aria-label={t.removeAria}
-              >
-                <X className="w-3 h-3" />
-              </button>
+            <div key={item.id} className="memorial-card rounded-xl overflow-hidden border border-memorial-line/50 flex flex-col">
+              <div className="relative aspect-square group">
+                {item.kind === 'image' ? (
+                  <img src={item.previewUrl} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  <video src={item.previewUrl} className="w-full h-full object-cover" />
+                )}
+                <button
+                  onClick={() => onRemove(item.id)}
+                  className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-black/60 text-white flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity"
+                  aria-label={t.removeAria}
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+              <input
+                type="text"
+                value={item.caption}
+                onChange={(e) => onCaptionChange(item.id, e.target.value)}
+                placeholder={t.captionPlaceholder}
+                maxLength={60}
+                className="w-full px-3 py-2 text-[12px] bg-transparent border-t border-memorial-line/40 focus:outline-none focus:bg-memorial-canvas text-memorial-ink placeholder:text-memorial-ink-soft/60"
+              />
             </div>
           ))}
         </div>
@@ -731,14 +771,14 @@ export default function CustomerUpload() {
         if (file.type.startsWith('image/')) {
           try {
             const compressed = await imageCompression(file, imgOptions)
-            return { id: crypto.randomUUID(), file: compressed, previewUrl: URL.createObjectURL(compressed), kind: 'image' }
+            return { id: crypto.randomUUID(), file: compressed, previewUrl: URL.createObjectURL(compressed), kind: 'image', caption: '' }
           } catch {
-            return { id: crypto.randomUUID(), file, previewUrl: URL.createObjectURL(file), kind: 'image' }
+            return { id: crypto.randomUUID(), file, previewUrl: URL.createObjectURL(file), kind: 'image', caption: '' }
           }
         }
         if (file.type.startsWith('video/')) {
           if (file.size > 200 * 1024 * 1024) { toast.error(t.toasts.videoTooBig(file.name)); return null }
-          return { id: crypto.randomUUID(), file, previewUrl: URL.createObjectURL(file), kind: 'video' }
+          return { id: crypto.randomUUID(), file, previewUrl: URL.createObjectURL(file), kind: 'video', caption: '' }
         }
         return null
       })
@@ -793,22 +833,33 @@ export default function CustomerUpload() {
       const { folderName, orderId, slug } = orderData
 
       toast.info(t.toasts.uploading(mediaItems.length))
-      const uploadedFiles: { path: string }[] = []
+      const uploadedFiles: { path: string; caption?: string }[] = []
 
+      const pathByItemId: Record<string, string> = {}
       await Promise.all(
         mediaItems.map(async (item) => {
           const cleanName = sanitizeFileName(item.file.name)
           const filePath = `${folderName}/${crypto.randomUUID()}-${cleanName}`
           const { data: up, error: upErr } = await supabase.storage.from('uploads').upload(filePath, item.file, { upsert: true })
           if (upErr) throw upErr
-          if (up?.path) uploadedFiles.push({ path: up.path })
+          if (up?.path) {
+            uploadedFiles.push({ path: up.path, caption: item.caption || undefined })
+            pathByItemId[item.id] = up.path
+          }
         })
       )
 
-      // Single atomic finalize with all paths — prevents race where parallel
-      // per-file finalize calls overwrite each other's uploaded_files array
+      // Build album_layout from captions in the order the user uploaded
+      const orderedPaths = mediaItems.map((m) => pathByItemId[m.id]).filter(Boolean) as string[]
+      const captionsByPath: Record<string, string> = {}
+      for (const m of mediaItems) {
+        const p = pathByItemId[m.id]
+        if (p && m.caption.trim()) captionsByPath[p] = m.caption.trim()
+      }
+      const albumLayout = buildInitialAlbumLayout(albumStyle!, orderedPaths, captionsByPath)
+
       await supabase.functions.invoke('finalize-customer-order', {
-        body: { orderId, uploadedFilePaths: uploadedFiles },
+        body: { orderId, uploadedFilePaths: uploadedFiles, albumLayout },
       })
 
       window.location.href = `/bestellung-erfolgreich?slug=${encodeURIComponent(slug)}&test=1`
@@ -857,21 +908,34 @@ export default function CustomerUpload() {
 
       // 2. Upload files
       toast.info(t.toasts.uploading(mediaItems.length))
-      const uploadedFiles: { path: string }[] = []
+      const uploadedFiles: { path: string; caption?: string }[] = []
 
+      const pathByItemId: Record<string, string> = {}
       await Promise.all(
         mediaItems.map(async (item) => {
           const cleanName = sanitizeFileName(item.file.name)
           const filePath = `${folderName}/${crypto.randomUUID()}-${cleanName}`
           const { data: up, error: upErr } = await supabase.storage.from('uploads').upload(filePath, item.file, { upsert: true })
           if (upErr) throw upErr
-          if (up?.path) uploadedFiles.push({ path: up.path })
+          if (up?.path) {
+            uploadedFiles.push({ path: up.path, caption: item.caption || undefined })
+            pathByItemId[item.id] = up.path
+          }
         })
       )
 
-      // 3. Store file list
+      // Build album_layout from captions
+      const orderedPaths = mediaItems.map((m) => pathByItemId[m.id]).filter(Boolean) as string[]
+      const captionsByPath: Record<string, string> = {}
+      for (const m of mediaItems) {
+        const p = pathByItemId[m.id]
+        if (p && m.caption.trim()) captionsByPath[p] = m.caption.trim()
+      }
+      const albumLayout = buildInitialAlbumLayout(albumStyle!, orderedPaths, captionsByPath)
+
+      // 3. Store file list + initial layout
       await supabase.functions.invoke('finalize-customer-order', {
-        body: { orderId, uploadedFilePaths: uploadedFiles },
+        body: { orderId, uploadedFilePaths: uploadedFiles, albumLayout },
       })
 
       // 4. Stripe checkout
@@ -913,6 +977,9 @@ export default function CustomerUpload() {
             items={mediaItems}
             onAdd={handleAddMedia}
             onRemove={(id) => setMediaItems((prev) => prev.filter((i) => i.id !== id))}
+            onCaptionChange={(id, caption) =>
+              setMediaItems((prev) => prev.map((m) => (m.id === id ? { ...m, caption } : m)))
+            }
             music={music}
             onMusicChange={setMusic}
             t={t.step3}
