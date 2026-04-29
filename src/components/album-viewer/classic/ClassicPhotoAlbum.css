@@ -59,14 +59,10 @@
 /* Spine hidden on mobile — no book metaphor in single-column */
 .cpa-spine { display: none; }
 
-/* Spread — mobile: single-column, fixed height, NO scroll.
-   Top offset reserves space for the fixed .cpa-chrome header bar. */
+/* Spread — mobile: single-column, fixed height, NO scroll */
 .cpa-spread {
   position: absolute;
-  top: calc(48px + env(safe-area-inset-top, 0px));
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   display: flex;
   flex-direction: column;
   opacity: 0;
@@ -107,6 +103,12 @@
   box-shadow:
     inset 0 0 60px rgba(101,78,50,.2),
     inset 0 0 20px rgba(60,40,20,.15);
+}
+
+/* First leaf only — buffer at top so its first photo doesn't slide under
+   the fixed .cpa-chrome bar. Second leaf untouched, layout otherwise unchanged. */
+.cpa-spread .cpa-leaf:first-child {
+  padding-top: 40px;
 }
 .cpa-leaf::before {
   content: "";
