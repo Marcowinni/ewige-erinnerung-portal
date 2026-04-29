@@ -7,7 +7,7 @@ export const deContent: ContentData = {
       gedenken: "Gedenken erstellen",
       about: "Über uns",
       contact: "Kontakt",
-      start: "Gedenken starten",
+      start: "Album erstellen",
       create: "Erstellen",
       mode: { human: "Menschen", pet: "Haustiere", surprise: "Surprise" }
     },
@@ -488,7 +488,8 @@ export const deContent: ContentData = {
     },
 
     cookieBanner: {
-      text: "Diese Webseite verwendet Cookies, um die Nutzererfahrung zu verbessern.",
+      title: "Wir verwenden Cookies",
+      text: "Wir setzen technisch notwendige Cookies und – nur mit Ihrer Zustimmung – Analyse-Cookies, um die Nutzung unserer Seite zu verstehen.",
       learnMore: "Mehr erfahren",
       accept: "Akzeptieren",
       decline: "Ablehnen"

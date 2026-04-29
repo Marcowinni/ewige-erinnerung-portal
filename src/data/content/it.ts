@@ -7,7 +7,7 @@ export const itContent: ContentData = {
       gedenken: "Crea Memoriale",
       about: "Chi Siamo",
       contact: "Contatto",
-      start: "Inizia Memoriale",
+      start: "Crea l'album",
       create: "Crea",
       mode: { human: "Persona", pet: "Animali", surprise: "Sorpresa" }
     },
@@ -477,7 +477,8 @@ export const itContent: ContentData = {
     },
 
     cookieBanner: {
-      text: "Questo sito utilizza i cookie per migliorare l'esperienza utente.",
+      title: "Utilizziamo i cookie",
+      text: "Impostiamo cookie strettamente necessari e — solo con il tuo consenso — cookie di analisi per capire come il sito viene utilizzato.",
       learnMore: "Scopri di più",
       accept: "Accetta",
       decline: "Rifiuta"

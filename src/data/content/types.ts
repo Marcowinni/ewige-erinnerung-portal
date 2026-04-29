@@ -567,6 +567,7 @@ export interface SharedContent {
   };
 
   cookieBanner: {
+    title?: string;
     text: string;
     learnMore: string;
     accept: string;

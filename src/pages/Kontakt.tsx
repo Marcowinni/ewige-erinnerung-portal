@@ -1,19 +1,17 @@
 import { useState } from "react";
-import emailjs from '@emailjs/browser';
+import emailjs from "@emailjs/browser";
+import { motion } from "motion/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DarkModeToggle from "@/components/DarkModeToggle";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Send, Mail, Phone, Loader2 } from "lucide-react";
+import { Send, Mail, Phone, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { useContent } from "@/contexts/ContentContext";
 import { Helmet } from "react-helmet-async";
+import { cn } from "@/lib/utils";
 
 const Kontakt = () => {
-  const { t, sharedContent } = useContent();
-  const contactContent = sharedContent.contact;
+  const { sharedContent } = useContent();
+  const c = sharedContent.contact;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -22,7 +20,7 @@ const Kontakt = () => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -36,162 +34,211 @@ const Kontakt = () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // DEINE EMAILJS DATEN SIND HIER EINGETRAGEN
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
     const userId = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    // Sicherheitscheck: Sind die Variablen überhaupt vorhanden?
     if (!serviceId || !templateId || !userId) {
       console.error("EmailJS environment variables are not set!");
-      setSubmitStatus('error');
+      setSubmitStatus("error");
       setIsSubmitting(false);
       return;
     }
 
-    emailjs.send(serviceId, templateId, formData, userId)
-      .then((response) => {
-        console.log("SUCCESS!", response.status, response.text);
+    emailjs
+      .send(serviceId, templateId, formData, userId)
+      .then(() => {
         setFormData({ name: "", email: "", subject: "", message: "" });
-        setSubmitStatus('success');
-      }, (err) => {
-        console.error("FAILED...", err);
-        setSubmitStatus('error');
+        setSubmitStatus("success");
       })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+      .catch(() => setSubmitStatus("error"))
+      .finally(() => setIsSubmitting(false));
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-
-      {/* NEU: Meta Tags */}
+    <div className="min-h-screen flex flex-col bg-[hsl(var(--memorial-canvas))] text-memorial-ink">
       <Helmet>
-        <title>{contactContent.title}</title>
-        <meta name="description" content={contactContent.description} />
+        <title>{c.title}</title>
+        <meta name="description" content={c.description} />
       </Helmet>
 
       <Navbar />
 
-      <main className="flex-grow pt-32 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <h1 className="text-3xl md:text-4xl font-serif mb-8 text-center">
-              {t("contact.title")}
-            </h1>
+      <main className="flex-grow pt-28 sm:pt-32 pb-20">
+        <section className="relative">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-72"
+            style={{
+              background:
+                "radial-gradient(ellipse 80% 60% at 50% 0%, hsl(var(--memorial-bronze) / 0.18) 0%, transparent 70%)",
+            }}
+          />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Kontakt-Infos */}
-              <div>
-                <div className="prose prose-lg max-w-none mb-8">
-                  <p>{t("contact.description")}</p>
-                </div>
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
+              className="mx-auto max-w-2xl text-center"
+            >
+              <div className="memorial-hairline" />
+              <p className="mt-6 text-[11px] uppercase tracking-[0.3em] text-memorial-ink-soft">
+                {c.heading}
+              </p>
+              <h1 className="font-display mt-4 text-4xl text-memorial-ink sm:text-5xl">
+                {c.title}
+              </h1>
+              <p className="mt-5 text-[15px] text-memorial-ink-soft leading-relaxed">
+                {c.description}
+              </p>
+            </motion.div>
 
-                <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-secondary p-3 rounded-full">
-                      <Mail className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-lg">{t("contact.email")}</h3>
-                      <p className="text-muted-foreground">
-                        info@memora.moments.ch
+            <div className="mt-14 grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-8 lg:gap-12 max-w-5xl mx-auto">
+              {/* Contact info column */}
+              <motion.aside
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.05, ease: [0.2, 0.8, 0.2, 1] }}
+                className="memorial-card rounded-2xl border border-memorial-line p-7 sm:p-8"
+              >
+                <p className="text-[11px] uppercase tracking-[0.3em] text-memorial-ink-soft">
+                  Memora Moments
+                </p>
+                <h2 className="font-display mt-2 text-2xl text-memorial-ink">
+                  TW Projects GmbH
+                </h2>
+                <p className="mt-1 text-[14px] text-memorial-ink-soft">
+                  Breitenmattstrasse, 8635 Dürnten
+                </p>
+
+                <div className="mt-7 space-y-5">
+                  <a
+                    href="mailto:info@memora-moments.ch"
+                    className="flex items-start gap-4 group"
+                  >
+                    <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-memorial-bronze/15 text-memorial-bronze-deep transition-colors group-hover:bg-memorial-bronze/25">
+                      <Mail className="h-5 w-5" strokeWidth={1.5} />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-[11px] uppercase tracking-widest text-memorial-ink-soft">
+                        {c.email}
+                      </p>
+                      <p className="mt-0.5 text-[15px] text-memorial-ink group-hover:text-memorial-bronze-deep transition-colors break-all">
+                        info@memora-moments.ch
                       </p>
                     </div>
-                  </div>
+                  </a>
 
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-secondary p-3 rounded-full">
-                      <Phone className="h-6 w-6 text-primary" />
-                    </div>
+                  <a href="tel:+41794075699" className="flex items-start gap-4 group">
+                    <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-memorial-sage/15 text-memorial-sage-deep transition-colors group-hover:bg-memorial-sage/25">
+                      <Phone className="h-5 w-5" strokeWidth={1.5} />
+                    </span>
                     <div>
-                      <h3 className="font-medium text-lg">{t("contact.phone")}</h3>
-                      <p className="text-muted-foreground">+41 79 407 56 99</p>
+                      <p className="text-[11px] uppercase tracking-widest text-memorial-ink-soft">
+                        {c.phone}
+                      </p>
+                      <p className="mt-0.5 text-[15px] text-memorial-ink group-hover:text-memorial-sage-deep transition-colors">
+                        +41 79 407 56 99
+                      </p>
                     </div>
-                  </div>
+                  </a>
                 </div>
-              </div>
+              </motion.aside>
 
-              {/* Kontakt-Formular */}
-              <div>
-                <form
-                  onSubmit={handleSubmit}
-                  className="space-y-6 bg-card p-8 rounded-lg shadow-sm border border-border"
-                >
-                  <h2 className="text-2xl font-serif mb-6">
-                    {t("contact.form.title")}
-                  </h2>
+              {/* Form column */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1, ease: [0.2, 0.8, 0.2, 1] }}
+                className="memorial-card rounded-2xl border border-memorial-line p-7 sm:p-9"
+              >
+                <h2 className="font-display text-2xl text-memorial-ink mb-6">
+                  {c.form.title}
+                </h2>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="name">{t("contact.form.name.label")}</Label>
-                    <Input
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <Field
                       id="name"
-                      name="name"
+                      label={c.form.name.label}
+                      placeholder={c.form.name.placeholder}
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder={t("contact.form.name.placeholder")}
                       required
                     />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="email">{t("contact.form.email.label")}</Label>
-                    <Input
+                    <Field
                       id="email"
-                      name="email"
                       type="email"
+                      label={c.form.email.label}
+                      placeholder={c.form.email.placeholder}
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder={t("contact.form.email.placeholder")}
                       required
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">
-                      {t("contact.form.subject.label")}
-                    </Label>
-                    <Input
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      placeholder={t("contact.form.subject.placeholder")}
-                      required
-                    />
-                  </div>
+                  <Field
+                    id="subject"
+                    label={c.form.subject.label}
+                    placeholder={c.form.subject.placeholder}
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                  />
 
-                  <div className="space-y-2">
-                    <Label htmlFor="message">
-                      {t("contact.form.message.label")}
-                    </Label>
-                    <Textarea
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="block text-[11px] uppercase tracking-widest text-memorial-ink-soft mb-2"
+                    >
+                      {c.form.message.label}
+                    </label>
+                    <textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder={t("contact.form.message.placeholder")}
+                      placeholder={c.form.message.placeholder}
                       rows={5}
                       required
+                      className="memorial-underline-input w-full text-[15px] text-memorial-ink resize-none"
                     />
                   </div>
 
-                  <Button type="submit" className="w-full" disabled={isSubmitting}>
-                    {isSubmitting ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                      <Send className="mr-2 h-4 w-4" />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={cn(
+                      "memorial-cta memorial-cta-primary inline-flex w-full items-center justify-center gap-2 rounded-full py-3.5 text-[14px] font-medium",
+                      isSubmitting && "opacity-70 cursor-not-allowed"
                     )}
-                    {t("contact.form.submit")}
-                  </Button>
-                   {submitStatus === 'success' && <p className="text-sm text-green-600">{t("contact.form.success")}</p>}
-                   {submitStatus === 'error' && <p className="text-sm text-red-600">Fehler beim Senden. Bitte versuchen Sie es später erneut.</p>}
+                  >
+                    {isSubmitting ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Send className="h-4 w-4" />
+                    )}
+                    {c.form.submit}
+                  </button>
+
+                  {submitStatus === "success" && (
+                    <div className="flex items-start gap-2 rounded-xl border border-memorial-sage/40 bg-memorial-sage/10 px-4 py-3 text-[13px] text-memorial-sage-deep">
+                      <CheckCircle2 className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                      <span>{c.form.success}</span>
+                    </div>
+                  )}
+                  {submitStatus === "error" && (
+                    <div className="flex items-start gap-2 rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-[13px] text-red-700">
+                      <AlertCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                      <span>Fehler beim Senden. Bitte versuchen Sie es später erneut.</span>
+                    </div>
+                  )}
                 </form>
-              </div>
+              </motion.div>
             </div>
           </div>
-        </div>
+        </section>
       </main>
 
       <Footer />
@@ -199,5 +246,38 @@ const Kontakt = () => {
     </div>
   );
 };
+
+interface FieldProps {
+  id: string;
+  label: string;
+  placeholder: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+  required?: boolean;
+}
+
+function Field({ id, label, placeholder, value, onChange, type = "text", required }: FieldProps) {
+  return (
+    <div>
+      <label
+        htmlFor={id}
+        className="block text-[11px] uppercase tracking-widest text-memorial-ink-soft mb-2"
+      >
+        {label}
+      </label>
+      <input
+        id={id}
+        name={id}
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        required={required}
+        className="memorial-underline-input w-full text-[15px] text-memorial-ink"
+      />
+    </div>
+  );
+}
 
 export default Kontakt;

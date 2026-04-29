@@ -7,7 +7,7 @@ export const enContent: ContentData = {
       gedenken: "Create Memorial",
       about: "About Us",
       contact: "Contact",
-      start: "Start Memorial",
+      start: "Create album",
       create: "Create",
       mode: { human: "Human", pet: "Pets", surprise: "Surprise" }
     },
@@ -478,7 +478,8 @@ export const enContent: ContentData = {
     },
 
     cookieBanner: {
-      text: "This website uses cookies to improve the user experience.",
+      title: "We use cookies",
+      text: "We set strictly necessary cookies and — only with your consent — analytics cookies to understand how the site is used.",
       learnMore: "Learn more",
       accept: "Accept",
       decline: "Decline"

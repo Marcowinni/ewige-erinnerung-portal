@@ -7,7 +7,7 @@ export const frContent: ContentData = {
       gedenken: "Créer un Mémorial",
       about: "À Propos",
       contact: "Contact",
-      start: "Commencer un Mémorial",
+      start: "Créer l'album",
       create: "Créer",
       mode: { human: "Personnes", pet: "Animaux", surprise: "Surprise" }
     },
@@ -462,7 +462,8 @@ export const frContent: ContentData = {
     },
 
     cookieBanner: {
-      text: "Ce site web utilise des cookies pour améliorer l'expérience utilisateur.",
+      title: "Nous utilisons des cookies",
+      text: "Nous utilisons des cookies strictement nécessaires et — uniquement avec votre accord — des cookies d'analyse pour comprendre l'usage du site.",
       learnMore: "En savoir plus",
       accept: "Accepter",
       decline: "Refuser"
