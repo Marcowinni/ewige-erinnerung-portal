@@ -2,103 +2,66 @@ import { motion } from "motion/react";
 import { Heart, PawPrint } from "lucide-react";
 import { useContent } from "@/contexts/ContentContext";
 
-// 3D Smart Tag — round black puck with gold motif. Two variants: human (candle), pet (paw-heart).
+// 3D Smart Tag — uses real product image, floats with 3D-like shadow + animation.
+// Positioned to overlap the card edge so it pops out.
 function SmartTag3D({ variant }: { variant: "human" | "pet" }) {
+  const src =
+    variant === "human"
+      ? "/vorschaubilder/tag-default-round.png"
+      : "/vorschaubilder/pet-tag-default-round.png";
   return (
     <div className="smart-tag-3d" data-variant={variant} aria-hidden>
-      <div className="smart-tag-3d__face">
-        {variant === "human" ? (
-          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Candle */}
-            <path
-              d="M50 22c-2 4-5 6-5 11 0 3 2.2 5 5 5s5-2 5-5c0-5-3-7-5-11z"
-              fill="#f0b134"
-            />
-            <rect x="42" y="42" width="16" height="34" rx="3" fill="#f0b134" />
-            <ellipse cx="50" cy="42" rx="8" ry="2.5" fill="#d49422" />
-            <line x1="50" y1="38" x2="50" y2="44" stroke="#3a2a14" strokeWidth="1.4" />
-          </svg>
-        ) : (
-          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Heart with pet silhouettes */}
-            <path
-              d="M50 78c-12-8-22-16-22-28a10 10 0 0 1 20-2 10 10 0 0 1 20 2c0 12-10 20-22 28h4z"
-              stroke="#f0b134"
-              strokeWidth="3.5"
-              fill="none"
-            />
-            {/* Dog silhouette */}
-            <path
-              d="M37 50c0-3 1-5 3-7l3 3-1 5 4-2 2 5v6h-5l-2 2h-3z"
-              fill="#f0b134"
-            />
-            {/* Cat silhouette */}
-            <path
-              d="M58 50l3-4 1 4 4 1-2 4 1 5h-7l-1-4z"
-              fill="#f0b134"
-            />
-          </svg>
-        )}
-      </div>
-      <div className="smart-tag-3d__shine" />
+      <img src={src} alt="" draggable={false} />
       <div className="smart-tag-3d__shadow" />
 
       <style>{`
         .smart-tag-3d {
-          position: relative;
-          width: 84px;
-          height: 84px;
-          flex-shrink: 0;
-          transform-style: preserve-3d;
-          animation: tag-float 5s ease-in-out infinite;
-        }
-        .smart-tag-3d__face {
           position: absolute;
-          inset: 0;
-          border-radius: 50%;
-          background:
-            radial-gradient(circle at 30% 25%, #3a3a3a 0%, #1a1a1a 45%, #050505 100%);
-          box-shadow:
-            0 14px 30px rgba(0,0,0,0.45),
-            0 4px 10px rgba(0,0,0,0.35),
-            inset 0 -2px 6px rgba(0,0,0,0.6),
-            inset 0 2px 4px rgba(255,255,255,0.08);
-          display: grid;
-          place-items: center;
-          overflow: hidden;
-        }
-        .smart-tag-3d__face svg {
-          width: 60%;
-          height: 60%;
-          filter: drop-shadow(0 2px 4px rgba(240,177,52,0.35));
-        }
-        .smart-tag-3d__shine {
-          position: absolute;
-          inset: 4px 4px auto 4px;
-          height: 35%;
-          border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-          background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 100%);
+          top: -32px;
+          right: -28px;
+          width: 140px;
+          height: 140px;
+          z-index: 5;
           pointer-events: none;
-          opacity: 0.7;
+          animation: tag-float 5s ease-in-out infinite;
+          transform-origin: center;
+          filter: drop-shadow(0 18px 28px rgba(0,0,0,0.35))
+                  drop-shadow(0 6px 12px rgba(0,0,0,0.25));
+        }
+        .smart-tag-3d img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
         }
         .smart-tag-3d__shadow {
           position: absolute;
-          left: 12%;
-          right: 12%;
-          bottom: -10px;
-          height: 8px;
-          background: radial-gradient(ellipse, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 70%);
-          filter: blur(2px);
+          left: 18%;
+          right: 18%;
+          bottom: 8px;
+          height: 10px;
+          background: radial-gradient(ellipse, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 70%);
+          filter: blur(3px);
+          z-index: -1;
           animation: tag-shadow 5s ease-in-out infinite;
         }
 
         @keyframes tag-float {
-          0%, 100% { transform: translateY(0) rotate(-2deg); }
-          50%       { transform: translateY(-6px) rotate(2deg); }
+          0%, 100% { transform: translateY(0) rotate(-3deg); }
+          50%       { transform: translateY(-8px) rotate(3deg); }
         }
         @keyframes tag-shadow {
           0%, 100% { transform: scale(1); opacity: 0.9; }
-          50%       { transform: scale(0.85); opacity: 0.55; }
+          50%       { transform: scale(0.8); opacity: 0.5; }
+        }
+
+        @media (max-width: 640px) {
+          .smart-tag-3d {
+            width: 100px;
+            height: 100px;
+            top: -22px;
+            right: -18px;
+          }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -176,41 +139,42 @@ export default function AudienceSection() {
                   delay: i * 0.1,
                   ease: [0.2, 0.8, 0.2, 1],
                 }}
-                className="memorial-card relative overflow-hidden rounded-[28px] p-10 sm:p-12"
+                className="relative"
               >
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center opacity-[0.16]"
-                  style={{ backgroundImage: `url('${a.bgImage}')` }}
-                />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 -z-10"
-                  style={{
-                    background: `linear-gradient(180deg, hsl(var(--memorial-canvas) / 0.6) 0%, hsl(var(--memorial-canvas) / 0.82) 70%, hsl(var(--memorial-sepia-light) / 0.55) 100%)`,
-                  }}
-                />
+                {/* Smart tag pops outside card via overflow:visible wrapper */}
+                <SmartTag3D variant={a.tagVariant} />
 
-                <div className="flex items-start justify-between gap-6">
+                <div className="memorial-card relative overflow-hidden rounded-[28px] p-10 sm:p-12">
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center opacity-[0.16]"
+                    style={{ backgroundImage: `url('${a.bgImage}')` }}
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 -z-10"
+                    style={{
+                      background: `linear-gradient(180deg, hsl(var(--memorial-canvas) / 0.6) 0%, hsl(var(--memorial-canvas) / 0.82) 70%, hsl(var(--memorial-sepia-light) / 0.55) 100%)`,
+                    }}
+                  />
+
                   <div
                     className={`relative flex h-14 w-14 items-center justify-center rounded-full ${a.wrapClass}`}
                   >
                     <Icon className="h-6 w-6" strokeWidth={1.5} />
                   </div>
-                  <SmartTag3D variant={a.tagVariant} />
-                </div>
-
-                <p className="mt-8 text-[11px] uppercase tracking-[0.28em] text-memorial-ink-soft">
-                  {a.eyebrow}
-                </p>
-                <h3 className="font-display mt-3 whitespace-pre-line text-3xl leading-tight text-memorial-ink sm:text-4xl">
-                  {a.headline}
-                </h3>
-                {a.body && (
-                  <p className="mt-5 text-[15px] leading-relaxed text-memorial-ink-soft">
-                    {a.body}
+                  <p className="mt-8 text-[11px] uppercase tracking-[0.28em] text-memorial-ink-soft">
+                    {a.eyebrow}
                   </p>
-                )}
+                  <h3 className="font-display mt-3 whitespace-pre-line text-3xl leading-tight text-memorial-ink sm:text-4xl">
+                    {a.headline}
+                  </h3>
+                  {a.body && (
+                    <p className="mt-5 text-[15px] leading-relaxed text-memorial-ink-soft">
+                      {a.body}
+                    </p>
+                  )}
+                </div>
               </motion.div>
             );
           })}
