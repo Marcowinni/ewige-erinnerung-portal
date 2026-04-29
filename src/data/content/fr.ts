@@ -400,7 +400,8 @@ export const frContent: ContentData = {
         pixabayLabel: "Lien Pixabay",
         pixabayOpen: "Ouvrir",
         noSelection: "Aucune sélection",
-        captionPlaceholder: "Légende pour cette image (facultatif)"
+        captionPlaceholder: "Légende pour cette image (facultatif)",
+        captionPlaceholderVideo: "Légende pour cette vidéo (facultatif)"
       },
       step4: {
         title: "Contact & paiement",

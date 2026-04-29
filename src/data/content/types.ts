@@ -509,6 +509,7 @@ export interface SharedContent {
       pixabayOpen: string;
       noSelection: string;
       captionPlaceholder: string;
+      captionPlaceholderVideo: string;
     };
     step4: {
       title: string;

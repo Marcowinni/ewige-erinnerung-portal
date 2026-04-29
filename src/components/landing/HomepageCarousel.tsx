@@ -156,7 +156,8 @@ export default function HomepageCarousel() {
         }
         .hpc-item {
           flex: 0 0 auto;
-          height: clamp(240px, 32vh, 360px);
+          width: clamp(220px, 26vw, 300px);
+          aspect-ratio: 4 / 5;
           margin-right: 24px;
           border-radius: 14px;
           overflow: hidden;
@@ -178,9 +179,9 @@ export default function HomepageCarousel() {
           outline-offset: 3px;
         }
         .hpc-item img {
-          width: auto;
+          width: 100%;
           height: 100%;
-          max-width: none;
+          object-fit: cover;
           display: block;
           filter: saturate(0.92) contrast(0.98);
         }

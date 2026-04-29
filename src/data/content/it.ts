@@ -415,7 +415,8 @@ export const itContent: ContentData = {
         pixabayLabel: "Link Pixabay",
         pixabayOpen: "Apri",
         noSelection: "Nessuna selezione",
-        captionPlaceholder: "Didascalia per questa immagine (facoltativo)"
+        captionPlaceholder: "Didascalia per questa immagine (facoltativo)",
+        captionPlaceholderVideo: "Didascalia per questo video (facoltativo)"
       },
       step4: {
         title: "Contatto e pagamento",

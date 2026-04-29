@@ -479,7 +479,7 @@ function Step3({
                 type="text"
                 value={item.caption}
                 onChange={(e) => onCaptionChange(item.id, e.target.value)}
-                placeholder={t.captionPlaceholder}
+                placeholder={item.kind === 'video' ? t.captionPlaceholderVideo : t.captionPlaceholder}
                 maxLength={60}
                 className="w-full px-3 py-2 text-[12px] bg-transparent border-t border-memorial-line/40 focus:outline-none focus:bg-memorial-canvas text-memorial-ink placeholder:text-memorial-ink-soft/60"
               />

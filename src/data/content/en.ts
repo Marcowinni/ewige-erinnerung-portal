@@ -416,7 +416,8 @@ export const enContent: ContentData = {
         pixabayLabel: "Pixabay link",
         pixabayOpen: "Open",
         noSelection: "None selected",
-        captionPlaceholder: "Caption for this picture (optional)"
+        captionPlaceholder: "Caption for this picture (optional)",
+        captionPlaceholderVideo: "Caption for this video (optional)"
       },
       step4: {
         title: "Contact & payment",
