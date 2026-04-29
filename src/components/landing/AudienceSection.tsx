@@ -17,10 +17,10 @@ function SmartTag3D({ variant }: { variant: "human" | "pet" }) {
       <style>{`
         .smart-tag-3d {
           position: absolute;
-          top: -32px;
-          right: -28px;
-          width: 140px;
-          height: 140px;
+          top: 24px;
+          right: 24px;
+          width: 110px;
+          height: 110px;
           z-index: 5;
           pointer-events: none;
           animation: tag-float 5s ease-in-out infinite;
@@ -74,10 +74,10 @@ function SmartTag3D({ variant }: { variant: "human" | "pet" }) {
 
         @media (max-width: 640px) {
           .smart-tag-3d {
-            width: 100px;
-            height: 100px;
-            top: -22px;
-            right: -18px;
+            width: 80px;
+            height: 80px;
+            top: 18px;
+            right: 18px;
           }
         }
 
@@ -156,42 +156,40 @@ export default function AudienceSection() {
                   delay: i * 0.1,
                   ease: [0.2, 0.8, 0.2, 1],
                 }}
-                className="relative"
+                className="memorial-card relative overflow-hidden rounded-[28px] p-10 sm:p-12"
               >
-                {/* Smart tag pops outside card via overflow:visible wrapper */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center opacity-[0.16]"
+                  style={{ backgroundImage: `url('${a.bgImage}')` }}
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 -z-10"
+                  style={{
+                    background: `linear-gradient(180deg, hsl(var(--memorial-canvas) / 0.6) 0%, hsl(var(--memorial-canvas) / 0.82) 70%, hsl(var(--memorial-sepia-light) / 0.55) 100%)`,
+                  }}
+                />
+
+                {/* Smart tag — inside card, top-right corner */}
                 <SmartTag3D variant={a.tagVariant} />
 
-                <div className="memorial-card relative overflow-hidden rounded-[28px] p-10 sm:p-12">
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center opacity-[0.16]"
-                    style={{ backgroundImage: `url('${a.bgImage}')` }}
-                  />
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 -z-10"
-                    style={{
-                      background: `linear-gradient(180deg, hsl(var(--memorial-canvas) / 0.6) 0%, hsl(var(--memorial-canvas) / 0.82) 70%, hsl(var(--memorial-sepia-light) / 0.55) 100%)`,
-                    }}
-                  />
-
-                  <div
-                    className={`relative flex h-14 w-14 items-center justify-center rounded-full ${a.wrapClass}`}
-                  >
-                    <Icon className="h-6 w-6" strokeWidth={1.5} />
-                  </div>
-                  <p className="mt-8 text-[11px] uppercase tracking-[0.28em] text-memorial-ink-soft">
-                    {a.eyebrow}
-                  </p>
-                  <h3 className="font-display mt-3 whitespace-pre-line text-3xl leading-tight text-memorial-ink sm:text-4xl">
-                    {a.headline}
-                  </h3>
-                  {a.body && (
-                    <p className="mt-5 text-[15px] leading-relaxed text-memorial-ink-soft">
-                      {a.body}
-                    </p>
-                  )}
+                <div
+                  className={`relative flex h-14 w-14 items-center justify-center rounded-full ${a.wrapClass}`}
+                >
+                  <Icon className="h-6 w-6" strokeWidth={1.5} />
                 </div>
+                <p className="mt-8 text-[11px] uppercase tracking-[0.28em] text-memorial-ink-soft">
+                  {a.eyebrow}
+                </p>
+                <h3 className="font-display mt-3 whitespace-pre-line text-3xl leading-tight text-memorial-ink sm:text-4xl">
+                  {a.headline}
+                </h3>
+                {a.body && (
+                  <p className="mt-5 text-[15px] leading-relaxed text-memorial-ink-soft">
+                    {a.body}
+                  </p>
+                )}
               </motion.div>
             );
           })}
