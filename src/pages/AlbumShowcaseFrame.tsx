@@ -79,7 +79,7 @@ export default function AlbumShowcaseFrame() {
   const timelessPages = useMemo(() => buildTimelessPages(SAMPLE_IMAGES), [])
 
   return (
-    <div style={{ width: '100%', height: '100dvh', overflow: 'hidden', background: '#fff' }}>
+    <div className="album-showcase-wrap" style={{ width: '100%', height: '100dvh', overflow: 'hidden', background: '#fff' }}>
       {theme === 'modern' && (
         <ModernPhotoAlbum
           subjectName={SUBJECT_NAME}

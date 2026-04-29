@@ -110,6 +110,17 @@
 .cpa-spread .cpa-leaf:first-child {
   padding-top: 64px;
 }
+
+/* Showcase mode (homepage style preview iframes) — hide chrome + bottom
+   bars so the mini-preview shows pure content without distracting UI. */
+.album-showcase-wrap .cpa-chrome,
+.album-showcase-wrap .cpa-bottom,
+.album-showcase-wrap .cpa-rail {
+  display: none !important;
+}
+.album-showcase-wrap .cpa-spread .cpa-leaf:first-child {
+  padding-top: 16px;
+}
 .cpa-leaf::before {
   content: "";
   position: absolute; inset: 0;
