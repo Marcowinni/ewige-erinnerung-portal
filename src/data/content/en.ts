@@ -199,7 +199,7 @@ export const enContent: ContentData = {
           },
           prices: {
             title: "3. Prices, shipping and payment",
-            content: "The base price per album is CHF 89.– (incl. any applicable VAT, current website prices apply).\n\nShipping by zone:\n– Switzerland (CH): CHF 9.–\n– Europe (EU): CHF 19.–\n– World (WORLD): CHF 29.–\n\nAll prices are in Swiss Francs. Any import duties or customs fees on shipments outside Switzerland are borne by the recipient.\n\nPayment is made before delivery via Stripe (credit/debit card or TWINT). Test orders without payment are only available after explicit activation by us.\n\nIn case of chargebacks we are entitled to invoice the related bank fees."
+            content: "The base price per album is CHF 80.– (incl. any applicable VAT, current website prices apply).\n\nShipping is handled by Swiss Post (A Mail). Shipping costs by zone:\n– Switzerland (CH): CHF 1.20\n– Europe (EU): CHF 1.90\n– World (WORLD): CHF 2.20\n\nAll prices are in Swiss Francs. Any import duties or customs fees on shipments outside Switzerland are borne by the recipient.\n\nPayment is made before delivery via Stripe (credit/debit card or TWINT). Test orders without payment are only available after explicit activation by us.\n\nIn case of chargebacks we are entitled to invoice the related bank fees."
           },
           delivery: {
             title: "4. Order flow, delivery and transfer of risk",

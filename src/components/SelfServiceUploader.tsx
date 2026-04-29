@@ -700,7 +700,7 @@ function Step6({
         <SummaryRow label="Name" value={subjectName || "—"} />
         <div className="flex justify-between pt-4 mt-2">
           <span className="font-display text-lg text-memorial-ink">Gesamtpreis</span>
-          <span className="font-display text-xl text-memorial-bronze-deep">CHF 89.–</span>
+          <span className="font-display text-xl text-memorial-bronze-deep">CHF 80.–</span>
         </div>
       </div>
 
@@ -715,7 +715,7 @@ function Step6({
             Wird verarbeitet…
           </>
         ) : (
-          "Zahlungspflichtig bestellen — CHF 89.–"
+          "Zahlungspflichtig bestellen — CHF 80.–"
         )}
       </button>
       <p className="text-center text-[11px] text-memorial-ink-soft mt-3">
@@ -938,7 +938,7 @@ export default function SelfServiceUploader() {
           body: {
             orderId: orderData.stripeOrderId ?? orderId,
             productName: `Memora Moments — ${details.subjectName || "Gedenkalbum"}`,
-            unitAmount: 89,
+            unitAmount: 80,
           },
         }
       );

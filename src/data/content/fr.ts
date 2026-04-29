@@ -183,7 +183,7 @@ export const frContent: ContentData = {
           },
           prices: {
             title: "3. Prix, livraison et paiement",
-            content: "Le prix de base par album est de CHF 89.– (TVA éventuelle incluse, prix actuels du site web faisant foi).\n\nFrais de livraison par zone :\n– Suisse (CH) : CHF 9.–\n– Europe (UE) : CHF 19.–\n– Monde (WORLD) : CHF 29.–\n\nTous les prix sont en francs suisses. Les éventuels droits de douane ou taxes d'importation hors de Suisse sont à la charge du destinataire.\n\nLe paiement s'effectue avant livraison via Stripe (carte de crédit/débit ou TWINT). Une commande de test sans paiement n'est possible qu'après activation expresse de notre part.\n\nEn cas de rétrofacturation, nous sommes en droit de refacturer les frais bancaires correspondants."
+            content: "Le prix de base par album est de CHF 80.– (TVA éventuelle incluse, prix actuels du site web faisant foi).\n\nLa livraison est assurée par la Poste Suisse (Courrier A). Frais de livraison par zone :\n– Suisse (CH) : CHF 1.20\n– Europe (UE) : CHF 1.90\n– Monde (WORLD) : CHF 2.20\n\nTous les prix sont en francs suisses. Les éventuels droits de douane ou taxes d'importation hors de Suisse sont à la charge du destinataire.\n\nLe paiement s'effectue avant livraison via Stripe (carte de crédit/débit ou TWINT). Une commande de test sans paiement n'est possible qu'après activation expresse de notre part.\n\nEn cas de rétrofacturation, nous sommes en droit de refacturer les frais bancaires correspondants."
           },
           delivery: {
             title: "4. Processus de commande, livraison et transfert des risques",

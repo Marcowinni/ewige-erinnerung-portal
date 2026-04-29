@@ -6,7 +6,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-const SHIPPING_COSTS: Record<string, number> = { CH: 9, EU: 19, WORLD: 29 }
+const SHIPPING_COSTS: Record<string, number> = { CH: 1.20, EU: 1.90, WORLD: 2.20 }
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
@@ -45,8 +45,8 @@ Deno.serve(async (req) => {
     )
 
     const zone: string = shippingZone ?? 'CH'
-    const shippingCost = SHIPPING_COSTS[zone] ?? 9
-    const totalCHF = 89 + shippingCost
+    const shippingCost = SHIPPING_COSTS[zone] ?? 1.20
+    const totalCHF = 80 + shippingCost
     const testMode = isTest === true
 
     const orderPayload = {

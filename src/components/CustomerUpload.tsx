@@ -561,7 +561,7 @@ function Step4({
 
   const zone = deriveShippingZone(data.countryCode)
   const shipping = SHIPPING[zone]
-  const total = 89 + shipping
+  const total = 80 + shipping
   const countryName = countryList.find((c) => c.code === data.countryCode)?.name ?? '—'
   const formatPrice = (n: number) => n.toFixed(2).replace('.', '.')
 
@@ -879,7 +879,7 @@ export default function CustomerUpload() {
         body: {
           orderId: stripeOrderId ?? orderId,
           productName: `Memora Moments — ${step1.subjectName}`,
-          unitAmount: Math.round((89 + SHIPPING[shippingZone]) * 100) / 100,
+          unitAmount: Math.round((80 + SHIPPING[shippingZone]) * 100) / 100,
         },
       })
 

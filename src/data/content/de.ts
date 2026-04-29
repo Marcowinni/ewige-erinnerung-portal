@@ -208,7 +208,7 @@ export const deContent: ContentData = {
           },
           prices: {
             title: "3. Preise, Versand und Zahlung",
-            content: "Der Grundpreis pro Album beträgt CHF 89.– (inkl. allfälliger MwSt., Stand der jeweils auf der Website angegebenen Preise).\n\nVersandkosten richten sich nach Lieferzone:\n– Schweiz (CH): CHF 9.–\n– Europa (EU): CHF 19.–\n– Welt (WORLD): CHF 29.–\n\nAlle Preise verstehen sich in Schweizer Franken. Allfällige Einfuhrabgaben oder Zollgebühren bei Lieferungen ausserhalb der Schweiz trägt der Empfänger.\n\nZahlung erfolgt vor Auslieferung über Stripe (Kredit-/Debitkarte oder TWINT). Eine Test-Bestellung ohne Zahlung ist nur nach ausdrücklicher Freischaltung durch uns möglich.\n\nBei Rückbelastungen sind wir berechtigt, die damit verbundenen Bankgebühren weiterzuverrechnen."
+            content: "Der Grundpreis pro Album beträgt CHF 80.– (inkl. allfälliger MwSt., Stand der jeweils auf der Website angegebenen Preise).\n\nVersand erfolgt mit der Schweizerischen Post (A-Post). Versandkosten nach Lieferzone:\n– Schweiz (CH): CHF 1.20\n– Europa (EU): CHF 1.90\n– Welt (WORLD): CHF 2.20\n\nAlle Preise verstehen sich in Schweizer Franken. Allfällige Einfuhrabgaben oder Zollgebühren bei Lieferungen ausserhalb der Schweiz trägt der Empfänger.\n\nZahlung erfolgt vor Auslieferung über Stripe (Kredit-/Debitkarte oder TWINT). Eine Test-Bestellung ohne Zahlung ist nur nach ausdrücklicher Freischaltung durch uns möglich.\n\nBei Rückbelastungen sind wir berechtigt, die damit verbundenen Bankgebühren weiterzuverrechnen."
           },
           delivery: {
             title: "4. Bestellprozess, Lieferung und Gefahrübergang",

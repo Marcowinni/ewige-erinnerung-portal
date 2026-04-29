@@ -199,7 +199,7 @@ export const itContent: ContentData = {
           },
           prices: {
             title: "3. Prezzi, spedizione e pagamento",
-            content: "Il prezzo base per album è di CHF 89.– (IVA eventuale inclusa, valgono i prezzi attuali del sito).\n\nSpese di spedizione per zona:\n– Svizzera (CH): CHF 9.–\n– Europa (UE): CHF 19.–\n– Mondo (WORLD): CHF 29.–\n\nTutti i prezzi sono in franchi svizzeri. Eventuali dazi o tasse d'importazione fuori dalla Svizzera sono a carico del destinatario.\n\nIl pagamento avviene prima della consegna tramite Stripe (carta di credito/debito o TWINT). Ordini di test senza pagamento sono disponibili solo previa attivazione esplicita da parte nostra.\n\nIn caso di storno abbiamo diritto a fatturare le relative spese bancarie."
+            content: "Il prezzo base per album è di CHF 80.– (IVA eventuale inclusa, valgono i prezzi attuali del sito).\n\nLa spedizione avviene tramite Posta svizzera (Posta A). Spese di spedizione per zona:\n– Svizzera (CH): CHF 1.20\n– Europa (UE): CHF 1.90\n– Mondo (WORLD): CHF 2.20\n\nTutti i prezzi sono in franchi svizzeri. Eventuali dazi o tasse d'importazione fuori dalla Svizzera sono a carico del destinatario.\n\nIl pagamento avviene prima della consegna tramite Stripe (carta di credito/debito o TWINT). Ordini di test senza pagamento sono disponibili solo previa attivazione esplicita da parte nostra.\n\nIn caso di storno abbiamo diritto a fatturare le relative spese bancarie."
           },
           delivery: {
             title: "4. Processo d'ordine, consegna e trasferimento del rischio",
