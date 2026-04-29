@@ -585,6 +585,24 @@ export function ClassicPhotoAlbum({
                         <div className="cpa-hero-sub cpa-fade" style={{ ['--d' as never]: '.55s' }}>
                           {dateRange ?? 'In liebevollem Gedenken'}
                         </div>
+                        {dedication && dedication.trim().length > 0 && (
+                          <div
+                            className="cpa-fade"
+                            style={{
+                              ['--d' as never]: '.75s',
+                              marginTop: '14px',
+                              fontStyle: 'italic',
+                              fontSize: '0.85em',
+                              opacity: 0.9,
+                              maxWidth: '32ch',
+                              marginLeft: 'auto',
+                              marginRight: 'auto',
+                              textAlign: 'center',
+                            }}
+                          >
+                            {dedication}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

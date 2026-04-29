@@ -557,6 +557,23 @@ export function ModernPhotoAlbum({ subjectName, dateRange, dedication, images, p
                         <div className="mpa-sub mpa-reveal" style={{ ['--d' as never]: '.6s' }}>
                           {heroSub}
                         </div>
+                        {dedication && dedication.trim().length > 0 && (
+                          <div
+                            className="mpa-sub mpa-reveal"
+                            style={{
+                              ['--d' as never]: '.8s',
+                              fontStyle: 'italic',
+                              fontSize: '0.85em',
+                              opacity: 0.85,
+                              marginTop: '8px',
+                              maxWidth: '32ch',
+                              marginLeft: 'auto',
+                              marginRight: 'auto',
+                            }}
+                          >
+                            {dedication}
+                          </div>
+                        )}
                       </div>
                     </div>
                     {dateRange && (

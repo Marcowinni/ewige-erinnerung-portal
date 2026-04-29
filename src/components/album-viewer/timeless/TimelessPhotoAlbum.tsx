@@ -464,8 +464,25 @@ export function TimelessPhotoAlbum({
                         ) : nameFirst}
                       </h1>
                       <div className="tpa-hero-sub tpa-fade" style={{ ['--d' as never]: '.55s' }}>
-                        {dateRange || dedication || 'In liebevollem Gedenken'}
+                        {dateRange || 'In liebevollem Gedenken'}
                       </div>
+                      {dedication && dedication.trim().length > 0 && (
+                        <div
+                          className="tpa-fade"
+                          style={{
+                            ['--d' as never]: '.75s',
+                            marginTop: '12px',
+                            fontStyle: 'italic',
+                            fontSize: '0.85em',
+                            opacity: 0.85,
+                            maxWidth: '32ch',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                          }}
+                        >
+                          {dedication}
+                        </div>
+                      )}
                     </div>
                   </section>
                 )
