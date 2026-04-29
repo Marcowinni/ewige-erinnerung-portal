@@ -666,6 +666,10 @@
   gap: 12px;
   padding: 16px 0;
 }
+.cpa-spread.s-tape .cpa-leaf:first-child {
+  padding-top: 60px;
+  justify-content: flex-start;
+}
 .cpa-spread.s-tape .cpa-ph-ta {
   left: auto; top: auto; width: 75%; margin: 0;
   transform: rotate(-2deg); --rot: -2deg;
@@ -1133,6 +1137,11 @@
     justify-content: center;
     padding: 10px 0;
   }
+  /* First leaf needs extra top breathing room so photo clears .cpa-chrome */
+  .cpa-spread.s-duo .cpa-leaf:first-child {
+    padding-top: 60px;
+    justify-content: flex-start;
+  }
   .cpa-spread.s-duo .cpa-ph-a,
   .cpa-spread.s-duo .cpa-ph-b {
     width: 86%;
@@ -1161,6 +1170,10 @@
     justify-content: center;
     padding: 10px 0;
   }
+  .cpa-spread.s-herald .cpa-leaf:first-child {
+    padding-top: 60px;
+    justify-content: flex-start;
+  }
   .cpa-spread.s-herald .cpa-ph-hero-l,
   .cpa-spread.s-herald .cpa-ph-r1 {
     width: 86%;
@@ -1185,6 +1198,10 @@
     justify-content: center;
     padding: 14px 0;
     overflow: visible;
+  }
+  .cpa-spread.s-polaroids .cpa-leaf:first-child {
+    padding-top: 60px;
+    justify-content: flex-start;
   }
   .cpa-spread.s-polaroids .cpa-ph-pol {
     width: 78%;
