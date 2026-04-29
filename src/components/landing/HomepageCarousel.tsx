@@ -51,22 +51,6 @@ export default function HomepageCarousel() {
         transition={{ duration: 0.9, ease: [0.2, 0.8, 0.2, 1] }}
         className="relative"
       >
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-40"
-          style={{
-            background:
-              "linear-gradient(90deg, hsl(var(--memorial-canvas)) 0%, hsl(var(--memorial-canvas) / 0) 100%)",
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-40"
-          style={{
-            background:
-              "linear-gradient(270deg, hsl(var(--memorial-canvas)) 0%, hsl(var(--memorial-canvas) / 0) 100%)",
-          }}
-        />
 
         <div className={`hpc-marquee ${openSrc ? "hpc-paused" : ""}`}>
           <div className="hpc-track">
@@ -141,8 +125,6 @@ export default function HomepageCarousel() {
         .hpc-marquee {
           width: 100%;
           overflow: hidden;
-          mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
-          -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
         }
         .hpc-track {
           display: flex;
