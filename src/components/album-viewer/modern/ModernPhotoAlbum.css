@@ -77,10 +77,10 @@
   white-space: nowrap;
 }
 
-/* Narrow viewport — hide right-side tagline so left brand has room */
+/* Narrow viewport — shrink both sides so they fit on one line each */
 @media (max-width: 420px) {
-  .mpa-brand-r { display: none; }
-  .mpa-brand { letter-spacing: .2em; }
+  .mpa-brand { letter-spacing: .18em; font-size: 9px; }
+  .mpa-brand-r { font-size: 9px; max-width: 60%; }
 }
 
 /* Progress rail */
