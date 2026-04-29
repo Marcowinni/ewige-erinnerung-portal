@@ -25,25 +25,42 @@ function SmartTag3D({ variant }: { variant: "human" | "pet" }) {
           pointer-events: none;
           animation: tag-float 5s ease-in-out infinite;
           transform-origin: center;
-          filter: drop-shadow(0 18px 28px rgba(0,0,0,0.35))
-                  drop-shadow(0 6px 12px rgba(0,0,0,0.25));
+        }
+        /* Gold halo behind tag — pulses subtly to feel like NFC glow */
+        .smart-tag-3d::before {
+          content: "";
+          position: absolute;
+          inset: -14%;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(240,177,52,0.45) 0%, rgba(240,177,52,0.18) 40%, rgba(240,177,52,0) 70%);
+          filter: blur(8px);
+          z-index: -1;
+          animation: tag-glow 3.5s ease-in-out infinite;
         }
         .smart-tag-3d img {
           width: 100%;
           height: 100%;
           object-fit: contain;
           display: block;
+          border-radius: 50%;
+          filter: drop-shadow(0 14px 24px rgba(0,0,0,0.4))
+                  drop-shadow(0 4px 8px rgba(0,0,0,0.25));
         }
         .smart-tag-3d__shadow {
           position: absolute;
           left: 18%;
           right: 18%;
-          bottom: 8px;
+          bottom: 0;
           height: 10px;
           background: radial-gradient(ellipse, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 70%);
           filter: blur(3px);
-          z-index: -1;
+          z-index: -2;
           animation: tag-shadow 5s ease-in-out infinite;
+        }
+
+        @keyframes tag-glow {
+          0%, 100% { opacity: 0.55; transform: scale(1); }
+          50%       { opacity: 0.95; transform: scale(1.08); }
         }
 
         @keyframes tag-float {
