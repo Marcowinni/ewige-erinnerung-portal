@@ -33,7 +33,7 @@ function buildModernPages(imgs: string[]): PageConfig[] {
     { type: 'split', imgs: [next(), next(), next()], showText: true, text: 'Leise Stunden.' },
     { type: 'stack', imgs: [next(), next(), next(), next()], showText: false },
     { type: 'story', bg: next(), s1: next(), s2: next(), s3: next(), showText: true, text: 'Tage, wie sie waren.' },
-    { type: 'bleed', img: next(), showText: true, text: 'Zwei Seiten einer Zeit.' },
+    { type: 'bleed', img: next(), showText: false },
     { type: 'quote-card', img: next(), showText: true, text: 'Was bleibt, ist Liebe.' },
     { type: 'close', showText: true },
   ]
