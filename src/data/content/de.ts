@@ -332,7 +332,7 @@ export const deContent: ContentData = {
         titleLine1: "Erinnerungen",
         titleLine2: "die weiterleben",
         subtitle1: "Ein würdevoller Smart Tag, der die schönsten Momente mit deinen Liebsten in einem digitalen Erinnerungsalbum vereint.",
-        subtitle2: "Für Menschen und Tiere, die in Erinnerung bleiben.",
+        subtitle2: "Für Menschen und Tiere, die generationenübergreifend in Erinnerung bleiben.",
         ctaCreate: "Album erstellen"
       },
       pathChoice: {

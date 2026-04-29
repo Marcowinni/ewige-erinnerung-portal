@@ -321,7 +321,7 @@ export const itContent: ContentData = {
         titleLine1: "Ricordi",
         titleLine2: "che vivono",
         subtitle1: "Uno Smart Tag dignitoso che riunisce i momenti più preziosi con i vostri cari in un album digitale dei ricordi.",
-        subtitle2: "Per persone e animali che restano nei nostri ricordi.",
+        subtitle2: "Per persone e animali che restano nel ricordo attraverso le generazioni.",
         ctaCreate: "Crea l'album"
       },
       pathChoice: {
