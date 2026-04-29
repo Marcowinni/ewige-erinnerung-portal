@@ -63,6 +63,7 @@
   font-family: var(--mpa-f-display);
   font-weight: 500; letter-spacing: .28em; font-size: 10px; text-transform: uppercase;
   text-shadow: 0 1px 4px rgba(0,0,0,.6);
+  white-space: nowrap;
 }
 .mpa-brand-dot {
   display: inline-block; width: 4px; height: 4px; background: currentColor; border-radius: 50%;
@@ -73,6 +74,13 @@
   font-size: 10px; letter-spacing: .06em; opacity: .9;
   max-width: 50%; text-align: right; line-height: 1.2;
   text-shadow: 0 1px 4px rgba(0,0,0,.6);
+  white-space: nowrap;
+}
+
+/* Narrow viewport — hide right-side tagline so left brand has room */
+@media (max-width: 420px) {
+  .mpa-brand-r { display: none; }
+  .mpa-brand { letter-spacing: .2em; }
 }
 
 /* Progress rail */
