@@ -106,11 +106,8 @@ const Kontakt = () => {
                   Memora Moments
                 </p>
                 <h2 className="font-display mt-2 text-2xl text-memorial-ink">
-                  TW Projects GmbH
+                  Direkter Draht
                 </h2>
-                <p className="mt-1 text-[14px] text-memorial-ink-soft">
-                  Breitenmattstrasse, 8635 Dürnten
-                </p>
 
                 <div className="mt-7 space-y-5">
                   <a
