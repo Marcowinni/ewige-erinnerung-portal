@@ -62,6 +62,7 @@ export default function PathChoice() {
           <video
             ref={videoRef}
             src="/video_howitworks.mp4"
+            poster="/video_howitworks-poster.jpg"
             playsInline
             preload="metadata"
             controls={playing}
