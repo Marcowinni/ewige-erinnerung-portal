@@ -148,6 +148,8 @@
 .cpa-photo .cpa-frame img {
   width: 100%; height: 100%; display: block;
   object-fit: cover;
+  /* Favor upper portion — faces in portraits usually sit in top third */
+  object-position: center 28%;
   filter: sepia(.25) saturate(.75) brightness(.96) contrast(1.02);
 }
 .cpa-photo.bw    .cpa-frame img { filter: grayscale(1) sepia(.35) brightness(.92) contrast(1.08); }
@@ -203,7 +205,8 @@
 .cpa-leaf.right .cpa-folio { right: 16px; }
 
 .cpa-header-mark {
-  position: absolute; top: 18px;
+  position: absolute;
+  top: calc(28px + env(safe-area-inset-top, 0px));
   font-family: var(--cpa-f-display); font-style: italic;
   font-size: 13px; color: var(--cpa-muted); letter-spacing: .08em; z-index: 6;
 }
@@ -376,6 +379,7 @@
 .cpa-hero-bg video {
   width: 100%; height: 100%;
   object-fit: cover;
+  object-position: center 28%;
   filter: sepia(.55) contrast(1.05) brightness(.78) saturate(.75);
   transform: scale(1.04);
   transition: transform 14s ease-out;
@@ -571,6 +575,7 @@
 }
 .cpa-spread.s-bleed .cpa-bleed-img img {
   width: 100%; height: 100%; object-fit: cover;
+  object-position: center 28%;
   filter: sepia(.55) saturate(.75) brightness(.92);
 }
 .cpa-spread.s-bleed .cpa-bleed-img::after {
@@ -1329,6 +1334,7 @@
 .cpa-env-letter-photo img,
 .cpa-env-letter-photo video {
   width: 100%; height: 100%; object-fit: cover; display: block;
+  object-position: center 28%;
 }
 .cpa-env-letter-text-leaf {
   display: flex;
@@ -1384,6 +1390,7 @@
 .cpa-pinned-item .cpa-frame img,
 .cpa-pinned-item .cpa-frame video {
   width: 100%; height: 100%; object-fit: cover; display: block;
+  object-position: center 28%;
 }
 /* Mobile rotations */
 .cpa-pinned-a { transform: rotate(-3deg); margin-bottom: 16px; }
