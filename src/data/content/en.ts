@@ -330,13 +330,13 @@ export const enContent: ContentData = {
         titleLine2: "beloved companion.",
         human: {
           eyebrow: "For people",
-          headline: "When words fall short,\nimages remain.",
-          body: "For families — a quiet, dignified way to carry memories into the present."
+          headline: "For the people\nwho walked beside us.",
+          body: ""
         },
         pet: {
           eyebrow: "For animals",
-          headline: "A life full of love,\nin the smallest of spaces.",
-          body: "For everyone who has lost a faithful companion. Because paw prints, too, deserve to remain."
+          headline: "For your\nfaithful companion.",
+          body: ""
         }
       },
       styleShowcase: {

@@ -92,9 +92,11 @@ export default function AudienceSection() {
                 <h3 className="font-display mt-3 whitespace-pre-line text-3xl leading-tight text-memorial-ink sm:text-4xl">
                   {a.headline}
                 </h3>
-                <p className="mt-5 text-[15px] leading-relaxed text-memorial-ink-soft">
-                  {a.body}
-                </p>
+                {a.body && (
+                  <p className="mt-5 text-[15px] leading-relaxed text-memorial-ink-soft">
+                    {a.body}
+                  </p>
+                )}
               </motion.div>
             );
           })}

@@ -330,13 +330,13 @@ export const itContent: ContentData = {
         titleLine2: "compagno amato.",
         human: {
           eyebrow: "Per le persone",
-          headline: "Quando mancano le parole,\nrestano le immagini.",
-          body: "Per le famiglie — un modo silenzioso e dignitoso di portare i ricordi nel presente."
+          headline: "Per le persone\nche ci hanno accompagnato.",
+          body: ""
         },
         pet: {
           eyebrow: "Per gli animali",
-          headline: "Una vita piena d'amore,\nnel più piccolo degli spazi.",
-          body: "Per tutti coloro che hanno perso un compagno fedele. Perché anche le impronte di zampe meritano di restare."
+          headline: "Per il tuo\nfedele compagno.",
+          body: ""
         }
       },
       styleShowcase: {

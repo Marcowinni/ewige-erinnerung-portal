@@ -293,13 +293,13 @@ export const frContent: ContentData = {
         titleLine2: "compagnon aimé.",
         human: {
           eyebrow: "Pour les humains",
-          headline: "Quand les mots manquent,\nles images demeurent.",
-          body: "Pour les familles — une manière silencieuse et digne de porter les souvenirs jusqu'au présent."
+          headline: "Pour les êtres\nqui nous ont accompagnés.",
+          body: ""
         },
         pet: {
           eyebrow: "Pour les animaux",
-          headline: "Une vie pleine d'amour,\ndans le plus petit espace.",
-          body: "Pour tous ceux qui ont perdu un fidèle compagnon. Parce que les empreintes de pattes aussi méritent de rester."
+          headline: "Pour ton\nfidèle compagnon.",
+          body: ""
         }
       },
       styleShowcase: {

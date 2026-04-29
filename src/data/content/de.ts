@@ -341,13 +341,13 @@ export const deContent: ContentData = {
         titleLine2: "geliebten Begleiter.",
         human: {
           eyebrow: "Für Menschen",
-          headline: "Wenn Worte fehlen,\nbleiben Bilder.",
-          body: "Für Familien — ein stiller, würdevoller Weg, Erinnerungen in die Gegenwart zu tragen."
+          headline: "Für die Menschen,\ndie uns begleitet haben.",
+          body: ""
         },
         pet: {
           eyebrow: "Für Tiere",
-          headline: "Ein Leben voller Liebe,\nauf kleinstem Raum.",
-          body: "Für alle, die einen treuen Gefährten verloren haben. Weil auch Pfotenabdrücke bleiben dürfen."
+          headline: "Für deinen\ntreuen Gefährten.",
+          body: ""
         }
       },
       styleShowcase: {
