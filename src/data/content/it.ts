@@ -101,143 +101,149 @@ export const itContent: ContentData = {
     // Testi legali (per Privacy/Termini/Impressum)
     legal: {
       privacy: {
-        title: "Informativa sulla Privacy",
+        title: "Informativa sulla privacy",
         sections: {
           responsible: {
             title: "1. Titolare del trattamento",
             content:
-              "Memora Moments\nBreitenmattstrasse\n8635 Dürnten\nE-Mail: info@memora.moments.ch\nTelefono: +41 79 407 56 99\n\nSiamo responsabili della raccolta, elaborazione e utilizzo dei tuoi dati personali secondo la Legge Svizzera sulla Protezione dei Dati (revDSG)."
+              "TW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten, Svizzera\nE-mail: info@memora-moments.ch\nTelefono: +41 79 407 56 99\n\nSiamo titolari del trattamento ai sensi della Legge svizzera sulla protezione dei dati riveduta (nLPD) e — ove applicabile — del Regolamento generale sulla protezione dei dati dell'UE (GDPR)."
           },
           dataCollection: {
-            title: "2. Raccolta ed elaborazione dei dati personali",
+            title: "2. Dati raccolti",
             content:
-              "Trattiamo i dati personali che ci fornisci durante l’uso dei nostri servizi o che sorgono durante l’utilizzo. Ciò include in particolare:",
+              "Trattiamo solo i dati che ci fornisci durante un ordine, la creazione di un album o la consultazione di un album pubblicato, ovvero:",
             list: [
-              "Dati di contatto (nome, indirizzo, e-mail, numero di telefono)",
-              "Informazioni di pagamento (a seconda del metodo scelto, ad es. carta di credito, TWINT, pagamento anticipato)",
-              "Dati di contenuto (foto, video, testi, musica/audio) che fornisci per i video commemorativi personalizzati e le Memora",
-              "Dati di utilizzo (ad es. orario di accesso al video tramite Memora, metadati tecnici come browser/dispositivo)"
+              "Dati dell'ordine: nome, indirizzo di consegna, e-mail, telefono (facoltativo), informazioni di pagamento (gestite tramite Stripe)",
+              "Contenuto dell'album: foto e video (max. 40 file, max. 200 MB per video), didascalie, dedica facoltativa, nome e date della persona ricordata e brano musicale scelto",
+              "Impostazioni dell'editor: layout, testi per pagina, punto focale dell'immagine — salvati nel nostro database insieme all'album",
+              "Slug dello Smart Tag: ogni album riceve un URL univoco (p. es. memora-moments.ch/album/marie-01) aperto tramite NFC o codice QR",
+              "Dati tecnici alla consultazione: indirizzo IP (troncato dai nostri CDN), browser, dispositivo e timestamp — anonimizzati per sicurezza e prestazioni",
+              "Dati dei cookie: un cookie di consenso e — solo dopo il tuo consenso — Google Analytics per la misurazione dell'audience"
             ]
           },
           purpose: {
             title: "3. Finalità del trattamento",
             content:
-              "I tuoi dati vengono utilizzati esclusivamente per le seguenti finalità:",
+              "Utilizziamo i tuoi dati esclusivamente per:",
             list: [
-              "Elaborazione degli ordini e adempimento dei contratti",
-              "Creazione, modifica e fornitura di video commemorativi nonché configurazione di Smart Tags",
-              "Elaborazione dei pagamenti e fatturazione",
-              "Comunicazione con te (ad es. conferma ordine, richieste, supporto)",
-              "Gestione, sicurezza e miglioramento dei nostri servizi"
+              "Evadere il tuo ordine (Smart Tag fisico e album digitale)",
+              "Creare, impaginare e pubblicare il tuo album personalizzato",
+              "Diffondere i contenuti dell'album all'apertura dell'URL Smart Tag o QR",
+              "Elaborare il pagamento tramite Stripe e inviare la conferma d'ordine via e-mail",
+              "Contattarti per chiarimenti, correzioni o supporto",
+              "Gestire, mettere in sicurezza e migliorare la piattaforma"
             ]
           },
           disclosure: {
-            title: "4. Comunicazione a terzi",
+            title: "4. Condivisione con terzi / responsabili del trattamento",
             content:
-              "Non vendiamo i tuoi dati né li cediamo a terzi per scopi pubblicitari. La comunicazione avviene esclusivamente nella misura necessaria per le finalità sopra indicate, a responsabili accuratamente selezionati:",
+              "Non vendiamo dati e non li cediamo per finalità pubblicitarie. Per gestire la piattaforma ci avvaliamo dei seguenti responsabili:",
             list: [
-              "Fornitori di pagamento (ad es. Stripe, TWINT, istituti di carte di credito) per l’elaborazione dei pagamenti",
-              "Fornitori di servizi IT, cloud e hosting (ad es. per la gestione del sito, l’archiviazione dei dati, la creazione/consegna dei video)",
-              "Fornitori di servizi e-mail/comunicazione (ad es. per l’invio di e-mail di sistema e di servizio)",
-              "Partner di logistica/consegna per la spedizione di prodotti fisici"
+              "Supabase (storage e database, regione UE) — conserva il contenuto dell'album, i dati dell'ordine e le impostazioni dell'editor",
+              "Vercel (hosting e edge CDN) — distribuisce il sito e le pagine dell'album",
+              "Stripe (elaborazione pagamenti) — gestisce direttamente carte e TWINT; non riceviamo mai dati di carta completi",
+              "Resend (e-mail transazionali) — invia conferme d'ordine e notifiche dell'album",
+              "Posta svizzera e partner logistici — spediscono lo Smart Tag fisico",
+              "Google Analytics (solo con consenso ai cookie) — misurazione anonimizzata dell'audience"
             ]
           },
           storage: {
-            title: "5. Conservazione e cancellazione dei dati",
+            title: "5. Conservazione e cancellazione",
             content:
-              "I contenuti personalizzati (foto, video, audio, testi) vengono conservati solo per il tempo necessario all’adempimento del contratto e alla fornitura del servizio. I dati dei clienti vengono conservati secondo gli obblighi legali di conservazione. Su tua richiesta, valuteremo una cancellazione anticipata, a condizione che non vi siano obblighi legali contrari."
+              "I dati di ordine sono conservati secondo gli obblighi contabili svizzeri (10 anni). I contenuti dell'album restano accessibili per almeno 12 mesi dalla consegna dello Smart Tag; una disponibilità oltre tale periodo non è contrattualmente garantita. Su richiesta scritta cancelliamo o anonimizziamo prima il contenuto, salvo obblighi legali contrari."
           },
           security: {
             title: "6. Sicurezza dei dati",
             content:
-              "Utilizziamo misure tecniche e organizzative adeguate per proteggere i tuoi dati da perdita, manipolazione e accessi non autorizzati. Si prega di notare che la trasmissione dei dati tramite Internet (ad es. e-mail) può presentare lacune di sicurezza."
+              "Proteggiamo i tuoi dati con misure tecniche e organizzative aggiornate: trasporto esclusivamente in TLS, controllo accessi a livello di database (Row-Level Security), chiavi di servizio separate per le edge function e backup regolari presso i nostri provider cloud. Una protezione completa nelle trasmissioni Internet (es. e-mail) non può essere garantita."
           },
           rights: {
-            title: "7. Diritti dell’interessato",
+            title: "7. I tuoi diritti",
             content:
-              "Ai sensi della legge sulla protezione dei dati applicabile, hai in particolare i seguenti diritti. Per esercitare i tuoi diritti, contattaci all’indirizzo sopra indicato:",
+              "Hai i seguenti diritti nei nostri confronti. Le richieste vanno inviate a info@memora-moments.ch:",
             list: [
-              "Informazione: accesso ai dati memorizzati su di te",
-              "Rettifica: correzione di dati inesatti o incompleti",
-              "Cancellazione: rimozione dei tuoi dati, salvo obblighi di conservazione",
-              "Limitazione/Opposizione (ove applicabile): limitazione di determinati trattamenti",
-              "Portabilità dei dati: fornitura dei tuoi dati in formato elettronico comune"
+              "Accesso ai dati che ti riguardano",
+              "Rettifica di dati inesatti o incompleti",
+              "Cancellazione, salvo obblighi legali di conservazione",
+              "Limitazione od opposizione a determinati trattamenti",
+              "Portabilità in un formato elettronico comune",
+              "Revoca del consenso prestato, con effetto per il futuro"
             ]
           },
           cookies: {
             title: "8. Cookie e tracciamento",
             content:
-              "Il nostro sito utilizza cookie necessari per fornire funzioni di base. Utilizziamo altri cookie (facoltativi) di analisi o marketing solo con il tuo consenso. Puoi impostare nel tuo browser se i cookie vengono accettati, bloccati o cancellati."
+              "Utilizziamo cookie strettamente necessari (es. cookie di lingua e di consenso) impostabili senza consenso. I cookie analitici opzionali (Google Analytics) vengono attivati solo dopo l'accettazione nel banner. Puoi revocare il consenso in qualsiasi momento eliminando il cookie 'memora-cookie-consent' dal browser."
           },
           changes: {
-            title: "9. Modifiche a questa informativa",
+            title: "9. Modifiche all'informativa",
             content:
-              "Ci riserviamo il diritto di adattare questa informativa in qualsiasi momento. Si applica la versione attuale pubblicata sul nostro sito."
+              "Possiamo modificare l'informativa al variare di funzionalità o responsabili. Si applica la versione pubblicata su questa pagina."
           }
         }
       },
       terms: {
-        title: "Condizioni generali di contratto (CGC)",
+        title: "Condizioni generali di contratto",
         sections: {
           scope: {
-            title: "Premessa e Contatto",
-            content: "Questo sito web è gestito da TW Projects GmbH. In tutto il sito, i termini «noi», «ci» e «nostro» si riferiscono a TW Projects GmbH. TW Projects GmbH offre questo sito, inclusi tutti i servizi, strumenti e informazioni disponibili, a condizione che l’utente accetti tutte le condizioni, le politiche e gli avvisi qui indicati.\n\nLa vostra soddisfazione è la nostra massima priorità. Per domande o suggerimenti, potete contattarci all’indirizzo info.memora.moments@gmail.ch o tramite il modulo di contatto.\n\nTW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten, Svizzera\nE-Mail: info.memora.moments@gmail.ch\nTelefono: +41 79 407 56 99\n\nAvviso sulla lingua: Questi Termini e Condizioni sono disponibili in più lingue. In caso di discrepanze o conflitti interpretativi, fa fede la versione tedesca."
+            title: "Premessa e contatto",
+            content: "Questo sito è gestito da TW Projects GmbH con il marchio Memora Moments. I termini «noi», «ci» e «nostro» si riferiscono a TW Projects GmbH; «tu» o «cliente» indica l'utente.\n\nContatto:\nTW Projects GmbH\nBreitenmattstrasse\n8635 Dürnten, Svizzera\nE-mail: info@memora-moments.ch\nTelefono: +41 79 407 56 99\n\nLe presenti CGC sono disponibili in tedesco, inglese, francese e italiano. In caso di discrepanze fa fede la versione tedesca."
           },
           contract: {
-            title: "1. Ambito di applicazione e stipula del contratto",
-            content: "Le presenti CGC si applicano a tutti gli ordini effettuati tramite il nostro sito web e all'utilizzo dei nostri servizi.\n\nUn contratto vincolante si perfeziona non appena confermiamo espressamente l'ordine via e-mail."
+            title: "1. Ambito e conclusione del contratto",
+            content: "Le presenti CGC si applicano a ogni ordine effettuato tramite memora-moments.ch nonché all'utilizzo dell'editor di album e dell'album pubblicato.\n\nLa presentazione dei prodotti non costituisce un'offerta vincolante ma un invito a ordinare. Completando il processo di ordine (conferma di pagamento via Stripe) presenti un'offerta vincolante. Il contratto si perfeziona non appena ti inviamo la conferma d'ordine via e-mail o avviamo la spedizione."
           },
           services: {
-            title: "2. Consenso al trattamento dei vostri dati",
-            content: "Il vostro consenso alle presenti Condizioni Generali di Contratto include il vostro consenso a tale trattamento dei dati personali. I vostri dati di immagine/foto vengono utilizzati da noi esclusivamente per la corretta esecuzione del vostro ordine."
+            title: "2. Descrizione delle prestazioni",
+            content: "Memora Moments combina due prestazioni:\n\n1) Prodotto fisico: uno Smart Tag (placca NFC / QR) applicabile in modo discreto su lapidi, urne o prodotti partner (es. Zeichnungsverlag).\n\n2) Album digitale: un album foto e video accessibile tramite lo Smart Tag, progettato da te nel nostro editor online. Scegli stile (Modern, Classico, Senza Tempo), layout per pagina, punto focale delle immagini, testi opzionali e un brano musicale.\n\nL'album viene pubblicato a un URL univoco (memora-moments.ch/album/<slug>) e collegato allo Smart Tag."
           },
           prices: {
-            title: "3. Assortimento, prezzi e pagamento",
-            content: "I nostri prodotti sono costituiti in particolare da targhe commemorative personalizzate, Smart Tags e contenuti digitali associati (ad es. album fotografico digitale).\n\nI prodotti personalizzati e i contenuti digitali vengono creati individualmente secondo le specifiche del cliente e sono esclusi dal cambio o dalla restituzione.\n\nI prodotti non personalizzati possono essere restituiti in conformità alle disposizioni di legge.\n\nIl nostro assortimento viene costantemente adeguato allo sviluppo tecnico. I nostri prezzi e la quota delle spese di spedizione a vostro carico possono variare di volta in volta.\n\nLe spese di consegna per gli ordini in Svizzera sono a nostro carico. Le spese di consegna per le spedizioni al di fuori della Svizzera saranno fatturate al destinatario in un secondo momento.\n\nTutti i prezzi si intendono in Franchi Svizzeri (CHF), IVA inclusa (se applicabile).\n\nIl pagamento viene effettuato prima della consegna o prima della creazione dei contenuti digitali.\n\nPer gli ordini online avete la possibilità di pagare con i seguenti mezzi di pagamento: Carta di credito, TWINT, pagamento anticipato. Questi possono variare di volta in volta e a seconda del paese. La vostra scelta di un mezzo di pagamento ci autorizza a incassare o a riscuotere i pagamenti nella relativa modalità. In caso di storni, abbiamo diritto al rimborso dei relativi costi e delle spese di elaborazione bancaria."
+            title: "3. Prezzi, spedizione e pagamento",
+            content: "Il prezzo base per album è di CHF 89.– (IVA eventuale inclusa, valgono i prezzi attuali del sito).\n\nSpese di spedizione per zona:\n– Svizzera (CH): CHF 9.–\n– Europa (UE): CHF 19.–\n– Mondo (WORLD): CHF 29.–\n\nTutti i prezzi sono in franchi svizzeri. Eventuali dazi o tasse d'importazione fuori dalla Svizzera sono a carico del destinatario.\n\nIl pagamento avviene prima della consegna tramite Stripe (carta di credito/debito o TWINT). Ordini di test senza pagamento sono disponibili solo previa attivazione esplicita da parte nostra.\n\nIn caso di storno abbiamo diritto a fatturare le relative spese bancarie."
           },
           delivery: {
-            title: "4. Ordine, consegna, trasferimento del rischio e riserva di proprietà",
-            content: "Non appena le vostre immagini o i vostri filmati digitali ci pervengono, l'ordine viene eseguito secondo le vostre indicazioni. Confermiamo gli ordini effettuati per via elettronica tramite un'e-mail all'indirizzo da voi indicato.\n\nDopo la conferma dell'ordine, la consegna del prodotto avviene entro 30 giorni, salvo diversa indicazione sul prodotto.\n\nSi prega di notare che gli ordini digitali, una volta pervenutici, non possono essere modificati, cancellati o uniti.\n\nSe durante l'esecuzione dell'ordine sulle vostre immagini dovessero apparire contenuti che violano palesemente i divieti di legge, non eseguiremo il vostro ordine.\n\nLe consegne vengono effettuate all'indirizzo indicato dal cliente. Il rischio di perimento fortuito, di danneggiamento fortuito o di perdita fortuita della merce consegnata passa a voi al momento della consegna all'impresa di trasporto."
+            title: "4. Processo d'ordine, consegna e trasferimento del rischio",
+            content: "Il processo d'ordine si articola in 8 fasi: pubblico (umano/animale), scelta dello stile, caricamento dei media, editor dell'album, musica, anteprima, dati personali e pagamento.\n\nDopo la ricezione del pagamento avviamo la produzione dello Smart Tag e la pubblicazione dell'album. La consegna avviene entro 30 giorni dalla conclusione del contratto, salvo diversa indicazione.\n\nIl rischio di perdita o danneggiamento accidentale del prodotto fisico passa a te al momento della consegna al corriere. Fino al pagamento integrale il prodotto resta di nostra proprietà (riserva di proprietà secondo il diritto svizzero)."
           },
           cancellation: {
-            title: "5. Riserva di proprietà",
-            content: "I prodotti consegnati rimangono di proprietà di TW Projects GmbH fino al completo pagamento (comprese le spese di spedizione e l'eventuale IVA) (riserva di proprietà, iscrizione nel registro riservata)."
+            title: "5. Recesso per prodotti personalizzati",
+            content: "Lo Smart Tag e l'album digitale sono prodotti e pubblicati individualmente secondo le tue indicazioni. I prodotti personalizzati sono esclusi dal diritto legale di recesso o restituzione.\n\nI diritti di garanzia (clausola 8) restano impregiudicati. Verifica con cura i contenuti dell'album nell'anteprima a tutto schermo prima di ordinare."
           },
           warranty: {
-            title: "6. Diritti e doveri per i contenuti personalizzati",
-            content: "Il cliente fornisce testi, immagini, video o altri contenuti di qualità adeguata.\n\nIl cliente assicura di possedere tutti i diritti d'autore e della personalità necessari o di aver ottenuto il consenso degli aventi diritto.\n\nIl cliente concede a TW Projects GmbH una licenza non esclusiva e mondiale per l'utilizzo dei contenuti forniti per la creazione, l'archiviazione и la fornitura dei prodotti.\n\nCi riserviamo il diritto di rifiutare o rimuovere successivamente contenuti che violino i diritti di terzi o siano illegali."
+            title: "6. Contenuti del cliente — diritti e obblighi",
+            content: "Carichi nell'editor al massimo 40 file media (immagini compresse a circa 1 MB ciascuna, video fino a 200 MB). Confermi di possedere, per tutti i contenuti caricati (immagini, video, audio, testi, nomi e date), i necessari diritti d'autore, all'immagine e di protezione dei dati, oppure di aver ottenuto il consenso degli aventi diritto o dei familiari.\n\nPer la creazione, l'archiviazione, la diffusione e l'anteprima dell'album ci concedi una licenza non esclusiva, mondiale, limitata allo scopo contrattuale.\n\nCi riserviamo di rifiutare o rimuovere contenuti manifestamente illeciti, contrari al buon costume o lesivi di diritti di terzi."
           },
           liability: {
-            title: "7. Procedura di notifica e rimozione (Notice-&-Takedown)",
-            content: "Gli aventi diritto (ad es. parenti, eredi) possono contestare che i contenuti violino i diritti della personalità.\n\nDopo aver ricevuto una segnalazione motivata, provvederemo a rimuovere tempestivamente i contenuti interessati. Si prega di inviare le segnalazioni a: [info.memora.moments@gmail.ch]."
+            title: "7. Procedura di notifica e rimozione",
+            content: "Se sei un avente diritto (es. parente, erede, persona ritratta) e ritieni i tuoi diritti violati da un album pubblicato, contattaci a info@memora-moments.ch indicando l'URL dell'album e la natura della violazione.\n\nAl ricevimento di una segnalazione motivata rimuoviamo senza ritardo l'album o il contenuto interessato e contattiamo il cliente originario per chiarimenti."
           },
           ip: {
             title: "8. Garanzia e responsabilità",
-            content: "Si applicano i diritti legali sui vizi secondo il Codice delle obbligazioni svizzero (CO).\n\nA nostra scelta, provvederemo a una riparazione o a una fornitura sostitutiva. I reclami possono essere accettati solo se si riferiscono a un difetto materiale e vengono presentati entro 21 giorni dal ricevimento dei prodotti.\n\nSi prega di notare che errori di battitura inseriti dal cliente, immagini di qualità insufficiente (ad esempio a causa di una risoluzione troppo bassa per le immagini digitali), errori di progettazione imputabili al cliente, nonché una scelta errata del prodotto, quantità d'ordine errate o altri difetti derivanti da errori nell'inserimento dell'ordine sono esclusi dal reclamo. Ciò vale anche per i danni verificatisi durante il trasporto.\n\nIn particolare, non ci assumiamo alcuna responsabilità per:\n- la qualità o la liceità dei contenuti forniti dal cliente,\n- variazioni di colore dovute a specifiche del materiale o impostazioni del dispositivo,\n- interruzioni temporanee dei nostri servizi digitali.\n- per danni che non sono tipicamente prevedibili data la natura del rispettivo ordine e dei prodotti e il loro normale utilizzo.\n\nLa nostra responsabilità è, per quanto consentito dalla legge, limitata a dolo e colpa grave. Per colpa lieve rispondiamo solo in caso di danni alla persona."
+            content: "Si applicano i diritti legali sui vizi secondo il Codice svizzero delle obbligazioni. I reclami devono pervenire per iscritto entro 21 giorni dal ricevimento. A nostra scelta provvediamo a riparazione o sostituzione.\n\nSono esclusi dalla garanzia in particolare:\n– refusi, errori di layout o di selezione commessi dal cliente nell'editor,\n– immagini o video di qualità insufficiente (bassa risoluzione, forte compressione),\n– deviazioni di colore dovute a schermi o stampe diversi,\n– danni di trasporto non segnalati entro 7 giorni dal ricevimento.\n\nLa nostra responsabilità è limitata, nei limiti di legge, a dolo e colpa grave. Per colpa lieve rispondiamo solo in caso di lesioni personali. Sono escluse, nei limiti di legge, le responsabilità per danni indiretti, mancato profitto o perdita di dati."
           },
           privacy: {
-            title: "9. Utilizzo dei servizi digitali",
-            content: "Ci impegniamo a garantire un'elevata disponibilità dei nostri servizi di hosting e streaming. Tuttavia, possono verificarsi interruzioni di breve durata (manutenzione, forza maggiore, guasti tecnici).\n\nNon viene garantito un determinato livello di servizio."
+            title: "9. Disponibilità dei servizi digitali",
+            content: "Editor, distribuzione dell'album e checkout sono ospitati su infrastruttura cloud (in particolare Vercel e Supabase, regione UE). Puntiamo a un'elevata disponibilità ma non garantiamo alcun service level specifico.\n\nBrevi interruzioni per manutenzione, aggiornamenti di sicurezza o incidenti dei provider sono possibili. Non è dato alcun diritto a una piattaforma di hosting specifica."
           },
           special: {
             title: "10. Diritti di terzi",
-            content: "Siete gli unici responsabili di garantire di disporre dei diritti necessari sulle immagini che inviate, inclusi i diritti d'autore, di marchio e della personalità. Qualora terzi dovessero far valere pretese nei nostri confronti in relazione al vostro ordine per la violazione di tali diritti, siete tenuti a respingere tali pretese o a sostenere i costi per la difesa da tali pretese. Le nostre pretese di risarcimento danni rimangono impregiudicate."
+            content: "Sei l'unico responsabile della titolarità dei diritti sui contenuti caricati. Qualora terzi facciano valere nei nostri confronti pretese per violazione di diritti d'autore, di marchio o della personalità, ci tieni indenni e ti fai carico delle spese di difesa — fatti salvi eventuali nostri diritti di risarcimento."
           },
           law: {
             title: "11. Protezione dei dati",
-            content: "Il trattamento dei dati personali è disciplinato dalla nostra informativa sulla privacy.\n\nIl cliente prende atto che per l'hosting, l'elaborazione dei pagamenti o altri servizi possono essere utilizzati fornitori terzi."
+            content: "La raccolta e il trattamento dei dati personali sono disciplinati dalla nostra informativa sulla privacy. Prendi atto che ci avvaliamo di responsabili del trattamento (in particolare Supabase, Vercel, Stripe e Resend) e che i contenuti vengono distribuiti ai dispositivi tramite content-delivery network."
           },
           final: {
             title: "12. Regolamento delle donazioni",
-            content: "TW Projects GmbH dona il 10 % del prezzo di vendita netto di ogni prodotto Memora Moments acquistato direttamente tramite il sito ufficiale a organizzazioni benefiche (ad esempio Make-A-Wish Svizzera o la Fondazione Servizio di Soccorso Animali) per aiutare persone e animali in difficoltà.\n\nGli acquisti effettuati tramite programmi partner o collaborazioni (ad esempio link di influencer) sono esclusi da questa politica di donazione.\n\nLe donazioni vengono effettuate una volta all’anno, alla fine dell’anno solare. La scelta dell’organizzazione beneficiaria e la gestione delle donazioni sono di esclusiva competenza di TW Projects GmbH. Il cliente non ha alcun diritto individuale alla trasmissione o alla destinazione specifica della donazione."
+            content: "TW Projects GmbH dona il 10 % del prezzo di vendita netto di ogni prodotto Memora Moments venduto direttamente tramite memora-moments.ch a organizzazioni benefiche (es. Make-A-Wish Svizzera o la Fondazione Servizio di Soccorso Animali).\n\nGli acquisti effettuati tramite canali partner, rivenditori o cooperazioni (es. link di influencer) sono esclusi.\n\nLe donazioni vengono erogate una volta all'anno a fine anno. La scelta dell'organizzazione beneficiaria e la gestione sono di nostra esclusiva competenza. Il cliente non ha diritto individuale al trasferimento o alla destinazione della donazione."
           },
           contact: {
             title: "13. Usi vietati",
-            content: "Il sito web non può essere utilizzato per scopi illegali, spam, malware o violazioni dei diritti di terzi.\n\nCi riserviamo il diritto di bloccare l'accesso in caso di abuso."
+            content: "La piattaforma non può essere utilizzata per scopi illeciti, spam, malware, caricamento di contenuti pedopornografici, inneggianti alla violenza o all'odio, né per violare diritti di terzi.\n\nIn caso di violazione ci riserviamo di mettere immediatamente l'album offline, sospendere l'account e — se necessario — informare le autorità. Importi già pagati non vengono rimborsati in tali casi."
           },
           availability: {
-            title: "14. Disponibilità dei contenuti digitali",
-            content: "I contenuti digitali (ad es. album foto o video) accessibili tramite Smart Tags, codici QR o link esterni sono forniti tramite piattaforme di terzi da noi selezionate. TW Projects GmbH garantisce l’accesso a tali contenuti digitali per un periodo minimo di 12 mesi dalla consegna, salvo diversa indicazione sul prodotto specifico.\n\nL’accesso può continuare oltre tale periodo, ma non è contrattualmente garantito. Non è possibile assicurare una disponibilità permanente o a vita.\n\nNon siamo responsabili per interruzioni, modifiche o disattivazioni di servizi esterni, né per perdite di dati o problemi di accesso al di fuori del nostro controllo. Ci riserviamo il diritto di migrare i contenuti verso altri servizi o di modificare le modalità di accesso, senza che ciò comporti un diritto a un sistema di hosting specifico."
+            title: "14. Disponibilità degli album digitali",
+            content: "Garantiamo che l'album pubblicato resti accessibile tramite l'URL Smart Tag per almeno 12 mesi dalla consegna dello Smart Tag, salvo diversa indicazione. Una disponibilità superiore non è contrattualmente garantita.\n\nNon siamo responsabili per interruzioni, modifiche o cessazioni di servizi esterni, né per perdite di dati al di fuori del nostro controllo. Ci riserviamo di migrare i contenuti dell'album verso altri servizi o piattaforme di hosting senza che ne derivino diritti del cliente verso un fornitore specifico.\n\nDiritto applicabile: diritto svizzero, con esclusione della Convenzione delle Nazioni Unite sui contratti di compravendita internazionale di merci. Nei limiti di legge, il foro competente è la sede di TW Projects GmbH (Dürnten ZH)."
           },
         },
       },
