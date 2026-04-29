@@ -76,6 +76,12 @@
   font-family: var(--tpa-f-ui); font-size: 11px;
   color: var(--tpa-ink-soft); max-width: 55%; text-align: right; line-height: 1.2;
   letter-spacing: .06em;
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  .tpa-brand { font-size: 13px; }
+  .tpa-brand-r { font-size: 9px; max-width: 60%; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
