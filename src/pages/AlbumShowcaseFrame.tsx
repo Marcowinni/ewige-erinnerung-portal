@@ -22,7 +22,7 @@ const SAMPLE_IMAGES = [
 ]
 
 const SUBJECT_NAME = 'Bello'
-const DATE_RANGE = '1950 – 2025'
+const DATE_RANGE = '2010 – 2025'
 
 function buildModernPages(imgs: string[]): PageConfig[] {
   let i = 0
@@ -33,7 +33,7 @@ function buildModernPages(imgs: string[]): PageConfig[] {
     { type: 'split', imgs: [next(), next(), next()], showText: true, text: 'Leise Stunden.' },
     { type: 'stack', imgs: [next(), next(), next(), next()], showText: false },
     { type: 'story', bg: next(), s1: next(), s2: next(), s3: next(), showText: true, text: 'Tage, wie sie waren.' },
-    { type: 'twin-portrait', imgA: next(), imgB: next(), showText: true, text: 'Zwei Seiten einer Zeit.' },
+    { type: 'bleed', img: next(), showText: true, text: 'Zwei Seiten einer Zeit.' },
     { type: 'quote-card', img: next(), showText: true, text: 'Was bleibt, ist Liebe.' },
     { type: 'close', showText: true },
   ]
@@ -50,7 +50,7 @@ function buildClassicPages(imgs: string[]): ClassicPageConfig[] {
     { type: 'tape', imgA: next(), imgB: next(), showText: true, text: 'Wind im Haar.' },
     { type: 'herald', hero: next(), r1: next(), r2: next(), showText: true, text: 'Wie wir Dich kannten.' },
     { type: 'diagonal', t1: next(), t2: next(), t3: next(), showText: true, text: 'Bewahrte Bilder.' },
-    { type: 'envelope-letter', img: next(), showText: true, text: 'Worte, die bleiben.' },
+    { type: 'envelope-letter', img: next(), showText: true, text: 'Momente, die bleiben.' },
     { type: 'pinned', imgA: next(), imgB: next(), showText: true, text: 'Angeheftet. Bewahrt.' },
     { type: 'strip', s1: next(), s2: next(), s3: next(), big: next(), showText: true, text: 'Liebste Augenblicke.' },
     { type: 'close', showText: true },
