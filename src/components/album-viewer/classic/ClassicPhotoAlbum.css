@@ -95,6 +95,10 @@
   flex: 1 1 0;
   min-height: 0;
   overflow: hidden;
+  /* Reserve space at top so flow photos don't collide with the absolute
+     .cpa-header-mark sitting at top:28px. Header is position:absolute so
+     this padding only shifts flow content, not the header itself. */
+  padding-top: 56px;
   background: var(--cpa-paper);
   background-image:
     radial-gradient(circle at 20% 30%, rgba(139,107,70,.08) 0%, transparent 40%),
@@ -793,6 +797,7 @@
   /* Leaf — desktop: full height sides */
   .cpa-leaf {
     min-height: unset;
+    padding-top: 0;
     overflow: hidden;
   }
   .cpa-leaf.left {
