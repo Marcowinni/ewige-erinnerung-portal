@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { ModernPhotoAlbum, type PageConfig } from '@/components/album-viewer/modern/ModernPhotoAlbum'
 import { ClassicPhotoAlbum, type ClassicPageConfig } from '@/components/album-viewer/classic/ClassicPhotoAlbum'
@@ -73,28 +73,6 @@ function buildTimelessPages(imgs: string[]): TimelessPageConfig[] {
 
 export default function AlbumShowcaseFrame() {
   const { theme } = useParams<{ theme: string }>()
-
-  // Auto-advance via window keypress every 3.5s
-  useEffect(() => {
-    const id = setInterval(() => {
-      const btn = document.querySelector<HTMLButtonElement>('[aria-label="Weiter"]')
-      if (btn && !btn.disabled) {
-        btn.click()
-      } else {
-        // wrap: spaced back-clicks
-        let i = 0
-        const wrap = () => {
-          const back = document.querySelector<HTMLButtonElement>('[aria-label="Zurück"]')
-          if (back && !back.disabled && i++ < 30) {
-            back.click()
-            setTimeout(wrap, 80)
-          }
-        }
-        wrap()
-      }
-    }, 6500)
-    return () => clearInterval(id)
-  }, [])
 
   const modernPages = useMemo(() => buildModernPages(SAMPLE_IMAGES), [])
   const classicPages = useMemo(() => buildClassicPages(SAMPLE_IMAGES), [])

@@ -275,10 +275,10 @@ export const frContent: ContentData = {
     landing: {
       hero: {
         eyebrow: "Memora Moments",
-        titleLine1: "Un instant.",
-        titleLine2: "Pour toujours.",
-        subtitle1: "Un Smart Tag empreint de dignité. Un album photo numérique vivant.",
-        subtitle2: "Pour les êtres et les animaux qui demeurent.",
+        titleLine1: "Souvenirs",
+        titleLine2: "qui perdurent",
+        subtitle1: "Un Smart Tag plein de dignité, qui réunit les plus beaux instants avec vos proches dans un album souvenir numérique.",
+        subtitle2: "Pour les humains et les animaux qui restent dans nos mémoires.",
         ctaCreate: "Créer l'album"
       },
       pathChoice: {
@@ -306,7 +306,7 @@ export const frContent: ContentData = {
         eyebrow: "Trois styles",
         titleLine1: "Chaque histoire",
         titleLine2: "mérite son ton.",
-        hint: "Survolez un album pour le piloter vous-même.",
+        hint: "Parcourez nos albums et trouvez votre style.",
         ctaPickStyle: "Choisir votre style",
         previewTitle: (style: string) => `Aperçu de l'album ${style}`,
         navBack: "Retour",

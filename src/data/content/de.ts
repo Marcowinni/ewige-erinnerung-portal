@@ -323,10 +323,10 @@ export const deContent: ContentData = {
     landing: {
       hero: {
         eyebrow: "Memora Moments",
-        titleLine1: "Ein Moment.",
-        titleLine2: "Für immer.",
-        subtitle1: "Ein würdevoller Smart Tag. Ein lebendiges digitales Fotoalbum.",
-        subtitle2: "Für die Menschen und Tiere, die bleiben.",
+        titleLine1: "Erinnerungen",
+        titleLine2: "die weiterleben",
+        subtitle1: "Ein würdevoller Smart Tag, der die schönsten Momente mit deinen Liebsten in einem digitalen Erinnerungsalbum vereint.",
+        subtitle2: "Für Menschen und Tiere, die in Erinnerung bleiben.",
         ctaCreate: "Album erstellen"
       },
       pathChoice: {
@@ -354,7 +354,7 @@ export const deContent: ContentData = {
         eyebrow: "Drei Stile",
         titleLine1: "Jede Geschichte",
         titleLine2: "verdient ihren Ton.",
-        hint: "Fahren Sie über ein Album, um es selbst zu steuern.",
+        hint: "Durchstöbern Sie unsere Alben und finden Sie Ihren Stil.",
         ctaPickStyle: "Ihren Stil wählen",
         previewTitle: (style: string) => `${style} Album Vorschau`,
         navBack: "Zurück",

@@ -312,10 +312,10 @@ export const enContent: ContentData = {
     landing: {
       hero: {
         eyebrow: "Memora Moments",
-        titleLine1: "A moment.",
-        titleLine2: "Forever.",
-        subtitle1: "A dignified Smart Tag. A living digital photo album.",
-        subtitle2: "For the people and animals who remain.",
+        titleLine1: "Memories",
+        titleLine2: "that live on",
+        subtitle1: "A dignified Smart Tag that brings the most precious moments with your loved ones together in a digital memory album.",
+        subtitle2: "For people and animals who stay in our memory.",
         ctaCreate: "Create your album"
       },
       pathChoice: {
@@ -343,7 +343,7 @@ export const enContent: ContentData = {
         eyebrow: "Three styles",
         titleLine1: "Every story",
         titleLine2: "deserves its tone.",
-        hint: "Hover over an album to take control yourself.",
+        hint: "Browse our albums and find your style.",
         ctaPickStyle: "Choose your style",
         previewTitle: (style: string) => `${style} Album Preview`,
         navBack: "Back",
