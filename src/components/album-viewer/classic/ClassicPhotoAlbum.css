@@ -59,10 +59,14 @@
 /* Spine hidden on mobile — no book metaphor in single-column */
 .cpa-spine { display: none; }
 
-/* Spread — mobile: single-column, fixed height, NO scroll */
+/* Spread — mobile: single-column, fixed height, NO scroll.
+   Top offset reserves space for the fixed .cpa-chrome header bar. */
 .cpa-spread {
   position: absolute;
-  inset: 0;
+  top: calc(48px + env(safe-area-inset-top, 0px));
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   opacity: 0;
@@ -95,10 +99,6 @@
   flex: 1 1 0;
   min-height: 0;
   overflow: hidden;
-  /* Reserve space at top so flow photos don't collide with the absolute
-     .cpa-header-mark sitting at top:28px. Header is position:absolute so
-     this padding only shifts flow content, not the header itself. */
-  padding-top: 56px;
   background: var(--cpa-paper);
   background-image:
     radial-gradient(circle at 20% 30%, rgba(139,107,70,.08) 0%, transparent 40%),
@@ -797,7 +797,6 @@
   /* Leaf — desktop: full height sides */
   .cpa-leaf {
     min-height: unset;
-    padding-top: 0;
     overflow: hidden;
   }
   .cpa-leaf.left {
