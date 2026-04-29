@@ -28,5 +28,6 @@ dist-ssr
 *.mp4
 !public/kalender_vorschau/fotoalbum_modern.mp4
 !public/kalender_vorschau/fotoalbum_klassisch.mp4
+!public/video_howitworks.mp4
 .vercel
 .vercel

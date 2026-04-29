@@ -49,13 +49,14 @@ export default function PathChoice() {
           className="mx-auto mt-16 max-w-3xl overflow-hidden rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
         >
           <video
-            src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            src="/video_howitworks.mp4"
             autoPlay
             muted
             loop
             playsInline
+            controls
+            preload="metadata"
             className="w-full object-cover aspect-video"
-            aria-hidden
           />
         </motion.div>
 
