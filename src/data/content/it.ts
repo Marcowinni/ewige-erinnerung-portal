@@ -396,19 +396,19 @@ export const itContent: ContentData = {
         eyebrow: "Il prodotto",
         titleLine1: "Un piccolo Tag,",
         titleLine2: "ricordi infiniti.",
-        intro: "Memora Moments unisce un robusto Smart Tag fisico a un album digitale curato in modo personale. Basta un tocco o una scansione — e i ricordi prendono vita.",
+        intro: "Memora Moments unisce un robusto Smart Tag fisico a un album digitale curato in modo personale. Basta un tocco con lo smartphone — e i ricordi prendono vita.",
         items: {
           waterproof: {
             title: "Resistente all'acqua e alle intemperie",
-            body: "Realizzato in materiale resistente, lo Smart Tag affronta pioggia, neve e raggi UV. Sicuro all'aperto, sulla lapide, sull'urna o in giardino."
+            body: "Realizzato in materiale resistente, lo Smart Tag affronta pioggia e neve."
           },
           adhesive: {
             title: "Adesivo 3M di alta qualità",
-            body: "L'adesivo industriale 3M garantisce un'aderenza sicura su pietra, vetro, metallo, legno e plastica — e si rimuove senza lasciare residui."
+            body: "L'adesivo industriale 3M garantisce un'aderenza sicura su superfici lisce come vetro, metallo, legno laccato e pietra levigata."
           },
           quality: {
             title: "Qualità premium",
-            body: "Smart Tag solido con finitura duratura. Bordi rifiniti con cura, discreto in nero o nella versione dedicata al ricordo degli animali."
+            body: "Smart Tag solido con finitura duratura."
           },
           personal: {
             title: "Creato da te, personale",
@@ -416,11 +416,11 @@ export const itContent: ContentData = {
           },
           privateUrl: {
             title: "Il tuo URL privato",
-            body: "Ogni album riceve un proprio indirizzo unico. Solo chi conosce il tag o riceve il link può vederlo. Non rintracciabile pubblicamente."
+            body: "Ogni album riceve un proprio indirizzo unico. Solo chi conosce il tag o riceve il link può vederlo."
           },
           versatile: {
             title: "Versatile",
-            body: "Applica lo Smart Tag su lapidi, urne, cornici, scrigni dei ricordi o collari. Un gesto — molti utilizzi."
+            body: "Applica lo Smart Tag su lapidi, urne, cornici, scrigni dei ricordi o altri oggetti preziosi."
           }
         },
         price: {

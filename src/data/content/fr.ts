@@ -381,19 +381,19 @@ export const frContent: ContentData = {
         eyebrow: "Le produit",
         titleLine1: "Un petit Tag,",
         titleLine2: "une infinité de souvenirs.",
-        intro: "Memora Moments associe un Smart Tag physique robuste à un album numérique conçu personnellement. Un simple geste ou un scan — et les souvenirs s'animent.",
+        intro: "Memora Moments associe un Smart Tag physique robuste à un album numérique conçu personnellement. Un simple contact avec le smartphone — et les souvenirs s'animent.",
         items: {
           waterproof: {
             title: "Résistant à l'eau et aux intempéries",
-            body: "Fabriqué dans un matériau durable, le Smart Tag résiste à la pluie, à la neige et aux rayons UV. Sûr en extérieur, sur une pierre tombale, une urne ou au jardin."
+            body: "Fabriqué dans un matériau durable, le Smart Tag résiste à la pluie et à la neige."
           },
           adhesive: {
             title: "Adhésif 3M de haute qualité",
-            body: "L'adhésif industriel 3M assure une fixation sûre sur la pierre, le verre, le métal, le bois et le plastique — et se retire sans laisser de traces si besoin."
+            body: "L'adhésif industriel 3M assure une fixation sûre sur les surfaces lisses telles que le verre, le métal, le bois laqué et la pierre polie."
           },
           quality: {
             title: "Qualité premium",
-            body: "Un Smart Tag solide avec une finition durable. Bords soigneusement travaillés, discret en noir ou en version dédiée au souvenir des animaux."
+            body: "Un Smart Tag solide avec une finition durable."
           },
           personal: {
             title: "Conçu par vos soins, personnel",
@@ -401,11 +401,11 @@ export const frContent: ContentData = {
           },
           privateUrl: {
             title: "Votre URL privée",
-            body: "Chaque album reçoit sa propre adresse unique. Seules les personnes qui connaissent le Tag ou reçoivent le lien y ont accès. Non référencé publiquement."
+            body: "Chaque album reçoit sa propre adresse unique. Seules les personnes qui connaissent le Tag ou reçoivent le lien y ont accès."
           },
           versatile: {
             title: "Polyvalent",
-            body: "Posez le Smart Tag sur des pierres tombales, des urnes, des cadres photo, des boîtes à souvenirs ou des colliers. Un geste — de nombreux usages."
+            body: "Posez le Smart Tag sur des pierres tombales, des urnes, des cadres photo, des boîtes à souvenirs ou d'autres objets précieux."
           }
         },
         price: {

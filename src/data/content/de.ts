@@ -407,19 +407,19 @@ export const deContent: ContentData = {
         eyebrow: "Das Produkt",
         titleLine1: "Ein kleiner Tag,",
         titleLine2: "unendlich Erinnerungen.",
-        intro: "Memora Moments verbindet einen robusten physischen Smart-Tag mit einem persönlich gestalteten digitalen Album. Ein Tippen oder Scannen genügt — und Erinnerungen werden lebendig.",
+        intro: "Memora Moments verbindet einen robusten physischen Smart-Tag mit einem persönlich gestalteten digitalen Album. Eine Berührung mit dem Smartphone genügt — und Erinnerungen werden lebendig.",
         items: {
           waterproof: {
             title: "Wasser- und wetterfest",
-            body: "Der Smart-Tag aus widerstandsfähigem Material trotzt Regen, Schnee und UV-Strahlung. Sicher draussen am Grabstein, an der Urne oder im Garten."
+            body: "Der Smart-Tag aus widerstandsfähigem Material trotzt Regen und Schnee."
           },
           adhesive: {
             title: "Hochwertiger 3M-Kleber",
-            body: "Industrieklebeband von 3M sorgt für sichere Haftung auf Stein, Glas, Metall, Holz und Kunststoff — rückstandsfrei lösbar bei Bedarf."
+            body: "Das Industrieklebeband von 3M sorgt für sichere Haftung auf glatten Oberflächen wie Glas, Metall, lackiertem Holz und poliertem Stein."
           },
           quality: {
             title: "Premium-Qualität",
-            body: "Stabiles Smart-Tag mit langlebiger Beschichtung. Sauber verarbeitete Kanten, dezent in Schwarz oder als Variante für Tier-Erinnerungen."
+            body: "Stabiler Smart-Tag mit langlebiger Beschichtung."
           },
           personal: {
             title: "Selbst gestaltet, persönlich",
@@ -427,11 +427,11 @@ export const deContent: ContentData = {
           },
           privateUrl: {
             title: "Eigene private URL",
-            body: "Jedes Album erhält eine eigene, einzigartige Adresse. Nur wer den Tag kennt oder den Link erhält, sieht das Album. Nicht öffentlich auffindbar."
+            body: "Jedes Album erhält eine eigene, einzigartige Adresse. Nur wer den Tag kennt oder den Link erhält, sieht das Album."
           },
           versatile: {
             title: "Vielseitig einsetzbar",
-            body: "Kleben Sie den Smart-Tag auf Grabsteine, Urnen, Bilderrahmen, Erinnerungsboxen oder Halsbänder. Eine Geste — viele Anwendungen."
+            body: "Kleben Sie den Smart-Tag auf Grabsteine, Urnen, Bilderrahmen, Erinnerungsboxen oder sonstigen Schmuckstücken."
           }
         },
         price: {
