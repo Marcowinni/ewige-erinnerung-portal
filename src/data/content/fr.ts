@@ -90,6 +90,35 @@ export const frContent: ContentData = {
         title: "Pourquoi Memora ?",
         p1: "Parce que les souvenirs sont plus que de simples pensées – ils méritent une place digne.",
         p2: "Nos produits Memora allient technologie et émotion – simples, beaux, durables."
+      },
+      founders: {
+        eyebrow: "Les personnes derrière",
+        title: "Memora Moments, c'est nous deux",
+        intro: "Deux amis, une idée – et le même besoin de donner aux souvenirs une place qui dure. Nous ne sommes pas une grande entreprise, mais deux artisans qui regardent chaque album avec le même soin que s'il s'agissait du nôtre.",
+        till: {
+          name: "Till",
+          role: "Cofondateur · Vision & Produit",
+          bio: "Till pense en histoires. Quand il ne dessine pas de concepts pour Memora, il est le plus souvent dehors – sac à dos, appareil photo ou skis. Ce qui le motive : l'idée que chaque personne et chaque animal mérite un récit qui ne se perde pas dans le quotidien. Cette conviction façonne chaque détail de nos albums.",
+          quote: "Un jour, une image, une chanson – parfois cela suffit pour ressentir à nouveau quelqu'un tout près.",
+          hobbies: ["Voyage", "Photographie", "Montagne"],
+          photoCaptions: {
+            main: "Till",
+            one: "Australie – sac à dos, routes ouvertes, beaucoup d'histoires.",
+            two: "Journées d'hiver où le monde s'arrête un instant."
+          }
+        },
+        wini: {
+          name: "Marco « Wini » Winistörfer",
+          role: "Cofondateur · Technique & Plateforme",
+          bio: "Wini construit. Du code le jour, parfois encore un peu de code le soir. Il est le pragmatique de l'équipe – il trouve des solutions pendant que d'autres parlent encore du problème. Pour lui, Memora Moments est l'endroit où la technologie fait enfin ce pour quoi elle est faite : rapprocher les gens.",
+          quote: "La bonne technique ne se voit pas. Elle ouvre simplement la voie à ce qui compte.",
+          hobbies: ["Kitesurf", "Randonnée", "Code"],
+          photoCaptions: {
+            main: "Marco « Wini »",
+            one: "Sur l'eau – là où la tête se libère enfin.",
+            two: "Montagnes suisses, un endroit favori pour respirer."
+          }
+        }
       }
     },
     legal: {

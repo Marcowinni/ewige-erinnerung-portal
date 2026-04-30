@@ -95,6 +95,35 @@ export const enContent: ContentData = {
         title: "Why Memora?",
         p1: "Because memories are more than just thoughts – they deserve a dignified place.",
         p2: "Our Memora products combine technology with emotion – simple, beautiful, sustainable."
+      },
+      founders: {
+        eyebrow: "The people behind it",
+        title: "Memora Moments is built by the two of us",
+        intro: "Two friends, one idea – and a shared need to give memories a place that lasts. We are not a big company, but two makers who look at every album with the same care we'd put into one for our own loved ones.",
+        till: {
+          name: "Till",
+          role: "Co-founder · Vision & Product",
+          bio: "Till thinks in stories. When he's not sketching concepts for Memora, he's usually outside – with a backpack, a camera, or skis. What drives him: the feeling that every person and every animal deserves a story that doesn't get lost in the everyday. This attitude shapes every detail of our albums.",
+          quote: "A day, an image, a song – sometimes that's all it takes to feel someone close again.",
+          hobbies: ["Travel", "Photography", "Mountains"],
+          photoCaptions: {
+            main: "Till",
+            one: "Australia – backpack, open roads, a lot of stories.",
+            two: "Winter days when the world stands still for a moment."
+          }
+        },
+        wini: {
+          name: "Marco \"Wini\" Winistörfer",
+          role: "Co-founder · Tech & Platform",
+          bio: "Wini builds. Code by day, sometimes a bit more code by night. He's the pragmatist on the team – finding solutions while others are still talking about the problem. For him, Memora Moments is the place where technology finally does what it's meant to do: bring people closer to one another.",
+          quote: "Good tech doesn't draw attention to itself. It clears the way for what really matters.",
+          hobbies: ["Kitesurfing", "Hiking", "Coding"],
+          photoCaptions: {
+            main: "Marco \"Wini\"",
+            one: "On the water – where the head finally clears.",
+            two: "Swiss mountains, a favourite place to breathe."
+          }
+        }
       }
     },
 

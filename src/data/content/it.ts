@@ -95,6 +95,35 @@ export const itContent: ContentData = {
         title: "Perché Memora?",
         p1: "Perché i ricordi sono più che semplici pensieri – meritano un luogo dignitoso.",
         p2: "I nostri prodotti Memora combinano tecnologia ed emozione – semplici, belli, sostenibili."
+      },
+      founders: {
+        eyebrow: "Le persone dietro al progetto",
+        title: "Memora Moments siamo noi due",
+        intro: "Due amici, un'idea – e lo stesso bisogno di dare ai ricordi un luogo che resti. Non siamo una grande azienda, ma due artigiani che guardano ogni album con la stessa cura che metterebbero in uno per i propri cari.",
+        till: {
+          name: "Till",
+          role: "Cofondatore · Visione & Prodotto",
+          bio: "Till pensa per storie. Quando non sta disegnando concetti per Memora, è di solito fuori – con uno zaino, una macchina fotografica o gli sci. Ciò che lo guida: l'idea che ogni persona e ogni animale meriti un racconto che non si perda nella quotidianità. Questa convinzione plasma ogni dettaglio dei nostri album.",
+          quote: "Un giorno, un'immagine, una canzone – a volte basta per sentire di nuovo qualcuno vicino.",
+          hobbies: ["Viaggi", "Fotografia", "Montagna"],
+          photoCaptions: {
+            main: "Till",
+            one: "Australia – zaino in spalla, strade aperte, tante storie.",
+            two: "Giornate d'inverno in cui il mondo si ferma per un istante."
+          }
+        },
+        wini: {
+          name: "Marco \"Wini\" Winistörfer",
+          role: "Cofondatore · Tecnologia & Piattaforma",
+          bio: "Wini costruisce. Codice di giorno, a volte un po' di codice anche di sera. È il pragmatico del team – trova soluzioni mentre altri stanno ancora parlando del problema. Per lui, Memora Moments è il luogo in cui la tecnologia fa finalmente ciò per cui è nata: avvicinare le persone.",
+          quote: "La buona tecnologia non si fa notare. Apre semplicemente la strada a ciò che conta.",
+          hobbies: ["Kitesurf", "Escursionismo", "Codice"],
+          photoCaptions: {
+            main: "Marco \"Wini\"",
+            one: "Sull'acqua – dove la testa finalmente si libera.",
+            two: "Montagne svizzere, un luogo preferito per respirare."
+          }
+        }
       }
     },
 
