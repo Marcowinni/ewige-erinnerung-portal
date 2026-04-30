@@ -280,6 +280,27 @@ export interface AboutPageContent {
     p1: string;
     p2: string;
   };
+  founders: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    till: {
+      name: string;
+      role: string;
+      bio: string;
+      quote: string;
+      hobbies: string[];
+      photoCaptions: { main: string; one: string; two: string };
+    };
+    wini: {
+      name: string;
+      role: string;
+      bio: string;
+      quote: string;
+      hobbies: string[];
+      photoCaptions: { main: string; one: string; two: string };
+    };
+  };
 }
 
 export interface LegalContent {
@@ -468,6 +489,12 @@ export interface SharedContent {
         personal: { title: string; body: string };
         privateUrl: { title: string; body: string };
         versatile: { title: string; body: string };
+      };
+      price: {
+        label: string;
+        amount: string;
+        note: string;
+        cta: string;
       };
     };
     useCaseGallery: {

@@ -393,6 +393,12 @@ export const itContent: ContentData = {
             title: "Versatile",
             body: "Applica lo Smart Tag su lapidi, urne, cornici, scrigni dei ricordi o collari. Un gesto — molti utilizzi."
           }
+        },
+        price: {
+          label: "Pacchetto completo",
+          amount: "CHF 80",
+          note: "Smart Tag + album personale · spedizione da CHF 1.20",
+          cta: "Crea ora l'album"
         }
       },
       useCaseGallery: {

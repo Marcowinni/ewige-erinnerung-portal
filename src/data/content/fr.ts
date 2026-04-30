@@ -378,6 +378,12 @@ export const frContent: ContentData = {
             title: "Polyvalent",
             body: "Posez le Smart Tag sur des pierres tombales, des urnes, des cadres photo, des boîtes à souvenirs ou des colliers. Un geste — de nombreux usages."
           }
+        },
+        price: {
+          label: "Pack complet",
+          amount: "CHF 80",
+          note: "Smart Tag + album personnel · livraison dès CHF 1.20",
+          cta: "Créer l'album maintenant"
         }
       },
       useCaseGallery: {

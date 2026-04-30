@@ -96,6 +96,35 @@ export const deContent: ContentData = {
         title: "Warum Memora?",
         p1: "Weil Erinnerungen mehr sind als nur Gedanken – sie verdienen einen würdigen Platz.",
         p2: "Unsere Memora Produkte verbinden Technik mit Emotion – einfach, schön, nachhaltig."
+      },
+      founders: {
+        eyebrow: "Die Menschen dahinter",
+        title: "Hinter Memora Moments stehen wir zwei",
+        intro: "Zwei Freunde, eine Idee – und das gemeinsame Bedürfnis, Erinnerungen einen Ort zu geben, der bleibt. Wir sind keine grosse Firma, sondern zwei Macher, die jedes Album mit der gleichen Sorgfalt anschauen, mit der wir es für unsere eigenen Liebsten gestalten würden.",
+        till: {
+          name: "Till",
+          role: "Mitgründer · Vision & Produkt",
+          bio: "Till denkt in Geschichten. Wenn er nicht gerade Konzepte für Memora skizziert, ist er meistens draussen – mit Rucksack, Kamera oder Skiern. Was ihn antreibt: das Gefühl, dass jeder Mensch und jedes Tier eine Erzählung verdient, die nicht im Alltag verloren geht. Diese Haltung prägt jedes Detail unserer Alben.",
+          quote: "Ein Tag, ein Bild, ein Lied – manchmal reicht das, um jemanden wieder ganz nah zu fühlen.",
+          hobbies: ["Reisen", "Fotografie", "Berge"],
+          photoCaptions: {
+            main: "Till",
+            one: "Australien – Rucksack, weite Strassen, viele Geschichten.",
+            two: "Wintertage, an denen die Welt einen Moment lang stillsteht."
+          }
+        },
+        wini: {
+          name: "Marco \"Wini\" Winistörfer",
+          role: "Mitgründer · Technik & Plattform",
+          bio: "Wini baut. Tagsüber Code, abends manchmal noch ein bisschen mehr Code. Er ist der Pragmatiker im Team – findet Lösungen, wo andere noch über das Problem reden. Memora Moments ist für ihn der Ort, an dem Technologie endlich das tut, wofür sie gemacht sein sollte: Menschen näher zueinander bringen.",
+          quote: "Gute Technik fällt nicht auf. Sie macht den Weg frei für das, worauf es ankommt.",
+          hobbies: ["Kitesurfen", "Wandern", "Coden"],
+          photoCaptions: {
+            main: "Marco \"Wini\"",
+            one: "Auf dem Wasser – wo der Kopf endlich leer wird.",
+            two: "Schweizer Berge, ein Lieblingsort zum Durchatmen."
+          }
+        }
       }
     },
 
@@ -404,6 +433,12 @@ export const deContent: ContentData = {
             title: "Vielseitig einsetzbar",
             body: "Kleben Sie den Smart-Tag auf Grabsteine, Urnen, Bilderrahmen, Erinnerungsboxen oder Halsbänder. Eine Geste — viele Anwendungen."
           }
+        },
+        price: {
+          label: "Komplettpaket",
+          amount: "CHF 80",
+          note: "Smart Tag + persönliches Album · zzgl. Versand ab CHF 1.20",
+          cta: "Jetzt Album erstellen"
         }
       },
       useCaseGallery: {

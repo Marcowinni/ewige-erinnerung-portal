@@ -394,6 +394,12 @@ export const enContent: ContentData = {
             title: "Versatile in use",
             body: "Place the Smart Tag on gravestones, urns, picture frames, keepsake boxes, or collars. One gesture — many uses."
           }
+        },
+        price: {
+          label: "Complete package",
+          amount: "CHF 80",
+          note: "Smart Tag + personal album · plus shipping from CHF 1.20",
+          cta: "Create album now"
         }
       },
       useCaseGallery: {

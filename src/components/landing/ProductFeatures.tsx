@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
-import { Droplets, Anchor, Award, Pencil, Lock, Layers } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Droplets, Anchor, Award, Pencil, Lock, Layers, ArrowRight, Sparkles } from "lucide-react";
 import { useContent } from "@/contexts/ContentContext";
 
 export default function ProductFeatures() {
@@ -68,6 +69,45 @@ export default function ProductFeatures() {
             );
           })}
         </div>
+
+        {/* Price card */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.2, 0.8, 0.2, 1] }}
+          className="mx-auto mt-14 max-w-3xl"
+        >
+          <div className="memorial-card relative overflow-hidden rounded-[28px] border border-memorial-bronze/30 p-8 sm:p-12 text-center">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 -z-10"
+              style={{
+                background:
+                  "radial-gradient(ellipse 60% 80% at 50% 0%, hsl(var(--memorial-bronze) / 0.10) 0%, transparent 70%), linear-gradient(180deg, hsl(var(--memorial-canvas)) 0%, hsl(var(--memorial-sepia-light) / 0.4) 100%)",
+              }}
+            />
+            <p className="text-[11px] uppercase tracking-[0.3em] text-memorial-ink-soft">
+              {t.price.label}
+            </p>
+            <div className="mt-4 flex items-end justify-center gap-2">
+              <span className="font-display text-5xl sm:text-6xl text-memorial-bronze-deep tracking-tight">
+                {t.price.amount}
+              </span>
+            </div>
+            <p className="mt-4 text-[13px] text-memorial-ink-soft">
+              {t.price.note}
+            </p>
+            <Link
+              to="/erstellen"
+              className="memorial-cta memorial-cta-primary mt-7 inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-medium tracking-wide"
+            >
+              <Sparkles className="h-4 w-4" aria-hidden />
+              {t.price.cta}
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

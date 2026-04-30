@@ -10,15 +10,8 @@ const IMAGES = [
   "/bilderhomepage/pet/hf_20260428_101553_baa525a1-dbd5-45bb-9fa5-6c8e0e8c12b0.png",
 ];
 
-// Bento layout — varying spans for visual rhythm
-const SPANS = [
-  "sm:col-span-2 sm:row-span-2", // 0: large feature
-  "sm:col-span-1 sm:row-span-1", // 1
-  "sm:col-span-1 sm:row-span-1", // 2
-  "sm:col-span-1 sm:row-span-2", // 3: tall
-  "sm:col-span-1 sm:row-span-1", // 4
-  "sm:col-span-2 sm:row-span-1", // 5: wide
-];
+// Subtle rotations for scattered polaroid look — alternating left/right tilt
+const ROTATIONS = [-2.5, 2, -1.5, 2.5, -2, 1.8];
 
 export default function UseCaseGallery() {
   const { sharedContent } = useContent();
@@ -33,15 +26,25 @@ export default function UseCaseGallery() {
   ];
 
   return (
-    <section className="relative py-20 sm:py-28">
+    <section className="relative overflow-hidden py-20 sm:py-28">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "linear-gradient(180deg, hsl(var(--memorial-canvas) / 0.4) 0%, hsl(var(--memorial-sepia-light) / 0.35) 100%)",
+            "linear-gradient(180deg, hsl(var(--memorial-canvas) / 0.5) 0%, hsl(var(--memorial-sepia-light) / 0.4) 100%)",
         }}
       />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.06]"
+        style={{
+          backgroundImage: "url('/lovable-uploads/background_album.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -64,38 +67,54 @@ export default function UseCaseGallery() {
           </p>
         </motion.div>
 
-        <div
-          className="mt-14 grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-4"
-          style={{ gridAutoRows: "minmax(180px, auto)" }}
-        >
-          {IMAGES.map((src, i) => (
-            <motion.figure
-              key={src}
-              initial={{ opacity: 0, scale: 0.96 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{
-                duration: 0.7,
-                delay: i * 0.08,
-                ease: [0.2, 0.8, 0.2, 1],
-              }}
-              className={`group relative overflow-hidden rounded-2xl shadow-[0_12px_28px_rgba(0,0,0,0.10)] ${SPANS[i]}`}
-            >
-              <img
-                src={src}
-                alt={labels[i]}
-                loading="lazy"
-                decoding="async"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent opacity-90 group-hover:opacity-100 transition-opacity" />
-              <figcaption className="absolute inset-x-0 bottom-0 px-5 py-4">
-                <span className="font-display-italic text-white text-[15px] sm:text-base drop-shadow">
+        {/* Polaroid grid — full image visible, handwritten label below */}
+        <div className="mt-16 grid gap-y-10 gap-x-6 sm:gap-x-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+          {IMAGES.map((src, i) => {
+            const rot = ROTATIONS[i] ?? 0;
+            return (
+              <motion.figure
+                key={src}
+                initial={{ opacity: 0, y: 28, rotate: rot * 1.5 }}
+                whileInView={{ opacity: 1, y: 0, rotate: rot }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{
+                  duration: 0.75,
+                  delay: i * 0.08,
+                  ease: [0.2, 0.8, 0.2, 1],
+                }}
+                whileHover={{ rotate: 0, y: -6, scale: 1.02 }}
+                className="bg-white p-3 sm:p-4 pb-12 shadow-[0_14px_30px_rgba(0,0,0,0.18),0_4px_8px_rgba(0,0,0,0.10)] mx-auto"
+                style={{
+                  maxWidth: 360,
+                  width: "100%",
+                  transformOrigin: "center",
+                  transition: "transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)",
+                }}
+              >
+                <div className="relative w-full overflow-hidden bg-memorial-canvas" style={{ aspectRatio: "4 / 3" }}>
+                  <img
+                    src={src}
+                    alt={labels[i]}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover"
+                    draggable={false}
+                  />
+                </div>
+                <figcaption
+                  className="mt-3 text-center"
+                  style={{
+                    fontFamily: "'Caveat', cursive, var(--cpa-f-display)",
+                    fontSize: "1.5rem",
+                    color: "#2a2118",
+                    lineHeight: 1.1,
+                  }}
+                >
                   {labels[i]}
-                </span>
-              </figcaption>
-            </motion.figure>
-          ))}
+                </figcaption>
+              </motion.figure>
+            );
+          })}
         </div>
       </div>
     </section>
