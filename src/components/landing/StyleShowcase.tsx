@@ -1,94 +1,20 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { ModernPhotoAlbum, type PageConfig } from "@/components/album-viewer/modern/ModernPhotoAlbum";
-import { ClassicPhotoAlbum, type ClassicPageConfig } from "@/components/album-viewer/classic/ClassicPhotoAlbum";
-import { TimelessPhotoAlbum, type TimelessPageConfig } from "@/components/album-viewer/timeless/TimelessPhotoAlbum";
+import { ArrowRight, ChevronLeft, ChevronRight, Heart, PawPrint } from "lucide-react";
 import { useContent } from "@/contexts/ContentContext";
 
-const SAMPLE_IMAGES = [
-  "/dog_pics/2.jpeg",
-  "/dog_pics/3.jpeg",
-  "/dog_pics/5.jpeg",
-  "/dog_pics/6.jpeg",
-  "/dog_pics/7.jpeg",
-  "/dog_pics/WhatsApp%20Video%202026-04-24%20at%2014.20.26.mp4",
-  "/dog_pics/8.jpeg",
-  "/dog_pics/9.jpeg",
-  "/dog_pics/88.jpeg",
-  "/dog_pics/WhatsApp%20Video%202026-04-24%20at%2014.23.01.mp499.mp4",
-  "/dog_pics/WhatsApp%20Image%202026-04-24%20at%2014.20.20.jpeg",
-  "/dog_pics/WhatsApp%20Image%202026-04-24%20at%2014.20.204.jpeg",
-  "/dog_pics/WhatsApp%20Image%202026-04-24%20at%2014.20.21.jpeg",
-  "/dog_pics/WhatsApp%20Image%202026-04-24%20at%2014.20.21.jpeg3.jpeg",
-];
-
-const SUBJECT_NAME = "Bello";
-const DATE_RANGE = "2010 – 2025";
+type ShowcaseMode = "human" | "pet";
 
 type Theme = "modern" | "classic" | "timeless";
 
-const THEME_LABELS: Record<Theme, string> = {
-  modern: "Modern",
-  classic: "Klassisch",
-  timeless: "Zeitlos",
-};
-
-// Curated page sequences — exactly the layouts available in admin editor per theme
-function buildModernShowcasePages(imgs: string[]): PageConfig[] {
-  let i = 0;
-  const next = () => imgs[i++ % imgs.length] ?? null;
-  return [
-    { type: "hero", img: next(), showText: true },
-    { type: "bleed", img: next(), showText: true, text: "Ein Augenblick." },
-    { type: "split", imgs: [next(), next(), next()], showText: true, text: "Leise Stunden." },
-    { type: "stack", imgs: [next(), next(), next(), next()], showText: false },
-    { type: "story", bg: next(), s1: next(), s2: next(), s3: next(), showText: true, text: "Tage, wie sie waren." },
-    { type: "bleed", img: next(), showText: false },
-    { type: "quote-card", img: next(), showText: true, text: "Was bleibt, ist Liebe." },
-    { type: "close", showText: true },
-  ];
-}
-
-function buildClassicShowcasePages(imgs: string[]): ClassicPageConfig[] {
-  let i = 0;
-  const next = () => imgs[i++ % imgs.length] ?? null;
-  return [
-    { type: "hero", img: next(), showText: true },
-    { type: "bleed", img: next(), showText: true, text: "Im Licht bewahrt." },
-    { type: "duo", imgA: next(), imgB: next(), showText: true, text: "Ein gemeinsamer Weg." },
-    { type: "polaroids", imgA: next(), imgB: next(), showText: true, text: "Vertraute Tage." },
-    { type: "tape", imgA: next(), imgB: next(), showText: false, text: "" },
-    { type: "herald", hero: next(), r1: next(), r2: next(), showText: true, text: "Wie wir Dich kannten." },
-    { type: "diagonal", t1: next(), t2: next(), t3: next(), showText: true, text: "Bewahrte Bilder." },
-    { type: "envelope-letter", img: next(), showText: true, text: "Momente, die bleiben." },
-    { type: "pinned", imgA: next(), imgB: next(), showText: true, text: "Angeheftet. Bewahrt." },
-    { type: "strip", s1: next(), s2: next(), s3: next(), big: next(), showText: true, text: "Liebste Augenblicke." },
-    { type: "close", showText: true },
-  ];
-}
-
-function buildTimelessShowcasePages(imgs: string[]): TimelessPageConfig[] {
-  let i = 0;
-  const next = () => imgs[i++ % imgs.length] ?? null;
-  return [
-    { type: "hero", img: next(), showText: true },
-    { type: "single", img: next(), showText: true, text: "In Liebe bewahrt." },
-    { type: "duo", imgA: next(), imgB: next(), showText: true, text: "Vertraute Zeit." },
-    { type: "single", img: next(), showText: true, text: "Unvergessen." },
-    { type: "duo", imgA: next(), imgB: next(), showText: true, text: "Kleine Augenblicke." },
-    { type: "single", img: next(), showText: true, text: "Im Herzen bewahrt." },
-    { type: "close", showText: true },
-  ];
-}
-
 interface AlbumShowcaseProps {
   theme: Theme;
+  mode: ShowcaseMode;
   delay: number;
 }
 
-function AlbumShowcase({ theme }: AlbumShowcaseProps) {
+function AlbumShowcase({ theme, mode }: AlbumShowcaseProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [hovering, setHovering] = useState(false);
   const { sharedContent } = useContent();
@@ -125,7 +51,7 @@ function AlbumShowcase({ theme }: AlbumShowcaseProps) {
       >
         <iframe
           ref={iframeRef}
-          src={`/showcase/${theme}`}
+          src={`/showcase/${theme}?mode=${mode}`}
           title={t.previewTitle(themeLabel)}
           style={{
             width: '100%',
@@ -166,6 +92,8 @@ function AlbumShowcase({ theme }: AlbumShowcaseProps) {
 export default function StyleShowcase() {
   const { sharedContent } = useContent();
   const t = sharedContent.landing.styleShowcase;
+  const modeLabels = sharedContent.navigation.mode;
+  const [mode, setMode] = useState<ShowcaseMode>("human");
   return (
     <section className="relative overflow-hidden py-28 sm:py-36">
       <div
@@ -206,10 +134,48 @@ export default function StyleShowcase() {
           </p>
         </motion.div>
 
-        <div className="mt-16 flex flex-col items-center gap-12 sm:flex-row sm:justify-center sm:gap-10 md:gap-14">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, delay: 0.1, ease: [0.2, 0.8, 0.2, 1] }}
+          className="mt-10 flex justify-center"
+        >
+          <div
+            role="tablist"
+            aria-label="Modus"
+            className="inline-flex items-center gap-1 rounded-full border border-memorial-line bg-white/70 p-1 backdrop-blur-sm shadow-sm"
+          >
+            {([
+              { id: "human" as const, icon: Heart, label: modeLabels.human },
+              { id: "pet" as const, icon: PawPrint, label: modeLabels.pet },
+            ]).map(({ id, icon: Icon, label }) => {
+              const active = mode === id;
+              return (
+                <button
+                  key={id}
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => setMode(id)}
+                  className={[
+                    "inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-all",
+                    active
+                      ? "bg-memorial-bronze-deep text-white shadow"
+                      : "text-memorial-ink-soft hover:text-memorial-ink",
+                  ].join(" ")}
+                >
+                  <Icon className="h-4 w-4" strokeWidth={1.6} />
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        <div className="mt-12 flex flex-col items-center gap-12 sm:flex-row sm:justify-center sm:gap-10 md:gap-14">
           {(["modern", "classic", "timeless"] as Theme[]).map((theme, i) => (
             <motion.div
-              key={theme}
+              key={`${theme}-${mode}`}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -219,7 +185,7 @@ export default function StyleShowcase() {
                 ease: [0.2, 0.8, 0.2, 1],
               }}
             >
-              <AlbumShowcase theme={theme} delay={i * 1200} />
+              <AlbumShowcase theme={theme} mode={mode} delay={i * 1200} />
             </motion.div>
           ))}
         </div>

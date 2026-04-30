@@ -4,7 +4,9 @@ import { ModernPhotoAlbum, type PageConfig } from '@/components/album-viewer/mod
 import { ClassicPhotoAlbum, type ClassicPageConfig } from '@/components/album-viewer/classic/ClassicPhotoAlbum'
 import { TimelessPhotoAlbum, type TimelessPageConfig } from '@/components/album-viewer/timeless/TimelessPhotoAlbum'
 
-const SAMPLE_IMAGES = [
+type ShowcaseMode = 'human' | 'pet'
+
+const PET_IMAGES = [
   '/dog_pics/2.jpeg',
   '/dog_pics/3.jpeg',
   '/dog_pics/5.jpeg',
@@ -21,10 +23,29 @@ const SAMPLE_IMAGES = [
   '/dog_pics/WhatsApp%20Image%202026-04-24%20at%2014.20.21.jpeg3.jpeg',
 ]
 
-const SUBJECT_NAME = 'Bello'
-const DATE_RANGE = '2010 – 2025'
+// Younger-period media first (filenames marked "alt")
+const HUMAN_IMAGES = [
+  '/bilder_eveline/alt.png',
+  '/bilder_eveline/alt2.png',
+  '/bilder_eveline/alt.mp4',
+  '/bilder_eveline/ChatGPT%20Image%2015.%20Sept.%202025,%2019_36_30.png',
+  '/bilder_eveline/ChatGPT%20Image%2015.%20Sept.%202025,%2019_36_41.png',
+  '/bilder_eveline/ChatGPT%20Image%2015.%20Sept.%202025,%2019_51_53.png',
+  '/bilder_eveline/ChatGPT%20Image%2015.%20Sept.%202025,%2020_11_38.png',
+  '/bilder_eveline/ChatGPT%20Image%2015.%20Sept.%202025,%2020_17_54.png',
+  '/bilder_eveline/image%20(1).png',
+  '/bilder_eveline/png%20(2).png',
+  '/bilder_eveline/AZlXAzCvM2H1LEa0Xp3Adw-AZlXAzCvAdA8i2d25yiCPw%20(1)%20-%20Trim.mp4',
+]
 
-function buildModernPages(imgs: string[]): PageConfig[] {
+const SUBJECT = {
+  pet: { name: 'Bello', range: '2010 – 2025' },
+  human: { name: 'Eveline', range: '1948 – 2024' },
+} as const
+
+// ─── Pet builders (existing copy + density) ──────────────────────────────────
+
+function buildModernPetPages(imgs: string[]): PageConfig[] {
   let i = 0
   const next = () => imgs[i++ % imgs.length] ?? null
   return [
@@ -39,7 +60,7 @@ function buildModernPages(imgs: string[]): PageConfig[] {
   ]
 }
 
-function buildClassicPages(imgs: string[]): ClassicPageConfig[] {
+function buildClassicPetPages(imgs: string[]): ClassicPageConfig[] {
   let i = 0
   const next = () => imgs[i++ % imgs.length] ?? null
   return [
@@ -57,7 +78,7 @@ function buildClassicPages(imgs: string[]): ClassicPageConfig[] {
   ]
 }
 
-function buildTimelessPages(imgs: string[]): TimelessPageConfig[] {
+function buildTimelessPetPages(imgs: string[]): TimelessPageConfig[] {
   let i = 0
   const next = () => imgs[i++ % imgs.length] ?? null
   return [
@@ -71,10 +92,60 @@ function buildTimelessPages(imgs: string[]): TimelessPageConfig[] {
   ]
 }
 
+// ─── Human builders — fewer text overlays, copy fits a person's life ─────────
+
+function buildModernHumanPages(imgs: string[]): PageConfig[] {
+  let i = 0
+  const next = () => imgs[i++ % imgs.length] ?? null
+  return [
+    { type: 'hero', img: next(), showText: true },
+    { type: 'bleed', img: next(), showText: false },
+    { type: 'split', imgs: [next(), next(), next()], showText: false },
+    { type: 'stack', imgs: [next(), next(), next(), next()], showText: false },
+    { type: 'story', bg: next(), s1: next(), s2: next(), s3: next(), showText: true, text: 'Ein erfülltes Leben.' },
+    { type: 'bleed', img: next(), showText: false },
+    { type: 'quote-card', img: next(), showText: true, text: 'Was bleibt, ist Liebe.' },
+    { type: 'close', showText: true },
+  ]
+}
+
+function buildClassicHumanPages(imgs: string[]): ClassicPageConfig[] {
+  let i = 0
+  const next = () => imgs[i++ % imgs.length] ?? null
+  return [
+    { type: 'hero', img: next(), showText: true },
+    { type: 'bleed', img: next(), showText: false, text: '' },
+    { type: 'duo', imgA: next(), imgB: next(), showText: true, text: 'Vertraute Gesichter.' },
+    { type: 'polaroids', imgA: next(), imgB: next(), showText: false, text: '' },
+    { type: 'tape', imgA: next(), imgB: next(), showText: false, text: '' },
+    { type: 'herald', hero: next(), r1: next(), r2: next(), showText: true, text: 'Wie wir Dich kannten.' },
+    { type: 'diagonal', t1: next(), t2: next(), t3: next(), showText: false, text: '' },
+    { type: 'envelope-letter', img: next(), showText: true, text: 'In Erinnerung.' },
+    { type: 'pinned', imgA: next(), imgB: next(), showText: false, text: '' },
+    { type: 'strip', s1: next(), s2: next(), s3: next(), big: next(), showText: false, text: '' },
+    { type: 'close', showText: true },
+  ]
+}
+
+function buildTimelessHumanPages(imgs: string[]): TimelessPageConfig[] {
+  let i = 0
+  const next = () => imgs[i++ % imgs.length] ?? null
+  return [
+    { type: 'hero', img: next(), showText: true },
+    { type: 'single', img: next(), showText: false, text: '' },
+    { type: 'duo', imgA: next(), imgB: next(), showText: false, text: '' },
+    { type: 'single', img: next(), showText: true, text: 'Sanft, in Erinnerung.' },
+    { type: 'duo', imgA: next(), imgB: next(), showText: false, text: '' },
+    { type: 'single', img: next(), showText: false, text: '' },
+    { type: 'close', showText: true },
+  ]
+}
+
 export default function AlbumShowcaseFrame() {
   const { theme } = useParams<{ theme: string }>()
   const [params] = useSearchParams()
   const auto = params.get('auto') === '1'
+  const mode: ShowcaseMode = params.get('mode') === 'human' ? 'human' : 'pet'
 
   // Auto-advance only when ?auto=1 is set (e.g. wizard step 2 iframes).
   // Homepage StyleShowcase loads without the query and stays manual.
@@ -86,7 +157,6 @@ export default function AlbumShowcaseFrame() {
         next.click()
         return
       }
-      // Reached end — wrap back to first page via repeated back-clicks
       let i = 0
       const wrap = () => {
         const back = document.querySelector<HTMLButtonElement>('[aria-label="Zurück"], [aria-label="Back"], [aria-label="Retour"], [aria-label="Indietro"]')
@@ -101,33 +171,45 @@ export default function AlbumShowcaseFrame() {
     return () => clearInterval(id)
   }, [auto])
 
-  const modernPages = useMemo(() => buildModernPages(SAMPLE_IMAGES), [])
-  const classicPages = useMemo(() => buildClassicPages(SAMPLE_IMAGES), [])
-  const timelessPages = useMemo(() => buildTimelessPages(SAMPLE_IMAGES), [])
+  const images = mode === 'human' ? HUMAN_IMAGES : PET_IMAGES
+  const subject = SUBJECT[mode]
+
+  const modernPages = useMemo(
+    () => (mode === 'human' ? buildModernHumanPages(images) : buildModernPetPages(images)),
+    [mode, images],
+  )
+  const classicPages = useMemo(
+    () => (mode === 'human' ? buildClassicHumanPages(images) : buildClassicPetPages(images)),
+    [mode, images],
+  )
+  const timelessPages = useMemo(
+    () => (mode === 'human' ? buildTimelessHumanPages(images) : buildTimelessPetPages(images)),
+    [mode, images],
+  )
 
   return (
     <div className="album-showcase-wrap" style={{ width: '100%', height: '100dvh', overflow: 'hidden', background: '#fff' }}>
       {theme === 'modern' && (
         <ModernPhotoAlbum
-          subjectName={SUBJECT_NAME}
-          dateRange={DATE_RANGE}
-          images={SAMPLE_IMAGES}
+          subjectName={subject.name}
+          dateRange={subject.range}
+          images={images}
           pages={modernPages}
         />
       )}
       {theme === 'classic' && (
         <ClassicPhotoAlbum
-          subjectName={SUBJECT_NAME}
-          dateRange={DATE_RANGE}
-          images={SAMPLE_IMAGES}
+          subjectName={subject.name}
+          dateRange={subject.range}
+          images={images}
           pages={classicPages}
         />
       )}
       {theme === 'timeless' && (
         <TimelessPhotoAlbum
-          subjectName={SUBJECT_NAME}
-          dateRange={DATE_RANGE}
-          images={SAMPLE_IMAGES}
+          subjectName={subject.name}
+          dateRange={subject.range}
+          images={images}
           pages={timelessPages}
         />
       )}

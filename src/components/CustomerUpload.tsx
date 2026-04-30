@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useMemo } from 'react'
+import { useState, useRef, useCallback, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import {
   Heart,
@@ -99,6 +99,7 @@ interface Step4Data {
   postalCode: string
   city: string
   countryCode: string
+  discountCode: string
 }
 
 // Build initial album_layout from uploaded paths + per-item captions.
@@ -265,7 +266,7 @@ function Step1({
 
 // ─── step 2 — stil wählen ────────────────────────────────────────────────────
 
-function StylePhoneFrame({ theme, selected, iframeTitle }: { theme: AlbumStyle; selected: boolean; iframeTitle: string }) {
+function StylePhoneFrame({ theme, selected, iframeTitle, mode }: { theme: AlbumStyle; selected: boolean; iframeTitle: string; mode: SubjectType }) {
   // Render iframe at real phone viewport (380x760, matches homepage), then
   // visually scale down so albums detect mobile breakpoint (<768) AND content
   // (header, classic layouts) fits without cropping.
@@ -291,7 +292,7 @@ function StylePhoneFrame({ theme, selected, iframeTitle }: { theme: AlbumStyle; 
       }}
     >
       <iframe
-        src={`/showcase/${theme}?auto=1`}
+        src={`/showcase/${theme}?auto=1&mode=${mode}`}
         title={iframeTitle}
         style={{
           width: VIEWPORT_W,
@@ -311,10 +312,12 @@ function Step2({
   value,
   onChange,
   t,
+  mode,
 }: {
   value: AlbumStyle | null
   onChange: (v: AlbumStyle) => void
   t: CustomerWizardCopy['step2']
+  mode: SubjectType
 }) {
   const styles: { id: AlbumStyle; label: string; desc: string }[] = [
     { id: 'modern', label: t.modernLabel, desc: t.modernDesc },
@@ -336,7 +339,7 @@ function Step2({
               className="group flex flex-col items-center cursor-pointer outline-none"
               aria-pressed={isSelected}
             >
-              <StylePhoneFrame theme={s.id} selected={isSelected} iframeTitle={t.previewIframeTitle(s.label)} />
+              <StylePhoneFrame theme={s.id} selected={isSelected} iframeTitle={t.previewIframeTitle(s.label)} mode={mode} />
               <p
                 className={cn(
                   'mt-4 font-display text-lg transition-colors',
@@ -601,9 +604,49 @@ function Step4({
 
   const zone = deriveShippingZone(data.countryCode)
   const shipping = SHIPPING[zone]
-  const total = 80 + shipping
+  const subtotal = 80 + shipping
   const countryName = countryList.find((c) => c.code === data.countryCode)?.name ?? '—'
   const formatPrice = (n: number) => n.toFixed(2).replace('.', '.')
+
+  // Live discount preview (debounced lookup against validate-discount-code)
+  type DiscountPreview =
+    | { status: 'idle' }
+    | { status: 'checking' }
+    | { status: 'valid'; type: 'percentage' | 'fixed'; value: number; amount: number; code: string }
+    | { status: 'invalid'; message: string }
+  const [discountPreview, setDiscountPreview] = useState<DiscountPreview>({ status: 'idle' })
+
+  useEffect(() => {
+    const codeRaw = data.discountCode.trim()
+    if (codeRaw.length === 0) {
+      setDiscountPreview({ status: 'idle' })
+      return
+    }
+    setDiscountPreview({ status: 'checking' })
+    const handle = setTimeout(async () => {
+      try {
+        const { data: res } = await supabase.functions.invoke('validate-discount-code', {
+          body: { code: codeRaw },
+        })
+        if (res?.valid) {
+          const v = typeof res.value === 'string' ? parseFloat(res.value) : Number(res.value)
+          const type = res.discountType === 'fixed' ? 'fixed' : 'percentage'
+          const amount = type === 'percentage'
+            ? Math.min(subtotal, subtotal * (v / 100))
+            : Math.min(subtotal, v)
+          setDiscountPreview({ status: 'valid', type, value: v, amount: Math.round(amount * 100) / 100, code: String(res.code ?? codeRaw.toUpperCase()) })
+        } else {
+          setDiscountPreview({ status: 'invalid', message: res?.message ?? '' })
+        }
+      } catch {
+        setDiscountPreview({ status: 'invalid', message: '' })
+      }
+    }, 400)
+    return () => clearTimeout(handle)
+  }, [data.discountCode, subtotal])
+
+  const discountAmount = discountPreview.status === 'valid' ? discountPreview.amount : 0
+  const total = Math.max(0, subtotal - discountAmount)
 
   return (
     <StepWrapper>
@@ -663,6 +706,32 @@ function Step4({
             ))}
           </select>
         </div>
+        <div>
+          <label className="text-[11px] uppercase tracking-widest text-memorial-ink-soft block mb-2">{t.discountLabel}</label>
+          <input
+            type="text"
+            autoComplete="off"
+            placeholder={t.discountPlaceholder}
+            value={data.discountCode}
+            onChange={setField('discountCode')}
+            className="memorial-underline-input w-full text-[15px] text-memorial-ink uppercase tracking-wider"
+          />
+          {discountPreview.status === 'checking' && (
+            <p className="mt-2 text-[12px] text-memorial-ink-soft flex items-center gap-2">
+              <Loader2 className="w-3 h-3 animate-spin" /> …
+            </p>
+          )}
+          {discountPreview.status === 'valid' && (
+            <p className="mt-2 text-[12px] text-memorial-sage-deep">
+              ✓ {discountPreview.code} — {discountPreview.type === 'percentage' ? `${discountPreview.value}%` : `CHF ${formatPrice(discountPreview.value)}`} (−CHF {formatPrice(discountPreview.amount)})
+            </p>
+          )}
+          {discountPreview.status === 'invalid' && (
+            <p className="mt-2 text-[12px] text-red-600">
+              {discountPreview.message || `Ungültiger Code: ${data.discountCode.trim()}`}
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Summary */}
@@ -673,6 +742,9 @@ function Step4({
         <SummaryRow label={t.summaryImagesLabel} value={t.summaryImages(mediaCount)} />
         <SummaryRow label={t.summaryMusic} value={musicLabel || t.summaryNoSelection} />
         <SummaryRow label={t.summaryShipping} value={`${countryName} — CHF ${formatPrice(shipping)}`} />
+        {discountPreview.status === 'valid' && (
+          <SummaryRow label={discountPreview.code} value={`− CHF ${formatPrice(discountPreview.amount)}`} />
+        )}
         <div className="flex justify-between pt-4 mt-2">
           <span className="font-display text-lg text-memorial-ink">{t.totalLabel}</span>
           <span className="font-display text-xl text-memorial-bronze-deep">CHF {formatPrice(total)}</span>
@@ -734,7 +806,7 @@ export default function CustomerUpload() {
   const [albumStyle, setAlbumStyle] = useState<AlbumStyle | null>(null)
   const [mediaItems, setMediaItems] = useState<MediaFile[]>([])
   const [music, setMusic] = useState<MusicChoice>({ type: 'none', value: '', label: t.step3.noSelection })
-  const [step4, setStep4] = useState<Step4Data>({ contactName: '', contactEmail: '', contactPhone: '', street: '', postalCode: '', city: '', countryCode: 'CH' })
+  const [step4, setStep4] = useState<Step4Data>({ contactName: '', contactEmail: '', contactPhone: '', street: '', postalCode: '', city: '', countryCode: 'CH', discountCode: '' })
 
   const canAdvance = (): boolean => {
     if (step === 1) return step1.subjectType !== null && step1.subjectName.trim().length > 0
@@ -822,9 +894,15 @@ export default function CustomerUpload() {
           contactPhone: step4.contactPhone,
           shippingAddress,
           shippingZone,
+          discountCode: step4.discountCode.trim() || undefined,
           isTest: true,
         },
       })
+
+      if (!orderError && orderData?.error === 'invalid_discount_code') {
+        toast.error(t.toasts.invalidDiscountCode(orderData.invalidCode ?? ''))
+        return
+      }
 
       if (orderError || !orderData?.orderId) {
         throw new Error(orderData?.error ?? 'Fehler beim Erstellen der Test-Bestellung.')
@@ -882,7 +960,7 @@ export default function CustomerUpload() {
     setIsSubmitting(true)
 
     try {
-      // 1. Create order record
+      // 1. Create order record (server validates discount + computes price)
       const { data: orderData, error: orderError } = await supabase.functions.invoke('create-customer-order', {
         body: {
           subjectType: step1.subjectType,
@@ -897,8 +975,14 @@ export default function CustomerUpload() {
           contactPhone: step4.contactPhone,
           shippingAddress,
           shippingZone,
+          discountCode: step4.discountCode.trim() || undefined,
         },
       })
+
+      if (!orderError && orderData?.error === 'invalid_discount_code') {
+        toast.error(t.toasts.invalidDiscountCode(orderData.invalidCode ?? ''))
+        return
+      }
 
       if (orderError || !orderData?.folderName) {
         throw new Error(orderData?.error ?? 'Fehler beim Erstellen der Bestellung.')
@@ -938,12 +1022,11 @@ export default function CustomerUpload() {
         body: { orderId, uploadedFilePaths: uploadedFiles, albumLayout },
       })
 
-      // 4. Stripe checkout
+      // 4. Stripe checkout (price + discount come from customer_orders, server-authoritative)
       const { data: checkoutData, error: checkoutError } = await supabase.functions.invoke('create-checkout-session', {
         body: {
           orderId: stripeOrderId ?? orderId,
           productName: `Memora Moments — ${step1.subjectName}`,
-          unitAmount: Math.round((80 + SHIPPING[shippingZone]) * 100) / 100,
         },
       })
 
@@ -970,7 +1053,7 @@ export default function CustomerUpload() {
 
       <AnimatePresence mode="wait">
         {step === 1 && <Step1 key="s1" data={step1} onChange={setStep1} t={t.step1} />}
-        {step === 2 && <Step2 key="s2" value={albumStyle} onChange={setAlbumStyle} t={t.step2} />}
+        {step === 2 && <Step2 key="s2" value={albumStyle} onChange={setAlbumStyle} t={t.step2} mode={step1.subjectType ?? 'human'} />}
         {step === 3 && (
           <Step3
             key="s3"
