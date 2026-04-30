@@ -10,9 +10,6 @@ const IMAGES = [
   "/bilderhomepage/pet/hf_20260428_101553_baa525a1-dbd5-45bb-9fa5-6c8e0e8c12b0.png",
 ];
 
-// Subtle rotations for scattered polaroid look — alternating left/right tilt
-const ROTATIONS = [-2.5, 2, -1.5, 2.5, -2, 1.8];
-
 export default function UseCaseGallery() {
   const { sharedContent } = useContent();
   const t = sharedContent.landing.useCaseGallery;
@@ -26,22 +23,13 @@ export default function UseCaseGallery() {
   ];
 
   return (
-    <section className="relative overflow-hidden py-20 sm:py-28">
+    <section className="relative overflow-hidden py-24 sm:py-32">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "linear-gradient(180deg, hsl(var(--memorial-canvas) / 0.5) 0%, hsl(var(--memorial-sepia-light) / 0.4) 100%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.06]"
-        style={{
-          backgroundImage: "url('/lovable-uploads/background_album.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+            "linear-gradient(180deg, hsl(var(--memorial-canvas)) 0%, hsl(var(--memorial-sepia-light) / 0.35) 100%)",
         }}
       />
 
@@ -67,50 +55,47 @@ export default function UseCaseGallery() {
           </p>
         </motion.div>
 
-        {/* Polaroid grid — full image visible, handwritten label below */}
-        <div className="mt-16 grid gap-y-10 gap-x-6 sm:gap-x-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+        <div className="mt-16 grid gap-5 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
           {IMAGES.map((src, i) => {
-            const rot = ROTATIONS[i] ?? 0;
+            const num = String(i + 1).padStart(2, "0");
             return (
               <motion.figure
                 key={src}
-                initial={{ opacity: 0, y: 28, rotate: rot * 1.5 }}
-                whileInView={{ opacity: 1, y: 0, rotate: rot }}
-                viewport={{ once: true, margin: "-40px" }}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{
-                  duration: 0.75,
-                  delay: i * 0.08,
+                  duration: 0.7,
+                  delay: i * 0.07,
                   ease: [0.2, 0.8, 0.2, 1],
                 }}
-                whileHover={{ rotate: 0, y: -6, scale: 1.02 }}
-                className="bg-white p-3 sm:p-4 pb-12 shadow-[0_14px_30px_rgba(0,0,0,0.18),0_4px_8px_rgba(0,0,0,0.10)] mx-auto"
-                style={{
-                  maxWidth: 360,
-                  width: "100%",
-                  transformOrigin: "center",
-                  transition: "transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)",
-                }}
+                className="group relative overflow-hidden rounded-2xl bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_18px_40px_rgba(0,0,0,0.08)] transition-all duration-500 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06),0_28px_60px_rgba(0,0,0,0.16)] hover:-translate-y-1"
               >
-                <div className="relative w-full overflow-hidden bg-memorial-canvas" style={{ aspectRatio: "4 / 3" }}>
+                {/* Number badge */}
+                <span className="absolute top-4 left-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm font-display text-[13px] tracking-wide text-memorial-ink shadow-sm">
+                  {num}
+                </span>
+
+                {/* Image — full visible, slight zoom on hover */}
+                <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4 / 5" }}>
                   <img
                     src={src}
                     alt={labels[i]}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-full object-cover"
                     draggable={false}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-[1.05]"
                   />
                 </div>
-                <figcaption
-                  className="mt-3 text-center"
-                  style={{
-                    fontFamily: "'Caveat', cursive, var(--cpa-f-display)",
-                    fontSize: "1.5rem",
-                    color: "#2a2118",
-                    lineHeight: 1.1,
-                  }}
-                >
-                  {labels[i]}
+
+                {/* Clean caption strip below image */}
+                <figcaption className="px-5 py-4 sm:px-6 sm:py-5 border-t border-memorial-line/30">
+                  <span className="text-[10px] uppercase tracking-[0.28em] text-memorial-ink-soft block">
+                    {t.eyebrow}
+                  </span>
+                  <span className="mt-1 block font-display text-lg sm:text-xl text-memorial-ink leading-snug">
+                    {labels[i]}
+                  </span>
                 </figcaption>
               </motion.figure>
             );
