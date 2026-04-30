@@ -121,7 +121,7 @@ export const enContent: ContentData = {
           photoCaptions: {
             main: "Marco \"Wini\"",
             one: "On the water – where the head finally clears.",
-            two: "Swiss mountains, a favourite place to breathe."
+            two: "Mountains, a favourite place to breathe."
           }
         }
       }

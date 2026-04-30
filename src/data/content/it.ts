@@ -121,7 +121,7 @@ export const itContent: ContentData = {
           photoCaptions: {
             main: "Marco \"Wini\"",
             one: "Sull'acqua – dove la testa finalmente si libera.",
-            two: "Montagne svizzere, un luogo preferito per respirare."
+            two: "Montagne, un luogo preferito per respirare."
           }
         }
       }

@@ -122,7 +122,7 @@ export const deContent: ContentData = {
           photoCaptions: {
             main: "Marco \"Wini\"",
             one: "Auf dem Wasser – wo der Kopf endlich leer wird.",
-            two: "Schweizer Berge, ein Lieblingsort zum Durchatmen."
+            two: "Berge, ein Lieblingsort zum Durchatmen."
           }
         }
       }

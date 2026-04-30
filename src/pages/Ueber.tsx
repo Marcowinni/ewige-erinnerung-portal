@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DarkModeToggle from "@/components/DarkModeToggle";
-import { Heart, User, Mail, Quote } from "lucide-react";
+import { Heart, User, Mail } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useContent } from "@/contexts/ContentContext";
 import { Helmet } from "react-helmet-async";
@@ -18,104 +18,84 @@ type FounderCardProps = {
   mainPhoto: string;
   photoOne: string;
   photoTwo: string;
-  reverse?: boolean;
 };
 
-const FounderCard = ({ founder, mainPhoto, photoOne, photoTwo, reverse }: FounderCardProps) => {
+const FounderCard = ({ founder, mainPhoto, photoOne, photoTwo }: FounderCardProps) => {
   const prefersReducedMotion = useReducedMotion();
   const fadeIn = prefersReducedMotion
     ? {}
     : {
-        initial: { opacity: 0, y: 32 },
+        initial: { opacity: 0, y: 28 },
         whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: "-80px" },
+        viewport: { once: true, margin: "-60px" },
         transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
       };
 
   return (
-    <motion.article
-      {...fadeIn}
-      className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${
-        reverse ? "lg:[&>div:first-child]:order-2" : ""
-      }`}
-    >
+    <motion.article {...fadeIn} className="flex flex-col">
       {/* Portrait */}
-      <div className="lg:col-span-5">
-        <motion.div
-          whileHover={prefersReducedMotion ? undefined : { scale: 1.015 }}
-          transition={{ duration: 0.4 }}
-          className="relative rounded-2xl overflow-hidden shadow-xl bg-secondary aspect-[4/5]"
-        >
-          <img
-            src={mainPhoto}
-            alt={founder.photoCaptions.main}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-4">
-            <p className="text-white font-serif text-lg">{founder.name}</p>
-            <p className="text-white/80 text-xs uppercase tracking-wider">{founder.role}</p>
-          </div>
-        </motion.div>
+      <motion.div
+        whileHover={prefersReducedMotion ? undefined : { scale: 1.01 }}
+        transition={{ duration: 0.4 }}
+        className="relative rounded-2xl overflow-hidden shadow-xl bg-secondary aspect-[4/5]"
+      >
+        <img
+          src={mainPhoto}
+          alt={founder.photoCaptions.main}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent p-4">
+          <p className="text-white font-serif text-lg">{founder.name}</p>
+          <p className="text-white/80 text-[10px] uppercase tracking-wider">{founder.role}</p>
+        </div>
+      </motion.div>
+
+      {/* Bio */}
+      <p className="mt-5 text-[14px] md:text-[15px] leading-relaxed text-foreground/90">
+        {founder.bio}
+      </p>
+
+      {/* Hobbies */}
+      <div className="mt-4 flex flex-wrap gap-1.5">
+        {founder.hobbies.map((h) => (
+          <span
+            key={h}
+            className="text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full bg-secondary text-foreground/70 border border-border"
+          >
+            {h}
+          </span>
+        ))}
       </div>
 
-      {/* Bio + Quote + Lifestyle photos */}
-      <div className="lg:col-span-7 space-y-6">
-        <p className="text-base md:text-lg leading-relaxed text-foreground/90">{founder.bio}</p>
-
-        {/* Quote */}
-        <motion.blockquote
-          initial={prefersReducedMotion ? false : { opacity: 0, x: reverse ? 20 : -20 }}
-          whileInView={prefersReducedMotion ? undefined : { opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="relative pl-6 border-l-2 border-primary/40 italic font-serif text-lg text-foreground/80"
-        >
-          <Quote className="absolute -left-3 -top-2 w-5 h-5 text-primary/50 bg-background" />
-          „{founder.quote}"
-        </motion.blockquote>
-
-        {/* Hobbies */}
-        <div className="flex flex-wrap gap-2">
-          {founder.hobbies.map((h) => (
-            <span
-              key={h}
-              className="text-xs uppercase tracking-wider px-3 py-1 rounded-full bg-secondary text-foreground/70 border border-border"
-            >
-              {h}
-            </span>
-          ))}
-        </div>
-
-        {/* Lifestyle photos */}
-        <div className="grid grid-cols-2 gap-3 pt-2">
-          {[
-            { src: photoOne, caption: founder.photoCaptions.one, delay: 0.1 },
-            { src: photoTwo, caption: founder.photoCaptions.two, delay: 0.25 },
-          ].map((p) => (
-            <motion.figure
-              key={p.src}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-              whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: p.delay }}
-              whileHover={prefersReducedMotion ? undefined : { y: -4 }}
-              className="group"
-            >
-              <div className="relative rounded-xl overflow-hidden bg-secondary aspect-[4/3] shadow-md">
-                <img
-                  src={p.src}
-                  alt={p.caption}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-              <figcaption className="text-xs text-muted-foreground mt-2 italic leading-snug">
-                {p.caption}
-              </figcaption>
-            </motion.figure>
-          ))}
-        </div>
+      {/* Lifestyle photos */}
+      <div className="mt-5 grid grid-cols-2 gap-2.5">
+        {[
+          { src: photoOne, caption: founder.photoCaptions.one, delay: 0.1 },
+          { src: photoTwo, caption: founder.photoCaptions.two, delay: 0.2 },
+        ].map((p) => (
+          <motion.figure
+            key={p.src}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+            whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: p.delay }}
+            whileHover={prefersReducedMotion ? undefined : { y: -3 }}
+            className="group"
+          >
+            <div className="relative rounded-xl overflow-hidden bg-secondary aspect-[4/3] shadow-md">
+              <img
+                src={p.src}
+                alt={p.caption}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="text-[10px] text-muted-foreground mt-1.5 italic leading-snug">
+              {p.caption}
+            </figcaption>
+          </motion.figure>
+        ))}
       </div>
     </motion.article>
   );
@@ -214,7 +194,7 @@ const Ueber = () => {
                 <div className="mt-8 mx-auto h-px w-24 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
               </motion.header>
 
-              <div className="space-y-20 lg:space-y-28">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
                 <FounderCard
                   founder={founders.till}
                   mainPhoto="/about/till.jpg"
@@ -226,7 +206,6 @@ const Ueber = () => {
                   mainPhoto="/about/wini.png"
                   photoOne="/about/wini_kitesurf.jpeg"
                   photoTwo="/about/wini_wandern.jpeg"
-                  reverse
                 />
               </div>
             </section>
