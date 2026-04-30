@@ -10,6 +10,16 @@ const IMAGES = [
   "/bilderhomepage/pet/hf_20260428_101553_baa525a1-dbd5-45bb-9fa5-6c8e0e8c12b0.png",
 ];
 
+// Bento layout — varying spans for visual rhythm
+const SPANS = [
+  "sm:col-span-2 sm:row-span-2", // 0: large feature
+  "sm:col-span-1 sm:row-span-1", // 1
+  "sm:col-span-1 sm:row-span-1", // 2
+  "sm:col-span-1 sm:row-span-2", // 3: tall
+  "sm:col-span-1 sm:row-span-1", // 4
+  "sm:col-span-2 sm:row-span-1", // 5: wide
+];
+
 export default function UseCaseGallery() {
   const { sharedContent } = useContent();
   const t = sharedContent.landing.useCaseGallery;
@@ -54,30 +64,32 @@ export default function UseCaseGallery() {
           </p>
         </motion.div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
+        <div
+          className="mt-14 grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-4"
+          style={{ gridAutoRows: "minmax(180px, auto)" }}
+        >
           {IMAGES.map((src, i) => (
             <motion.figure
               key={src}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{
-                duration: 0.65,
-                delay: i * 0.07,
+                duration: 0.7,
+                delay: i * 0.08,
                 ease: [0.2, 0.8, 0.2, 1],
               }}
-              className="group relative overflow-hidden rounded-2xl shadow-[0_12px_28px_rgba(0,0,0,0.10)]"
+              className={`group relative overflow-hidden rounded-2xl shadow-[0_12px_28px_rgba(0,0,0,0.10)] ${SPANS[i]}`}
             >
-              <div className="aspect-[4/3] w-full overflow-hidden bg-memorial-canvas">
-                <img
-                  src={src}
-                  alt={labels[i]}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                />
-              </div>
-              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 via-black/30 to-transparent px-5 py-4">
+              <img
+                src={src}
+                alt={labels[i]}
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent opacity-90 group-hover:opacity-100 transition-opacity" />
+              <figcaption className="absolute inset-x-0 bottom-0 px-5 py-4">
                 <span className="font-display-italic text-white text-[15px] sm:text-base drop-shadow">
                   {labels[i]}
                 </span>

@@ -7,7 +7,6 @@ import ProductFeatures from "@/components/landing/ProductFeatures";
 import UseCaseGallery from "@/components/landing/UseCaseGallery";
 import AudienceSection from "@/components/landing/AudienceSection";
 import StyleShowcase from "@/components/landing/StyleShowcase";
-import HomepageCarousel from "@/components/landing/HomepageCarousel";
 import PartnerSection from "@/components/landing/PartnerSection";
 import { useContent } from "@/contexts/ContentContext";
 
@@ -29,7 +28,6 @@ export default function Landing() {
         <AudienceSection />
         <StyleShowcase />
         <PartnerSection />
-        <HomepageCarousel />
       </main>
       <Footer />
     </div>
