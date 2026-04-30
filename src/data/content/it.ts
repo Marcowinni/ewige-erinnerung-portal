@@ -394,8 +394,8 @@ export const itContent: ContentData = {
       },
       productFeatures: {
         eyebrow: "Il prodotto",
-        titleLine1: "Realizzato per durare,",
-        titleLine2: "custodito con dignità.",
+        titleLine1: "Un piccolo Tag,",
+        titleLine2: "ricordi infiniti.",
         intro: "Memora Moments unisce un robusto Smart Tag fisico a un album digitale curato in modo personale. Basta un tocco o una scansione — e i ricordi prendono vita.",
         items: {
           waterproof: {
