@@ -456,6 +456,34 @@ export interface SharedContent {
       body: string;
       cta: string;
     };
+    productFeatures: {
+      eyebrow: string;
+      titleLine1: string;
+      titleLine2: string;
+      intro: string;
+      items: {
+        waterproof: { title: string; body: string };
+        adhesive: { title: string; body: string };
+        quality: { title: string; body: string };
+        personal: { title: string; body: string };
+        privateUrl: { title: string; body: string };
+        versatile: { title: string; body: string };
+      };
+    };
+    useCaseGallery: {
+      eyebrow: string;
+      titleLine1: string;
+      titleLine2: string;
+      intro: string;
+      cases: {
+        gravestone: string;
+        urn: string;
+        memorialWall: string;
+        keepsake: string;
+        petCorner: string;
+        photoFrame: string;
+      };
+    };
   };
 
   customerWizard: {

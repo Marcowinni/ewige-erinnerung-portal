@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/landing/HeroSection";
 import PathChoice from "@/components/landing/PathChoice";
+import ProductFeatures from "@/components/landing/ProductFeatures";
+import UseCaseGallery from "@/components/landing/UseCaseGallery";
 import AudienceSection from "@/components/landing/AudienceSection";
 import StyleShowcase from "@/components/landing/StyleShowcase";
 import HomepageCarousel from "@/components/landing/HomepageCarousel";
@@ -22,6 +24,8 @@ export default function Landing() {
       <main>
         <HeroSection />
         <PathChoice />
+        <ProductFeatures />
+        <UseCaseGallery />
         <AudienceSection />
         <StyleShowcase />
         <PartnerSection />

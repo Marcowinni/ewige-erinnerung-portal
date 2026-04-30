@@ -362,6 +362,52 @@ export const itContent: ContentData = {
         titleLine2: "Zeichnungsverlag",
         body: "Il nostro tag si applica discretamente su lapidi, urne e sui prodotti di Zeichnungsverlag — creando connessioni sottili tra i luoghi fisici del ricordo e i contenuti digitali.",
         cta: "Visita Zeichnungsverlag"
+      },
+      productFeatures: {
+        eyebrow: "Il prodotto",
+        titleLine1: "Realizzato per durare,",
+        titleLine2: "custodito con dignità.",
+        intro: "Memora Moments unisce un robusto Smart Tag fisico a un album digitale curato in modo personale. Basta un tocco o una scansione — e i ricordi prendono vita.",
+        items: {
+          waterproof: {
+            title: "Resistente all'acqua e alle intemperie",
+            body: "Realizzato in materiale resistente, lo Smart Tag affronta pioggia, neve e raggi UV. Sicuro all'aperto, sulla lapide, sull'urna o in giardino."
+          },
+          adhesive: {
+            title: "Adesivo 3M di alta qualità",
+            body: "L'adesivo industriale 3M garantisce un'aderenza sicura su pietra, vetro, metallo, legno e plastica — e si rimuove senza lasciare residui."
+          },
+          quality: {
+            title: "Qualità premium",
+            body: "Smart Tag solido con finitura duratura. Bordi rifiniti con cura, discreto in nero o nella versione dedicata al ricordo degli animali."
+          },
+          personal: {
+            title: "Creato da te, personale",
+            body: "Carichi le tue immagini, i tuoi video e i tuoi testi — noi ne componiamo un album dignitoso nello stile che hai scelto. Fatto da te, unico."
+          },
+          privateUrl: {
+            title: "Il tuo URL privato",
+            body: "Ogni album riceve un proprio indirizzo unico. Solo chi conosce il tag o riceve il link può vederlo. Non rintracciabile pubblicamente."
+          },
+          versatile: {
+            title: "Versatile",
+            body: "Applica lo Smart Tag su lapidi, urne, cornici, scrigni dei ricordi o collari. Un gesto — molti utilizzi."
+          }
+        }
+      },
+      useCaseGallery: {
+        eyebrow: "Esempi di utilizzo",
+        titleLine1: "Dove il tag",
+        titleLine2: "trova il suo posto.",
+        intro: "Spunti per i luoghi in cui un tag Memora Moments crea un ponte discreto tra l'allora e l'oggi.",
+        cases: {
+          gravestone: "Sulla lapide",
+          urn: "Sull'urna",
+          memorialWall: "Sulla parete del ricordo",
+          keepsake: "Su uno scrigno dei ricordi",
+          petCorner: "Nell'angolo dedicato all'animale",
+          photoFrame: "Sulla cornice di casa"
+        }
       }
     },
 

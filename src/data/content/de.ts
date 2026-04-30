@@ -373,6 +373,52 @@ export const deContent: ContentData = {
         titleLine2: "Zeichnungsverlag",
         body: "Unser Tag lässt sich unauffällig auf Grabsteinen, Urnen sowie auf den Produkten des Zeichnungsverlag anbringen. So entstehen dezente Verbindungen zwischen physischen Erinnerungsorten und digitalen Inhalten.",
         cta: "Zeichnungsverlag besuchen"
+      },
+      productFeatures: {
+        eyebrow: "Das Produkt",
+        titleLine1: "Bleibend gestaltet,",
+        titleLine2: "in Würde bewahrt.",
+        intro: "Memora Moments verbindet ein robustes physisches Smart-Tag mit einem persönlich gestalteten digitalen Album. Ein Tippen oder Scannen genügt — und Erinnerungen werden lebendig.",
+        items: {
+          waterproof: {
+            title: "Wasser- und wetterfest",
+            body: "Das Smart-Tag aus widerstandsfähigem Material trotzt Regen, Schnee und UV-Strahlung. Sicher draussen am Grabstein, an der Urne oder im Garten."
+          },
+          adhesive: {
+            title: "Hochwertiger 3M-Kleber",
+            body: "Industrieklebeband von 3M sorgt für sichere Haftung auf Stein, Glas, Metall, Holz und Kunststoff — rückstandsfrei lösbar bei Bedarf."
+          },
+          quality: {
+            title: "Premium-Qualität",
+            body: "Stabiles Smart-Tag mit langlebiger Beschichtung. Sauber verarbeitete Kanten, dezent in Schwarz oder als Variante für Tier-Erinnerungen."
+          },
+          personal: {
+            title: "Selbst gestaltet, persönlich",
+            body: "Sie laden Ihre Bilder, Videos und Texte hoch — wir gestalten daraus ein würdevolles Album in Ihrem gewählten Stil. Selbstgemacht, einzigartig."
+          },
+          privateUrl: {
+            title: "Eigene private URL",
+            body: "Jedes Album erhält eine eigene, einzigartige Adresse. Nur wer das Tag kennt oder den Link erhält, sieht das Album. Nicht öffentlich auffindbar."
+          },
+          versatile: {
+            title: "Vielseitig einsetzbar",
+            body: "Kleben Sie das Smart-Tag auf Grabsteine, Urnen, Bilderrahmen, Erinnerungsboxen oder Halsbänder. Eine Geste — viele Anwendungen."
+          }
+        }
+      },
+      useCaseGallery: {
+        eyebrow: "Anwendungsbeispiele",
+        titleLine1: "So findet das Tag",
+        titleLine2: "seinen Platz.",
+        intro: "Inspiration für Orte, an denen ein Memora-Moments-Tag eine Brücke zwischen damals und heute schlägt.",
+        cases: {
+          gravestone: "Auf dem Grabstein",
+          urn: "An der Urne",
+          memorialWall: "An der Erinnerungswand",
+          keepsake: "Auf einer Erinnerungsbox",
+          petCorner: "An der Tier-Gedenkecke",
+          photoFrame: "Am Bilderrahmen zuhause"
+        }
       }
     },
 

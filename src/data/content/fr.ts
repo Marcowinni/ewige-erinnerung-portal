@@ -347,6 +347,52 @@ export const frContent: ContentData = {
         titleLine2: "Zeichnungsverlag",
         body: "Notre Tag se pose discrètement sur les pierres tombales, les urnes et sur les produits du Zeichnungsverlag — créant des liens subtils entre les lieux physiques du souvenir et les contenus numériques.",
         cta: "Visiter Zeichnungsverlag"
+      },
+      productFeatures: {
+        eyebrow: "Le produit",
+        titleLine1: "Conçu pour durer,",
+        titleLine2: "préservé avec dignité.",
+        intro: "Memora Moments associe un Smart Tag physique robuste à un album numérique conçu personnellement. Un simple geste ou un scan — et les souvenirs s'animent.",
+        items: {
+          waterproof: {
+            title: "Résistant à l'eau et aux intempéries",
+            body: "Fabriqué dans un matériau durable, le Smart Tag résiste à la pluie, à la neige et aux rayons UV. Sûr en extérieur, sur une pierre tombale, une urne ou au jardin."
+          },
+          adhesive: {
+            title: "Adhésif 3M de haute qualité",
+            body: "L'adhésif industriel 3M assure une fixation sûre sur la pierre, le verre, le métal, le bois et le plastique — et se retire sans laisser de traces si besoin."
+          },
+          quality: {
+            title: "Qualité premium",
+            body: "Un Smart Tag solide avec une finition durable. Bords soigneusement travaillés, discret en noir ou en version dédiée au souvenir des animaux."
+          },
+          personal: {
+            title: "Conçu par vos soins, personnel",
+            body: "Vous téléchargez vos images, vidéos et textes — nous en composons un album digne dans le style que vous avez choisi. Fait par vous, unique."
+          },
+          privateUrl: {
+            title: "Votre URL privée",
+            body: "Chaque album reçoit sa propre adresse unique. Seules les personnes qui connaissent le Tag ou reçoivent le lien y ont accès. Non référencé publiquement."
+          },
+          versatile: {
+            title: "Polyvalent",
+            body: "Posez le Smart Tag sur des pierres tombales, des urnes, des cadres photo, des boîtes à souvenirs ou des colliers. Un geste — de nombreux usages."
+          }
+        }
+      },
+      useCaseGallery: {
+        eyebrow: "Exemples d'utilisation",
+        titleLine1: "Là où le Tag",
+        titleLine2: "trouve sa place.",
+        intro: "Des inspirations pour les lieux où un tag Memora Moments tisse un pont discret entre l'avant et l'aujourd'hui.",
+        cases: {
+          gravestone: "Sur la pierre tombale",
+          urn: "Sur l'urne",
+          memorialWall: "Sur le mur du souvenir",
+          keepsake: "Sur une boîte à souvenirs",
+          petCorner: "Dans le coin dédié à l'animal",
+          photoFrame: "Sur le cadre photo à la maison"
+        }
       }
     },
 

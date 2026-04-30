@@ -363,6 +363,52 @@ export const enContent: ContentData = {
         titleLine2: "Zeichnungsverlag",
         body: "Our tag fits discreetly onto gravestones, urns, and the products of Zeichnungsverlag — creating subtle bridges between physical places of remembrance and digital memories.",
         cta: "Visit Zeichnungsverlag"
+      },
+      productFeatures: {
+        eyebrow: "The product",
+        titleLine1: "Crafted to last,",
+        titleLine2: "kept with dignity.",
+        intro: "Memora Moments combines a robust physical Smart Tag with a personally designed digital album. A single tap or scan — and memories come alive.",
+        items: {
+          waterproof: {
+            title: "Waterproof and weatherproof",
+            body: "Made from durable material, the Smart Tag withstands rain, snow, and UV light. Safe to use outdoors on a gravestone, an urn, or in the garden."
+          },
+          adhesive: {
+            title: "High-quality 3M adhesive",
+            body: "Industrial-grade 3M adhesive bonds securely to stone, glass, metal, wood, and plastic — and can be removed cleanly when needed."
+          },
+          quality: {
+            title: "Premium quality",
+            body: "A sturdy Smart Tag with a long-lasting finish. Cleanly worked edges, understated in black or as a variant for animal remembrance."
+          },
+          personal: {
+            title: "Personally designed",
+            body: "You upload your photos, videos, and texts — we shape them into a dignified album in the style you choose. Self-made, one of a kind."
+          },
+          privateUrl: {
+            title: "Your own private URL",
+            body: "Each album receives its own unique address. Only those who know the tag or receive the link can see the album. Not publicly searchable."
+          },
+          versatile: {
+            title: "Versatile in use",
+            body: "Place the Smart Tag on gravestones, urns, picture frames, keepsake boxes, or collars. One gesture — many uses."
+          }
+        }
+      },
+      useCaseGallery: {
+        eyebrow: "Where it belongs",
+        titleLine1: "Where the tag",
+        titleLine2: "finds its place.",
+        intro: "Inspiration for places where a Memora Moments tag becomes a quiet bridge between then and now.",
+        cases: {
+          gravestone: "On the gravestone",
+          urn: "On the urn",
+          memorialWall: "On the memorial wall",
+          keepsake: "On a keepsake box",
+          petCorner: "At the pet remembrance corner",
+          photoFrame: "On the picture frame at home"
+        }
       }
     },
 
