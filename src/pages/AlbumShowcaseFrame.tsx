@@ -47,7 +47,7 @@ function buildClassicPages(imgs: string[]): ClassicPageConfig[] {
     { type: 'bleed', img: next(), showText: true, text: 'Im Licht bewahrt.' },
     { type: 'duo', imgA: next(), imgB: next(), showText: true, text: 'Ein gemeinsamer Weg.' },
     { type: 'polaroids', imgA: next(), imgB: next(), showText: true, text: 'Vertraute Tage.' },
-    { type: 'tape', imgA: next(), imgB: next(), showText: true, text: 'Wind im Haar.' },
+    { type: 'tape', imgA: next(), imgB: next(), showText: false, text: '' },
     { type: 'herald', hero: next(), r1: next(), r2: next(), showText: true, text: 'Wie wir Dich kannten.' },
     { type: 'diagonal', t1: next(), t2: next(), t3: next(), showText: true, text: 'Bewahrte Bilder.' },
     { type: 'envelope-letter', img: next(), showText: true, text: 'Momente, die bleiben.' },
