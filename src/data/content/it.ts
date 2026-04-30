@@ -432,7 +432,7 @@ export const itContent: ContentData = {
       },
       useCaseGallery: {
         eyebrow: "Esempi di utilizzo",
-        titleLine1: "Dove il tag",
+        titleLine1: "Dove lo Smart Tag",
         titleLine2: "trova il suo posto.",
         intro: "Spunti per i luoghi in cui un tag Memora Moments crea un ponte discreto tra l'allora e l'oggi.",
         cases: {

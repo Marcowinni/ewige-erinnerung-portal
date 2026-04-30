@@ -417,7 +417,7 @@ export const frContent: ContentData = {
       },
       useCaseGallery: {
         eyebrow: "Exemples d'utilisation",
-        titleLine1: "Là où le Tag",
+        titleLine1: "Là où le Smart Tag",
         titleLine2: "trouve sa place.",
         intro: "Des inspirations pour les lieux où un tag Memora Moments tisse un pont discret entre l'avant et l'aujourd'hui.",
         cases: {

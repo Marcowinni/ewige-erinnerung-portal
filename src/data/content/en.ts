@@ -433,7 +433,7 @@ export const enContent: ContentData = {
       },
       useCaseGallery: {
         eyebrow: "Where it belongs",
-        titleLine1: "Where the tag",
+        titleLine1: "Where the Smart Tag",
         titleLine2: "finds its place.",
         intro: "Inspiration for places where a Memora Moments tag becomes a quiet bridge between then and now.",
         cases: {

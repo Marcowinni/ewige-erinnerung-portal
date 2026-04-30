@@ -443,7 +443,7 @@ export const deContent: ContentData = {
       },
       useCaseGallery: {
         eyebrow: "Anwendungsbeispiele",
-        titleLine1: "So findet der Tag",
+        titleLine1: "So findet der Smart-Tag",
         titleLine2: "seinen Platz.",
         intro: "Inspiration für Orte, an denen ein Memora-Moments-Tag eine Brücke zwischen damals und heute schlägt.",
         cases: {
