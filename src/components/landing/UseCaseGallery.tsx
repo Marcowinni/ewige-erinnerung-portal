@@ -101,71 +101,55 @@ export default function UseCaseGallery() {
             className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[hsl(var(--memorial-sepia-light)/0.35)] to-transparent"
           />
 
-          {/* Track */}
+          {/* Track — fixed row height, card width follows image aspect ratio */}
           <div
             ref={trackRef}
-            className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-3 px-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="gallery-track flex items-stretch gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-3 px-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            style={{ ["--row-h" as never]: "320px" }}
           >
-            {IMAGES.map((src, i) => {
-              const num = String(i + 1).padStart(2, "0");
-              return (
-                <motion.figure
-                  key={src}
-                  data-card
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{
-                    duration: 0.6,
-                    delay: i * 0.05,
-                    ease: [0.2, 0.8, 0.2, 1],
-                  }}
-                  className="snap-start shrink-0 group relative overflow-hidden rounded-2xl bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_12px_28px_rgba(0,0,0,0.06)] transition-shadow duration-500 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06),0_22px_44px_rgba(0,0,0,0.12)]"
-                  style={{
-                    flexBasis:
-                      "calc((100% - 1.5rem) / 1.15)",
-                  }}
-                >
-                  <div className="hidden sm:block lg:hidden absolute inset-0 -z-10" />
-                  <span className="absolute top-4 left-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm font-display text-[13px] tracking-wide text-memorial-ink shadow-sm">
-                    {num}
+            {IMAGES.map((src, i) => (
+              <motion.figure
+                key={src}
+                data-card
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{
+                  duration: 0.6,
+                  delay: i * 0.05,
+                  ease: [0.2, 0.8, 0.2, 1],
+                }}
+                className="snap-start shrink-0 group relative overflow-hidden rounded-2xl bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_12px_28px_rgba(0,0,0,0.06)] transition-shadow duration-500 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06),0_22px_44px_rgba(0,0,0,0.12)] flex flex-col"
+              >
+                <div className="relative overflow-hidden bg-[hsl(var(--memorial-canvas))]" style={{ height: "var(--row-h)" }}>
+                  <img
+                    src={src}
+                    alt={labels[i]}
+                    loading="lazy"
+                    decoding="async"
+                    draggable={false}
+                    className="block h-full w-auto max-w-none transition-transform duration-[900ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-[1.04]"
+                  />
+                </div>
+
+                <figcaption className="px-5 py-4 sm:px-6 sm:py-5 border-t border-memorial-line/30">
+                  <span className="text-[10px] uppercase tracking-[0.28em] text-memorial-ink-soft block">
+                    {t.eyebrow}
                   </span>
-
-                  <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4 / 5" }}>
-                    <img
-                      src={src}
-                      alt={labels[i]}
-                      loading="lazy"
-                      decoding="async"
-                      draggable={false}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-[1.04]"
-                    />
-                  </div>
-
-                  <figcaption className="px-5 py-4 sm:px-6 sm:py-5 border-t border-memorial-line/30">
-                    <span className="text-[10px] uppercase tracking-[0.28em] text-memorial-ink-soft block">
-                      {t.eyebrow}
-                    </span>
-                    <span className="mt-1 block font-display text-lg sm:text-xl text-memorial-ink leading-snug">
-                      {labels[i]}
-                    </span>
-                  </figcaption>
-                </motion.figure>
-              );
-            })}
+                  <span className="mt-1 block font-display text-lg sm:text-xl text-memorial-ink leading-snug">
+                    {labels[i]}
+                  </span>
+                </figcaption>
+              </motion.figure>
+            ))}
           </div>
 
-          {/* Responsive widths via CSS — overrides inline flexBasis at breakpoints */}
+          {/* Responsive row heights — card width follows naturally from image ratio */}
           <style>{`
-            @media (min-width: 640px) {
-              [data-card] { flex-basis: calc((100% - 1.5rem * 1) / 2) !important; }
-            }
-            @media (min-width: 900px) {
-              [data-card] { flex-basis: calc((100% - 1.5rem * 2) / 3) !important; }
-            }
-            @media (min-width: 1100px) {
-              [data-card] { flex-basis: calc((100% - 1.5rem * 3) / 4) !important; }
-            }
+            @media (max-width: 639px) { .gallery-track { --row-h: 240px !important; } }
+            @media (min-width: 640px) and (max-width: 899px) { .gallery-track { --row-h: 220px !important; } }
+            @media (min-width: 900px) and (max-width: 1199px) { .gallery-track { --row-h: 200px !important; } }
+            @media (min-width: 1200px) { .gallery-track { --row-h: 200px !important; } }
           `}</style>
 
           {/* Nav buttons */}
