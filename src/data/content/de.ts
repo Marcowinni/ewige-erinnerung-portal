@@ -104,7 +104,7 @@ export const deContent: ContentData = {
         till: {
           name: "Till",
           role: "Mitgründer · Vision & Produkt",
-          bio: "Till denkt in Geschichten. Wenn er nicht gerade Konzepte für Memora skizziert, ist er meistens draussen – mit Rucksack, Kamera oder Skiern. Was ihn antreibt: das Gefühl, dass jeder Mensch und jedes Tier eine Erzählung verdient, die nicht im Alltag verloren geht. Diese Haltung prägt jedes Detail unserer Alben.",
+          bio: "Wenn er nicht gerade Konzepte für Memora skizziert, ist er meistens draussen – in der Natur oder im Fitness. Was ihn antreibt: das Gefühl, dass jeder Mensch und jedes Tier eine Erzählung verdient, die nicht im Alltag verloren geht.",
           quote: "Ein Tag, ein Bild, ein Lied – manchmal reicht das, um jemanden wieder ganz nah zu fühlen.",
           hobbies: ["Reisen", "Fotografie", "Berge"],
           photoCaptions: {
@@ -114,9 +114,9 @@ export const deContent: ContentData = {
           }
         },
         wini: {
-          name: "Marco \"Wini\" Winistörfer",
+          name: "Marco \"Wini\"",
           role: "Mitgründer · Technik & Plattform",
-          bio: "Wini baut. Tagsüber Code, abends manchmal noch ein bisschen mehr Code. Er ist der Pragmatiker im Team – findet Lösungen, wo andere noch über das Problem reden. Memora Moments ist für ihn der Ort, an dem Technologie endlich das tut, wofür sie gemacht sein sollte: Menschen näher zueinander bringen.",
+          bio: "Er ist der Pragmatiker im Team – findet Lösungen, wo andere noch über das Problem reden. Memora Moments ist für ihn der Ort, an dem Technologie endlich das tut, wofür sie gemacht sein sollte: Menschen näher zueinander bringen.",
           quote: "Gute Technik fällt nicht auf. Sie macht den Weg frei für das, worauf es ankommt.",
           hobbies: ["Kitesurfen", "Wandern", "Coden"],
           photoCaptions: {
