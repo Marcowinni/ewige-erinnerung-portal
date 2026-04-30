@@ -378,11 +378,11 @@ export const deContent: ContentData = {
         eyebrow: "Das Produkt",
         titleLine1: "Bleibend gestaltet,",
         titleLine2: "in Würde bewahrt.",
-        intro: "Memora Moments verbindet ein robustes physisches Smart-Tag mit einem persönlich gestalteten digitalen Album. Ein Tippen oder Scannen genügt — und Erinnerungen werden lebendig.",
+        intro: "Memora Moments verbindet einen robusten physischen Smart-Tag mit einem persönlich gestalteten digitalen Album. Ein Tippen oder Scannen genügt — und Erinnerungen werden lebendig.",
         items: {
           waterproof: {
             title: "Wasser- und wetterfest",
-            body: "Das Smart-Tag aus widerstandsfähigem Material trotzt Regen, Schnee und UV-Strahlung. Sicher draussen am Grabstein, an der Urne oder im Garten."
+            body: "Der Smart-Tag aus widerstandsfähigem Material trotzt Regen, Schnee und UV-Strahlung. Sicher draussen am Grabstein, an der Urne oder im Garten."
           },
           adhesive: {
             title: "Hochwertiger 3M-Kleber",
@@ -398,17 +398,17 @@ export const deContent: ContentData = {
           },
           privateUrl: {
             title: "Eigene private URL",
-            body: "Jedes Album erhält eine eigene, einzigartige Adresse. Nur wer das Tag kennt oder den Link erhält, sieht das Album. Nicht öffentlich auffindbar."
+            body: "Jedes Album erhält eine eigene, einzigartige Adresse. Nur wer den Tag kennt oder den Link erhält, sieht das Album. Nicht öffentlich auffindbar."
           },
           versatile: {
             title: "Vielseitig einsetzbar",
-            body: "Kleben Sie das Smart-Tag auf Grabsteine, Urnen, Bilderrahmen, Erinnerungsboxen oder Halsbänder. Eine Geste — viele Anwendungen."
+            body: "Kleben Sie den Smart-Tag auf Grabsteine, Urnen, Bilderrahmen, Erinnerungsboxen oder Halsbänder. Eine Geste — viele Anwendungen."
           }
         }
       },
       useCaseGallery: {
         eyebrow: "Anwendungsbeispiele",
-        titleLine1: "So findet das Tag",
+        titleLine1: "So findet der Tag",
         titleLine2: "seinen Platz.",
         intro: "Inspiration für Orte, an denen ein Memora-Moments-Tag eine Brücke zwischen damals und heute schlägt.",
         cases: {
