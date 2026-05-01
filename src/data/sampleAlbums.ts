@@ -152,7 +152,13 @@ export interface SampleAlbum {
   modernPages: PageConfig[]
   classicPages: ClassicPageConfig[]
   timelessPages: TimelessPageConfig[]
+  musicSrc: string
 }
+
+const MUSIC_BY_MODE = {
+  human: '/music/inspiring-emotional-uplifting-piano.mp3',
+  pet: '/music/happy-music.mp3',
+} as const
 
 function buildAll(mode: SampleMode, style: SampleStyle, slug: string): SampleAlbum {
   const images = mode === 'human' ? HUMAN_IMAGES : PET_IMAGES
@@ -167,6 +173,7 @@ function buildAll(mode: SampleMode, style: SampleStyle, slug: string): SampleAlb
     modernPages: mode === 'human' ? buildModernHumanPages(images) : buildModernPetPages(images),
     classicPages: mode === 'human' ? buildClassicHumanPages(images) : buildClassicPetPages(images),
     timelessPages: mode === 'human' ? buildTimelessHumanPages(images) : buildTimelessPetPages(images),
+    musicSrc: MUSIC_BY_MODE[mode],
   }
 }
 

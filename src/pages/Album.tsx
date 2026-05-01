@@ -82,6 +82,42 @@ function SampleAlbumPage({ slug }: { slug: string }) {
   const { sharedContent } = useContent();
   const isMobile = useIsMobile();
   const [isAlbumOpen, setIsAlbumOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Autoplay music once album is open (mobile) or page mounts (desktop).
+  // Browsers block autoplay until user gesture — opening the album
+  // (mobile) counts. On desktop we attempt; fall back silently on block.
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const shouldPlay = isAlbumOpen || !isMobile;
+    if (shouldPlay) {
+      audio.play().then(() => setIsPlaying(true)).catch(() => {});
+    } else {
+      audio.pause();
+      setIsPlaying(false);
+    }
+  }, [isAlbumOpen, isMobile]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const onEnded = () => setIsPlaying(false);
+    audio.addEventListener('ended', onEnded);
+    return () => audio.removeEventListener('ended', onEnded);
+  }, []);
+
+  const togglePlayPause = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+    } else {
+      audio.play().then(() => setIsPlaying(true)).catch(() => {});
+    }
+  };
 
   const renderAlbum = () => {
     if (sample.style === 'classic') {
@@ -118,6 +154,7 @@ function SampleAlbumPage({ slug }: { slug: string }) {
     return (
       <>
         {sample.mode === 'human' && <HumanShowcaseStyleOverride />}
+        <audio ref={audioRef} src={sample.musicSrc} loop />
         <div className="album-background h-screen w-screen flex flex-col items-center justify-center p-4 text-center">
           <div className="relative z-10 flex flex-col items-center">
             <h1
@@ -156,6 +193,15 @@ function SampleAlbumPage({ slug }: { slug: string }) {
             <div className="flex-1 min-h-0 flex flex-col">{renderAlbum()}</div>
             <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
               <Button
+                onClick={togglePlayPause}
+                variant="outline"
+                size="icon"
+                className="rounded-full h-10 w-10 bg-black/30 text-white border-white/50 backdrop-blur-sm"
+                title={isPlaying ? sharedContent.albumPage.pauseButton : sharedContent.albumPage.playButton}
+              >
+                {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+              </Button>
+              <Button
                 variant="outline"
                 size="icon"
                 className="rounded-full h-10 w-10 bg-black/30 text-white border-white/50 backdrop-blur-sm"
@@ -173,7 +219,19 @@ function SampleAlbumPage({ slug }: { slug: string }) {
   return (
     <div className="fixed inset-0 z-0 flex flex-col">
       {sample.mode === 'human' && <HumanShowcaseStyleOverride />}
+      <audio ref={audioRef} src={sample.musicSrc} loop />
       <div className="flex-1 min-h-0">{renderAlbum()}</div>
+      <div className="absolute top-5 right-5 z-30">
+        <Button
+          onClick={togglePlayPause}
+          variant="outline"
+          size="icon"
+          className="rounded-full h-11 w-11 bg-black/20 text-white border-white/30 backdrop-blur-sm"
+          title={isPlaying ? sharedContent.albumPage.pauseButton : sharedContent.albumPage.playButton}
+        >
+          {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+        </Button>
+      </div>
     </div>
   );
 }
