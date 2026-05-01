@@ -85,21 +85,7 @@ function SampleAlbumPage({ slug }: { slug: string }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Autoplay music once album is open (mobile) or page mounts (desktop).
-  // Browsers block autoplay until user gesture — opening the album
-  // (mobile) counts. On desktop we attempt; fall back silently on block.
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    const shouldPlay = isAlbumOpen || !isMobile;
-    if (shouldPlay) {
-      audio.play().then(() => setIsPlaying(true)).catch(() => {});
-    } else {
-      audio.pause();
-      setIsPlaying(false);
-    }
-  }, [isAlbumOpen, isMobile]);
-
+  // No autoplay — visitor toggles via the play/pause button.
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
