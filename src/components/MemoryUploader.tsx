@@ -193,7 +193,7 @@ type FormState = {
   human_firstName?: string;
   human_deathDate?: string; // optional
 
-  // Haustiere
+  // Tiere
   pet_name?: string;
   pet_deathDate?: string; // optional
 
@@ -229,7 +229,7 @@ type FormState = {
   // Tag-Format (gilt für alle Modi beim "basic"-Produkt)
   tag_format?: TagFormat; // "round_3cm" | "square_6cm"
 
-  // Optionen NUR für Haustier–Memora Tag (basic im pet-Modus)
+  // Optionen NUR für Tier–Memora Tag (basic im pet-Modus)
   pet_tag_keychain?: boolean; // +7 CHF (nur bei rund)
   pet_tag_customEnabled?: boolean; // Standard vs. individuell
   pet_tag_custom?: CustomDesign; // Editor-Zustand + Vorschau
@@ -391,13 +391,13 @@ const DEFAULT_COPY: UploaderCopy = {
   headings: {
     pageTitleByMode: {
       human: "Produkt wählen (Menschen)",
-      pet: "Produkt wählen (Haustiere)",
+      pet: "Produkt wählen (Tiere)",
       surprise: "Produkt wählen (Surprise)",
     },
     step1Subtitle: "Wähle dein Produkt – die Inhalte lädst du im nächsten Schritt hoch.",
     step2ByMode: {
       human: "Angaben zur Person",
-      pet: "Angaben zum Haustier",
+      pet: "Angaben zum Tier",
       surprise: "Angaben für Surprise",
     },
     step2Subtitle: "Bitte die folgenden Felder ausfüllen. Notizen sind optional.",
@@ -426,7 +426,7 @@ const DEFAULT_COPY: UploaderCopy = {
     formatTitleDeluxe: "Deluxe Gestalten",
     roundLabel: "Rund · Ø 3 cm",
     squareLabel: "Quadratisch · 6×6 cm",
-    petOptionsTitle: "Optionen für Haustier–Memora Tag",
+    petOptionsTitle: "Optionen für Tier–Memora Tag",
     keychainLabel: "mit Schlüsselanhänger (+7 CHF)",
     designLabel: "Design",
     designStandard: "Standard",
@@ -461,7 +461,7 @@ const DEFAULT_COPY: UploaderCopy = {
     human_deathDate: "Sterbedatum",
     notes_human: "Notizen (optional)",
     human_notesPH: "Besondere Wünsche, Zitate, Musik-Hinweise …",
-    pet_name: "Name des Haustiers *",
+    pet_name: "Name des Tiers *",
     pet_deathDate: "Sterbedatum",
     pet_notesPH: "Besondere Wünsche, Lieblingsgeräusche, Hinweise …",
     surprise_name: "Name (Empfänger) *",
@@ -514,7 +514,7 @@ const DEFAULT_COPY: UploaderCopy = {
     formatSquare: "Quadratisch 6×6 cm",
     options: "Optionen",
     person: "Person",
-    pet: "Haustier",
+    pet: "Tier",
     recipient: "Empfänger",
     notes: "Notizen",
     counts: (imgs, vids) => `Bilder: ${imgs} • Videos: ${vids}`,
@@ -1283,7 +1283,7 @@ function Step1View(props: {
         </div>
       )}
 
-      {/* Optionen nur für Haustier–Tag */}
+      {/* Optionen nur für Tier–Tag */}
       {showPetTagOptions && (
         <div className="mt-8 border rounded-lg p-6 space-y-6">
           <h3 className="text-xl font-serif">{copy.products.petOptionsTitle}</h3>
@@ -2801,7 +2801,7 @@ const MemoryUploader = () => {
 
       const subjectDetails = 
         mode === 'human' ? `Person: ${form.human_firstName} ${form.human_lastName}` :
-        mode === 'pet' ? `Haustier: ${form.pet_name}` :
+        mode === 'pet' ? `Tier: ${form.pet_name}` :
         `Anlass für: ${form.surprise_name}`;
       
       // Finde den vollen Ländernamen basierend auf dem Code (CH -> Schweiz)

@@ -181,9 +181,9 @@ const SAMPLE_DEFS: Array<{ slug: string; mode: SampleMode; style: SampleStyle }>
   { slug: 'KLASSISCH-MENSCH', mode: 'human', style: 'classic' },
   { slug: 'MODERN-MENSCH', mode: 'human', style: 'modern' },
   { slug: 'ZEITLOS-MENSCH', mode: 'human', style: 'timeless' },
-  { slug: 'KLASSISCH-HAUSTIER', mode: 'pet', style: 'classic' },
-  { slug: 'MODERN-HAUSTIER', mode: 'pet', style: 'modern' },
-  { slug: 'ZEITLOS-HAUSTIER', mode: 'pet', style: 'timeless' },
+  { slug: 'KLASSISCH-TIER', mode: 'pet', style: 'classic' },
+  { slug: 'MODERN-TIER', mode: 'pet', style: 'modern' },
+  { slug: 'ZEITLOS-TIER', mode: 'pet', style: 'timeless' },
 ]
 
 const SAMPLES: Record<string, SampleAlbum> = SAMPLE_DEFS.reduce((acc, d) => {

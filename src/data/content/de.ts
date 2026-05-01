@@ -9,7 +9,7 @@ export const deContent: ContentData = {
       contact: "Kontakt",
       start: "Album erstellen",
       create: "Erstellen",
-      mode: { human: "Menschen", pet: "Haustiere", surprise: "Surprise" }
+      mode: { human: "Menschen", pet: "Tiere", surprise: "Surprise" }
     },
 
     banner: {
@@ -72,7 +72,7 @@ export const deContent: ContentData = {
       story: {
         title: "Unsere Geschichte",
         p1: "Memora Moments ist aus dem Wunsch entstanden, Erinnerungen würdevoll zu bewahren.",
-        p2: "Manchmal sind es die leisen Augenblicke, die unser Leben für immer verändern. Wir alle haben Menschen oder treue Wegbegleiter verloren, die uns besonders nahe standen – sei es ein geliebtes Familienmitglied oder ein Haustier, das unser Herz geprägt hat.",
+        p2: "Manchmal sind es die leisen Augenblicke, die unser Leben für immer verändern. Wir alle haben Menschen oder treue Wegbegleiter verloren, die uns besonders nahe standen – sei es ein geliebtes Familienmitglied oder ein Tier, das unser Herz geprägt hat.",
         p3: "In diesen Momenten der Trauer sehnen wir uns nach Nähe, nach einem Ort, an dem Erinnerungen nicht verblassen, sondern weiterleben. Die Idee zu Memora Moments entstand genau aus dieser Erfahrung.",
         p4: "Aus der Liebe zu unseren engsten Vertrauten und aus dem Wunsch, ihre Geschichten und ihre Einzigartigkeit zu bewahren, ist dieses Projekt geboren. Ein kleines Geschenk, das zunächst nur für unsere Liebsten gedacht war, hat uns gezeigt, wie wertvoll es sein kann, Erinnerungen greifbar und lebendig zu halten – durch Bilder, Videos und Musik, die ein Lächeln zurückbringen können.",
         p5: "Heute möchten wir diese Möglichkeit mit anderen teilen. Mit unseren Produkten erschaffen wir Brücken zwischen Vergangenheit und Gegenwart – würdevoll, persönlich und nah am Herzen. Wir glauben daran, dass Erinnerungen nicht mit dem Abschied enden müssen. Sie können weiterleuchten, uns trösten und Kraft schenken."
@@ -528,6 +528,8 @@ export const deContent: ContentData = {
         cityLabel: "Ort *",
         cityPlaceholder: "Zürich",
         countryLabel: "Land *",
+        discountLabel: "Rabattcode (optional)",
+        discountPlaceholder: "Code eingeben",
         summaryTitle: "Zusammenfassung",
         summaryFor: "Für",
         summaryStyle: "Stil",
@@ -558,7 +560,8 @@ export const deContent: ContentData = {
         orderCreatedNoPayment: "Bestellung erstellt. Zahlung bitte per Rechnung.",
         filesAdded: (count: number) => `${count} Dateien hinzugefügt.`,
         maxReached: (max: number) => `Maximum ${max} Bilder erreicht.`,
-        videoTooBig: (filename: string) => `${filename} zu groß (max 200 MB).`
+        videoTooBig: (filename: string) => `${filename} zu groß (max 200 MB).`,
+        invalidDiscountCode: (code: string) => `Rabattcode "${code}" ist ungültig oder nicht mehr aktiv.`
       },
       shippingZones: { ch: "Schweiz", eu: "Europa", world: "Weltweit" },
       styleNames: { modern: "Modern", classic: "Klassisch", timeless: "Zeitlos" },
@@ -704,7 +707,7 @@ export const deContent: ContentData = {
         formatTitleDeluxe: "Deluxe gestalten",
         roundLabel: "Rund · Ø 3 cm",
         squareLabel: "Quadratisch · 6×6 cm",
-        petOptionsTitle: "Optionen für Haustier–Memora Tag",
+        petOptionsTitle: "Optionen für Tier–Memora Tag",
         frameTip:"Tipp: Bild mit der Maus/Touch verschieben und Texte hinzufügen & frei positionieren.",
         frameOrientationLabel: "Ausrichtung",
         framePortrait: "Hochformat",
@@ -779,7 +782,7 @@ export const deContent: ContentData = {
         formatSquare: "Quadratisch 6×6 cm",
         options: "Optionen",
         person: "Person",
-        pet: "Haustier",
+        pet: "Tier",
         recipient: "Empfänger",
         notes: "Notizen",
         counts: (imgs, vids) => `Bilder: ${imgs} • Videos: ${vids}`,
@@ -823,7 +826,7 @@ export const deContent: ContentData = {
     },
     features: {
       title: "Unvergessliche Momente mit Ihrem Liebling",
-      subtitle: "Digitale Erinnerungen für Haustiere.",
+      subtitle: "Digitale Erinnerungen für Tiere.",
       unique: { title: "Liebevolle Erinnerung", desc: "Bewahren Sie die treue Begleitung Ihres Tieres in einer bleibenden Erinnerung." },
       multimedia: { title: "Multimedia Erlebnisse", desc: "Erhalten Sie Ihr digitales Fotoalbum – mit Fotos und Videos Ihres Lieblings, die Erinnerungen lebendig werden lassen" },
       music: { title: "Lieblingsgeräusche", desc: "Hinterlegen Sie Aufnahmen Ihres Tieres oder Musik im Album, damit die Erinnerung auch hörbar wird." },
@@ -844,9 +847,9 @@ export const deContent: ContentData = {
       step3: { title: "Memora erhalten", desc: "Ihre Memora mit Smart-Tag – bereits mit dem digitalen Fotoalbum verknüpft – kommt zu Ihnen nach Hause" }
     },
     products: {
-      title: "Haustier-Produkte",
+      title: "Tier-Produkte",
       subtitle: "Erinnerungen für treue Begleiter.",
-      basic: { title: "Memora Pet Tag", desc: "Ein schlichter Smart-Tag, der mit einem digitalen Fotoalbum Erinnerungen an Ihr Haustier zum Leben erweckt", price: "ab 59 CHF" },
+      basic: { title: "Memora Pet Tag", desc: "Ein schlichter Smart-Tag, der mit einem digitalen Fotoalbum Erinnerungen an Ihr Tier zum Leben erweckt", price: "ab 59 CHF" },
       premium: { title: "Memora Pet Frame", desc: "Ein stilvoller Bilderrahmen, der Ihr Lieblingsfoto mit einem digitalen Fotoalbum verbindet – ideal für Zuhause.", price: "89 CHF" },
       deluxe: { title: "Memora Pet Deluxe", desc: "Eine exklusive Plexiglasplatte mit Halterung – für ein bleibendes, würdiges Erinnerungsstück.", price: "149 CHF" },
       features: {
@@ -871,17 +874,17 @@ export const deContent: ContentData = {
       contact: "Kontakt aufnehmen"
     },
     gedenken: {
-      title: "Haustier-Gedenken erstellen - Memora Moments",
-      heading: "Gedenken für Ihr Haustier!",
+      title: "Tier-Gedenken erstellen - Memora Moments",
+      heading: "Gedenken für Ihr Tier!",
       description: "Laden Sie Erinnerungen Ihres Lieblings hoch."
     },
 
     // Uploader-Overrides
     uploaderCopy: {
       headings: {
-        pageTitleByMode: { human: "Produkt wählen:", pet: "Produkt für dein Haustier wählen:", surprise: "Produkt für die Überraschung wählen:" },
+        pageTitleByMode: { human: "Produkt wählen:", pet: "Produkt für dein Tier wählen:", surprise: "Produkt für die Überraschung wählen:" },
         step1Subtitle: "Wähle dein Produkt – die Inhalte lädst du im nächsten Schritt hoch.",
-        step2ByMode: { human: "Angaben zur Person", pet: "Angaben zum Haustier", surprise: "Angaben für die Überraschung" },
+        step2ByMode: { human: "Angaben zur Person", pet: "Angaben zum Tier", surprise: "Angaben für die Überraschung" },
         step2Subtitle: "Bitte die folgenden Felder ausfüllen. Notizen sind optional.",
         step3Title: "Bilder & Videos hochladen",
         step3Subtitle: "Dateien werden im Formular gespeichert und später mitgesendet.",
@@ -906,7 +909,7 @@ export const deContent: ContentData = {
         formatTitleDeluxe: "Deluxe gestalten",
         roundLabel: "Rund · Ø 3 cm",
         squareLabel: "Quadratisch · 6×6 cm",
-        petOptionsTitle: "Optionen für Haustier–Memora Tag",
+        petOptionsTitle: "Optionen für Tier–Memora Tag",
         keychainLabel: "mit Schlüsselanhänger (+7 CHF)",
         designLabel: "Design",
         designStandard: "Standard",
@@ -935,7 +938,7 @@ export const deContent: ContentData = {
       step2Fields: {
         notes_human: "Weitere Notizen",
         human_notesPH: "Besondere Wünsche, Zitate, Musik-Hinweise …",
-        pet_name: "Name des Haustiers *",
+        pet_name: "Name des Tiers *",
         pet_deathDate: "Sterbedatum",
         pet_notesPH: "Besondere Wünsche, Lieblingsgeräusche, Hinweise …",
       },
@@ -979,7 +982,7 @@ export const deContent: ContentData = {
         formatSquare: "Quadratisch 6×6 cm",
         options: "Optionen",
         person: "Person",
-        pet: "Haustier",
+        pet: "Tier",
         recipient: "Empfänger",
         notes: "Notizen",
         counts: (imgs, vids) => `Bilder: ${imgs} • Videos: ${vids}`,
@@ -1077,9 +1080,9 @@ export const deContent: ContentData = {
     // Uploader-Overrides für den Surprise-Modus
     uploaderCopy: {
       headings: {
-        pageTitleByMode: { human: "Produkt wählen:", pet: "Produkt für dein Haustier wählen:", surprise: "Produkt für die Überraschung wählen:" },
+        pageTitleByMode: { human: "Produkt wählen:", pet: "Produkt für dein Tier wählen:", surprise: "Produkt für die Überraschung wählen:" },
         step1Subtitle: "Wähle dein Produkt – die Inhalte lädst du im nächsten Schritt hoch.",
-        step2ByMode: { human: "Angaben zur Person", pet: "Angaben zum Haustier", surprise: "Angaben für die Überraschung" },
+        step2ByMode: { human: "Angaben zur Person", pet: "Angaben zum Tier", surprise: "Angaben für die Überraschung" },
         step2Subtitle: "Bitte die folgenden Felder ausfüllen. Notizen sind optional.",
         step3Title: "Bilder & Videos hochladen",
         step3Subtitle: "Dateien werden im Formular gespeichert und später mitgesendet.",
@@ -1104,7 +1107,7 @@ export const deContent: ContentData = {
         formatTitleDeluxe: "Deluxe gestalten",
         roundLabel: "Rund · Ø 3 cm",
         squareLabel: "Quadratisch · 6×6 cm",
-        petOptionsTitle: "Optionen für Haustier–Memora Tag",
+        petOptionsTitle: "Optionen für Tier–Memora Tag",
         frameTip:"Tipp: Bild mit der Maus/Touch verschieben und Texte hinzufügen & frei positionieren.",
         frameOrientationLabel: "Ausrichtung",
         framePortrait: "Hochformat",
@@ -1172,7 +1175,7 @@ export const deContent: ContentData = {
         formatSquare: "Quadratisch 6×6 cm",
         options: "Optionen",
         person: "Person",
-        pet: "Haustier",
+        pet: "Tier",
         recipient: "Empfänger",
         notes: "Notizen",
         counts: (imgs, vids) => `Bilder: ${imgs} • Videos: ${vids}`,

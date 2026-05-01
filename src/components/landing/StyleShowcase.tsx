@@ -14,9 +14,9 @@ type Theme = "modern" | "classic" | "timeless";
 const PROD_BASE = "https://memora-moments.ch";
 
 const SLUG_BY_THEME_MODE: Record<Theme, Record<ShowcaseMode, string>> = {
-  modern: { human: "MODERN-MENSCH", pet: "MODERN-HAUSTIER" },
-  classic: { human: "KLASSISCH-MENSCH", pet: "KLASSISCH-HAUSTIER" },
-  timeless: { human: "ZEITLOS-MENSCH", pet: "ZEITLOS-HAUSTIER" },
+  modern: { human: "MODERN-MENSCH", pet: "MODERN-TIER" },
+  classic: { human: "KLASSISCH-MENSCH", pet: "KLASSISCH-TIER" },
+  timeless: { human: "ZEITLOS-MENSCH", pet: "ZEITLOS-TIER" },
 };
 
 interface AlbumShowcaseProps {
