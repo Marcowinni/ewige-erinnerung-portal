@@ -143,25 +143,17 @@ function SampleAlbumPage({ slug }: { slug: string }) {
         <audio ref={audioRef} src={sample.musicSrc} loop />
         <div className="album-background h-screen w-screen flex flex-col items-center justify-center p-4 text-center">
           <div className="relative z-10 flex flex-col items-center">
-            <h1
-              className="font-serif font-bold mb-3 text-memorial-ink leading-[1.1] tracking-tight px-2"
-              style={{
-                fontSize: 'clamp(2rem, 8vw, 3rem)',
-                textShadow: '0 1px 2px rgba(255,255,255,0.85), 0 2px 12px rgba(255,255,255,0.6)',
-              }}
-            >
-              {sharedContent.albumPage.title(sample.subjectName)}
-            </h1>
-            <p
-              className="text-[15px] sm:text-lg mb-8 max-w-sm font-medium px-3"
-              style={{
-                color: 'hsl(var(--memorial-ink))',
-                opacity: 0.78,
-                textShadow: '0 1px 2px rgba(255,255,255,0.7)',
-              }}
-            >
-              {sharedContent.albumPage.subtitle}
-            </p>
+            <div className="mb-8 max-w-sm rounded-2xl bg-white/85 px-6 py-5 shadow-md backdrop-blur-md ring-1 ring-black/5">
+              <h1
+                className="font-serif font-bold text-memorial-ink leading-[1.15] tracking-tight"
+                style={{ fontSize: 'clamp(1.6rem, 6.5vw, 2.4rem)' }}
+              >
+                {sharedContent.albumPage.title(sample.subjectName)}
+              </h1>
+              <p className="mt-2 text-[14px] sm:text-base font-medium text-memorial-ink/75">
+                {sharedContent.albumPage.subtitle}
+              </p>
+            </div>
             <div
               className="album-cover-mobile relative w-full max-w-xs aspect-[3/4] rounded-lg shadow-2xl flex flex-col items-center justify-center cursor-pointer"
               onClick={() => setIsAlbumOpen(true)}
@@ -380,25 +372,17 @@ const RemoteAlbum = ({ slug: albumSlug }: { slug: string | undefined }) => {
         <div className="album-background h-screen w-screen flex flex-col items-center justify-center p-4 text-center">
             {/* Alles ist jetzt in einem z-10 Container */}
             <div className="relative z-10 flex flex-col items-center">
-                <h1
-                  className="font-serif font-bold mb-3 text-memorial-ink leading-[1.1] tracking-tight px-2"
-                  style={{
-                    fontSize: 'clamp(2rem, 8vw, 3rem)',
-                    textShadow: '0 1px 2px rgba(255,255,255,0.85), 0 2px 12px rgba(255,255,255,0.6)',
-                  }}
-                >
-                  {sharedContent.albumPage.title(subjectName)}
-                </h1>
-                <p
-                  className="text-[15px] sm:text-lg mb-8 max-w-sm font-medium px-3"
-                  style={{
-                    color: 'hsl(var(--memorial-ink))',
-                    opacity: 0.78,
-                    textShadow: '0 1px 2px rgba(255,255,255,0.7)',
-                  }}
-                >
-                  {sharedContent.albumPage.subtitle}
-                </p>
+                <div className="mb-8 max-w-sm rounded-2xl bg-white/85 px-6 py-5 shadow-md backdrop-blur-md ring-1 ring-black/5">
+                  <h1
+                    className="font-serif font-bold text-memorial-ink leading-[1.15] tracking-tight"
+                    style={{ fontSize: 'clamp(1.6rem, 6.5vw, 2.4rem)' }}
+                  >
+                    {sharedContent.albumPage.title(subjectName)}
+                  </h1>
+                  <p className="mt-2 text-[14px] sm:text-base font-medium text-memorial-ink/75">
+                    {sharedContent.albumPage.subtitle}
+                  </p>
+                </div>
                 
                 <div 
                     className="album-cover-mobile relative w-full max-w-xs aspect-[3/4] rounded-lg shadow-2xl flex flex-col items-center justify-center cursor-pointer"
