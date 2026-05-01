@@ -1,12 +1,23 @@
 import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ChevronLeft, ChevronRight, Heart, PawPrint } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, ExternalLink, Heart, PawPrint } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 import { useContent } from "@/contexts/ContentContext";
 
 type ShowcaseMode = "human" | "pet";
 
 type Theme = "modern" | "classic" | "timeless";
+
+// QR codes always point at the production domain so we don't have to
+// regenerate / reprint anything once we move off the preview deployment.
+const PROD_BASE = "https://memora-moments.ch";
+
+const SLUG_BY_THEME_MODE: Record<Theme, Record<ShowcaseMode, string>> = {
+  modern: { human: "MODERN-MENSCH", pet: "MODERN-HAUSTIER" },
+  classic: { human: "KLASSISCH-MENSCH", pet: "KLASSISCH-HAUSTIER" },
+  timeless: { human: "ZEITLOS-MENSCH", pet: "ZEITLOS-HAUSTIER" },
+};
 
 interface AlbumShowcaseProps {
   theme: Theme;
@@ -189,6 +200,66 @@ export default function StyleShowcase() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.2, 0.8, 0.2, 1] }}
+          className="mt-20"
+        >
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="memorial-hairline" />
+            <p className="mt-6 text-[11px] uppercase tracking-[0.3em] text-memorial-ink-soft">
+              In echt erleben
+            </p>
+            <h3 className="font-display mt-3 text-2xl text-memorial-ink sm:text-3xl">
+              Album auf dem Handy ansehen
+            </h3>
+            <p className="mt-3 text-sm text-memorial-ink-soft">
+              Code scannen oder direkt öffnen — fühlt sich genau so an wie das spätere Original.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-3 sm:gap-8 max-w-4xl mx-auto">
+            {(["modern", "classic", "timeless"] as Theme[]).map((theme) => {
+              const slug = SLUG_BY_THEME_MODE[theme][mode];
+              const url = `${PROD_BASE}/album/${slug}`;
+              const label = t.themes[theme];
+              return (
+                <div
+                  key={`${theme}-${mode}-qr`}
+                  className="memorial-card flex flex-col items-center rounded-2xl px-6 py-7 text-center"
+                >
+                  <p className="text-[11px] uppercase tracking-[0.28em] text-memorial-ink-soft">
+                    {label}
+                  </p>
+                  <div className="mt-4 rounded-xl bg-white p-3 shadow-sm ring-1 ring-memorial-line/40">
+                    <QRCodeSVG
+                      value={url}
+                      size={132}
+                      level="M"
+                      bgColor="#ffffff"
+                      fgColor="hsl(var(--memorial-ink))"
+                    />
+                  </div>
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-memorial-ink underline decoration-memorial-ink/30 underline-offset-4 transition-all hover:decoration-memorial-ink"
+                  >
+                    Album öffnen
+                    <ExternalLink className="h-3.5 w-3.5" strokeWidth={1.7} />
+                  </a>
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-memorial-ink-soft">
+                    /album/{slug}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
