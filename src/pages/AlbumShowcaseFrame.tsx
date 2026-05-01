@@ -203,6 +203,11 @@ export default function AlbumShowcaseFrame() {
           .cpa-pinned-item .cpa-frame video {
             filter: none !important;
           }
+          /* Eveline portraits sit head-up; raise focal so faces aren't cropped. */
+          .mpa-img img,
+          .mpa-img video {
+            object-position: center 22% !important;
+          }
         `}</style>
       )}
       {theme === 'modern' && (
