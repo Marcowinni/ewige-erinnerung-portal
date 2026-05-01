@@ -189,6 +189,22 @@ export default function AlbumShowcaseFrame() {
 
   return (
     <div className="album-showcase-wrap" style={{ width: '100%', height: '100dvh', overflow: 'hidden', background: '#fff' }}>
+      {/* Eveline showcase media is already sepia/vintage. Disable classic
+          viewer's tone filters so they don't double up and look muddy. */}
+      {mode === 'human' && (
+        <style>{`
+          .cpa-photo .cpa-frame img,
+          .cpa-photo.bw .cpa-frame img,
+          .cpa-photo.sepia .cpa-frame img,
+          .cpa-spread.s-bleed .cpa-bleed-img img,
+          .cpa-hero-bg img,
+          .cpa-hero-bg video,
+          .cpa-pinned-item .cpa-frame img,
+          .cpa-pinned-item .cpa-frame video {
+            filter: none !important;
+          }
+        `}</style>
+      )}
       {theme === 'modern' && (
         <ModernPhotoAlbum
           subjectName={subject.name}
