@@ -7,6 +7,11 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import { Play, Pause, X, BookOpen } from "lucide-react";
 import { AlbumViewerRouter } from "@/components/album-viewer/AlbumViewerRouter";
+import { getSampleAlbum } from "@/data/sampleAlbums";
+import { ModernPhotoAlbum } from "@/components/album-viewer/modern/ModernPhotoAlbum";
+import { ClassicPhotoAlbum } from "@/components/album-viewer/classic/ClassicPhotoAlbum";
+import { TimelessPhotoAlbum } from "@/components/album-viewer/timeless/TimelessPhotoAlbum";
+import { HumanShowcaseStyleOverride } from "@/pages/AlbumShowcaseFrame";
 
 // ─── placeholder for unassigned / unpublished slugs ──────────────────────────
 
@@ -70,8 +75,118 @@ const ErrorDisplay = ({ message }: { message: string }) => (
     </div>
 );
 
+// ─── Sample album page — fixed showcase albums (no Supabase fetch) ──────────
+
+function SampleAlbumPage({ slug }: { slug: string }) {
+  const sample = getSampleAlbum(slug)!;
+  const { sharedContent } = useContent();
+  const isMobile = useIsMobile();
+  const [isAlbumOpen, setIsAlbumOpen] = useState(false);
+
+  const renderAlbum = () => {
+    if (sample.style === 'classic') {
+      return (
+        <ClassicPhotoAlbum
+          subjectName={sample.subjectName}
+          dateRange={sample.dateRange}
+          images={sample.images}
+          pages={sample.classicPages}
+        />
+      );
+    }
+    if (sample.style === 'timeless') {
+      return (
+        <TimelessPhotoAlbum
+          subjectName={sample.subjectName}
+          dateRange={sample.dateRange}
+          images={sample.images}
+          pages={sample.timelessPages}
+        />
+      );
+    }
+    return (
+      <ModernPhotoAlbum
+        subjectName={sample.subjectName}
+        dateRange={sample.dateRange}
+        images={sample.images}
+        pages={sample.modernPages}
+      />
+    );
+  };
+
+  if (isMobile) {
+    return (
+      <>
+        {sample.mode === 'human' && <HumanShowcaseStyleOverride />}
+        <div className="album-background h-screen w-screen flex flex-col items-center justify-center p-4 text-center">
+          <div className="relative z-10 flex flex-col items-center">
+            <h1
+              className="font-serif font-bold mb-3 text-memorial-ink leading-[1.1] tracking-tight px-2"
+              style={{
+                fontSize: 'clamp(2rem, 8vw, 3rem)',
+                textShadow: '0 1px 2px rgba(255,255,255,0.85), 0 2px 12px rgba(255,255,255,0.6)',
+              }}
+            >
+              {sharedContent.albumPage.title(sample.subjectName)}
+            </h1>
+            <p
+              className="text-[15px] sm:text-lg mb-8 max-w-sm font-medium px-3"
+              style={{
+                color: 'hsl(var(--memorial-ink))',
+                opacity: 0.78,
+                textShadow: '0 1px 2px rgba(255,255,255,0.7)',
+              }}
+            >
+              {sharedContent.albumPage.subtitle}
+            </p>
+            <div
+              className="album-cover-mobile relative w-full max-w-xs aspect-[3/4] rounded-lg shadow-2xl flex flex-col items-center justify-center cursor-pointer"
+              onClick={() => setIsAlbumOpen(true)}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/80 to-primary/60 rounded-lg" />
+              <BookOpen className="w-16 h-16 text-white/80 mb-4" />
+              <p className="text-xl font-semibold text-white">
+                {sharedContent.albumPage.openAlbum || 'Album öffnen'}
+              </p>
+            </div>
+          </div>
+        </div>
+        {isAlbumOpen && (
+          <div className="fixed inset-0 z-50 bg-background animate-in fade-in flex flex-col">
+            <div className="flex-1 min-h-0 flex flex-col">{renderAlbum()}</div>
+            <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full h-10 w-10 bg-black/30 text-white border-white/50 backdrop-blur-sm"
+                onClick={() => setIsAlbumOpen(false)}
+              >
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }
+
+  return (
+    <div className="fixed inset-0 z-0 flex flex-col">
+      {sample.mode === 'human' && <HumanShowcaseStyleOverride />}
+      <div className="flex-1 min-h-0">{renderAlbum()}</div>
+    </div>
+  );
+}
+
 const Album = () => {
   const { albumSlug } = useParams<{albumSlug: string }>();
+  const sampleAlbum = useMemo(() => getSampleAlbum(albumSlug), [albumSlug]);
+  if (sampleAlbum) return <SampleAlbumPage slug={sampleAlbum.slug} />;
+
+  return <RemoteAlbum slug={albumSlug} />;
+};
+
+const RemoteAlbum = ({ slug: albumSlug }: { slug: string | undefined }) => {
   const { sharedContent } = useContent();
   const isMobile = useIsMobile();
   const [albumData, setAlbumData] = useState<any>(null);
