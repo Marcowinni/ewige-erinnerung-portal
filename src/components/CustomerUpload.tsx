@@ -23,6 +23,13 @@ import { buildPages as buildModernPages } from '@/components/album-viewer/modern
 import { buildClassicPages } from '@/components/album-viewer/classic/ClassicPhotoAlbum'
 import { buildTimelessPages } from '@/components/album-viewer/timeless/TimelessPhotoAlbum'
 import { applyCaptions } from '@/lib/album/applyCaptions'
+import {
+  toStoredModernPages,
+  toStoredClassicPages,
+  toStoredTimelessPages,
+  type StoredAlbumLayout,
+} from '@/lib/storedAlbumLayout'
+import type { EditorMediaItem } from '@/hooks/useAlbumPages'
 
 // ─── constants ───────────────────────────────────────────────────────────────
 
@@ -103,26 +110,38 @@ interface Step4Data {
 }
 
 // Build initial album_layout from uploaded paths + per-item captions.
-// Pages are built using the chosen style's builder, then captions are applied
-// so each user-supplied caption overrides the auto-generated text on the page
-// where that image lives.
+// Pages are built using the chosen style's builder, captions applied, then
+// converted to the StoredPage[] format the viewers actually understand —
+// otherwise album_layout is silently dropped and the album falls back to
+// the default builder with no captions.
 function buildInitialAlbumLayout(
   style: AlbumStyle,
   pathsInOrder: string[],
   captionsByPath: Record<string, string>,
-): { mode: AlbumStyle; pages: unknown[] } {
-  let pages: unknown[]
-  switch (style) {
-    case 'classic':
-      pages = buildClassicPages(pathsInOrder)
-      break
-    case 'timeless':
-      pages = buildTimelessPages(pathsInOrder)
-      break
-    default:
-      pages = buildModernPages(pathsInOrder)
-  }
-  return { mode: style, pages: applyCaptions(pages as Record<string, unknown>[], captionsByPath) }
+): StoredAlbumLayout {
+  // Build native PageConfig[] using paths as the image strings, so caption
+  // lookup and slot→index mapping share the same key space.
+  const built =
+    style === 'classic'
+      ? buildClassicPages(pathsInOrder)
+      : style === 'timeless'
+        ? buildTimelessPages(pathsInOrder)
+        : buildModernPages(pathsInOrder)
+
+  const captioned = applyCaptions(built as Record<string, unknown>[], captionsByPath)
+
+  // toStored* converters look up `media[i].previewUrl`; map paths into that
+  // field so urlToIndex matches. Other EditorMediaItem fields are unused.
+  const fakeMedia = pathsInOrder.map((p) => ({ previewUrl: p })) as unknown as EditorMediaItem[]
+
+  const stored =
+    style === 'classic'
+      ? toStoredClassicPages(captioned as never, fakeMedia)
+      : style === 'timeless'
+        ? toStoredTimelessPages(captioned as never, fakeMedia)
+        : toStoredModernPages(captioned as never, fakeMedia)
+
+  return { theme: style, pages: stored }
 }
 
 function buildShippingAddress(d: Step4Data): string {
