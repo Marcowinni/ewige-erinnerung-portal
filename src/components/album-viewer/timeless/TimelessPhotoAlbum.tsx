@@ -31,10 +31,10 @@ export type TimelessPageType =
   | 'duo'
   | 'close'
 
-export interface TimelessHeroPage  { type: 'hero';   img: string | null; showText?: boolean; text?: string }
-export interface TimelessSinglePage{ type: 'single'; img: string | null; showText?: boolean; text?: string }
-export interface TimelessDuoPage   { type: 'duo';    imgA: string|null; imgB: string|null; showText?: boolean; text?: string }
-export interface TimelessClosePage { type: 'close';  showText?: boolean; text?: string }
+export interface TimelessHeroPage  { type: 'hero';   img: string | null; showText?: boolean; text?: string; text2?: string }
+export interface TimelessSinglePage{ type: 'single'; img: string | null; showText?: boolean; text?: string; text2?: string }
+export interface TimelessDuoPage   { type: 'duo';    imgA: string|null; imgB: string|null; showText?: boolean; text?: string; text2?: string }
+export interface TimelessClosePage { type: 'close';  showText?: boolean; text?: string; text2?: string }
 
 export type TimelessPageConfig =
   | TimelessHeroPage | TimelessSinglePage | TimelessDuoPage | TimelessClosePage
@@ -414,7 +414,10 @@ export function TimelessPhotoAlbum({
             const vKey = (slotIdx: number) => `${pageIdx}-${slotIdx}`
 
             const rawText = (page as { text?: string }).text
-            const effText = rawText && rawText.trim().length > 0 ? rawText : ''
+            const rawText2 = (page as { text2?: string }).text2
+            const t1 = rawText && rawText.trim().length > 0 ? rawText.trim() : ''
+            const t2 = rawText2 && rawText2.trim().length > 0 ? rawText2.trim() : ''
+            const effText = t1 && t2 ? `${t1} · ${t2}` : (t1 || t2 || '')
             const showText = page.showText !== false && effText.length > 0
 
             const renderMedia = (

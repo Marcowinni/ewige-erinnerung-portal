@@ -36,10 +36,14 @@ export function applyCaptions<T extends AnyPage>(
   return pages.map((page) => {
     // Skip hero / close — those carry their own scaffolding text
     if (page.type === 'hero' || page.type === 'close') return page
+    const caps: string[] = []
     for (const img of imagesOf(page)) {
       const cap = captionsByPath[img]?.trim()
-      if (cap) return { ...page, text: cap, showText: true } as T
+      if (cap) caps.push(cap)
     }
-    return page
+    if (caps.length === 0) return page
+    const next: AnyPage = { ...page, text: caps[0], showText: true }
+    if (caps.length >= 2) next.text2 = caps[1]
+    return next as T
   })
 }

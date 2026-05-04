@@ -20,6 +20,8 @@ export interface StoredPage {
   slots: (number | null)[]  // indices into uploaded_files[], null = empty slot
   showText?: boolean
   text?: string
+  /** Optional second caption — only rendered if user typed multiple captions for that page */
+  text2?: string
 }
 
 export interface StoredAlbumLayout {
@@ -62,12 +64,13 @@ export function toStoredModernPages(pages: PageConfig[], media: EditorMediaItem[
     slots: modernPageToSlots(page).map((url) => urlToIndex(url, media)),
     showText: page.showText,
     text: (page as { text?: string }).text,
+    text2: (page as { text2?: string }).text2,
   }))
 }
 
 export function fromStoredModernPage(sp: StoredPage, urls: Map<number, string>): PageConfig {
   const get = (i: number): string | null => indexToUrl(sp.slots[i] ?? null, urls)
-  const meta = { showText: sp.showText, text: sp.text }
+  const meta = { showText: sp.showText, text: sp.text, text2: sp.text2 }
 
   switch (sp.type as PageType) {
     case 'hero':          return { type: 'hero', img: get(0), ...meta }
@@ -88,7 +91,7 @@ export function fromStoredModernPages(stored: StoredPage[], urls: Map<number, st
     // First page always hero (title page with name + intro)
     if (i === 0) {
       const firstUrl = (sp.slots?.[0] != null ? urls.get(sp.slots[0]!) : null) ?? null
-      return { type: 'hero', img: firstUrl, showText: sp.showText, text: sp.text }
+      return { type: 'hero', img: firstUrl, showText: sp.showText, text: sp.text, text2: sp.text2 }
     }
     return fromStoredModernPage(sp, urls)
   })
@@ -118,12 +121,13 @@ export function toStoredClassicPages(pages: ClassicPageConfig[], media: EditorMe
     slots: classicPageToSlots(page).map((url) => urlToIndex(url, media)),
     showText: page.showText,
     text: (page as { text?: string }).text,
+    text2: (page as { text2?: string }).text2,
   }))
 }
 
 export function fromStoredClassicPage(sp: StoredPage, urls: Map<number, string>): ClassicPageConfig {
   const get = (i: number): string | null => indexToUrl(sp.slots[i] ?? null, urls)
-  const meta = { showText: sp.showText, text: sp.text }
+  const meta = { showText: sp.showText, text: sp.text, text2: sp.text2 }
 
   switch (sp.type as ClassicPageType) {
     case 'hero':            return { type: 'hero', img: get(0), ...meta }
@@ -146,7 +150,7 @@ export function fromStoredClassicPages(stored: StoredPage[], urls: Map<number, s
     // First page always hero (title page with name + intro)
     if (i === 0) {
       const firstUrl = (sp.slots?.[0] != null ? urls.get(sp.slots[0]!) : null) ?? null
-      return { type: 'hero', img: firstUrl, showText: sp.showText, text: sp.text }
+      return { type: 'hero', img: firstUrl, showText: sp.showText, text: sp.text, text2: sp.text2 }
     }
     return fromStoredClassicPage(sp, urls)
   })
@@ -169,12 +173,13 @@ export function toStoredVintagePages(pages: VintagePageConfig[], media: EditorMe
     slots: vintagePageToSlots(page).map((url) => urlToIndex(url, media)),
     showText: page.showText,
     text: (page as { text?: string }).text,
+    text2: (page as { text2?: string }).text2,
   }))
 }
 
 export function fromStoredVintagePage(sp: StoredPage, urls: Map<number, string>): VintagePageConfig {
   const get = (i: number): string | null => indexToUrl(sp.slots[i] ?? null, urls)
-  const meta = { showText: sp.showText, text: sp.text }
+  const meta = { showText: sp.showText, text: sp.text, text2: sp.text2 }
 
   switch (sp.type as VintagePageType) {
     case 'hero':   return { type: 'hero', img: get(0), ...meta }
@@ -197,7 +202,7 @@ export function fromStoredVintagePages(stored: StoredPage[], urls: Map<number, s
     // First page always hero (title page with name + intro)
     if (i === 0) {
       const firstUrl = (sp.slots?.[0] != null ? urls.get(sp.slots[0]!) : null) ?? null
-      return { type: 'hero', img: firstUrl, showText: sp.showText, text: sp.text }
+      return { type: 'hero', img: firstUrl, showText: sp.showText, text: sp.text, text2: sp.text2 }
     }
     return fromStoredVintagePage(sp, urls)
   })
@@ -220,12 +225,13 @@ export function toStoredTimelessPages(pages: TimelessPageConfig[], media: Editor
     slots: timelessPageToSlots(page).map((url) => urlToIndex(url, media)),
     showText: page.showText,
     text: (page as { text?: string }).text,
+    text2: (page as { text2?: string }).text2,
   }))
 }
 
 export function fromStoredTimelessPage(sp: StoredPage, urls: Map<number, string>): TimelessPageConfig {
   const get = (i: number): string | null => indexToUrl(sp.slots[i] ?? null, urls)
-  const meta = { showText: sp.showText, text: sp.text }
+  const meta = { showText: sp.showText, text: sp.text, text2: sp.text2 }
 
   switch (sp.type as TimelessPageType) {
     case 'hero':   return { type: 'hero', img: get(0), ...meta }
@@ -246,7 +252,7 @@ export function fromStoredTimelessPages(stored: StoredPage[], urls: Map<number, 
   return stored.map((sp, i) => {
     if (i === 0) {
       const firstUrl = (sp.slots?.[0] != null ? urls.get(sp.slots[0]!) : null) ?? null
-      return { type: 'hero', img: firstUrl, showText: sp.showText, text: sp.text }
+      return { type: 'hero', img: firstUrl, showText: sp.showText, text: sp.text, text2: sp.text2 }
     }
     return fromStoredTimelessPage(sp, urls)
   })

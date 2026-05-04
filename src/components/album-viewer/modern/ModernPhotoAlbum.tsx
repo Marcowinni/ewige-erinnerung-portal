@@ -27,15 +27,15 @@ export interface ModernPhotoAlbumProps {
 
 export type PageType = 'hero' | 'split' | 'bleed' | 'mosaic' | 'stack' | 'story' | 'quote-card' | 'twin-portrait' | 'close'
 
-export interface HeroPage { type: 'hero'; img: string | null; showText?: boolean; text?: string }
-export interface SplitPage { type: 'split'; imgs: [string | null, string | null, string | null]; showText?: boolean; text?: string }
-export interface BleedPage { type: 'bleed'; img: string | null; showText?: boolean; text?: string }
-export interface MosaicPage { type: 'mosaic'; imgs: [string | null, string | null, string | null, string | null, string | null]; showText?: boolean; text?: string }
-export interface StackPage { type: 'stack'; imgs: [string | null, string | null, string | null, string | null]; showText?: boolean; text?: string }
-export interface StoryPage { type: 'story'; bg: string | null; s1: string | null; s2: string | null; s3: string | null; showText?: boolean; text?: string }
-export interface QuoteCardPage { type: 'quote-card'; img: string | null; showText?: boolean; text?: string }
-export interface TwinPortraitPage { type: 'twin-portrait'; imgA: string | null; imgB: string | null; showText?: boolean; text?: string }
-export interface ClosePage { type: 'close'; showText?: boolean; text?: string }
+export interface HeroPage { type: 'hero'; img: string | null; showText?: boolean; text?: string; text2?: string }
+export interface SplitPage { type: 'split'; imgs: [string | null, string | null, string | null]; showText?: boolean; text?: string; text2?: string }
+export interface BleedPage { type: 'bleed'; img: string | null; showText?: boolean; text?: string; text2?: string }
+export interface MosaicPage { type: 'mosaic'; imgs: [string | null, string | null, string | null, string | null, string | null]; showText?: boolean; text?: string; text2?: string }
+export interface StackPage { type: 'stack'; imgs: [string | null, string | null, string | null, string | null]; showText?: boolean; text?: string; text2?: string }
+export interface StoryPage { type: 'story'; bg: string | null; s1: string | null; s2: string | null; s3: string | null; showText?: boolean; text?: string; text2?: string }
+export interface QuoteCardPage { type: 'quote-card'; img: string | null; showText?: boolean; text?: string; text2?: string }
+export interface TwinPortraitPage { type: 'twin-portrait'; imgA: string | null; imgB: string | null; showText?: boolean; text?: string; text2?: string }
+export interface ClosePage { type: 'close'; showText?: boolean; text?: string; text2?: string }
 
 // Universal memorial phrases — fit any page, any subject. Admin picks freely.
 export const GENERIC_PHRASES: string[] = [
@@ -512,8 +512,13 @@ export function ModernPhotoAlbum({ subjectName, dateRange, dedication, images, p
             const vKey = (slotIdx: number) => `${pageIdx}-${slotIdx}`
             // Effective text: only what user/auto-build set. No hardcoded fallback —
             // empty text + showText hides the caption entirely.
+            // text2 (optional) is joined with a · separator when present, so multi-
+            // image pages can show two customer captions in the same overlay slot.
             const rawText = (page as { text?: string }).text
-            const effText = rawText && rawText.trim().length > 0 ? rawText : ''
+            const rawText2 = (page as { text2?: string }).text2
+            const t1 = rawText && rawText.trim().length > 0 ? rawText.trim() : ''
+            const t2 = rawText2 && rawText2.trim().length > 0 ? rawText2.trim() : ''
+            const effText = t1 && t2 ? `${t1} · ${t2}` : (t1 || t2 || '')
             const showText = page.showText !== false && effText.length > 0
 
             // Render media (img or video) with optional SlotWrapper

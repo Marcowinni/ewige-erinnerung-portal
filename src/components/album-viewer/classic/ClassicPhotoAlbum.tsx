@@ -37,17 +37,17 @@ export type ClassicPageType =
   | 'pinned'
   | 'close'
 
-export interface HeroPage          { type: 'hero';            img: string | null; showText?: boolean; text?: string }
-export interface DuoPage           { type: 'duo';             imgA: string | null; imgB: string | null; showText?: boolean; text?: string }
-export interface HeraldPage        { type: 'herald';          hero: string | null; r1: string | null; r2: string | null; showText?: boolean; text?: string }
-export interface PolaroidsPage     { type: 'polaroids';       imgA: string | null; imgB: string | null; showText?: boolean; text?: string }
-export interface BleedPage         { type: 'bleed';           img: string | null; showText?: boolean; text?: string }
-export interface StripPage         { type: 'strip';           s1: string | null; s2: string | null; s3: string | null; big: string | null; showText?: boolean; text?: string }
-export interface TapePage          { type: 'tape';            imgA: string | null; imgB: string | null; showText?: boolean; text?: string }
-export interface DiagonalPage      { type: 'diagonal';        t1: string | null; t2: string | null; t3: string | null; showText?: boolean; text?: string }
-export interface EnvelopeLetterPage{ type: 'envelope-letter'; img: string | null; showText?: boolean; text?: string }
-export interface PinnedPage        { type: 'pinned';          imgA: string | null; imgB: string | null; showText?: boolean; text?: string }
-export interface ClosePage         { type: 'close';           showText?: boolean; text?: string }
+export interface HeroPage          { type: 'hero';            img: string | null; showText?: boolean; text?: string; text2?: string }
+export interface DuoPage           { type: 'duo';             imgA: string | null; imgB: string | null; showText?: boolean; text?: string; text2?: string }
+export interface HeraldPage        { type: 'herald';          hero: string | null; r1: string | null; r2: string | null; showText?: boolean; text?: string; text2?: string }
+export interface PolaroidsPage     { type: 'polaroids';       imgA: string | null; imgB: string | null; showText?: boolean; text?: string; text2?: string }
+export interface BleedPage         { type: 'bleed';           img: string | null; showText?: boolean; text?: string; text2?: string }
+export interface StripPage         { type: 'strip';           s1: string | null; s2: string | null; s3: string | null; big: string | null; showText?: boolean; text?: string; text2?: string }
+export interface TapePage          { type: 'tape';            imgA: string | null; imgB: string | null; showText?: boolean; text?: string; text2?: string }
+export interface DiagonalPage      { type: 'diagonal';        t1: string | null; t2: string | null; t3: string | null; showText?: boolean; text?: string; text2?: string }
+export interface EnvelopeLetterPage{ type: 'envelope-letter'; img: string | null; showText?: boolean; text?: string; text2?: string }
+export interface PinnedPage        { type: 'pinned';          imgA: string | null; imgB: string | null; showText?: boolean; text?: string; text2?: string }
+export interface ClosePage         { type: 'close';           showText?: boolean; text?: string; text2?: string }
 
 export type ClassicPageConfig =
   | HeroPage | DuoPage | HeraldPage | PolaroidsPage | BleedPage
@@ -561,7 +561,10 @@ export function ClassicPhotoAlbum({
             }
 
             const rawText = (page as { text?: string }).text
-            const effText = rawText && rawText.trim().length > 0 ? rawText : ''
+            const rawText2 = (page as { text2?: string }).text2
+            const t1 = rawText && rawText.trim().length > 0 ? rawText.trim() : ''
+            const t2 = rawText2 && rawText2.trim().length > 0 ? rawText2.trim() : ''
+            const effText = t1 && t2 ? `${t1} · ${t2}` : (t1 || t2 || '')
             const showText = page.showText !== false && effText.length > 0
 
             switch (page.type) {
