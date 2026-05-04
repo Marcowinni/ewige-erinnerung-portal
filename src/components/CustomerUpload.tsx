@@ -461,7 +461,7 @@ function Step3({
 
       {/* Media grid with per-item caption */}
       {count > 0 && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8 items-start">
           {items.map((item) => (
             <div key={item.id} className="memorial-card rounded-xl overflow-hidden border border-memorial-line/50 flex flex-col">
               <div className="relative aspect-square group">

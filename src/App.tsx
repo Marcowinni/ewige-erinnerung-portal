@@ -25,6 +25,7 @@ import Partner from "./pages/Partner";
 import Admin from "./pages/Admin";
 import AdminAlbum from "./pages/AdminAlbum";
 import AdminTags from "./pages/AdminTags";
+import AdminDiscounts from "./pages/AdminDiscounts";
 
 import Album from "./pages/Album";
 import AlbumStylePreview from "./pages/AlbumStylePreview";
@@ -83,6 +84,7 @@ const App = () => (
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/album/:id" element={<AdminAlbum />} />
         <Route path="/admin/tags" element={<AdminTags />} />
+        <Route path="/admin/discounts" element={<AdminDiscounts />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ConditionalCookieBanner />
