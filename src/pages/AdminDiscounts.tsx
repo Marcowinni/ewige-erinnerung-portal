@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { Loader2, LogOut, ArrowLeft, Tag } from 'lucide-react'
+import { Loader2, LogOut, ArrowLeft, Tag, Plus, X } from 'lucide-react'
+import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 import { useAdminAuth } from '@/hooks/useAdminAuth'
 import { cn } from '@/lib/utils'
@@ -36,22 +37,79 @@ function formatDate(s: string | null): string {
     : d.toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit', year: 'numeric' })
 }
 
+interface NewCodeForm {
+  code: string
+  discount_type: 'percentage' | 'fixed'
+  value: string
+  valid_until: string
+  max_uses: string
+  is_active: boolean
+}
+
+const EMPTY_FORM: NewCodeForm = {
+  code: '',
+  discount_type: 'percentage',
+  value: '',
+  valid_until: '',
+  max_uses: '',
+  is_active: true,
+}
+
 function Dashboard({ onLogout }: { onLogout: () => void }) {
   const navigate = useNavigate()
   const [rows, setRows] = useState<DiscountStat[]>([])
   const [loading, setLoading] = useState(true)
   const [showInactive, setShowInactive] = useState(false)
+  const [showForm, setShowForm] = useState(false)
+  const [form, setForm] = useState<NewCodeForm>(EMPTY_FORM)
+  const [saving, setSaving] = useState(false)
+
+  const load = async () => {
+    const { data, error } = await supabase
+      .from('discount_code_stats')
+      .select('*')
+    if (!error && data) setRows(data as DiscountStat[])
+    setLoading(false)
+  }
 
   useEffect(() => {
-    const load = async () => {
-      const { data, error } = await supabase
-        .from('discount_code_stats')
-        .select('*')
-      if (!error && data) setRows(data as DiscountStat[])
-      setLoading(false)
-    }
     load()
   }, [])
+
+  const handleCreate = async () => {
+    const code = form.code.trim().toUpperCase()
+    const value = parseFloat(form.value)
+    if (!code) { toast.error('Code fehlt'); return }
+    if (!Number.isFinite(value) || value <= 0) { toast.error('Wert ungültig'); return }
+    if (form.discount_type === 'percentage' && value > 100) { toast.error('Prozent max 100'); return }
+
+    setSaving(true)
+    const payload: Record<string, unknown> = {
+      code,
+      discount_type: form.discount_type,
+      value,
+      is_active: form.is_active,
+      valid_until: form.valid_until ? new Date(form.valid_until).toISOString() : null,
+      max_uses: form.max_uses ? parseInt(form.max_uses, 10) : null,
+    }
+    const { error } = await supabase.from('discount_codes').insert(payload)
+    setSaving(false)
+    if (error) { toast.error(`Fehler: ${error.message}`); return }
+    toast.success(`Code ${code} erstellt`)
+    setForm(EMPTY_FORM)
+    setShowForm(false)
+    load()
+  }
+
+  const toggleActive = async (code: string, current: boolean) => {
+    const { error } = await supabase
+      .from('discount_codes')
+      .update({ is_active: !current })
+      .eq('code', code)
+    if (error) { toast.error(`Fehler: ${error.message}`); return }
+    toast.success(`${code} ${!current ? 'aktiviert' : 'deaktiviert'}`)
+    load()
+  }
 
   const filtered = rows.filter((r) => (showInactive ? true : r.is_active))
 
@@ -105,26 +163,126 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setShowInactive(false)}
+              className={cn(
+                'text-[12px] px-4 py-1.5 rounded-full border transition-all duration-200',
+                !showInactive ? 'bg-memorial-bronze-deep text-white border-memorial-bronze-deep' : 'border-memorial-line text-memorial-ink-soft hover:border-memorial-bronze',
+              )}
+            >
+              Nur aktive
+            </button>
+            <button
+              onClick={() => setShowInactive(true)}
+              className={cn(
+                'text-[12px] px-4 py-1.5 rounded-full border transition-all duration-200',
+                showInactive ? 'bg-memorial-bronze-deep text-white border-memorial-bronze-deep' : 'border-memorial-line text-memorial-ink-soft hover:border-memorial-bronze',
+              )}
+            >
+              Alle
+            </button>
+          </div>
           <button
-            onClick={() => setShowInactive(false)}
-            className={cn(
-              'text-[12px] px-4 py-1.5 rounded-full border transition-all duration-200',
-              !showInactive ? 'bg-memorial-bronze-deep text-white border-memorial-bronze-deep' : 'border-memorial-line text-memorial-ink-soft hover:border-memorial-bronze',
-            )}
+            onClick={() => setShowForm((v) => !v)}
+            className="inline-flex items-center gap-1.5 text-[12px] px-4 py-1.5 rounded-full bg-memorial-bronze-deep text-white hover:bg-memorial-bronze transition-colors"
           >
-            Nur aktive
-          </button>
-          <button
-            onClick={() => setShowInactive(true)}
-            className={cn(
-              'text-[12px] px-4 py-1.5 rounded-full border transition-all duration-200',
-              showInactive ? 'bg-memorial-bronze-deep text-white border-memorial-bronze-deep' : 'border-memorial-line text-memorial-ink-soft hover:border-memorial-bronze',
-            )}
-          >
-            Alle
+            {showForm ? <X className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
+            {showForm ? 'Schliessen' : 'Neuer Code'}
           </button>
         </div>
+
+        {showForm && (
+          <div className="memorial-card rounded-2xl p-6 mb-6 border border-memorial-line/50">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="text-[10px] uppercase tracking-widest text-memorial-ink-soft block mb-1.5">Code *</label>
+                <input
+                  type="text"
+                  value={form.code}
+                  onChange={(e) => setForm({ ...form, code: e.target.value.toUpperCase() })}
+                  placeholder="SOMMER25"
+                  className="w-full px-3 py-2 text-[13px] rounded-md border border-memorial-line bg-white focus:outline-none focus:border-memorial-bronze-deep font-mono"
+                />
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-widest text-memorial-ink-soft block mb-1.5">Typ *</label>
+                <select
+                  value={form.discount_type}
+                  onChange={(e) => setForm({ ...form, discount_type: e.target.value as 'percentage' | 'fixed' })}
+                  className="w-full px-3 py-2 text-[13px] rounded-md border border-memorial-line bg-white focus:outline-none focus:border-memorial-bronze-deep"
+                >
+                  <option value="percentage">Prozent (%)</option>
+                  <option value="fixed">Fix (CHF)</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-widest text-memorial-ink-soft block mb-1.5">
+                  Wert * {form.discount_type === 'percentage' ? '(0-100)' : '(CHF)'}
+                </label>
+                <input
+                  type="number"
+                  step={form.discount_type === 'percentage' ? '1' : '0.01'}
+                  min="0"
+                  max={form.discount_type === 'percentage' ? '100' : undefined}
+                  value={form.value}
+                  onChange={(e) => setForm({ ...form, value: e.target.value })}
+                  placeholder={form.discount_type === 'percentage' ? '25' : '10.00'}
+                  className="w-full px-3 py-2 text-[13px] rounded-md border border-memorial-line bg-white focus:outline-none focus:border-memorial-bronze-deep"
+                />
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-widest text-memorial-ink-soft block mb-1.5">Gültig bis (optional)</label>
+                <input
+                  type="date"
+                  value={form.valid_until}
+                  onChange={(e) => setForm({ ...form, valid_until: e.target.value })}
+                  className="w-full px-3 py-2 text-[13px] rounded-md border border-memorial-line bg-white focus:outline-none focus:border-memorial-bronze-deep"
+                />
+              </div>
+              <div>
+                <label className="text-[10px] uppercase tracking-widest text-memorial-ink-soft block mb-1.5">Max. Anwendungen (optional)</label>
+                <input
+                  type="number"
+                  min="1"
+                  step="1"
+                  value={form.max_uses}
+                  onChange={(e) => setForm({ ...form, max_uses: e.target.value })}
+                  placeholder="∞"
+                  className="w-full px-3 py-2 text-[13px] rounded-md border border-memorial-line bg-white focus:outline-none focus:border-memorial-bronze-deep"
+                />
+              </div>
+              <div className="flex items-end">
+                <label className="flex items-center gap-2 text-[13px] text-memorial-ink cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={form.is_active}
+                    onChange={(e) => setForm({ ...form, is_active: e.target.checked })}
+                    className="w-4 h-4 accent-memorial-bronze-deep"
+                  />
+                  Aktiv
+                </label>
+              </div>
+            </div>
+            <div className="mt-5 flex justify-end gap-2">
+              <button
+                onClick={() => { setShowForm(false); setForm(EMPTY_FORM) }}
+                className="px-4 py-2 text-[12px] rounded-md border border-memorial-line text-memorial-ink-soft hover:border-memorial-bronze transition-colors"
+              >
+                Abbrechen
+              </button>
+              <button
+                onClick={handleCreate}
+                disabled={saving}
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-[12px] rounded-md bg-memorial-bronze-deep text-white hover:bg-memorial-bronze disabled:opacity-50 transition-colors"
+              >
+                {saving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                Speichern
+              </button>
+            </div>
+          </div>
+        )}
 
         {loading ? (
           <div className="flex justify-center py-20"><Loader2 className="w-8 h-8 animate-spin text-memorial-bronze-deep" /></div>
@@ -135,7 +293,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
             <table className="w-full text-[13px]">
               <thead>
                 <tr className="border-b border-memorial-line">
-                  {['Code', 'Wert', 'Status', 'Bestellungen', 'Bezahlt', 'Pending', 'Umsatz', 'Rabatt', 'Zuletzt', 'Limit'].map((h) => (
+                  {['Code', 'Wert', 'Status', 'Bestellungen', 'Bezahlt', 'Pending', 'Umsatz', 'Rabatt', 'Zuletzt', 'Limit', ''].map((h) => (
                     <th key={h} className="text-left text-[10px] uppercase tracking-widest text-memorial-ink-soft px-4 py-3 font-normal">{h}</th>
                   ))}
                 </tr>
@@ -176,6 +334,14 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
                       <td className="px-4 py-3 text-memorial-bronze-deep">− CHF {formatChf(r.total_discount_chf)}</td>
                       <td className="px-4 py-3 text-memorial-ink-soft whitespace-nowrap">{formatDate(r.last_used_at)}</td>
                       <td className="px-4 py-3 text-memorial-ink-soft">{limitLabel}</td>
+                      <td className="px-4 py-3 text-right">
+                        <button
+                          onClick={() => toggleActive(r.code, r.is_active)}
+                          className="text-[11px] px-2.5 py-1 rounded-full border border-memorial-line text-memorial-ink-soft hover:border-memorial-bronze hover:text-memorial-ink transition-colors"
+                        >
+                          {r.is_active ? 'Deaktivieren' : 'Aktivieren'}
+                        </button>
+                      </td>
                     </tr>
                   )
                 })}
