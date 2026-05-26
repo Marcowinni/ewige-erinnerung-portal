@@ -578,6 +578,8 @@ function Step4({
   isSubmitting,
   onSubmit,
   onTestSubmit,
+  consent,
+  onConsentChange,
   t,
   styleNamesCopy,
   shippingZonesCopy,
@@ -591,6 +593,8 @@ function Step4({
   isSubmitting: boolean
   onSubmit: () => void
   onTestSubmit: () => void
+  consent: boolean
+  onConsentChange: (v: boolean) => void
   t: CustomerWizardCopy['step4']
   styleNamesCopy: CustomerWizardCopy['styleNames']
   shippingZonesCopy: CustomerWizardCopy['shippingZones']
@@ -770,9 +774,32 @@ function Step4({
         </div>
       </div>
 
+      {/* Consent — required before payment (album content + image rights) */}
+      <label className="flex items-start gap-3 mb-6 cursor-pointer text-left">
+        <input
+          type="checkbox"
+          checked={consent}
+          onChange={(e) => onConsentChange(e.target.checked)}
+          className="mt-0.5 h-4 w-4 flex-shrink-0 accent-memorial-bronze-deep"
+        />
+        <span className="text-[12px] leading-relaxed text-memorial-ink-soft">
+          Ich bestätige, dass ich zur Übermittlung der hochgeladenen Inhalte berechtigt bin, die Rechte aller
+          abgebildeten lebenden Personen (Bildrechte, Persönlichkeitsrechte) geklärt sind, und willige in die
+          Verarbeitung dieser Album-Inhalte gemäss der{' '}
+          <a href="/datenschutz" target="_blank" rel="noopener noreferrer" className="underline text-memorial-ink">
+            Datenschutzerklärung
+          </a>{' '}
+          und den{' '}
+          <a href="/agb" target="_blank" rel="noopener noreferrer" className="underline text-memorial-ink">
+            AGB
+          </a>{' '}
+          ein.
+        </span>
+      </label>
+
       <button
         onClick={onSubmit}
-        disabled={isSubmitting}
+        disabled={isSubmitting || !consent}
         className="memorial-cta memorial-cta-primary w-full flex items-center justify-center gap-3 rounded-full py-5 text-[15px] font-medium tracking-wide disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {isSubmitting ? (
@@ -785,7 +812,7 @@ function Step4({
       {import.meta.env.VITE_TEST_MODE === 'true' && (
         <button
           onClick={onTestSubmit}
-          disabled={isSubmitting}
+          disabled={isSubmitting || !consent}
           className="memorial-cta memorial-cta-ghost mt-3 w-full rounded-full px-6 py-3 text-sm disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {t.testCta}
@@ -826,6 +853,7 @@ export default function CustomerUpload() {
   const [mediaItems, setMediaItems] = useState<MediaFile[]>([])
   const [music, setMusic] = useState<MusicChoice>({ type: 'none', value: '', label: t.step3.noSelection })
   const [step4, setStep4] = useState<Step4Data>({ contactName: '', contactEmail: '', contactPhone: '', street: '', postalCode: '', city: '', countryCode: 'CH', discountCode: '' })
+  const [consent, setConsent] = useState(false)
 
   const canAdvance = (): boolean => {
     if (step === 1) return step1.subjectType !== null && step1.subjectName.trim().length > 0
@@ -886,6 +914,7 @@ export default function CustomerUpload() {
     if (!step4.street.trim() || !step4.postalCode.trim() || !step4.city.trim()) {
       toast.error(t.validation.addressRequired); return false
     }
+    if (!consent) { toast.error('Bitte bestätigen Sie die Einwilligung zu Album-Inhalten und Bildrechten.'); return false }
     return true
   }
 
@@ -1100,6 +1129,8 @@ export default function CustomerUpload() {
             isSubmitting={isSubmitting}
             onSubmit={handleSubmit}
             onTestSubmit={handleTestSubmit}
+            consent={consent}
+            onConsentChange={setConsent}
             t={t.step4}
             styleNamesCopy={t.styleNames}
             shippingZonesCopy={t.shippingZones}
