@@ -14,6 +14,28 @@ function isMediaPath(path: string): boolean {
   return VIDEO_EXTENSIONS.some((ext) => lower.endsWith(ext))
 }
 
+const SIGNED_URL_EXPIRY = 3600 // 1 hour
+
+// Generate short-lived signed URLs for the album's media using the service
+// role, so the storage bucket can stay private (no public/anon read access).
+async function signMediaFiles(
+  // deno-lint-ignore no-explicit-any
+  supabaseAdmin: any,
+  files: { path: string; caption?: string }[],
+): Promise<{ path: string; caption?: string; signedUrl?: string }[]> {
+  if (files.length === 0) return files
+  const paths = files.map((f) => f.path)
+  const { data, error } = await supabaseAdmin.storage
+    .from('uploads')
+    .createSignedUrls(paths, SIGNED_URL_EXPIRY)
+  if (error || !Array.isArray(data)) return files
+  const byPath = new Map<string, string>()
+  for (const row of data) {
+    if (row?.path && row?.signedUrl) byPath.set(row.path, row.signedUrl)
+  }
+  return files.map((f) => ({ ...f, signedUrl: byPath.get(f.path) }))
+}
+
 type PageType = 'intro' | 'outro'
 interface LayoutPage {
   type: PageType
@@ -80,9 +102,10 @@ Deno.serve(async req => {
       }
 
       const uploadedFiles = (customerData.uploaded_files as { path: string; caption?: string }[]) || []
-      const mediaFiles = Array.isArray(uploadedFiles)
+      const mediaFilesRaw = Array.isArray(uploadedFiles)
         ? uploadedFiles.filter((f) => f?.path && isMediaPath(f.path))
         : []
+      const mediaFiles = await signMediaFiles(supabaseAdmin, mediaFilesRaw)
       const folder = `order_${customerData.id}`
       let albumLayout = customerData.album_layout as { pages: LayoutPage[] } | null
       if (!albumLayout || !Array.isArray((albumLayout as { pages?: LayoutPage[] }).pages)) {
@@ -186,9 +209,10 @@ Deno.serve(async req => {
     }
 
     const uploadedFiles = (record.uploaded_files as { path: string; caption?: string }[]) || []
-    const mediaFiles = Array.isArray(uploadedFiles)
+    const mediaFilesRaw = Array.isArray(uploadedFiles)
       ? uploadedFiles.filter((f) => f?.path && isMediaPath(f.path))
       : []
+    const mediaFiles = await signMediaFiles(supabaseAdmin, mediaFilesRaw)
     const folder = `order_${record.id as string | number}`
 
     let albumLayout = record.album_layout as { pages: LayoutPage[] } | null

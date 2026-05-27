@@ -76,15 +76,25 @@ interface OrderRow {
 
 // ─── build editor media from storage paths ───────────────────────────────────
 
-function buildEditorMedia(files: UploadedFileMeta[]): EditorMediaItem[] {
+async function buildEditorMedia(files: UploadedFileMeta[]): Promise<EditorMediaItem[]> {
+  // Private bucket: get short-lived signed URLs from the admin edge (service
+  // role) instead of public URLs.
+  let signed: Record<string, string> = {}
+  const paths = files.map((f) => f.path)
+  if (paths.length > 0) {
+    const { data, error } = await supabase.functions.invoke('admin-sign-media', {
+      body: { paths },
+      headers: { 'x-admin-password': import.meta.env.VITE_ADMIN_PASSWORD ?? '' },
+    })
+    if (!error && data?.urls) signed = data.urls as Record<string, string>
+  }
   return files.map((f, i) => {
-    const { data } = supabase.storage.from('uploads').getPublicUrl(f.path)
     const isVideo = /\.(mp4|mov|webm|m4v|ogg|avi|mkv)$/i.test(f.path)
     return {
       id: `file-${i}-${f.path}`,
       // File is not available after upload, use a blob placeholder
       file: new File([], f.path),
-      previewUrl: data.publicUrl,
+      previewUrl: signed[f.path] ?? '',
       caption: f.caption ?? '',
       kind: isVideo ? 'video' : 'image',
       width: 1200,
@@ -197,9 +207,9 @@ export default function AdminAlbum() {
       const row = data as OrderRow
       setOrder(row)
 
-      // Build editor media from uploaded files
+      // Build editor media from uploaded files (signed URLs from admin edge)
       const files = Array.isArray(row.uploaded_files) ? row.uploaded_files : []
-      const media = buildEditorMedia(files)
+      const media = await buildEditorMedia(files)
       setEditorMedia(media)
 
       // Initialize pages from saved album_layout or build fresh from media

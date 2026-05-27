@@ -28,6 +28,8 @@ interface Order {
   status: string
   is_test: boolean
   created_at: string
+  discount_code: string | null
+  discount_amount_chf: number | null
 }
 
 type StatusFilter = 'all' | 'new' | 'in-progress' | 'published'
@@ -136,14 +138,13 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
     }
     setDeletingId(order.id)
     try {
-      const files = Array.isArray(order.uploaded_files) ? (order.uploaded_files as { path?: string }[]) : []
-      const paths = files.map((f) => f?.path).filter((p): p is string => Boolean(p))
-      if (paths.length > 0) {
-        const { error: storageErr } = await supabase.storage.from('uploads').remove(paths)
-        if (storageErr) console.warn('Storage cleanup error:', storageErr)
-      }
-      const { error } = await supabase.from('customer_orders').delete().eq('id', order.id)
-      if (error) throw error
+      // Service-role edge: removes storage media + DB row (bucket is private,
+      // no anon storage delete access).
+      const { data, error } = await supabase.functions.invoke('admin-delete-order', {
+        body: { orderId: order.id },
+        headers: { 'x-admin-password': import.meta.env.VITE_ADMIN_PASSWORD ?? '' },
+      })
+      if (error || data?.error) throw new Error(data?.error ?? error?.message)
       setOrders((prev) => prev.filter((o) => o.id !== order.id))
       toast.success('Album gelöscht.')
     } catch (err) {
@@ -162,7 +163,8 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
         .select(
           'id, slug, subject_type, subject_name, birth_date, passing_date, dedication, ' +
           'album_style, uploaded_files, contact_name, contact_email, ' +
-          'shipping_zone, price_chf, payment_status, status, is_test, created_at'
+          'shipping_zone, price_chf, payment_status, status, is_test, created_at, ' +
+          'discount_code, discount_amount_chf'
         )
         .order('created_at', { ascending: false })
       if (!error && data) setOrders(data as Order[])
@@ -199,6 +201,10 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           <h1 className="font-display text-2xl text-memorial-ink">Bestellungen</h1>
         </div>
         <div className="flex items-center gap-4">
+          <button onClick={() => navigate('/admin/discounts')} className="flex items-center gap-2 text-[13px] text-memorial-ink-soft hover:text-memorial-ink transition-colors">
+            <Tag className="w-4 h-4" />
+            Rabattcodes
+          </button>
           <button onClick={() => navigate('/admin/tags')} className="flex items-center gap-2 text-[13px] text-memorial-ink-soft hover:text-memorial-ink transition-colors">
             <Tag className="w-4 h-4" />
             Tag-Pool
@@ -272,7 +278,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
             <table className="w-full text-[13px]">
               <thead>
                 <tr className="border-b border-memorial-line">
-                  {['Name', 'Typ', 'Stil', 'Bilder', 'Status', 'Zahlung', '', ''].map((h) => (
+                  {['Name', 'Typ', 'Stil', 'Bilder', 'Rabatt', 'Status', 'Zahlung', '', ''].map((h) => (
                     <th key={h} className="text-left text-[10px] uppercase tracking-widest text-memorial-ink-soft px-5 py-3 font-normal">{h}</th>
                   ))}
                 </tr>
@@ -304,6 +310,18 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
                       </td>
                       <td className="px-5 py-4 text-memorial-ink-soft">{order.album_style ? (styleLabels[order.album_style] ?? order.album_style) : '—'}</td>
                       <td className="px-5 py-4 text-memorial-ink-soft">{pictureCount > 0 ? pictureCount : '—'}</td>
+                      <td className="px-5 py-4">
+                        {order.discount_code ? (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-mono text-memorial-bronze-deep bg-memorial-bronze/10 px-2 py-0.5 rounded-full">
+                            {order.discount_code}
+                            {order.discount_amount_chf != null && (
+                              <span className="text-memorial-ink-soft">−{Number(order.discount_amount_chf).toFixed(2)}</span>
+                            )}
+                          </span>
+                        ) : (
+                          <span className="text-memorial-ink-soft">—</span>
+                        )}
+                      </td>
                       <td className="px-5 py-4"><StatusBadge status={order.status ?? 'new'} /></td>
                       <td className="px-5 py-4"><PaymentBadge status={order.payment_status} /></td>
                       <td className="px-5 py-4 text-right whitespace-nowrap">

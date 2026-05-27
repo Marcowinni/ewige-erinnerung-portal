@@ -67,3 +67,15 @@ enabled = true
 verify_jwt = false
 import_map = "./functions/finalize-partner-order/deno.json"
 entrypoint = "./functions/finalize-partner-order/index.ts"
+
+[functions.admin-sign-media]
+enabled = true
+verify_jwt = false
+import_map = "./functions/admin-sign-media/deno.json"
+entrypoint = "./functions/admin-sign-media/index.ts"
+
+[functions.admin-delete-order]
+enabled = true
+verify_jwt = false
+import_map = "./functions/admin-delete-order/deno.json"
+entrypoint = "./functions/admin-delete-order/index.ts"

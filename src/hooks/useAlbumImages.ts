@@ -4,7 +4,7 @@ import { isVideoPath } from '@/lib/album/paths'
 
 const SIGNED_URL_EXPIRY = 3600 // 1 hour
 
-export function useAlbumImages(bucket: string, files: { path: string; caption?: string }[]) {
+export function useAlbumImages(bucket: string, files: { path: string; caption?: string; signedUrl?: string }[]) {
   const [urls, setUrls] = useState<Map<number, string>>(new Map())
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -18,11 +18,15 @@ export function useAlbumImages(bucket: string, files: { path: string; caption?: 
     let cancelled = false
     setLoading(true)
     setError(null)
-    // Note: image transforms require Supabase Pro plan. On Free tier they return 400.
-    // Fallback: plain signed URLs. Upload-time client compression handles size.
+
+    // Prefer server-generated signed URLs (private bucket, access-controlled +
+    // audited via the edge function). Fall back to client-side signing only for
+    // files that arrive without one (legacy callers / transition window).
     Promise.all(
       files.map((f) =>
-        supabase.storage.from(bucket).createSignedUrl(f.path, SIGNED_URL_EXPIRY)
+        f.signedUrl
+          ? Promise.resolve({ data: { signedUrl: f.signedUrl }, error: null })
+          : supabase.storage.from(bucket).createSignedUrl(f.path, SIGNED_URL_EXPIRY)
       )
     )
       .then((results) => {
@@ -41,7 +45,7 @@ export function useAlbumImages(bucket: string, files: { path: string; caption?: 
         if (!cancelled) setLoading(false)
       })
     return () => { cancelled = true }
-  }, [bucket, files.map((f) => f.path).join('|')])
+  }, [bucket, files.map((f) => `${f.path}:${f.signedUrl ? 1 : 0}`).join('|')])
 
   const getUrl = (index: number) => urls.get(index) ?? null
   const getCaption = (index: number) => files[index]?.caption ?? ''

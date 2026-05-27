@@ -38,7 +38,7 @@ export interface AlbumLayout {
 export interface ImageSource {
   bucket: string
   folder: string
-  files: { path: string; caption?: string; type?: string; id?: string; focalX?: number; focalY?: number }[]
+  files: { path: string; caption?: string; type?: string; id?: string; focalX?: number; focalY?: number; signedUrl?: string }[]
 }
 
 export type { LayoutType } from '@/lib/album/mediaTypes'
