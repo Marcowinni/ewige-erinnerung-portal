@@ -20,8 +20,12 @@ import NotFound from "./pages/NotFound";
 import BestellungErfolgreich from "./pages/BestellungErfolgreich";
 import BestellungAbgebrochen from "./pages/BestellungAbgebrochen";
 import Partner from "./pages/Partner";
+import Wartung from "./pages/Wartung";
 
 import Album from "./pages/Album";
+
+// Site paused: album pages (NFC links) and legal pages stay reachable, everything else shows Wartung.
+const IS_SITE_OFFLINE = true;
 
 const queryClient = new QueryClient();
 
@@ -48,19 +52,24 @@ const App = () => (
       <Sonner />
       <RouteChangeTracker />
       <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/gedenken" element={<Gedenken />} />
-        <Route path="/ueber" element={<Ueber />} />
-        <Route path="/kontakt" element={<Kontakt />} />
-        <Route path="/datenschutz" element={<Datenschutz />} />
-        <Route path="/agb" element={<AGB />} />
-        <Route path="/impressum" element={<Impressum />} />
         <Route path="/album/:albumSlug" element={<Album />} />
-        <Route path="/bestellung-erfolgreich" element={<BestellungErfolgreich />} />
-        <Route path="/bestellung-abgebrochen" element={<BestellungAbgebrochen />} />
-        <Route path="/upload" element={<Partner />} />
-        {/* Fügt den RouteChangeTracker hinzu */}
-        <Route path="*" element={<NotFound />} />
+        <Route path="/impressum" element={<Impressum />} />
+        <Route path="/datenschutz" element={<Datenschutz />} />
+        {IS_SITE_OFFLINE ? (
+          <Route path="*" element={<Wartung />} />
+        ) : (
+          <>
+            <Route path="/" element={<Index />} />
+            <Route path="/gedenken" element={<Gedenken />} />
+            <Route path="/ueber" element={<Ueber />} />
+            <Route path="/kontakt" element={<Kontakt />} />
+            <Route path="/agb" element={<AGB />} />
+            <Route path="/bestellung-erfolgreich" element={<BestellungErfolgreich />} />
+            <Route path="/bestellung-abgebrochen" element={<BestellungAbgebrochen />} />
+            <Route path="/upload" element={<Partner />} />
+            <Route path="*" element={<NotFound />} />
+          </>
+        )}
       </Routes>
       <CookieConsentBanner />
     </TooltipProvider>
